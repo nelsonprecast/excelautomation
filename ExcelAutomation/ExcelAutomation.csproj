@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.3.0" />
+    <PackageReference Include="jQuery" Version="3.7.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
@@ -19,7 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Images\" />
+    <Folder Include="wwwroot\ProjectImages\" />
   </ItemGroup>
 
 </Project>

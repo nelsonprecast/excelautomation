@@ -72,13 +72,13 @@ namespace ExcelAutomation.Controllers
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
                 var file = Request.Form.Files["row" + i + "File"];
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "Images\\")+ fileName;
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
 
-                projectDetail.ImagePath = "/Images/" + fileName;
+                projectDetail.ImagePath = "/ProjectImages/" + fileName;
                 
                 projectDetails.Add(projectDetail);
                 i++;
@@ -136,13 +136,13 @@ namespace ExcelAutomation.Controllers
                 {
                     var file = Request.Form.Files["row" + i + "File"];
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    var filePath = Path.Combine(_hostingEnvironment.ContentRootPath, "Images\\") + fileName;
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
                     }
 
-                    projectDetail.ImagePath = "/Images/" + fileName;
+                    projectDetail.ImagePath = "/ProjectImages/" + fileName;
                 }
 
                 projectDetails.Add(projectDetail);
