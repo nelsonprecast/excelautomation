@@ -29,6 +29,10 @@ public partial class ExcelAutomationContext : DbContext
             entity.ToTable("Project");
 
             entity.Property(e => e.ProjectName).HasMaxLength(200);
+
+            entity.Property(e => e.NominalCf).IsRequired(false).HasMaxLength(200);
+
+            entity.Property(e => e.ActualCf).IsRequired(false).HasMaxLength(200);
         });
 
         modelBuilder.Entity<ProjectDetail>(entity =>

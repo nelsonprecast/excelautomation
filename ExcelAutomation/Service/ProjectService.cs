@@ -51,6 +51,8 @@ namespace ExcelAutomation.Service
                     {
                         ProjectId = project.ProjectId,
                         ProjectName = project.ProjectName,
+                        ActualCF = project.ActualCf,
+                        NominalCF = project.NominalCf
                     });
                 }
             }
@@ -64,6 +66,8 @@ namespace ExcelAutomation.Service
             var projectDto = new ProjectDto();
             projectDto.ProjectId = projectId;
             projectDto.ProjectName = project.ProjectName;
+            projectDto.ActualCF = project.ActualCf;
+            projectDto.NominalCF = project.NominalCf;
 
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)
@@ -105,6 +109,8 @@ namespace ExcelAutomation.Service
             if (project != null)
             {
                 project.ProjectName = projectDto.ProjectName;
+                project.ActualCf = projectDto.ActualCF;
+                project.NominalCf = projectDto.NominalCF;
                 _context.Update(project);
                 _context.SaveChanges();
                 if (project.ProjectDetails != null)

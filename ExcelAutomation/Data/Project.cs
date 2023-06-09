@@ -9,5 +9,9 @@ public partial class Project
 
     public string ProjectName { get; set; } = null!;
 
+    public string NominalCf { get; set; }
+
+    public string ActualCf { get; set; }
+
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }

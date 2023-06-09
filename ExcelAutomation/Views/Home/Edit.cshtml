@@ -12,6 +12,8 @@
         padding-right: 2px;
         padding-bottom: 2px;
     }
+    
+    .link { font-size:.8rem;}
 
 </style>
 
@@ -28,8 +30,24 @@
                 </td>
             </tr>
             <tr>
+                <td>
+
+                    <table style="width:80%">
+                        <tr>
+                            <td style="text-align:left;">Nominal CF</td>
+                            <td><input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" /></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left;">Actual CF</td>
+                            <td><input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" /></td>
+                        </tr>
+                    </table>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
                 <td colspan="2">
-                    <table style="width:100%" id="RowsTable">
+                    <table style="width:100%" id="RowsTable" class="table">
                         <tr>
                             <th class="fw-medium">W/D</th>
                             <th class="fw-medium">Item Name</th>
@@ -80,11 +98,13 @@
                             <th class="fw-medium">Nom. CF/Pcs</th>
                             <th class="fw-medium">Total Nom. CF</th>
                             <th class="fw-medium">Mold QTY</th>
+                            <th class="fw-medium">Total Actual</th>
+                            <th class="fw-medium">Total Nominal</th>
                         </tr>
                         @{ var i = 1;}
                         @foreach(var projectDetail in Model.ProjectDetails)
                         {
-                            <tr>
+                            <tr class="@(i % 2 == 0 ? "table-primary" : "table-secondary")">
                                 <td>
                                     <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
                                     <select id="row@(i)WD" name="row@(i)WD" class="form-control" style="width:50px;">
@@ -102,8 +122,11 @@
                                     <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage" />
                                 </td>
                                 <td>
-                                    <img src="@projectDetail.ImagePath" style="width:100px;height:100px"/>
-                                    <input type="file" id="row@(i)File" name="row@(i)File" class="form-control" accept="image/*" />
+                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                        <img src="@projectDetail.ImagePath" style="width:100px;height:100px" />
+                                    </a>
+                                    <input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*" />
+                                    <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();">Change Image</a>
                                 </td>
                                 <td>
                                     <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor" />
@@ -130,7 +153,7 @@
                                     <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs" />
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.TotalActCf" />
+                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf" />
                                 </td>
                                 <td>
                                     <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf" />
@@ -139,10 +162,16 @@
                                     <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs" />
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.TotalNomCf" />
+                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
                                 </td>
                                 <td>
                                     <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty" />
+                                </td>
+                                <td>
+                                    <input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />
+                                </td>
+                                <td>
+                                    <input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />
                                 </td>
                             </tr>
                             i++;
@@ -171,17 +200,20 @@
         </div>
     </form>
 </div>
-<script>
-    $(document).ready(function () {
-        var rowCount = $('#RowsTable tr').length;
-        for(var i=1 ;i<=rowCount;i++)
-        {
-            CalculateActCFPcs(i);
-            CalculateTotalActCF(i);
-            CalculateNomCFLF(i);
-            CalculateNomCFPcs(i);
-            CalculateTotalNomCF(i);
-        }
-    });    
-</script>
 
+
+
+@section scripts {
+    <script>
+            $(document).ready(function () {
+
+                /* This is basic - uses default settings */
+
+                $("a#single_image").fancybox();
+
+
+
+            });
+    </script>
+
+}

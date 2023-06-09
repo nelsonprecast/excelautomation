@@ -49,6 +49,8 @@ namespace ExcelAutomation.Controllers
 
             var project = new ProjectDto();
             project.ProjectName = Request.Form["projectname"];
+            project.NominalCF = Request.Form["NominalCF"];
+            project.ActualCF = Request.Form["ActualCF"];
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
@@ -106,6 +108,8 @@ namespace ExcelAutomation.Controllers
             var project = new ProjectDto();
             project.ProjectId = Convert.ToInt32(Request.Form["projectId"]);
             project.ProjectName = Request.Form["projectname"];
+            project.NominalCF = Request.Form["NominalCF"];
+            project.ActualCF = Request.Form["ActualCF"];
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
