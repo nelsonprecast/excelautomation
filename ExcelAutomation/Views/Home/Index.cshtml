@@ -1,0 +1,54 @@
+﻿@model ICollection<ExcelAutomation.Models.ProjectDto>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<style>
+    .form-control{
+        font-size:.8rem;
+        font-weight:100;
+        padding-left: 2px;
+        padding-top: 2px;
+        padding-right: 2px;
+        padding-bottom: 2px;
+    }
+
+</style>
+
+<div class="text-center">
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col">
+                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button">New Project</a>
+            </div>
+            <div class="col">
+               
+            </div>
+            <div class="col">
+               
+            </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Project Name</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        @if(Model != null)
+        {
+            foreach (var projectDto in Model)
+            {
+                <tr>
+                    <th scope="row">@projectDto.ProjectId</th>
+                        <td>@projectDto.ProjectName</td>
+                        <td><a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button">Edit Project</a></td>
+                </tr>
+            }
+            
+        }
+        </tbody>
+    </table>
+</div>
