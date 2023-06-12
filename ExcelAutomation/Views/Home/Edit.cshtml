@@ -19,34 +19,34 @@
 
 <div class="text-center">
     <form action="Edit" method="POST" role="form" enctype="multipart/form-data">
+        <div class="input-group">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Job Name:</label>
+            <div class="col-sm-4">
+                <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
+                <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Nominal CF:</label>
+            <div class="col-sm-4">
+                <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
+        <div class="input-group mb-3">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Actual CF:</label>
+            <div class="col-sm-4">
+                <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">$</span>
+            </div>
+        </div>
         <table style="width:100%" class="table">
-            <tr style="text-align:left;">
-                <td>
-                    Project Name:
-                </td>
-                <td>
-                    <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId"/>
-                    <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName"/>
-                </td>
-            </tr>
             <tr>
                 <td>
-
-                    <table style="width:80%">
-                        <tr>
-                            <td style="text-align:left;">Nominal CF</td>
-                            <td><input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" /></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align:left;">Actual CF</td>
-                            <td><input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" /></td>
-                        </tr>
-                    </table>
-                </td>
-                <td></td>
-            </tr>
-            <tr>
-                <td colspan="2">
                     <table style="width:100%" id="RowsTable" class="table">
                         <tr>
                             <th class="fw-medium">W/D</th>
@@ -102,76 +102,76 @@
                             <th class="fw-medium">Total Nominal</th>
                         </tr>
                         @{ var i = 1;}
-                        @foreach(var projectDetail in Model.ProjectDetails)
+                        @foreach (var projectDetail in Model.ProjectDetails)
                         {
                             <tr class="@(i % 2 == 0 ? "table-primary" : "table-secondary")">
                                 <td>
-                                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
+                                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
                                     <select id="row@(i)WD" name="row@(i)WD" class="form-control" style="width:50px;">
                                         <option value="Dry">Dry</option>
                                         <option value="Wet">Wet</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName" />
+                                    <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote" />
+                                    <input id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage" />
+                                    <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                                 </td>
                                 <td>
                                     <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                                        <img src="@projectDetail.ImagePath" style="width:100px;height:100px" />
+                                        <img src="@projectDetail.ImagePath" style="width:100px;height:100px"/>
                                     </a>
-                                    <input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*" />
+                                    <input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*"/>
                                     <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();">Change Image</a>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor" />
+                                    <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:50px" value="@projectDetail.Length" />
+                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:50px" value="@projectDetail.Length"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Width" />
+                                    <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Width"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Height" />
+                                    <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Height"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Pieces" />
+                                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Pieces"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalLf" />
+                                    <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalLf"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:50px" value="@projectDetail.ActSfcflf" />
+                                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:50px" value="@projectDetail.ActSfcflf"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs" />
+                                    <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf" />
+                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf" />
+                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs" />
+                                    <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
+                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty" />
+                                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />
+                                    <input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />
+                                    <input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px"/>
                                 </td>
                             </tr>
                             i++;
@@ -182,10 +182,10 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align:left;">
-                    <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
+                    <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary"/>
                 </td>
             </tr>
-            
+
         </table>
         <div class="container">
             <div class="row align-items-start">
@@ -194,7 +194,7 @@
                 <div class="col">
                 </div>
                 <div class="col">
-                    <button type="submit" onclick="return Validate();" class="btn btn-primary">Submit </button>
+                    <button type="submit" onclick="return Validate();" class="btn btn-primary"> Save </button>
                 </div>
             </div>
         </div>

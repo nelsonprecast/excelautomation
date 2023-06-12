@@ -35,13 +35,13 @@ function OnAddRow() {
         '<input id="row' + rowCount + 'TakeOffColor" name="row' + rowCount + 'TakeOffColor" type="text" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'Length" name="row' + rowCount + 'Length" onkeypress="return isNumberKey(this, event);" type="text" onchange="CalculateActCFPcs(' + rowCount + ');CalculateNomCFPcs(' + rowCount + ');" style="width:50px" class="form-control"  />' +
+        '<input id="row' + rowCount + 'Length" name="row' + rowCount + 'Length" onkeypress="return isNumberKey(this, event);" type="text" onchange="CalculateActCFPcs(' + rowCount + ');CalculateNomCFPcs(' + rowCount + ');CalculateActSFCFLF(' + rowCount + ');" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'Width" name="row' + rowCount + 'Width" onkeypress="return isNumberKey(this, event);" type="text" style="width:50px" class="form-control"  />' +
+        '<input id="row' + rowCount + 'Width" name="row' + rowCount + 'Width" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');CalculateActSFCFLF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'Height" name="row' + rowCount + 'Height" onkeypress="return isNumberKey(this, event);" type="text" style="width:50px" class="form-control"  />' +
+        '<input id="row' + rowCount + 'Height" name="row' + rowCount + 'Height" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
         '<input id="row' + rowCount + 'Pieces" name="row' + rowCount + 'Pieces" onkeypress="return isNumberKey(this, event);" type="text" style="width:50px" class="form-control"  />' +
@@ -50,7 +50,7 @@ function OnAddRow() {
         '<input id="row' + rowCount + 'TotalLF" name="row' + rowCount + 'TotalLF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(' + rowCount + ');CalculateTotalNomCF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'ActSFCFLF" name="row' + rowCount + 'ActSFCFLF" onkeypress="return isNumberKey(this, event);" onchange="CalculateActCFPcs(' + rowCount + ');CalculateTotalActCF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
+        '<input id="row' + rowCount + 'ActSFCFLF" name="row' + rowCount + 'ActSFCFLF" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateActCFPcs(' + rowCount + ');CalculateTotalActCF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
         '<input id="row' + rowCount + 'ActCFPcs" name="row' + rowCount + 'ActCFPcs" readonly="readonly" type="text" style="width:50px" class="form-control"  />' +
@@ -135,6 +135,32 @@ function CalculateTotalNomCF(rownumber) {
     }
     else
         document.getElementById('row' + rownumber + 'TotalNomCF').value = "";
+}
+
+function CalculateNomCFLF(rownumber) {
+    var Width = document.getElementById('row' + rownumber + 'Width').value;
+    var Height = document.getElementById('row' + rownumber + 'Height').value;
+
+    if (Height !== "" && Width !== "") {
+        document.getElementById('row' + rownumber + 'NomCFLF').value = (Height * Width) / 144;
+    }
+    else
+        document.getElementById('row' + rownumber + 'NomCFLF').value = "";
+  
+}
+
+function CalculateActSFCFLF(rownumber) {
+    var Width = document.getElementById('row' + rownumber + 'Width').value;
+    var Height = document.getElementById('row' + rownumber + 'Height').value;
+    var Length = document.getElementById('row' + rownumber + 'Length').value;
+
+    if (Height !== "" && Width !== "" && Length !== "") {
+        document.getElementById('row' + rownumber + 'NomCFLF').value = Length * Width / 144 * Height;
+    }
+    else
+        document.getElementById('row' + rownumber + 'NomCFLF').value = "";
+    CalculateActCFPcs(rownumber);
+    CalculateTotalActCF(rownumber);
 }
 
 function isNumberKey(txt, evt) {
