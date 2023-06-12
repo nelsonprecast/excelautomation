@@ -151,14 +151,14 @@ function CalculateNomCFLF(rownumber) {
 
 function CalculateActSFCFLF(rownumber) {
     var Width = document.getElementById('row' + rownumber + 'Width').value;
-    var Height = document.getElementById('row' + rownumber + 'Height').value;
+    var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
     var Length = document.getElementById('row' + rownumber + 'Length').value;
 
-    if (Height !== "" && Width !== "" && Length !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = Length * Width / 144 * Height;
+    if (TotalLF !== "" && Width !== "" && Length !== "") {
+        document.getElementById('row' + rownumber + 'ActSFCFLF').value = Length * Width / 144 * TotalLF;
     }
     else
-        document.getElementById('row' + rownumber + 'NomCFLF').value = "";
+        document.getElementById('row' + rownumber + 'ActSFCFLF').value = "";
     CalculateActCFPcs(rownumber);
     CalculateTotalActCF(rownumber);
 }
