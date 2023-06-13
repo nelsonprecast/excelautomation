@@ -55,7 +55,8 @@ namespace ExcelAutomation.Service
                         ProjectId = project.ProjectId,
                         ProjectName = project.ProjectName,
                         ActualCF = project.ActualCf,
-                        NominalCF = project.NominalCf
+                        NominalCF = project.NominalCf,
+                        CreatedDate = project.CreatedDate ?? DateTime.MinValue
                     });
                 }
             }
@@ -71,6 +72,7 @@ namespace ExcelAutomation.Service
             projectDto.ProjectName = project.ProjectName;
             projectDto.ActualCF = project.ActualCf;
             projectDto.NominalCF = project.NominalCf;
+            projectDto.CreatedDate = project.CreatedDate ?? DateTime.MinValue;
 
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)

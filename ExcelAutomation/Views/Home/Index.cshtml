@@ -35,6 +35,7 @@
             <th scope="col">Project Name</th>
             <th scope="col">Actual CF</th>
             <th scope="col">Nominal CF</th>
+                <th scope="col">Created Date</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -47,7 +48,8 @@
                     <th scope="row">@projectDto.ProjectId</th>
                     <td>@projectDto.ProjectName</td>
                     <td>@projectDto.ActualCF</td>
-                        <td>@projectDto.NominalCF</td>
+                    <td>@projectDto.NominalCF</td>
+                        <td>@projectDto.CreatedDate.Value.ToString("MM-dd-yyyy")</td>
                         <td><a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button">Edit Project</a></td>
                 </tr>
             }
