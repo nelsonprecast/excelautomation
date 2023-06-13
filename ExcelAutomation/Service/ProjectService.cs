@@ -18,6 +18,9 @@ namespace ExcelAutomation.Service
         {
             var dbProject = new Data.Project();
             dbProject.ProjectName = project.ProjectName;
+            dbProject.ActualCf = project.ActualCF;
+            dbProject.NominalCf = project.NominalCF;
+            dbProject.CreatedDate = DateTime.Now;
 
             foreach(var projectDetail in project.ProjectDetails)
             {

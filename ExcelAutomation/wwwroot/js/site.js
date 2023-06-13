@@ -10,6 +10,10 @@ function Validate() {
     return true;
 }
 
+Number.prototype.round = function (places) {
+    return +(Math.round(this + "e+" + places) + "e-" + places);
+}
+
 function OnAddRow() {
     var rowCount = $('#RowsTable tr').length;
     var row = '<tr>' +
@@ -71,10 +75,10 @@ function OnAddRow() {
         '<input id="row' + rowCount + 'MoldQTY" name="row' + rowCount + 'MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" style="width:50px" class="form-control"  />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
+        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
         '</td>' +
         '<td>' +
-        '<input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
+        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
         '</td>' +
         '</tr>';
     $('#RowsTable').append(row);
@@ -85,7 +89,7 @@ function CalculateActCFPcs(rownumber) {
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
 
     if (ActSFCFLF !== "" && length !== "") {
-        document.getElementById('row' + rownumber + 'ActCFPcs').value = (ActSFCFLF / 12) * length;
+        document.getElementById('row' + rownumber + 'ActCFPcs').value = ((ActSFCFLF / 12) * length).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'ActCFPcs').value = "";
@@ -96,7 +100,7 @@ function CalculateTotalActCF(rownumber) {
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
 
     if (ActSFCFLF !== "" && TotalLF !== "") {
-        document.getElementById('row' + rownumber + 'TotalActCF').value = (ActSFCFLF / 12) * TotalLF;
+        document.getElementById('row' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
         CalculateTotalActual(rownumber);
     }
     else
@@ -108,7 +112,7 @@ function CalculateNomCFLF(rownumber) {
     var Height = document.getElementById('row' + rownumber + 'Height').value;
 
     if (Width !== "" && Height !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = Width * Height;
+        document.getElementById('row' + rownumber + 'NomCFLF').value = (Width * Height).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFLF').value = "";
@@ -119,7 +123,7 @@ function CalculateNomCFPcs(rownumber) {
     var NomCFLF = document.getElementById('row' + rownumber + 'NomCFLF').value;
 
     if (Length !== "" && NomCFLF !== "") {
-        document.getElementById('row' + rownumber + 'NomCFPcs').value = Length * NomCFLF;
+        document.getElementById('row' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFPcs').value = "";
@@ -130,7 +134,7 @@ function CalculateTotalNomCF(rownumber) {
     var NomCFLF = document.getElementById('row' + rownumber + 'NomCFLF').value;
 
     if (TotalLF !== "" && NomCFLF !== "") {
-        document.getElementById('row' + rownumber + 'TotalNomCF').value = TotalLF * NomCFLF;
+        document.getElementById('row' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
         CalculateTotalNominal(rownumber);
     }
     else
@@ -142,7 +146,7 @@ function CalculateNomCFLF(rownumber) {
     var Height = document.getElementById('row' + rownumber + 'Height').value;
 
     if (Height !== "" && Width !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = (Height * Width) / 144;
+        document.getElementById('row' + rownumber + 'NomCFLF').value = ((Height * Width) / 144).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFLF').value = "";
@@ -155,7 +159,7 @@ function CalculateActSFCFLF(rownumber) {
     var Length = document.getElementById('row' + rownumber + 'Length').value;
 
     if (TotalLF !== "" && Width !== "" && Length !== "") {
-        document.getElementById('row' + rownumber + 'ActSFCFLF').value = Length * Width / 144 * TotalLF;
+        document.getElementById('row' + rownumber + 'ActSFCFLF').value = (Length * Width / 144 * TotalLF).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'ActSFCFLF').value = "";
@@ -185,7 +189,7 @@ function CalculateTotalActual(rownumber) {
     var ActualCF = document.getElementById('ActualCF').value;
 
     if (TotalActCF !== "" && ActualCF !== "") {
-        document.getElementById('row' + rownumber + 'TotalActual').value = TotalActCF * ActualCF;
+        document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'TotalActual').value = "";
@@ -196,13 +200,13 @@ function CalculateTotalActualOnChangeOfActualCF() {
     var ActualCF = document.getElementById('ActualCF').value;
     var rowCount = $('#RowsTable tr').length;
 
-    for (var rownumber = 1; rownumber <= rowCount; rownumber++) { 
-    var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
-    if (TotalActCF !== "" && ActualCF !== "") {
-        document.getElementById('row' + rownumber + 'TotalActual').value = TotalActCF * ActualCF;
-    }
-    else
-            document.getElementById('row' + rownumber + 'TotalActual').value = "";
+    for (var rownumber = 1; rownumber < rowCount; rownumber++) { 
+        var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
+        if (TotalActCF !== "" && ActualCF !== "") {
+            document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
+        }
+        else
+                document.getElementById('row' + rownumber + 'TotalActual').value = "";
     }
 }
 
@@ -211,7 +215,7 @@ function CalculateTotalNominal(rownumber) {
     var NominalCF = document.getElementById('NominalCF').value;
 
     if (TotalNomCF !== "" && NominalCF !== "") {
-        document.getElementById('row' + rownumber + 'TotalNominal').value = TotalNomCF * NominalCF;
+        document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'TotalNominal').value = "";
@@ -222,10 +226,10 @@ function CalculateTotalNominalOnChangeOfNominalCF() {
     var NominalCF = document.getElementById('NominalCF').value;
     var rowCount = $('#RowsTable tr').length;
 
-    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+    for (var rownumber = 1; rownumber < rowCount; rownumber++) {
         var TotalNomCF = document.getElementById('row' + rownumber + 'TotalNomCF').value;
         if (TotalNomCF !== "" && NominalCF !== "") {
-            document.getElementById('row' + rownumber + 'TotalNominal').value = TotalNomCF * NominalCF;
+            document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
         }
         else
             document.getElementById('row' + rownumber + 'TotalNominal').value = "";

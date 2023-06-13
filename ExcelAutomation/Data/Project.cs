@@ -13,5 +13,7 @@ public partial class Project
 
     public string ActualCf { get; set; }
 
+    public DateTime? CreatedDate { get; set; }
+
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }

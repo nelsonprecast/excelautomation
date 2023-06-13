@@ -15,34 +15,35 @@
     
     .link { font-size:.8rem;}
 
+    .input-group-text {
+        padding: 0rem .5rem;
+    }
 </style>
 
 <div class="text-center">
     <form action="Edit" method="POST" role="form" enctype="multipart/form-data">
         <div class="input-group">
             <label for="staticEmail" class="col-sm-2 col-form-label">Job Name:</label>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
                 <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
                 <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
             </div>
         </div>
         <div class="input-group">
             <label for="inputPassword" class="col-sm-2 col-form-label">Nominal CF:</label>
-            <div class="col-sm-4">
-                <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
+            <span class="float-left">$</span>
+            <div class="col-sm-3">
+                 <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
             </div>
-            <div class="input-group-append">
-                <span class="input-group-text">$</span>
-            </div>
+            
         </div>
         <div class="input-group mb-3">
             <label for="inputPassword" class="col-sm-2 col-form-label">Actual CF:</label>
-            <div class="col-sm-4">
+            <span class="float-left">$</span>
+            <div class="col-sm-3">
                 <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
             </div>
-            <div class="input-group-append">
-                <span class="input-group-text">$</span>
-            </div>
+            
         </div>
         <table style="width:100%" class="table">
             <tr>
@@ -168,10 +169,10 @@
                                     <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px"/>
+                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />
                                 </td>
                                 <td>
-                                    <input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px"/>
+                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />
                                 </td>
                             </tr>
                             i++;
@@ -187,13 +188,13 @@
             </tr>
 
         </table>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-start">
                 <div class="col">
                 </div>
                 <div class="col">
                 </div>
-                <div class="col">
+                <div class="col" style="text-align:right;">
                     <button type="submit" onclick="return Validate();" class="btn btn-primary"> Save </button>
                 </div>
             </div>
@@ -208,7 +209,9 @@
             $(document).ready(function () {
 
                 /* This is basic - uses default settings */
-
+                window.console.log(1);
+            CalculateTotalActualOnChangeOfActualCF();
+            CalculateTotalNominalOnChangeOfNominalCF();
                 $("a#single_image").fancybox();
 
 

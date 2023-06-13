@@ -16,3 +16,10 @@ html {
 body {
   margin-bottom: 60px;
 }
+.float-left
+{
+    float:left !important;
+}
+.float-right {
+    float: right !important;
+}

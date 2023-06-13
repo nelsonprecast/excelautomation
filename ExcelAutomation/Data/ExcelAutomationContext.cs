@@ -33,6 +33,8 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.NominalCf).IsRequired(false).HasMaxLength(200);
 
             entity.Property(e => e.ActualCf).IsRequired(false).HasMaxLength(200);
+
+            entity.Property(e => e.CreatedDate).IsRequired(false);
         });
 
         modelBuilder.Entity<ProjectDetail>(entity =>
