@@ -21,5 +21,9 @@ body {
     float:left !important;
 }
 .float-right {
-    float: right !important;
+    float: right !important; 
+}
+
+.light-green {
+    background-color: #28b175;
 }

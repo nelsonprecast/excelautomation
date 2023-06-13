@@ -168,11 +168,11 @@
                                 <td>
                                     <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
                                 </td>
-                                <td>
-                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />
+                                <td class="light-green">
+                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />
                                 </td>
-                                <td>
-                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />
+                                <td class="light-green">
+                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />
                                 </td>
                             </tr>
                             i++;
@@ -212,7 +212,17 @@
                 window.console.log(1);
             CalculateTotalActualOnChangeOfActualCF();
             CalculateTotalNominalOnChangeOfNominalCF();
-                $("a#single_image").fancybox();
+            var rowCount = $('#RowsTable tr').length;
+            for (var rownumber = 1; rownumber < rowCount; rownumber++) {
+                CalculateActCFPcs(rownumber);
+                CalculateTotalActCF(rownumber);
+                CalculateNomCFLF(rownumber);
+                CalculateNomCFPcs(rownumber);
+                CalculateTotalNomCF(rownumber);
+                CalculateNomCFLF(rownumber);
+                CalculateActSFCFLF(rownumber);
+                }
+                //$("a#single_image").fancybox();
 
 
 

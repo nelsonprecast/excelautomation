@@ -74,11 +74,11 @@ function OnAddRow() {
         '<td>' +
         '<input id="row' + rowCount + 'MoldQTY" name="row' + rowCount + 'MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" style="width:50px" class="form-control"  />' +
         '</td>' +
-        '<td>' +
-        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
+        '<td class="light-green">' +
+        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />' +
         '</td>' +
-        '<td>' +
-        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px" />' +
+        '<td class="light-green">' +
+        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />' +
         '</td>' +
         '</tr>';
     $('#RowsTable').append(row);
