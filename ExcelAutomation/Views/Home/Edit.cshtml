@@ -71,13 +71,13 @@
                                 <div class="row align-items-start">
                                     <div class="col-4 row">
                                         <div class="col-1">#</div>
-                                        <div class="col-1">W/D</div>
-                                        <div class="col-5" style="min-width:200px">
+                                        <div class="col-2">W/D</div>
+                                        <div class="col-5">
                                             Item Name
 
                                         </div>
 
-                                            <div class="col-5" style="min-width:200px">
+                                            <div class="col-4">
 
                                                 Detail
                                                 #/Page
@@ -86,31 +86,31 @@
                                     </div>
                                     <div class="col">Section</div>
                                     <div class="col-7 row">
-                                    <div class="col">
+                                        <div class="col text-align-left">
 
-                                        Takeoff Color
+                                            Takeoff Color
 
-                                    </div>
-                                    <div class="col">Length</div>
-                                    <div class="col">
-                                        X
-                                        Width
-                                    </div>
-                                    <div class="col">
+                                        </div>
+                                        <div class="col text-align-left">Length</div>
+                                        <div class="col text-align-left">
+                                            X
+                                            Width
+                                        </div>
+                                        <div class="col text-align-left">
 
-                                        Y
-                                        HT
+                                            Y
+                                            HT
 
-                                    </div>
-                                    <div class="col">
-                                        Pcs
-                                    </div>
-                                    <div class="col">
-                                        Total
-                                        LF
-                                    </div>
-                                    
-                                    <div class="col">Mold QTY</div>
+                                        </div>
+                                        <div class="col text-align-left">
+                                            Pcs
+                                        </div>
+                                        <div class="col text-align-left">
+                                            Total
+                                            LF
+                                        </div>
+                                        
+                                        <div class="col text-align-left">Mold QTY</div>
                                     
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                     <div class="@(i % 2 == 0 ? "primary" : "secondary") row">
                                         <div class="col-4 row">
                                         <div class="col-1">@(i)</div>
-                                        <div class="col-1">
+                                        <div class="col-2">
                                             <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
                                             <select id="row@(i)WD" name="row@(i)WD" class="form-control" style="width:50px;">
                                                 <option value="Dry">Dry</option>
@@ -134,7 +134,7 @@
                                             
                                         </div>
 
-                                            <div class="col-5">
+                                            <div class="col-4">
                                                 <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                                             </div>
 
@@ -160,66 +160,66 @@
                                         </div>
                                         <div class="col-7 row">
                                             <div class="col">
-                                                <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor"/>
+                                                <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:70px" value="@projectDetail.TakeOffColor"/>
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:50px" value="@projectDetail.Length"/>
+                                                <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length"/>
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Width"/>
+                                                <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width"/>
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Height"/>
+                                                <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height"/>
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Pieces"/>
+                                                <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces"/>
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalLf"/>
+                                                <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf"/>
                                             </div>
                                            
                                             
                                             
                                             <div class="col">
-                                                <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
+                                                <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty"/>
                                             </div>
                                             <div class="row">
-                                                <div class="col">
+                                                <div class="col text-align-left">
                                                     Act SF
                                                     CF/LF
                                                 </div>
-                                                <div class="col">Act CF/Pcs</div>
-                                                <div class="col">Total Act CF</div>
-                                                <div class="col">Nom. CF/LF</div>
-                                                <div class="col">Nom. CF/Pcs</div>
-                                                <div class="col">Total Nom. CF</div>
-                                                <div class="col">Total Actual</div>
-                                                <div class="col">Total Nominal</div>
+                                                <div class="col text-align-left">Act CF/Pcs</div>
+                                                <div class="col text-align-left">Total Act CF</div>
+                                                <div class="col text-align-left">Nom. CF/LF</div>
+                                                <div class="col text-align-left">Nom. CF/Pcs</div>
+                                                <div class="col text-align-left">Total Nom. CF</div>
+                                                <div class="col text-align-left">Total Actual</div>
+                                                <div class="col text-align-left">Total Nominal</div>
                                             </div>
                                             <div class="row">
                                                 <div class="col float-left">
-                                                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:50px" value="@projectDetail.ActSfcflf"/>
+                                                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:70px" value="@projectDetail.ActSfcflf"/>
                                                 </div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs"/>
+                                                    <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" value="@projectDetail.ActCfpcs"/>
                                                 </div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf"/>
+                                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalActCf"/>
                                                 </div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf"/>
+                                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf"/>
                                                 </div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs"/>
+                                                    <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" value="@projectDetail.NomCfpcs"/>
                                                 </div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
+                                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
                                                 </div>
                                                 <div class="light-green col float-left">
-                                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;"/>
+                                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/>
                                                 </div>
                                                 <div class="light-green col float-left">
-                                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;"/>
+                                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/>
                                                 </div>
                                             </div>
                                         </div>

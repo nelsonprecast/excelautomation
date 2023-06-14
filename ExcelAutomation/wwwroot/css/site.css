@@ -24,6 +24,10 @@ body {
     float: right !important; 
 }
 
+.text-align-left{
+    text-align:left;
+}
+
 .light-green {
     background-color: #28b175;
 }
