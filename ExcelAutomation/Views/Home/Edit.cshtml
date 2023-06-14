@@ -45,149 +45,168 @@
             </div>
             
         </div>
-        <table style="width:100%" class="table">
-            <tr>
-                <td>
-                    <table style="width:100%" id="RowsTable" class="table">
-                        <tr>
-                            <th class="fw-medium">W/D</th>
-                            <th class="fw-medium">Item Name</th>
-                            <th class="fw-medium">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Home</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                <table style="width:100%" class="table">
+                    <tr>
+                        <td>
+                            <table style="width:100%" id="RowsTable" class="table">
+                                <tr>
+                                    <th>#</th>
+                                    <th class="fw-medium">W/D</th>
+                                    <th class="fw-medium" style="min-width:200px">
+                                        Item Name
 
-                                Disposition
-                                (Special Notes)
+                                    </th>
 
-                            </th>
-                            <th class="fw-medium">
+                                    <th class="fw-medium" style="min-width:200px">
 
-                                Detail
-                                #/Page
+                                        Detail
+                                        #/Page
 
-                            </th>
-                            <th class="fw-medium">Section</th>
-                            <th class="fw-medium">
+                                    </th>
+                                    <th class="fw-medium">Section</th>
+                                    <th class="fw-medium">
 
-                                Takeoff
-                                Color
+                                        Takeoff
+                                        Color
 
-                            </th>
-                            <th class="fw-medium">Length</th>
-                            <th class="fw-medium">
-                                X
-                                Width
-                            </th>
-                            <th class="fw-medium">
+                                    </th>
+                                    <th class="fw-medium">Length</th>
+                                    <th class="fw-medium">
+                                        X
+                                        Width
+                                    </th>
+                                    <th class="fw-medium">
 
-                                Y
-                                HT
+                                        Y
+                                        HT
 
-                            </th>
-                            <th class="fw-medium">
-                                Pcs
-                            </th>
-                            <th class="fw-medium">
-                                Total
-                                LF
-                            </th>
-                            <th class="fw-medium">
-                                Act SF
-                                CF/LF
-                            </th>
-                            <th class="fw-medium">Act CF/Pcs</th>
-                            <th class="fw-medium">Total Act CF</th>
-                            <th class="fw-medium">Nom. CF/LF</th>
-                            <th class="fw-medium">Nom. CF/Pcs</th>
-                            <th class="fw-medium">Total Nom. CF</th>
-                            <th class="fw-medium">Mold QTY</th>
-                            <th class="fw-medium">Total Actual</th>
-                            <th class="fw-medium">Total Nominal</th>
-                        </tr>
-                        @{ var i = 1;}
-                        @foreach (var projectDetail in Model.ProjectDetails)
-                        {
-                            <tr class="@(i % 2 == 0 ? "table-primary" : "table-secondary")">
-                                <td>
-                                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
-                                    <select id="row@(i)WD" name="row@(i)WD" class="form-control" style="width:50px;">
-                                        <option value="Dry">Dry</option>
-                                        <option value="Wet">Wet</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
-                                </td>
-                                <td>
-                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                                        <img src="@projectDetail.ImagePath" style="width:100px;height:100px"/>
-                                    </a>
-                                    <input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*"/>
-                                    <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();">Change Image</a>
-                                </td>
-                                <td>
-                                    <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:50px" value="@projectDetail.Length"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Width"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Height"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Pieces"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalLf" />
-                                </td>
-                                <td>
-                                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:50px" value="@projectDetail.ActSfcflf"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
-                                </td>
-                                <td>
-                                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
-                                </td>
-                                <td class="light-green">
-                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />
-                                </td>
-                                <td class="light-green">
-                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />
-                                </td>
-                            </tr>
-                            i++;
-                        }
-                    </table>
+                                    </th>
+                                    <th class="fw-medium">
+                                        Pcs
+                                    </th>
+                                    <th class="fw-medium">
+                                        Total
+                                        LF
+                                    </th>
+                                    <th class="fw-medium">
+                                        Act SF
+                                        CF/LF
+                                    </th>
+                                    <th class="fw-medium">Act CF/Pcs</th>
+                                    <th class="fw-medium">Total Act CF</th>
+                                    <th class="fw-medium">Nom. CF/LF</th>
+                                    <th class="fw-medium">Nom. CF/Pcs</th>
+                                    <th class="fw-medium">Total Nom. CF</th>
+                                    <th class="fw-medium">Mold QTY</th>
+                                    <th class="fw-medium">Total Actual</th>
+                                    <th class="fw-medium">Total Nominal</th>
+                                </tr>
+                                @{
+                                    var i = 1;
+                                }
+                                @foreach (var projectDetail in Model.ProjectDetails)
+                                {
+                                    <tr class="@(i % 2 == 0 ? "table-primary" : "table-secondary")">
+                                        <td>@(i)</td>
+                                        <td>
+                                            <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
+                                            <select id="row@(i)WD" name="row@(i)WD" class="form-control" style="width:50px;">
+                                                <option value="Dry">Dry</option>
+                                                <option value="Wet">Wet</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
+                                            <div class="row">
+                                                <label for="inputPassword" class="col-sm-12 col-form-label"> Disposition (Special Notes)</label>
+                                                <input id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote"/>
 
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2" style="text-align:left;">
-                    <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary"/>
-                </td>
-            </tr>
+                                            </div>
+                                        </td>
 
-        </table>
+                                        <td>
+                                            <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
+                                        </td>
+                                        <td>
+                                            <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                                <img src="@projectDetail.ImagePath" style="width:100px;height:100px"/>
+                                            </a>
+
+                                            <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*"/>Change Image</a>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:50px" value="@projectDetail.TakeOffColor"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:50px" value="@projectDetail.Length"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Width"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.Height"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.Pieces"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalLf"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:50px" value="@projectDetail.ActSfcflf"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:50px" value="@projectDetail.ActCfpcs"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:50px" value="@projectDetail.TotalActCf"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:50px" value="@projectDetail.NomCflf"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:50px" value="@projectDetail.NomCfpcs"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:50px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
+                                        </td>
+                                        <td>
+                                            <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:50px" value="@projectDetail.MoldQty"/>
+                                        </td>
+                                        <td class="light-green">
+                                            <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;"/>
+                                        </td>
+                                        <td class="light-green">
+                                            <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;"/>
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            </table>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:left;">
+                            <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">3</div>
+        </div>
+        
         <div class="container-fluid">
             <div class="row align-items-start">
                 <div class="col">

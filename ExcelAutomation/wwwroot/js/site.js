@@ -237,6 +237,6 @@ function CalculateTotalNominalOnChangeOfNominalCF() {
 }
 
 function ShowImageSelection(rowNumber) {
-    document.getElementById('row' + rowNumber + 'File').style.display = "block";
-    document.getElementById('row' + rowNumber + 'ChangeImage').style.display = "none";
+
+    document.getElementById('row' + rowNumber + 'File').click();
 }
