@@ -30,7 +30,7 @@ function OnAddRow() {
     '<div class="col-5 row text-align-left">' +
     '    <div class="col text-align-left">Length</div>' +
     '   <div class="col text-align-left">Width</div>' +
-    '<div class="col text-align-left">Hight</div>' +
+    '<div class="col text-align-left">Height</div>' +
     '<div class="col text-align-left">Pcs</div>' +
     '<div class="col text-align-left"> Mold QTY </div>' +
     '</div>' +
@@ -268,7 +268,7 @@ function CalculateTotalActual(rownumber) {
 function CalculateTotalActualOnChangeOfActualCF() {
     
     var ActualCF = document.getElementById('ActualCF').value;
-    var rowCount = $('#RowsTable tr').length;
+    var rowCount = $('.datarow').length;
 
     for (var rownumber = 1; rownumber < rowCount; rownumber++) { 
         var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
@@ -294,7 +294,7 @@ function CalculateTotalNominal(rownumber) {
 function CalculateTotalNominalOnChangeOfNominalCF() {
 
     var NominalCF = document.getElementById('NominalCF').value;
-    var rowCount = $('#RowsTable tr').length;
+    var rowCount = $('.datarow').length;
 
     for (var rownumber = 1; rownumber < rowCount; rownumber++) {
         var TotalNomCF = document.getElementById('row' + rownumber + 'TotalNomCF').value;
