@@ -283,7 +283,179 @@
                 </table>
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
-            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">3</div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                <div style="width:100%" id="RowsTable" class="container-fluid">
+                    <div class="row align-items-start">
+                        <div class="col-4 row">
+                            <div class="col-1">No</div>
+
+
+                        </div>
+                        <div class="col-6 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left">Total Actual</div>
+                            <div class="col text-align-left">Total Nominal</div>
+                        </div>
+                    </div>
+                    @{
+                        var j = 1;
+                    }
+                    @foreach (var projectDetail in Model.ProjectDetails)
+                    {
+                        <div class="@(j % 2 != 0 ? "primary" : "secondary") row datarow">
+                            <div class="col-4 row">
+                                <div class="col-1">@(j)</div>
+                                <div class="col-2 text-align-left">W/D</div>
+                                <div class="col-5 text-align-left">
+                                    Item Name
+
+                                </div>
+
+                                <div class="col-4 text-align-left">
+
+                                    Detail
+                                    #/Page
+
+                                </div>
+                            </div>
+                            <div class="col text-align-left">Takeoff Color</div>
+                            <div class="col-5 row text-align-left">
+                                <div class="col text-align-left">Length</div>
+                                <div class="col text-align-left">Width</div>
+                                <div class="col text-align-left">
+                                    Height
+                                </div>
+                                <div class="col text-align-left">
+                                    Pcs
+                                </div>
+                                <div class="col text-align-left">
+                                    Mold QTY
+                                </div>
+                            </div>
+                            <div class="col-2 row light-green"></div>
+                            <div class="col-4 row">
+                                <div class="col-1">&nbsp;</div>
+                                <div class="col-2">
+                                    <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
+                                    <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" style="width:60px;">
+                                        <option value="Dry">Dry</option>
+                                        <option value="Wet">Wet</option>
+                                    </select>
+                                </div>
+                                <div class="col-5">
+                                    <input id="rowFP@(j)ItemName" name="rowFP@(j)ItemName" class="form-control" type="text" value="@projectDetail.ItemName" />
+
+                                </div>
+
+                                <div class="col-4">
+                                    <input id="rowFP@(j)DetailPage" name="rowFP@(j)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage" />
+                                </div>
+                                <div class="col-12">
+                                    <div class="col-3 float-left">&nbsp;</div>
+                                    <div class="col-9  float-left text-align-left">
+
+                                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+
+
+                                        <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" style="height:80px;" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote"></textarea>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-1">
+                                <div class="col">
+                                    <input id="rowFP@(j)TakeOffColor" name="rowFP@(j)TakeOffColor" type="text" class="form-control" style="width:100px" value="@projectDetail.TakeOffColor" />
+                                </div>
+                                <div class="col text-align-left"> Section</div>
+                                <div class="col-12 no-margin text-align-left">
+                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                        <img src="@projectDetail.ImagePath" style="width:120px;height:100px" />
+                                    </a>
+                                </div>
+                                <div class="col-12 text-align-left">
+                                    <a id="rowFP@(j)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();"><input type="file" id="rowFP@(j)File" name="rowFP@(j)File" class="form-control" style="display:none;" accept="image/*" />Change Image</a>
+                                </div>
+
+                            </div>
+                            <div class="col-5 row">
+
+                                <div class="col">
+                                    <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
+                                </div>
+                                <div class="col">
+                                    <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width" />
+                                </div>
+                                <div class="col">
+                                    <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
+                                </div>
+                                <div class="col">
+                                    <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces" />
+                                </div>
+
+
+
+
+                                <div class="col">
+                                    <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty" />
+                                </div>
+                                <div class="row">
+                                    <div class="col text-align-left">Total LF</div>
+                                    <div class="col text-align-left"></div>
+                                    <div class="col text-align-left">Nom. CF/LF</div>
+                                    <div class="col text-align-left">Total Nom. CF</div>
+                                    <div class="col text-align-left"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input id="rowFP@(j)TotalLF" name="rowFP@(j)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf" />
+                                    </div>
+                                    <div class="col"></div>
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)NomCFLF" name="rowFP@(j)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
+                                    </div>
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)TotalNomCF" name="rowFP@(j)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
+                                    </div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col text-align-left">Act SF CF/LF</div>
+                                    <div class="col text-align-left">Act CF/Pcs</div>
+                                    <div class="col text-align-left">Total Act CF</div>
+                                    <div class="col text-align-left">Nom. CF/Pcs</div>
+                                    <div class="col"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)ActSFCFLF" name="rowFP@(j)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:70px" value="@projectDetail.ActSfcflf" />
+                                    </div>
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)ActCFPcs" name="rowFP@(j)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" value="@projectDetail.ActCfpcs" />
+                                    </div>
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)TotalActCF" name="rowFP@(j)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalActCf" />
+                                    </div>
+
+                                    <div class="col float-left">
+                                        <input id="rowFP@(j)NomCFPcs" name="rowFP@(j)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" value="@projectDetail.NomCfpcs" />
+                                    </div>
+                                    <div class="col"></div>
+
+                                </div>
+                            </div>
+                            <div class="col-2 row">
+                                <div class="light-green col float-left">
+                                    <span class="float-left">$</span><input id="rowFP@(j)TotalActual" name="rowFP@(j)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+                                </div>
+                                <div class="light-green col float-left">
+                                    <span class="float-left">$</span><input id="rowFP@(j)TotalNominal" name="rowFP@(j)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+                                </div>
+                            </div>
+                        </div>
+                        i++;
+                    }
+                </div>
+            </div>
         </div>
         
         <div class="container-fluid">
