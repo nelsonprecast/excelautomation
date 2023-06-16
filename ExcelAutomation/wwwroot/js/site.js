@@ -15,72 +15,142 @@ Number.prototype.round = function (places) {
 }
 
 function OnAddRow() {
-    var rowCount = $('#RowsTable tr').length;
-    var row = '<tr>' +
-        '<td>' +
-        '<select id="row' + rowCount + 'WD" name="row' + rowCount + 'WD"  class="form-control" >' +
-        '<option value="Dry">Dry</option>' +
-        '<option value="Wet">Wet</option>' +
-        '</select>' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'ItemName" name="row' + rowCount + 'ItemName" type="text"  class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'DispositionSpecialNote" name="row' + rowCount + 'DispositionSpecialNote" type="text" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'DetailPage" name="row' + rowCount + 'DetailPage" type="text" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input type="file" id="row' + rowCount + 'File" name="row' + rowCount + 'File" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'TakeOffColor" name="row' + rowCount + 'TakeOffColor" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'Length" name="row' + rowCount + 'Length" onkeypress="return isNumberKey(this, event);" type="text" onchange="CalculateActCFPcs(' + rowCount + ');CalculateNomCFPcs(' + rowCount + ');CalculateActSFCFLF(' + rowCount + ');" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'Width" name="row' + rowCount + 'Width" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');CalculateActSFCFLF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'Height" name="row' + rowCount + 'Height" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'Pieces" name="row' + rowCount + 'Pieces" onkeypress="return isNumberKey(this, event);" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'TotalLF" name="row' + rowCount + 'TotalLF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(' + rowCount + ');CalculateTotalNomCF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'ActSFCFLF" name="row' + rowCount + 'ActSFCFLF" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateActCFPcs(' + rowCount + ');CalculateTotalActCF(' + rowCount + ');" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'ActCFPcs" name="row' + rowCount + 'ActCFPcs" readonly="readonly" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'TotalActCF" name="row' + rowCount + 'TotalActCF" readonly="readonly" type="text" style="width:50px" onchange="CalculateTotalActual(' + rowCount + ');" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'NomCFLF" name="row' + rowCount + 'NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFPcs(' + rowCount + ');CalculateTotalNomCF(' + rowCount + ');" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'NomCFPcs" name="row' + rowCount + 'NomCFPcs" readonly="readonly" type="text" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'TotalNomCF" name="row' + rowCount + 'TotalNomCF" readonly="readonly" type="text" style="width:50px" onchange="CalculateTotalNominal(' + rowCount + ')" class="form-control"  />' +
-        '</td>' +
-        '<td>' +
-        '<input id="row' + rowCount + 'MoldQTY" name="row' + rowCount + 'MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" style="width:50px" class="form-control"  />' +
-        '</td>' +
-        '<td class="light-green">' +
-        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />' +
-        '</td>' +
-        '<td class="light-green">' +
-        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:50px;background-color:transparent !important; border: 0px solid;" />' +
-        '</td>' +
-        '</tr>';
+    var rowCount = $('.datarow').length+1;
+    var row = '<div class="primary row datarow">';
+    if (rowCount % 2 == 0)
+        row = '<div class="secondary row datarow">';
+   row = row + '<div class="col-4 row"> '+
+        '<div class="col-1">' + rowCount + '</div>'+
+    '<div class="col-2 text-align-left">W/D</div>'+
+    '<div class="col-5 text-align-left">   Item Name </div>'+
+
+    '<div class="col-4 text-align-left"> Detail #/Page </div>'+
+        '</div>'+
+        ' <div class="col text-align-left">Takeoff Color</div>' +
+    '<div class="col-5 row text-align-left">' +
+    '    <div class="col text-align-left">Length</div>' +
+    '   <div class="col text-align-left">Width</div>' +
+    '<div class="col text-align-left">Hight</div>' +
+    '<div class="col text-align-left">Pcs</div>' +
+    '<div class="col text-align-left"> Mold QTY </div>' +
+    '</div>' +
+    '<div class="col-2 row light-green"></div>' +
+    '<div class="col-4 row">' +
+    '<div class="col-1">&nbsp;</div>' +
+    '<div class="col-2">' +
+    '<input id="row' + rowCount + 'projectDetailId" name="row' + rowCount + 'projectDetailId" type="hidden"  />' +
+    '<select id="row' + rowCount + 'WD" name="row' + rowCount + 'WD" class="form-select" style="width:60px;">' +
+    '<option value="Dry">Dry</option>' +
+    '<option value="Wet">Wet</option>' +
+    '</select>' +
+    '</div>' +
+    '<div class="col-5">' +
+        '<input id="row' + rowCount + 'ItemName" name="row' + rowCount + 'ItemName" class="form-control" type="text" />' +
+    '</div>' +
+
+    '<div class="col-4">' +
+    '<input id="row' + rowCount + 'DetailPage" name="row' + rowCount + 'DetailPage" class="form-control" type="text" />' +
+        '</div>' +
+    '<div class="col-12">' +
+    '<div class="col-3 float-left">&nbsp;</div>' +
+    '<div class="col-9  float-left text-align-left">' +
+
+    '<label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>' +
+
+
+    '<textarea id="row' + rowCount + 'DispositionSpecialNote" name="row' + rowCount + 'DispositionSpecialNote" style="height:80px;" class="form-control" type="text" ></textarea>' +
+
+    '</div>' +
+        '</div>' +
+    '</div>' +
+    '<div class="col-1">' +
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'TakeOffColor" name="row' + rowCount + 'TakeOffColor" type="text" class="form-control" style="width:100px"  />' +
+        '</div>' +
+    '<div class="col text-align-left"> Section</div>' +
+    '<div class="col-12 no-margin text-align-left">' +
+                                       
+    '</div>' +
+    '<div class="col-12 text-align-left">' +
+    '<input type="file" id="row' + rowCount + 'File" name="row' + rowCount + 'File" class="form-control" />' +
+        '</div>' +
+
+    '</div>' +
+    '<div class="col-5 row">' +
+
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'Length" name="row' + rowCount + 'Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(' + rowCount + ');CalculateNomCFPcs(' + rowCount + ');" style="width:70px" />' +
+        '</div>' +
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'Width" name="row' + rowCount + 'Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');" class="form-control" style="width:70px" />' +
+        '</div>' +
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'Height" name="row' + rowCount + 'Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(' + rowCount + ');" class="form-control" style="width:70px" />' +
+        '</div>' +
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'Pieces" name="row' + rowCount + 'Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />' +
+    '</div>' +
+
+
+
+
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'MoldQTY" name="row' + rowCount + 'MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />' +
+    '</div>' +
+    '<div class="row">' +
+    '<div class="col text-align-left">Total LF</div>' +
+    '<div class="col text-align-left"></div>' +
+    '<div class="col text-align-left">Nom. CF/LF</div>' +
+    '<div class="col text-align-left">Total Nom. CF</div>' +
+    '<div class="col text-align-left"></div>' +
+    '</div>' +
+    '<div class="row">' +
+    '<div class="col">' +
+    '<input id="row' + rowCount + 'TotalLF" name="row' + rowCount + 'TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(' + rowCount + ');CalculateTotalNomCF(' + rowCount + ');CalculateActSFCFLF(' + rowCount + ');" class="form-control" style="width:70px"  />' +
+    '</div>' +
+    '<div class="col"></div>' +
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'NomCFLF" name="row' + rowCount + 'NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(' + rowCount + ');CalculateTotalNomCF(' + rowCount + ');" style="width:70px"  />' +
+    '</div>' +
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'TotalNomCF" name="row' + rowCount + 'TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(' + rowCount + ')"  />' +
+    '</div>' +
+    '<div class="col"></div>' +
+        '</div>' +
+    '<div class="row">' +
+    '<div class="col text-align-left">Act SF CF/LF</div>' +
+    '<div class="col text-align-left">Act CF/Pcs</div>' +
+    '<div class="col text-align-left">Total Act CF</div>' +
+    '<div class="col text-align-left">Nom. CF/Pcs</div>' +
+    '<div class="col"></div>' +
+    '</div>' +
+    '<div class="row">' +
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'ActSFCFLF" name="row' + rowCount + 'ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(' + rowCount + ');CalculateTotalActCF(' + rowCount + ');" style="width:70px"  />' +
+        '</div>' +
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'ActCFPcs" name="row' + rowCount + 'ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px"  />' +
+        '</div>' +
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'TotalActCF" name="row' + rowCount + 'TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(' + rowCount + ');" class="form-control" style="width:70px"  />' +
+    '</div>' +
+
+    '<div class="col float-left">' +
+    '<input id="row' + rowCount + 'NomCFPcs" name="row' + rowCount + 'NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px"  />' +
+    '</div>' +
+    '<div class="col"></div>' +
+
+    '</div>' +
+    '</div>' +
+    '<div class="col-2 row">' +
+    '<div class="light-green col float-left">' +
+    '<span class="float-left">$</span><input id="row' + rowCount + 'TotalActual" name="row' + rowCount + 'TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />' +
+    '</div>' +
+        '<div class="light-green col float-left">' +
+        '<span class="float-left">$</span><input id="row' + rowCount + 'TotalNominal" name="row' + rowCount + 'TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />' +
+    '</div>' +
+                                '</div>'+
+                            '</div > ';
     $('#RowsTable').append(row);
 }
 
