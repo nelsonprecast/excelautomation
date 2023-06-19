@@ -154,17 +154,6 @@ function OnAddRow() {
     $('#RowsTable').append(row);
 }
 
-function CalculateActCFPcs(rownumber) {
-    var length = document.getElementById('row' + rownumber + 'Length').value;
-    var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
-
-    if (ActSFCFLF !== "" && length !== "") {
-        document.getElementById('row' + rownumber + 'ActCFPcs').value = ((ActSFCFLF / 12) * length).round(2);
-    }
-    else
-        document.getElementById('row' + rownumber + 'ActCFPcs').value = "";
-}
-
 function CalculateTotalActCF(rownumber) {
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
@@ -182,10 +171,11 @@ function CalculateNomCFLF(rownumber) {
     var Height = document.getElementById('row' + rownumber + 'Height').value;
 
     if (Width !== "" && Height !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = (Width * Height).round(2);
+        document.getElementById('row' + rownumber + 'NomCFLF').value = ((Width * Height)/144).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFLF').value = "";
+    CalculateTotalNomCF(rownumber);
 }
 
 function CalculateNomCFPcs(rownumber) {
@@ -211,18 +201,6 @@ function CalculateTotalNomCF(rownumber) {
         document.getElementById('row' + rownumber + 'TotalNomCF').value = "";
 }
 
-function CalculateNomCFLF(rownumber) {
-    var Width = document.getElementById('row' + rownumber + 'Width').value;
-    var Height = document.getElementById('row' + rownumber + 'Height').value;
-
-    if (Height !== "" && Width !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = ((Height * Width) / 144).round(2);
-    }
-    else
-        document.getElementById('row' + rownumber + 'NomCFLF').value = "";
-  
-}
-
 function CalculateActSFCFLF(rownumber) {
     var Width = document.getElementById('row' + rownumber + 'Width').value;
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
@@ -237,6 +215,16 @@ function CalculateActSFCFLF(rownumber) {
     CalculateTotalActCF(rownumber);
 }
 
+function CalculateActCFPcs(rownumber) {
+    var length = document.getElementById('row' + rownumber + 'Length').value;
+    var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
+
+    if (ActSFCFLF !== "" && length !== "") {
+        document.getElementById('row' + rownumber + 'ActCFPcs').value = ((ActSFCFLF / 12) * length).round(2);
+    }
+    else
+        document.getElementById('row' + rownumber + 'ActCFPcs').value = "";
+}
 function isNumberKey(txt, evt) {
     var charCode = (evt.which) ? evt.which : evt.keyCode;
     if (charCode == 46) {

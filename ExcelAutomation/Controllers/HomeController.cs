@@ -155,7 +155,7 @@ namespace ExcelAutomation.Controllers
             }
             project.ProjectDetails = projectDetails;
             _projectService.UpdateProjectDetail(project);
-            return RedirectToAction("Index");
+            return RedirectToAction("Edit",new{id= project.ProjectId });
         }
     }
 }

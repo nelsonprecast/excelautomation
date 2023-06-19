@@ -227,7 +227,7 @@
                                                 </div>
                                                 <div class="col"></div>
                                                 <div class="col float-left">
-                                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
+                                                    <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
                                                 </div>
                                                 <div class="col float-left">
                                                     <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
@@ -464,6 +464,38 @@
                         </div>
                         j++;
                     }
+                    <div class="row align-items-start">
+                        <div class="col-3 row">
+                            <div class="col-1"><b>TOTALS</b></div>
+
+
+                        </div>
+                        <div class="col-5 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left"><b>Total Actual</b></div>
+                            <div class="col text-align-left"><b>Total Nominal</b></div>
+                        </div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left"></div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                    </div>
+                <div class="row align-items-start">
+                    <div class="col-3 row">
+                        <div class="col-1"></div>
+
+
+                    </div>
+                    <div class="col-5 row"></div>
+                    <div class="col-2 row">
+                        <div class="col text-align-left">$</div>
+                        <div class="col text-align-left">$</div>
+                    </div>
+                    <div class="col-2 row">
+                            <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" type="text" class="form-control" /></div>
+                        <div class="col text-align-left"></div>
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -492,19 +524,15 @@
                 window.console.log(1);
             CalculateTotalActualOnChangeOfActualCF();
             CalculateTotalNominalOnChangeOfNominalCF();
-            var rowCount = $('#RowsTable tr').length;
-            for (var rownumber = 1; rownumber < rowCount; rownumber++) {
+            var rowCount = $('.datarow').length;
+            for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
                 CalculateActCFPcs(rownumber);
                 CalculateTotalActCF(rownumber);
                 CalculateNomCFLF(rownumber);
                 CalculateNomCFPcs(rownumber);
                 CalculateTotalNomCF(rownumber);
-                CalculateNomCFLF(rownumber);
                 CalculateActSFCFLF(rownumber);
-                }
-                //$("a#single_image").fancybox();
-
-
+            }
 
             });
     </script>
