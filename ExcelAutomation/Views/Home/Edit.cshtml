@@ -337,8 +337,8 @@
                                 </div>
                             </div>
                             <div class="col-2 row light-green">
-                                <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" value="1"/></div>
-                                <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" checked="checked" name="rowFP@(j)TotalCheckBox" value="2" /></div>
+                                <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));" value="1" /></div>
+                                <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue ==null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));" value="2" /></div>
                             </div>
                             <div class="col-2 row"></div>
                             <div class="col-4 row">
@@ -374,23 +374,23 @@
                             <div class="col-4 row">
 
                                 <div class="col">
-                                    <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
+                                    <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
                                 </div>
                                 <div class="col">
-                                    <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width" />
+                                    <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width" />
                                 </div>
                                 <div class="col">
-                                    <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
+                                    <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
                                 </div>
                                 <div class="col">
-                                    <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces" />
+                                    <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces" />
                                 </div>
 
 
 
 
                                 <div class="col">
-                                    <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty" />
+                                    <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty" />
                                 </div>
                                 <div class="row">
                                     <div class="col text-align-left">Total LF</div>
@@ -401,11 +401,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <input id="rowFP@(j)TotalLF" name="rowFP@(j)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf" />
+                                        <input id="rowFP@(j)TotalLF" name="rowFP@(j)TotalLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculateActSFCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf" />
                                     </div>
                                     <div class="col"></div>
                                     <div class="col float-left">
-                                        <input id="rowFP@(j)NomCFLF" name="rowFP@(j)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
+                                        <input id="rowFP@(j)NomCFLF" name="rowFP@(j)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
                                     </div>
                                     <div class="col float-left">
                                         <input id="rowFP@(j)TotalNomCF" name="rowFP@(j)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
@@ -447,18 +447,18 @@
                             </div>
                             <div class="col-2 row">
                                 <div class="col-6">
-                                    <input id="rowFP@(j)LineItemCharge" name="rowFP@(j)LineItemCharge" onchange="OnLineItemChange(@(j));SumLineItemCharge();" type="text" class="form-control" style="width:70px;" />
+                                    <input id="rowFP@(j)LineItemCharge" name="rowFP@(j)LineItemCharge" onchange="OnLineItemChange(@(j));SumLineItemCharge();" value="@projectDetail.LineItemCharge" type="text" class="form-control" style="width:70px;" />
                                 </div>
                                 <div class="col-6">
                                     <input id="rowFP@(j)LineData" name="rowFP@(j)LineData" readonly="readonly" type="text" class="form-control" style="width:70px;" />
                                 </div>
                                 <div class="col-6 text-align-left">$/pc</div>
                                 <div class="col-6 text-align-left"></div>
-                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargePCs" name="rowFP@(j)LineItemChargePCs" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargePCs" name="rowFP@(j)LineItemChargePCs" onchange="SumLineItemChargePCs();" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
                                 <div class="col-6 text-align-left"></div>
                                 <div class="col-6 text-align-left">$/CF</div>
                                 <div class="col-6 text-align-left"></div>
-                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeCF" name="rowFP@(j)LineItemChargeCF" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeCF" name="rowFP@(j)LineItemChargeCF" onchange="SumLineItemChargeCF()" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
                                 <div class="col-6 text-align-left"></div>
                             </div>
                         </div>
@@ -488,14 +488,64 @@
                     </div>
                     <div class="col-5 row"></div>
                     <div class="col-2 row">
-                            <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
-                            <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
                     </div>
                     <div class="col-2 row">
-                            <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();" /></div>
-                            <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly" /></div>
+                        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();" /></div>
+                        <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly" /></div>
                     </div>
                 </div>
+                    <div class="row align-items-start">
+                        <div class="col-3 row">
+                            <div class="col-1"></div>
+                        </div>
+                        <div class="col-5 row"></div>
+                        <div class="col-2 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left">$/pc</div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col-3 row">
+                            <div class="col-1"></div>
+
+
+                        </div>
+                        <div class="col-5 row"></div>
+                        <div class="col-2 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left"><input id="rowFPSumLineItemChargePCs" name="rowFPSumLineItemChargePCs" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col-3 row">
+                            <div class="col-1"></div>
+
+
+                        </div>
+                        <div class="col-5 row"></div>
+                        <div class="col-2 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left">$/CF</div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                    </div>
+                    <div class="row align-items-start">
+                        <div class="col-3 row">
+                            <div class="col-1"></div>
+
+
+                        </div>
+                        <div class="col-5 row"></div>
+                        <div class="col-2 row"></div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left"><input id="rowFPSumOfLineItemChargeCF" name="rowFPSumOfLineItemChargeCF" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -532,9 +582,13 @@
                 CalculateNomCFPcs(rownumber);
                 CalculateTotalNomCF(rownumber);
                 CalculateActSFCFLF(rownumber);
+                OnLineItemChange(rownumber);
             }
             SumTotalOfActual();
             SumTotalOfNominal();
+            SumLineItemCharge();
+            SumLineItemChargePCs();
+            SumLineItemChargeCF();
             });
         
     </script>

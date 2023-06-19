@@ -45,5 +45,9 @@ public partial class ProjectDetail
 
     public string? MoldQty { get; set; }
 
+    public string? LineItemCharge { get; set; }
+
+    public string TotalActualNominalValue { get; set; }
+
     public virtual Project Project { get; set; } = null!;
 }

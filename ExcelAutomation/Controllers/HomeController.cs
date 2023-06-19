@@ -110,6 +110,7 @@ namespace ExcelAutomation.Controllers
             project.ProjectName = Request.Form["projectname"];
             project.NominalCF = Request.Form["NominalCF"];
             project.ActualCF = Request.Form["ActualCF"];
+            project.LineItemTotal = Request.Form["LineItemTotal"];
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
@@ -135,6 +136,10 @@ namespace ExcelAutomation.Controllers
                 projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
+                if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "LineItemCharge"]))
+                    projectDetail.LineItemCharge = Request.Form["rowFP" + i + "LineItemCharge"];
+                if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "TotalCheckBox"]))
+                    projectDetail.TotalActualNominalValue = Request.Form["rowFP" + i + "TotalCheckBox"];
 
                 if (Request.Form.Files["row" + i + "File"] != null)
                 {

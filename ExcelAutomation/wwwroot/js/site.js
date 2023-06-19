@@ -320,7 +320,7 @@ function SumTotalOfActual() {
         if (TotalActual != "")
             sum = sum + parseFloat( TotalActual);
     }
-    document.getElementById('rowFPSumTotalActual').value = sum;
+    document.getElementById('rowFPSumTotalActual').value = sum.round(2);
 }
 
 function SumTotalOfNominal() {
@@ -332,7 +332,7 @@ function SumTotalOfNominal() {
         if (TotalNominal != "")
             sum = sum + parseFloat(TotalNominal);
     }
-    document.getElementById('rowFPSumTotalNominal').value = sum;
+    document.getElementById('rowFPSumTotalNominal').value = sum.round(2);
 }
 
 function OnLineItemChange(rownumber) {
@@ -373,6 +373,8 @@ function OnLineItemChange(rownumber) {
     if (LineItemCharge != "" && TotalNomCF != "") {
         document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value = (LineItemCharge / TotalActCF).round(2);
     }
+    SumLineItemChargePCs();
+    SumLineItemChargeCF();
 }
 
 function SumLineItemCharge() {
@@ -387,4 +389,31 @@ function SumLineItemCharge() {
     }
     if (LineItemTotal != "" && sum != "")
         document.getElementById('SumOfLineItemCharge').value = (sum - LineItemTotal).round(2);
+}
+
+function SumLineItemChargePCs() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var LineItemTotal = document.getElementById('LineItemTotal').value;
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var LineItemChargePCs = document.getElementById('rowFP' + rownumber + 'LineItemChargePCs').value;
+        if (LineItemChargePCs != "")
+            sum = sum + parseFloat(LineItemChargePCs);
+    }
+    if ( sum != "")
+        document.getElementById('rowFPSumLineItemChargePCs').value = (sum - LineItemTotal).round(2);
+}
+
+function SumLineItemChargeCF() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var LineItemChargeCF = document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value;
+        if (LineItemChargeCF != "")
+            sum = sum + parseFloat(LineItemChargeCF);
+    }
+    if ( sum != "")
+        document.getElementById('rowFPSumOfLineItemChargeCF').value = (sum).round(2);
 }

@@ -73,6 +73,7 @@ namespace ExcelAutomation.Service
             projectDto.ActualCF = project.ActualCf;
             projectDto.NominalCF = project.NominalCf;
             projectDto.CreatedDate = project.CreatedDate ?? DateTime.MinValue;
+            projectDto.LineItemTotal = project.LineItemTotal;
 
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)
@@ -100,7 +101,9 @@ namespace ExcelAutomation.Service
                         NomCflf = projectDetail.NomCflf,
                         NomCfpcs = projectDetail.NomCfpcs,
                         TotalNomCf = projectDetail.TotalNomCf,
-                        MoldQty = projectDetail.MoldQty
+                        MoldQty = projectDetail.MoldQty,
+                        LineItemCharge = projectDetail.LineItemCharge,
+                        TotalActualNominalValue = projectDetail.TotalActualNominalValue
                     });
                 }
             }
@@ -116,6 +119,7 @@ namespace ExcelAutomation.Service
                 project.ProjectName = projectDto.ProjectName;
                 project.ActualCf = projectDto.ActualCF;
                 project.NominalCf = projectDto.NominalCF;
+                project.LineItemTotal = projectDto.LineItemTotal;
                 _context.Update(project);
                 _context.SaveChanges();
                 if (project.ProjectDetails != null)
@@ -144,7 +148,9 @@ namespace ExcelAutomation.Service
                         dbProjectDetail.NomCfpcs = projectDetail.NomCfpcs;
                         dbProjectDetail.TotalNomCf = projectDetail.TotalNomCf;
                         dbProjectDetail.MoldQty = projectDetail.MoldQty;
+                        dbProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
                         dbProjectDetail.ProjectId = project.ProjectId;
+                        dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                         if(!string.IsNullOrEmpty(projectDetail.ImagePath) )
                             dbProjectDetail.ImagePath = projectDetail.ImagePath;
                         if (dbProjectDetail.ProjectDetailId > 0)

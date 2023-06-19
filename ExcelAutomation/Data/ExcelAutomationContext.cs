@@ -35,6 +35,8 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.ActualCf).IsRequired(false).HasMaxLength(200);
 
             entity.Property(e => e.CreatedDate).IsRequired(false);
+
+            entity.Property(e => e.LineItemTotal).IsRequired(false);
         });
 
         modelBuilder.Entity<ProjectDetail>(entity =>
@@ -75,6 +77,10 @@ public partial class ExcelAutomationContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("WD");
             entity.Property(e => e.Width).HasMaxLength(50);
+
+            entity.Property(e => e.LineItemCharge).IsRequired(false);
+
+            entity.Property(e => e.TotalActualNominalValue).IsRequired(false);
 
             entity.HasOne(d => d.Project).WithMany(p => p.ProjectDetails)
                 .HasForeignKey(d => d.ProjectId)

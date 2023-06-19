@@ -31,5 +31,9 @@
 
         public string? MoldQty { get; set; }
 
+        public string? LineItemCharge { get; set; }
+
+        public string? TotalActualNominalValue { get; set; }
+
     }
 }
