@@ -284,17 +284,21 @@
             </div>
             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-                <div style="width:100%" id="RowsTable" class="container-fluid">
+                <div style="width:100%" id="RowsTable" class="container-fluid font-size-08">
                     <div class="row align-items-start">
-                        <div class="col-4 row">
+                        <div class="col-3 row">
                             <div class="col-1">No</div>
 
 
                         </div>
-                        <div class="col-6 row"></div>
+                        <div class="col-5 row"></div>
                         <div class="col-2 row">
                             <div class="col text-align-left">Total Actual</div>
                             <div class="col text-align-left">Total Nominal</div>
+                        </div>
+                        <div class="col-2 row">
+                            <div class="col text-align-left">Line Item Charge</div>
+                            <div class="col text-align-left">Line Delta</div>
                         </div>
                     </div>
                     @{
@@ -318,8 +322,8 @@
 
                                 </div>
                             </div>
-                            <div class="col text-align-left">Takeoff Color</div>
-                            <div class="col-5 row text-align-left">
+                            
+                            <div class="col-4 row text-align-left">
                                 <div class="col text-align-left">Length</div>
                                 <div class="col text-align-left">Width</div>
                                 <div class="col text-align-left">
@@ -332,7 +336,11 @@
                                     Mold QTY
                                 </div>
                             </div>
-                            <div class="col-2 row light-green"></div>
+                            <div class="col-2 row light-green">
+                                <div class="col text-align-left"><input type="radio" id="row@(j)TotalActualCheckBox" name="row@(j)TotalCheckBox" /></div>
+                                <div class="col text-align-left"><input type="radio" id="row@(j)TotalNominalCheckBox" name="row@(j)TotalCheckBox" /></div>
+                            </div>
+                            <div class="col-2 row"></div>
                             <div class="col-4 row">
                                 <div class="col-1">&nbsp;</div>
                                 <div class="col-2">
@@ -362,22 +370,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-1">
-                                <div class="col">
-                                    <input id="rowFP@(j)TakeOffColor" name="rowFP@(j)TakeOffColor" type="text" class="form-control" style="width:100px" value="@projectDetail.TakeOffColor" />
-                                </div>
-                                <div class="col text-align-left"> Section</div>
-                                <div class="col-12 no-margin text-align-left">
-                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                                        <img src="@projectDetail.ImagePath" style="width:120px;height:100px" />
-                                    </a>
-                                </div>
-                                <div class="col-12 text-align-left">
-                                    <a id="rowFP@(j)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();"><input type="file" id="rowFP@(j)File" name="rowFP@(j)File" class="form-control" style="display:none;" accept="image/*" />Change Image</a>
-                                </div>
-
-                            </div>
-                            <div class="col-5 row">
+                            
+                            <div class="col-4 row">
 
                                 <div class="col">
                                     <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
@@ -451,8 +445,24 @@
                                     <span class="float-left">$</span><input id="rowFP@(j)TotalNominal" name="rowFP@(j)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
                                 </div>
                             </div>
+                            <div class="col-2 row">
+                                <div class="col-6">
+                                    <input id="rowFP@(j)LineItemCharge" name="rowFP@(j)LineItemCharge" type="text" class="form-control" style="width:70px;" />
+                                </div>
+                                <div class="col-6">
+                                    <input id="rowFP@(j)LineData" name="rowFP@(j)LineData" type="text" class="form-control" style="width:70px;" />
+                                </div>
+                                <div class="col-6 text-align-left">$/pc</div>
+                                <div class="col-6 text-align-left"></div>
+                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargePCs" name="rowFP@(j)LineItemChargePCs" type="text" class="form-control" style="width:70px;" /></div>
+                                <div class="col-6 text-align-left"></div>
+                                <div class="col-6 text-align-left">$/CF</div>
+                                <div class="col-6 text-align-left"></div>
+                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeCF" name="rowFP@(j)LineItemChargeCF" type="text" class="form-control" style="width:70px;" /></div>
+                                <div class="col-6 text-align-left"></div>
+                            </div>
                         </div>
-                        i++;
+                        j++;
                     }
                 </div>
             </div>
