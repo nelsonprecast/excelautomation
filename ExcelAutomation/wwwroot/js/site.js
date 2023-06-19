@@ -374,3 +374,17 @@ function OnLineItemChange(rownumber) {
         document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value = (LineItemCharge / TotalActCF).round(2);
     }
 }
+
+function SumLineItemCharge() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var LineItemTotal = document.getElementById('LineItemTotal').value;
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var LineItemCharge = document.getElementById('rowFP' + rownumber + 'LineItemCharge').value;
+        if (LineItemCharge != "")
+            sum = sum + parseFloat(LineItemCharge);
+    }
+    if (LineItemTotal != "" && sum != "")
+        document.getElementById('SumOfLineItemCharge').value = (sum - LineItemTotal).round(2);
+}
