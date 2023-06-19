@@ -334,3 +334,43 @@ function SumTotalOfNominal() {
     }
     document.getElementById('rowFPSumTotalNominal').value = sum;
 }
+
+function OnLineItemChange(rownumber) {
+    var LineItemCharge = document.getElementById('rowFP' + rownumber + 'LineItemCharge').value;
+    var TotalCheckBox = $("input[name='rowFP" + rownumber + "TotalCheckBox']:checked").val(); 
+    var totalValue = 0;
+    if (TotalCheckBox == "1") {
+        totalValue = document.getElementById('rowFP' + rownumber + 'TotalActual').value;
+    }
+    else
+        totalValue = document.getElementById('rowFP' + rownumber + 'TotalNominal').value;
+
+    if (LineItemCharge != "" && totalValue != "") {
+        document.getElementById('rowFP' + rownumber + 'LineData').value = (LineItemCharge - totalValue).round(2);
+    }
+}
+
+function OnLineItemChange(rownumber) {
+    var LineItemCharge = document.getElementById('rowFP' + rownumber + 'LineItemCharge').value;
+    var TotalCheckBox = $("input[name='rowFP" + rownumber + "TotalCheckBox']:checked").val();
+    var TotalNomCF = document.getElementById('rowFP' + rownumber + 'TotalNomCF').value;
+    var TotalActCF = document.getElementById('rowFP' + rownumber + 'TotalActCF').value;
+    var totalValue = 0;
+    if (TotalCheckBox == "1") {
+        totalValue = document.getElementById('rowFP' + rownumber + 'TotalActual').value;
+    }
+    else
+        totalValue = document.getElementById('rowFP' + rownumber + 'TotalNominal').value;
+
+    if (LineItemCharge != "" && totalValue != "") {
+        document.getElementById('rowFP' + rownumber + 'LineData').value = (LineItemCharge - totalValue).round(2);
+    }
+
+    if (LineItemCharge != "" && TotalNomCF != "") {
+        document.getElementById('rowFP' + rownumber + 'LineItemChargePCs').value = (LineItemCharge / TotalNomCF).round(2);
+    }
+
+    if (LineItemCharge != "" && TotalNomCF != "") {
+        document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value = (LineItemCharge / TotalActCF).round(2);
+    }
+}
