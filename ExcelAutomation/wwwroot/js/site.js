@@ -16,9 +16,9 @@ Number.prototype.round = function (places) {
 
 function OnAddRow() {
     var rowCount = $('.datarow').length+1;
-    var row = '<div class="primary row datarow">';
+    var row = '<div class="primary row exceldatarow">';
     if (rowCount % 2 == 0)
-        row = '<div class="secondary row datarow">';
+        row = '<div class="secondary row exceldatarow">';
    row = row + '<div class="col-4 row"> '+
         '<div class="col-1">' + rowCount + '</div>'+
     '<div class="col-2 text-align-left">W/D</div>'+
@@ -268,7 +268,7 @@ function CalculateTotalActual(rownumber) {
 function CalculateTotalActualOnChangeOfActualCF() {
     
     var ActualCF = document.getElementById('ActualCF').value;
-    var rowCount = $('.datarow').length;
+    var rowCount = $('.exceldatarow').length;
 
     for (var rownumber = 1; rownumber < rowCount; rownumber++) { 
         var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
@@ -294,7 +294,7 @@ function CalculateTotalNominal(rownumber) {
 function CalculateTotalNominalOnChangeOfNominalCF() {
 
     var NominalCF = document.getElementById('NominalCF').value;
-    var rowCount = $('.datarow').length;
+    var rowCount = $('.exceldatarow').length;
 
     for (var rownumber = 1; rownumber < rowCount; rownumber++) {
         var TotalNomCF = document.getElementById('row' + rownumber + 'TotalNomCF').value;
