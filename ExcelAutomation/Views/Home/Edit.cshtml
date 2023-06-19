@@ -118,7 +118,7 @@
                                 }
                                 @foreach (var projectDetail in Model.ProjectDetails)
                                 {
-                                    <div class="@(i % 2 != 0 ? "primary" : "secondary") row datarow">
+                                    <div class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
                                         <div class="col-4 row">
                                             <div class="col-1">@(i)</div>
                                             <div class="col-2 text-align-left">W/D</div>
@@ -306,7 +306,7 @@
                     }
                     @foreach (var projectDetail in Model.ProjectDetails)
                     {
-                        <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow">
+                        <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow1">
                             <div class="col-4 row">
                                 <div class="col-1">@(j)</div>
                                 <div class="col-2 text-align-left">W/D</div>
@@ -488,8 +488,8 @@
                     </div>
                     <div class="col-5 row"></div>
                     <div class="col-2 row">
-                        <div class="col text-align-left">$</div>
-                        <div class="col text-align-left">$</div>
+                            <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                            <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
                     </div>
                     <div class="col-2 row">
                             <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" type="text" class="form-control" /></div>
@@ -524,7 +524,7 @@
                 window.console.log(1);
             CalculateTotalActualOnChangeOfActualCF();
             CalculateTotalNominalOnChangeOfNominalCF();
-            var rowCount = $('.datarow').length;
+            var rowCount = $('.exceldatarow').length;
             for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
                 CalculateActCFPcs(rownumber);
                 CalculateTotalActCF(rownumber);
@@ -533,8 +533,10 @@
                 CalculateTotalNomCF(rownumber);
                 CalculateActSFCFLF(rownumber);
             }
-
+            SumTotalOfActual();
+            SumTotalOfNominal();
             });
+        
     </script>
 
 }

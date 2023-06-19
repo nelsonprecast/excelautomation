@@ -15,7 +15,7 @@ Number.prototype.round = function (places) {
 }
 
 function OnAddRow() {
-    var rowCount = $('.datarow').length+1;
+    var rowCount = $('.exceldatarow').length+1;
     var row = '<div class="primary row exceldatarow">';
     if (rowCount % 2 == 0)
         row = '<div class="secondary row exceldatarow">';
@@ -160,10 +160,11 @@ function CalculateTotalActCF(rownumber) {
 
     if (ActSFCFLF !== "" && TotalLF !== "") {
         document.getElementById('row' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
-        CalculateTotalActual(rownumber);
+        document.getElementById('rowFP' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);        
     }
     else
         document.getElementById('row' + rownumber + 'TotalActCF').value = "";
+    CalculateTotalActual(rownumber);
 }
 
 function CalculateNomCFLF(rownumber) {
@@ -171,7 +172,8 @@ function CalculateNomCFLF(rownumber) {
     var Height = document.getElementById('row' + rownumber + 'Height').value;
 
     if (Width !== "" && Height !== "") {
-        document.getElementById('row' + rownumber + 'NomCFLF').value = ((Width * Height)/144).round(2);
+        document.getElementById('row' + rownumber + 'NomCFLF').value = ((Width * Height) / 144).round(2);
+        document.getElementById('rowFP' + rownumber + 'NomCFLF').value = ((Width * Height) / 144).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFLF').value = "";
@@ -184,6 +186,7 @@ function CalculateNomCFPcs(rownumber) {
 
     if (Length !== "" && NomCFLF !== "") {
         document.getElementById('row' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
+        document.getElementById('rowFP' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
     }
     else
         document.getElementById('row' + rownumber + 'NomCFPcs').value = "";
@@ -195,10 +198,13 @@ function CalculateTotalNomCF(rownumber) {
 
     if (TotalLF !== "" && NomCFLF !== "") {
         document.getElementById('row' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
+        document.getElementById('rowFP' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
         CalculateTotalNominal(rownumber);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'TotalNomCF').value = "";
+        document.getElementById('rowFP' + rownumber + 'TotalNomCF').value = "";
+    }
 }
 
 function CalculateActSFCFLF(rownumber) {
@@ -248,9 +254,12 @@ function CalculateTotalActual(rownumber) {
 
     if (TotalActCF !== "" && ActualCF !== "") {
         document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
+        document.getElementById('rowFP' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'TotalActual').value = "";
+        document.getElementById('rowFP' + rownumber + 'TotalActual').value = "";
+    }
 }
 
 function CalculateTotalActualOnChangeOfActualCF() {
@@ -258,7 +267,7 @@ function CalculateTotalActualOnChangeOfActualCF() {
     var ActualCF = document.getElementById('ActualCF').value;
     var rowCount = $('.exceldatarow').length;
 
-    for (var rownumber = 1; rownumber < rowCount; rownumber++) { 
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) { 
         var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
         if (TotalActCF !== "" && ActualCF !== "") {
             document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
@@ -274,9 +283,12 @@ function CalculateTotalNominal(rownumber) {
 
     if (TotalNomCF !== "" && NominalCF !== "") {
         document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
+        document.getElementById('rowFP' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'TotalNominal').value = "";
+        document.getElementById('rowFP' + rownumber + 'TotalNominal').value = "";
+    }
 }
 
 function CalculateTotalNominalOnChangeOfNominalCF() {
@@ -284,7 +296,7 @@ function CalculateTotalNominalOnChangeOfNominalCF() {
     var NominalCF = document.getElementById('NominalCF').value;
     var rowCount = $('.exceldatarow').length;
 
-    for (var rownumber = 1; rownumber < rowCount; rownumber++) {
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
         var TotalNomCF = document.getElementById('row' + rownumber + 'TotalNomCF').value;
         if (TotalNomCF !== "" && NominalCF !== "") {
             document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
@@ -297,4 +309,28 @@ function CalculateTotalNominalOnChangeOfNominalCF() {
 function ShowImageSelection(rowNumber) {
 
     document.getElementById('row' + rowNumber + 'File').click();
+}
+
+function SumTotalOfActual() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var TotalActual = document.getElementById('rowFP' + rownumber + 'TotalActual').value;
+        if (TotalActual != "")
+            sum = sum + parseFloat( TotalActual);
+    }
+    document.getElementById('rowFPSumTotalActual').value = sum;
+}
+
+function SumTotalOfNominal() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var TotalNominal = document.getElementById('rowFP' + rownumber + 'TotalNominal').value;
+        if (TotalNominal != "")
+            sum = sum + parseFloat(TotalNominal);
+    }
+    document.getElementById('rowFPSumTotalNominal').value = sum;
 }
