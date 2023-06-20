@@ -14,7 +14,7 @@ namespace ExcelAutomation.Service
             _context = context;
         }
 
-        public void SaveProject(ProjectDto project)
+        public async Task<int> SaveProject(ProjectDto project)
         {
             var dbProject = new Data.Project();
             dbProject.ProjectName = project.ProjectName;
@@ -38,8 +38,8 @@ namespace ExcelAutomation.Service
                 });
             }           
             _context.Add(dbProject);
-            _context.SaveChanges();
-            
+            await _context.SaveChangesAsync();
+            return dbProject.ProjectId;
         }
 
         public ICollection<ProjectDto> GetProjects()
@@ -103,7 +103,9 @@ namespace ExcelAutomation.Service
                         TotalNomCf = projectDetail.TotalNomCf,
                         MoldQty = projectDetail.MoldQty,
                         LineItemCharge = projectDetail.LineItemCharge,
-                        TotalActualNominalValue = projectDetail.TotalActualNominalValue
+                        TotalActualNominalValue = projectDetail.TotalActualNominalValue,
+                        PlanElevation = projectDetail.PlanElevation,
+                        Category = projectDetail.Category
                     });
                 }
             }
@@ -151,6 +153,8 @@ namespace ExcelAutomation.Service
                         dbProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
                         dbProjectDetail.ProjectId = project.ProjectId;
                         dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
+                        dbProjectDetail.PlanElevation = projectDetail.PlanElevation;
+                        dbProjectDetail.Category = projectDetail.Category;
                         if(!string.IsNullOrEmpty(projectDetail.ImagePath) )
                             dbProjectDetail.ImagePath = projectDetail.ImagePath;
                         if (dbProjectDetail.ProjectDetailId > 0)

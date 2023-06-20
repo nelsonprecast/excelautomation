@@ -72,24 +72,29 @@ namespace ExcelAutomation.Controllers
                 projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
-                var file = Request.Form.Files["row" + i + "File"];
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevation"];
+                projectDetail.Category = Request.Form["row" + i + "Category"];
+                if (Request.Form.Files["row" + i + "File"] != null)
                 {
-                    await file.CopyToAsync(fileStream);
+                    var file = Request.Form.Files["row" + i + "File"];
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
+                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+                    projectDetail.ImagePath = "/ProjectImages/" + fileName;
                 }
 
-                projectDetail.ImagePath = "/ProjectImages/" + fileName;
-                
                 projectDetails.Add(projectDetail);
                 i++;
                 wd = "row" + i + "WD";
             }
             project.ProjectDetails = projectDetails;
             
-            _projectService.SaveProject(project);
-            return RedirectToAction("Index");
+            var projectId = await _projectService.SaveProject(project);
+            return RedirectToAction("Edit", new { id = projectId });
         }
 
         [HttpGet]
@@ -136,6 +141,8 @@ namespace ExcelAutomation.Controllers
                 projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
+                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevation"];
+                projectDetail.Category = Request.Form["row" + i + "Category"];
                 if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "LineItemCharge"]))
                     projectDetail.LineItemCharge = Request.Form["rowFP" + i + "LineItemCharge"];
                 if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "TotalCheckBox"]))

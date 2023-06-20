@@ -4,7 +4,7 @@ namespace ExcelAutomation.Service
 {
     public interface IProjectService
     {
-        void SaveProject(ProjectDto project);
+        Task<int> SaveProject(ProjectDto project);
 
         ICollection<ProjectDto> GetProjects();
 

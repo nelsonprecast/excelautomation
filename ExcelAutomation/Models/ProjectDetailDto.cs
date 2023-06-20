@@ -35,5 +35,9 @@
 
         public string? TotalActualNominalValue { get; set; }
 
+        public string PlanElevation { get; set; }
+
+        public string Category { get; set; }
+
     }
 }

@@ -73,6 +73,18 @@
                 <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
                 <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
             </div>
+            <label for="staticEmail" class="col-sm-2">Date:</label>
+            <div class="col-sm-1">
+                
+                <div class="input-group date" id="datepicker">
+                    <input type="text" class="form-control" id="date"/>
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-light d-block">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="input-group">
             <label for="inputPassword" class="col-sm-2">Nominal CF:</label>
@@ -154,8 +166,8 @@
                                             <div class="col-2">
                                                 <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
                                                 <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width:60px;">
-                                                    <option value="Dry">Dry</option>
-                                                    <option value="Wet">Wet</option>
+                                                    <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
+                                                    <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
                                                 </select>
                                             </div>
                                             <div class="col-5">
@@ -166,15 +178,48 @@
                                             <div class="col-4">
                                                 <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="col-3 float-left">&nbsp;</div>
-                                                <div class="col-9  float-left text-align-left">
+                                            <div class="col-12 row">
+                                                <div class="col-3">
+                                                    <div class="col-12"><label> Category</label></div>
+                                                    <div class="row">
+                                                        <div class="col-4"></div>
+                                                        <div class="col-8">
+                                                            <select id="row@(i)Category" name="row@(i)Category" class="form-select" style="width:80px;">
+                                                                <option value="">Select</option>
+                                                                <option value="Band" selected="@projectDetail.WD.Equals("Band")">Band</option>
+                                                                <option value="Bench" selected="@projectDetail.WD.Equals("Bench")">Bench</option>
+                                                                <option value="Block" selected="@projectDetail.WD.Equals("Block")">Block</option>
+                                                                <option value="Bollard" selected="@projectDetail.WD.Equals("Bollard")">Bollard</option>
+                                                                <option value="Cap">Cap</option>
+                                                                <option value="Coping">Coping</option>
+                                                                <option value="Cornice">Cornice</option>
+                                                                <option value="Date Stone">Date Stone</option>
+                                                                <option value="Header">Header</option>
+                                                                <option value="Lintel">Lintel</option>
+                                                                <option value="Panel">Panel</option>
+                                                                <option value="Planter">Planter</option>
+                                                                <option value="Sill">Sill</option>
+                                                                <option value="Site Furniture">Site Furniture</option>
+                                                                <option value="Slab">Slab</option>
+                                                                <option value="Soffit">Soffit</option>
+                                                                <option value="Spandrel">Spandrel</option>
+                                                                <option value="Stair">Stair</option>
+                                                                <option value="Veneer">Veneer</option>
+                                                                <option value="Wall">Wall</option>
+                                                                <option value="Water Table">Water Table</option>
+                                                                <option value="Unique Item">Unique Item</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-9 text-align-left">
 
                                                     <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
 
-                                                    <textarea id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" style="height:80px;" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote"></textarea>
-
+                                                    <textarea id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote" style="height:50px"></textarea>
+                                                    <label for="inputPassword" class="col-7 ">Plan/Elevation</label>
+                                                    <input id="row@(i)PlanElevation" name="row@(i)PlanElevation" class="form-control" type="text" value="@projectDetail.PlanElevation"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -567,9 +612,12 @@
 
 
 @section scripts {
+    
     <script>
             $(document).ready(function () {
-
+            $('#datepicker').datepicker({
+                autoclose: true
+            });
                 /* This is basic - uses default settings */
                 window.console.log(1);
             CalculateTotalActualOnChangeOfActualCF();

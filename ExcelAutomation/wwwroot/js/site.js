@@ -58,7 +58,9 @@ function OnAddRow() {
     '<label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>' +
 
 
-    '<textarea id="row' + rowCount + 'DispositionSpecialNote" name="row' + rowCount + 'DispositionSpecialNote" style="height:80px;" class="form-control" type="text" ></textarea>' +
+       '<textarea id="row' + rowCount + 'DispositionSpecialNote" name="row' + rowCount + 'DispositionSpecialNote" style="height:50px;" class="form-control" type="text" ></textarea>' +
+       '<label class="col-7 ">Plan/Elevation</label>' +
+       '< input id = "row' + rowCount + 'PlanElevation" name = "row' + rowCount + 'PlanElevation" class="form-control" type = "text" /> '
 
     '</div>' +
         '</div>' +
@@ -416,4 +418,12 @@ function SumLineItemChargeCF() {
     }
     if ( sum != "")
         document.getElementById('rowFPSumOfLineItemChargeCF').value = (sum).round(2);
+}
+
+function ConvertNumberToFraction(number) {
+
+}
+
+function FractionList() {
+
 }

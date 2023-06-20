@@ -76,11 +76,13 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.Wd)
                 .HasMaxLength(50)
                 .HasColumnName("WD");
-            entity.Property(e => e.Width).HasMaxLength(50);
+            entity.Property(e => e.Width).HasMaxLength(50).HasMaxLength(50);
 
             entity.Property(e => e.LineItemCharge).IsRequired(false);
 
-            entity.Property(e => e.TotalActualNominalValue).IsRequired(false);
+            entity.Property(e => e.TotalActualNominalValue).IsRequired(false).HasMaxLength(50);
+            entity.Property(e => e.PlanElevation).IsRequired(false).HasMaxLength(250);
+            entity.Property(e => e.Category).IsRequired(false).HasMaxLength(50);
 
             entity.HasOne(d => d.Project).WithMany(p => p.ProjectDetails)
                 .HasForeignKey(d => d.ProjectId)

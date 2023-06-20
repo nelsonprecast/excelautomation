@@ -71,6 +71,18 @@
             <div class="col-sm-3">
                 <input id="projectname" name="projectname" class="form-control" />
             </div>
+            <label for="staticEmail" class="col-sm-2">Date:</label>
+            <div class="col-sm-1">
+
+                <div class="input-group date" id="datepicker">
+                    <input type="text" class="form-control" id="date" />
+                    <span class="input-group-append">
+                        <span class="input-group-text bg-light d-block">
+                            <i class="fa fa-calendar"></i>
+                        </span>
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="input-group">
             <label for="inputPassword" class="col-sm-2 col-form-label">Nominal CF:</label>
@@ -162,10 +174,10 @@
                                         <div class="col-3 float-left">&nbsp;</div>
                                         <div class="col-9  float-left text-align-left">
 
-                                            <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
-
-
-                                            <textarea id="row1DispositionSpecialNote" name="row1DispositionSpecialNote" style="height:80px;" class="form-control" type="text" ></textarea>
+                                            <label class="col-7 "> Disposition (Special Notes)</label>
+                                            <textarea id="row1DispositionSpecialNote" name="row1DispositionSpecialNote" class="form-control" type="text" style="height:50px"></textarea>
+                                            <label class="col-7 ">Plan/Elevation</label>
+                                            <input id="row1PlanElevation" name="row1PlanElevation" class="form-control" type="text" />
 
                                         </div>
                                     </div>
