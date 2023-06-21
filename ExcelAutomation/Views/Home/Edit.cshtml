@@ -309,7 +309,7 @@
                                                 <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/>
                                             </div>
                                             <div class="light-green col float-left">
-                                                <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/>
+                                                <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
                                             </div>
                                         </div>
                                     </div>
@@ -624,6 +624,9 @@
             CalculateTotalNominalOnChangeOfNominalCF();
             var rowCount = $('.exceldatarow').length;
             for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+                ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Length'));
+                ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Width'));
+                ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Height'));
                 CalculateActCFPcs(rownumber);
                 CalculateTotalActCF(rownumber);
                 CalculateNomCFLF(rownumber);
