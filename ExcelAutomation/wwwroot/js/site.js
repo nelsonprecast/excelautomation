@@ -420,10 +420,95 @@ function SumLineItemChargeCF() {
         document.getElementById('rowFPSumOfLineItemChargeCF').value = (sum).round(2);
 }
 
-function ConvertNumberToFraction(number) {
-
+function ConvertNumberToFraction(input) {
+    var numberDecimal = Math.abs(input.value);
+    var decimalValue = numberDecimal - Math.floor(numberDecimal);
+    var intergerValue = numberDecimal - (numberDecimal - Math.floor(numberDecimal));
+    if (decimalValue >= 0) { 
+        var decimalNumber = GetUpperLimitOfDecimalToGetFractionValue(decimalValue);
+        input.value = intergerValue + " " + GetFraction(decimalNumber);
+    }
 }
 
-function FractionList() {
+function GetUpperLimitOfDecimalToGetFractionValue(inputNumber) {
+    var selectedNumber = 0;
+    var listOfDecimalValues = new Array();
+    listOfDecimalValues.push(0.125);
+    listOfDecimalValues.push(0.250);
+    listOfDecimalValues.push(0.375);
+    listOfDecimalValues.push(0.500);
+    listOfDecimalValues.push(0.625);
+    listOfDecimalValues.push(0.750);
+    listOfDecimalValues.push(0.875);
+    listOfDecimalValues.push(0.0625);
+    listOfDecimalValues.push(0.1875);
+    listOfDecimalValues.push(0.3125);
+    listOfDecimalValues.push(0.4375);
+    listOfDecimalValues.push(0.5625);
+    listOfDecimalValues.push(0.6875);
+    listOfDecimalValues.push(0.8125);
+    listOfDecimalValues.push(0.9375);
+    listOfDecimalValues.sort(function (a, b) { return a - b; });
+
+    listOfDecimalValues = listOfDecimalValues.sort(function (a, b) { return a - b; });
+    // Log to console
+    console.log(listOfDecimalValues)
+
+    for (var i = 0; i < listOfDecimalValues.length; i++) {
+        if (i + 1 < listOfDecimalValues.length) {
+            if (inputNumber >= listOfDecimalValues[i] || inputNumber <= listOfDecimalValues[i + 1]) {
+                if (inputNumber == listOfDecimalValues[i]) {
+                    selectedNumber = listOfDecimalValues[i];
+                    console.log(listOfDecimalValues[i]);
+                    break;
+                }
+                if (inputNumber <= listOfDecimalValues[i + 1]) {
+                    selectedNumber = listOfDecimalValues[i + 1];
+                    console.log(listOfDecimalValues[i + 1]);
+                    break;
+                }
+            }
+        }
+        else {
+            console.log(listOfDecimalValues[i + 1]);
+            selectedNumber = listOfDecimalValues[i + 1];
+        }
+    }
+
+    return selectedNumber;
+}
+
+
+function GetFraction(decimalNumber) {
+    if (decimalNumber == 0.125)
+        return "1/8";
+    if (decimalNumber == 0.250)
+        return "1/4";
+    if (decimalNumber == 0.375)
+        return "3/8";
+    if (decimalNumber == 0.500)
+        return "1/2";
+    if (decimalNumber == 0.625)
+        return "5/8";
+    if (decimalNumber == 0.750)
+        return "3/4";
+    if (decimalNumber == 0.875)
+        return "7/8";
+    if (decimalNumber == 0.0625)
+        return "1/16";
+    if (decimalNumber == 0.1875)
+        return "3/16";
+    if (decimalNumber == 0.3125)
+        return "5/16";
+    if (decimalNumber == 0.4375)
+        return "7/16";
+    if (decimalNumber == 0.5625)
+        return "9/16";
+    if (decimalNumber == 0.6875)
+        return "11/16";
+    if (decimalNumber == 0.8125)
+        return "13/16";
+    if (decimalNumber == 0.9375)
+        return "15/16";
 
 }
