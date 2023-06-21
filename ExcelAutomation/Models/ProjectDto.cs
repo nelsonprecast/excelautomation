@@ -13,6 +13,8 @@
 
         public DateTime? CreatedDate { get; set; }
 
+        public DateTime? RevisionDate { get; set; }
+
         public ICollection<ProjectDetailDto> ProjectDetails { get; set; }
     }
 }

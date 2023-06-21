@@ -52,7 +52,39 @@ function OnAddRow() {
     '<input id="row' + rowCount + 'DetailPage" name="row' + rowCount + 'DetailPage" class="form-control" type="text" />' +
         '</div>' +
     '<div class="col-12">' +
-    '<div class="col-3 float-left">&nbsp;</div>' +
+       '<div class="col-3 float-left">' +
+       '<div class="col-12"><label> Category</label></div>' +
+       '<div class="row">' +
+       '<div class="col-4"></div>' +
+       '<div class="col-8">' +
+       '<select id="row' + rowCount + 'Category" name="row' + rowCount + 'Category" class="form-select" style="width:80px;">' +
+       '<option value="">Select</option>' +
+       '<option value="Band" selected="@projectDetail.WD.Equals("Band")">Band</option>' +
+       '<option value="Bench" selected="@projectDetail.WD.Equals("Bench")">Bench</option>' +
+       '<option value="Block" selected="@projectDetail.WD.Equals("Block")">Block</option>' +
+       '<option value="Bollard" selected="@projectDetail.WD.Equals("Bollard")" > Bollard</option>' +
+       '<option value="Cap">Cap</option>' +
+       '<option value="Coping">Coping</option>' +
+       '<option value="Cornice">Cornice</option>' +
+       '<option value="Date Stone">Date Stone</option>' +
+       '<option value="Header">Header</option>' +
+       '<option value="Lintel">Lintel</option>' +
+       '<option value="Panel">Panel</option>' +
+       '<option value="Planter">Planter</option>' +
+       '<option value="Sill">Sill</option>' +
+       '<option value="Site Furniture">Site Furniture</option>' +
+       '<option value="Slab">Slab</option>' +
+       '<option value="Soffit">Soffit</option>' +
+       '<option value="Spandrel">Spandrel</option>' +
+       '<option value="Stair">Stair</option>' +
+       '<option value="Veneer">Veneer</option>' +
+       '<option value="Wall">Wall</option>' +
+       '<option value="Water Table">Water Table</option>' +
+       '<option value="Unique Item">Unique Item</option>' +
+       '</select>' +
+       '</div>' +
+       '</div>' +
+    '</div> ' +
     '<div class="col-9  float-left text-align-left">' +
 
     '<label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>' +
@@ -60,7 +92,7 @@ function OnAddRow() {
 
        '<textarea id="row' + rowCount + 'DispositionSpecialNote" name="row' + rowCount + 'DispositionSpecialNote" style="height:50px;" class="form-control" type="text" ></textarea>' +
        '<label class="col-7 ">Plan/Elevation</label>' +
-       '< input id = "row' + rowCount + 'PlanElevation" name = "row' + rowCount + 'PlanElevation" class="form-control" type = "text" /> '
+       '<input id = "row' + rowCount + 'PlanElevation" name = "row' + rowCount + 'PlanElevation" class="form-control" type = "text" /> '
 
     '</div>' +
         '</div>' +

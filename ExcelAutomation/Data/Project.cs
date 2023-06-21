@@ -17,5 +17,7 @@ public partial class Project
 
     public DateTime? CreatedDate { get; set; }
 
+    public DateTime? RevisionDate { get; set; }
+
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }

@@ -3,6 +3,7 @@ using ExcelAutomation.Models;
 using ExcelAutomation.Service;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace ExcelAutomation.Controllers
 {
@@ -51,6 +52,7 @@ namespace ExcelAutomation.Controllers
             project.ProjectName = Request.Form["projectname"];
             project.NominalCF = Request.Form["NominalCF"];
             project.ActualCF = Request.Form["ActualCF"];
+            project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"],"MM/dd/yyyy",CultureInfo.InvariantCulture);
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
@@ -116,6 +118,7 @@ namespace ExcelAutomation.Controllers
             project.NominalCF = Request.Form["NominalCF"];
             project.ActualCF = Request.Form["ActualCF"];
             project.LineItemTotal = Request.Form["LineItemTotal"];
+            project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {

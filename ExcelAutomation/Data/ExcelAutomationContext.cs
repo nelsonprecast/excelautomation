@@ -37,6 +37,8 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.CreatedDate).IsRequired(false);
 
             entity.Property(e => e.LineItemTotal).IsRequired(false);
+
+            entity.Property(e => e.RevisionDate).IsRequired(false);
         });
 
         modelBuilder.Entity<ProjectDetail>(entity =>

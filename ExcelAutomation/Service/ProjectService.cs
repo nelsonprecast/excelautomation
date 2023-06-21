@@ -74,6 +74,7 @@ namespace ExcelAutomation.Service
             projectDto.NominalCF = project.NominalCf;
             projectDto.CreatedDate = project.CreatedDate ?? DateTime.MinValue;
             projectDto.LineItemTotal = project.LineItemTotal;
+            projectDto.RevisionDate = project.RevisionDate;
 
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)
@@ -122,6 +123,8 @@ namespace ExcelAutomation.Service
                 project.ActualCf = projectDto.ActualCF;
                 project.NominalCf = projectDto.NominalCF;
                 project.LineItemTotal = projectDto.LineItemTotal;
+                project.RevisionDate = projectDto.RevisionDate;
+
                 _context.Update(project);
                 _context.SaveChanges();
                 if (project.ProjectDetails != null)
