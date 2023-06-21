@@ -2,6 +2,7 @@
 {
     public class ProjectDetailDto
     {
+        public int Index { get; set; }
         public int ProjectDetailId { get; set; }
         public string WD { get; set; }
         public string ItemName { get; set; }

@@ -172,5 +172,12 @@ namespace ExcelAutomation.Controllers
             _projectService.UpdateProjectDetail(project);
             return RedirectToAction("Edit",new{id= project.ProjectId });
         }
+
+        public IActionResult GetProjectDetailView(int id)
+        {
+            var projectDetailDto = new ProjectDetailDto();
+            projectDetailDto.Index = id;
+            return PartialView("_ProjectDetailPartial", projectDetailDto);
+        }
     }
 }

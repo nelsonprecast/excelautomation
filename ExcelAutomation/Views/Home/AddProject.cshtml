@@ -171,7 +171,40 @@
                                         <input id="row1DetailPage" name="row1DetailPage" class="form-control" type="text" />
                                     </div>
                                     <div class="col-12">
-                                        <div class="col-3 float-left">&nbsp;</div>
+                                        <div class="col-3 float-left">
+                                        <div class="col-12"><label> Category</label></div>
+                                        <div class="row">
+                                            <div class="col-4"></div>
+                                            <div class="col-8">
+                                                <select id="row1Category" name="row1Category" class="form-select" style="width:80px;">
+                                                    <option value="">Select</option>
+                                                    <option value="Band">Band</option>
+                                                    <option value="Bench">Bench</option>
+                                                    <option value="Block">Block</option>
+                                                    <option value="Bollard">Bollard</option>
+                                                    <option value="Cap">Cap</option>
+                                                    <option value="Coping">Coping</option>
+                                                    <option value="Cornice">Cornice</option>
+                                                    <option value="Date Stone">Date Stone</option>
+                                                    <option value="Header">Header</option>
+                                                    <option value="Lintel">Lintel</option>
+                                                    <option value="Panel">Panel</option>
+                                                    <option value="Planter">Planter</option>
+                                                    <option value="Sill">Sill</option>
+                                                    <option value="Site Furniture">Site Furniture</option>
+                                                    <option value="Slab">Slab</option>
+                                                    <option value="Soffit">Soffit</option>
+                                                    <option value="Spandrel">Spandrel</option>
+                                                    <option value="Stair">Stair</option>
+                                                    <option value="Veneer">Veneer</option>
+                                                    <option value="Wall">Wall</option>
+                                                    <option value="Water Table">Water Table</option>
+                                                    <option value="Unique Item">Unique Item</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        </div>
                                         <div class="col-9  float-left text-align-left">
 
                                             <label class="col-7 "> Disposition (Special Notes)</label>
@@ -198,10 +231,10 @@
                                 <div class="col-5 row">
 
                                     <div class="col">
-                                        <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateNomCFPcs(1);ConvertNumberToFraction(this);" style="width:70px" />
+                                    <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);ConvertNumberToFraction(this);" style="width:70px" />
                                     </div>
                                     <div class="col">
-                                        <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
+                                    <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
                                     </div>
                                     <div class="col">
                                         <input id="row1Height" name="row1Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />

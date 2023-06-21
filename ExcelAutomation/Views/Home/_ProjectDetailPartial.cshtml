@@ -1,0 +1,186 @@
+﻿@model ExcelAutomation.Models.ProjectDetailDto
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="@(Model.Index%2==0?"secondary": "primary") row exceldatarow">
+    <div class="col-4 row">
+        <div class="col-1">@Model.Index</div>
+        <div class="col-2 text-align-left">W/D</div>
+        <div class="col-5 text-align-left">
+            Item Name
+
+        </div>
+
+        <div class="col-4 text-align-left">
+
+            Detail
+            #/Page
+
+        </div>
+    </div>
+    <div class="col text-align-left">Takeoff Color</div>
+    <div class="col-5 row text-align-left">
+        <div class="col text-align-left">Length</div>
+        <div class="col text-align-left">
+            Width
+        </div>
+        <div class="col text-align-left">
+            Height
+        </div>
+        <div class="col text-align-left">
+            Pcs
+        </div>
+        <div class="col text-align-left">
+            Mold QTY
+        </div>
+    </div>
+    <div class="col-2 row light-green"></div>
+    <div class="col-4 row">
+        <div class="col-1">&nbsp;</div>
+        <div class="col-2">
+            <input id="row1projectDetailId" name="row1projectDetailId" type="hidden" />
+            <select id="row1WD" name="row1WD" class="form-select" style="width:60px;">
+                <option value="Dry">Dry</option>
+                <option value="Wet">Wet</option>
+            </select>
+        </div>
+        <div class="col-5">
+            <input id="row1ItemName" name="row1ItemName" class="form-control" type="text" />
+
+        </div>
+
+        <div class="col-4">
+            <input id="row1DetailPage" name="row1DetailPage" class="form-control" type="text" />
+        </div>
+        <div class="col-12">
+            <div class="col-3 float-left">
+                <div class="col-12"><label> Category</label></div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <select id="row1Category" name="row1Category" class="form-select" style="width:80px;">
+                            <option value="">Select</option>
+                            <option value="Band">Band</option>
+                            <option value="Bench">Bench</option>
+                            <option value="Block">Block</option>
+                            <option value="Bollard">Bollard</option>
+                            <option value="Cap">Cap</option>
+                            <option value="Coping">Coping</option>
+                            <option value="Cornice">Cornice</option>
+                            <option value="Date Stone">Date Stone</option>
+                            <option value="Header">Header</option>
+                            <option value="Lintel">Lintel</option>
+                            <option value="Panel">Panel</option>
+                            <option value="Planter">Planter</option>
+                            <option value="Sill">Sill</option>
+                            <option value="Site Furniture">Site Furniture</option>
+                            <option value="Slab">Slab</option>
+                            <option value="Soffit">Soffit</option>
+                            <option value="Spandrel">Spandrel</option>
+                            <option value="Stair">Stair</option>
+                            <option value="Veneer">Veneer</option>
+                            <option value="Wall">Wall</option>
+                            <option value="Water Table">Water Table</option>
+                            <option value="Unique Item">Unique Item</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-9  float-left text-align-left">
+
+                <label class="col-7 "> Disposition (Special Notes)</label>
+                <textarea id="row1DispositionSpecialNote" name="row1DispositionSpecialNote" class="form-control" type="text" style="height:50px"></textarea>
+                <label class="col-7 ">Plan/Elevation</label>
+                <input id="row1PlanElevation" name="row1PlanElevation" class="form-control" type="text" />
+
+            </div>
+        </div>
+    </div>
+    <div class="col-1">
+        <div class="col">
+            <input id="row1TakeOffColor" name="row1TakeOffColor" type="text" class="form-control" style="width:100px" />
+        </div>
+        <div class="col text-align-left"> Section</div>
+        <div class="col-12 no-margin text-align-left">
+        </div>
+        <div class="col-12 text-align-left">
+            <input type="file" id="row1File" name="row1File" class="form-control" />
+        </div>
+
+    </div>
+    <div class="col-5 row">
+
+        <div class="col">
+            <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);ConvertNumberToFraction(this);" style="width:70px" />
+        </div>
+        <div class="col">
+            <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
+        </div>
+        <div class="col">
+            <input id="row1Height" name="row1Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
+        </div>
+        <div class="col">
+            <input id="row1Pieces" name="row1Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
+        </div>
+
+
+
+
+        <div class="col">
+            <input id="row1MoldQTY" name="row1MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
+        </div>
+        <div class="row">
+            <div class="col text-align-left">Total LF</div>
+            <div class="col text-align-left"></div>
+            <div class="col text-align-left">Nom. CF/LF</div>
+            <div class="col text-align-left">Total Nom. CF</div>
+            <div class="col text-align-left"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input id="row1TotalLF" name="row1TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(1);CalculateTotalNomCF(1);CalculateActSFCFLF(1);" class="form-control" style="width:70px" />
+            </div>
+            <div class="col"></div>
+            <div class="col float-left">
+                <input id="row1NomCFLF" name="row1NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(1);CalculateTotalNomCF(1);" style="width:70px" />
+            </div>
+            <div class="col float-left">
+                <input id="row1TotalNomCF" name="row1TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(1)" />
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col text-align-left">Act SF CF/LF</div>
+            <div class="col text-align-left">Act CF/Pcs</div>
+            <div class="col text-align-left">Total Act CF</div>
+            <div class="col text-align-left">Nom. CF/Pcs</div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col float-left">
+                <input id="row1ActSFCFLF" name="row1ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateTotalActCF(1);" style="width:70px" />
+            </div>
+            <div class="col float-left">
+                <input id="row1ActCFPcs" name="row1ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" />
+            </div>
+            <div class="col float-left">
+                <input id="row1TotalActCF" name="row1TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(1);" class="form-control" style="width:70px" />
+            </div>
+
+            <div class="col float-left">
+                <input id="row1NomCFPcs" name="row1NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" />
+            </div>
+            <div class="col"></div>
+
+        </div>
+    </div>
+    <div class="col-2 row">
+        <div class="light-green col float-left">
+            <span class="float-left">$</span><input id="row1TotalActual" name="row1TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+        </div>
+        <div class="light-green col float-left">
+            <span class="float-left">$</span><input id="row1TotalNominal" name="row1TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+        </div>
+    </div>
+</div>
