@@ -354,7 +354,7 @@ function SumTotalOfActual() {
         if (TotalActual != "")
             sum = sum + parseFloat( TotalActual);
     }
-    document.getElementById('rowFPSumTotalActual').value = sum.round(2);
+    document.getElementById('rowFPSumTotalActual').value = sum.round(2)
 }
 
 function SumTotalOfNominal() {
@@ -366,7 +366,7 @@ function SumTotalOfNominal() {
         if (TotalNominal != "")
             sum = sum + parseFloat(TotalNominal);
     }
-    document.getElementById('rowFPSumTotalNominal').value = sum.round(2);
+    document.getElementById('rowFPSumTotalNominal').value = sum.round(2)
 }
 
 function OnLineItemChange(rownumber) {
@@ -456,7 +456,7 @@ function ConvertNumberToFraction(input) {
     var numberDecimal = Math.abs(input.value);
     var decimalValue = numberDecimal - Math.floor(numberDecimal);
     var intergerValue = numberDecimal - (numberDecimal - Math.floor(numberDecimal));
-    if (decimalValue >= 0) { 
+    if (decimalValue > 0) { 
         var decimalNumber = GetUpperLimitOfDecimalToGetFractionValue(decimalValue);
         input.value = intergerValue + " " + GetFraction(decimalNumber);
     }
