@@ -241,13 +241,16 @@
                                         <div class="col-5 row">
 
                                             <div class="col">
-                                                <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(@(i));CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));ConvertNumberToFraction(this);" style="width:70px" value="@projectDetail.Length" />
+                                                <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(@(i));CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
+                                                <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" value="@projectDetail.Length" />
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateActSFCFLF(@(i));CalculateNomCFLF(@(i));ConvertNumberToFraction(this);" class="form-control" style="width:70px" value="@projectDetail.Width" />
+                                                <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(@(i));CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width" />
+                                                <input id="row@(i)WidthHidden" name="row@(i)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);" style="width:70px" value="@projectDetail.Width" />
                                             </div>
                                             <div class="col">
-                                                <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));ConvertNumberToFraction(this);" class="form-control" style="width:70px" value="@projectDetail.Height" />
+                                                <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
+                                                <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);" class="form-control" style="width:70px" value="@projectDetail.Height" />
                                             </div>
                                             <div class="col">
                                                 <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces"/>

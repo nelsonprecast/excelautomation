@@ -62,9 +62,9 @@ namespace ExcelAutomation.Controllers
                 projectDetail.DispositionSpecialNote = Request.Form["row" + i + "DispositionSpecialNote"];
                 projectDetail.DetailPage = Request.Form["row" + i + "DetailPage"];
                 projectDetail.TakeOffColor = Request.Form["row" + i + "TakeOffColor"];
-                projectDetail.Length = Request.Form["row" + i + "Length"];
-                projectDetail.Width = Request.Form["row" + i + "Width"];
-                projectDetail.Height = Request.Form["row" + i + "Height"];
+                projectDetail.Length = Request.Form["row" + i + "LengthHidden"];
+                projectDetail.Width = Request.Form["row" + i + "WidthHidden"];
+                projectDetail.Height = Request.Form["row" + i + "HeightHidden"];
                 projectDetail.Pieces = Request.Form["row" + i + "Pieces"];
                 projectDetail.TotalLf = Request.Form["row" + i + "TotalLF"];
                 projectDetail.ActSfcflf = Request.Form["row" + i + "ActSFCFLF"];
@@ -132,9 +132,9 @@ namespace ExcelAutomation.Controllers
                 projectDetail.DispositionSpecialNote = Request.Form["row" + i + "DispositionSpecialNote"];
                 projectDetail.DetailPage = Request.Form["row" + i + "DetailPage"];
                 projectDetail.TakeOffColor = Request.Form["row" + i + "TakeOffColor"];
-                projectDetail.Length = Request.Form["row" + i + "Length"];
-                projectDetail.Width = Request.Form["row" + i + "Width"];
-                projectDetail.Height = Request.Form["row" + i + "Height"];
+                projectDetail.Length = Request.Form["row" + i + "LengthHidden"];
+                projectDetail.Width = Request.Form["row" + i + "WidthHidden"];
+                projectDetail.Height = Request.Form["row" + i + "HeightHidden"];
                 projectDetail.Pieces = Request.Form["row" + i + "Pieces"];
                 projectDetail.TotalLf = Request.Form["row" + i + "TotalLF"];
                 projectDetail.ActSfcflf = Request.Form["row" + i + "ActSFCFLF"];

@@ -38,19 +38,18 @@
     <div class="col-4 row">
         <div class="col-1">&nbsp;</div>
         <div class="col-2">
-            <input id="row1projectDetailId" name="row1projectDetailId" type="hidden" />
-            <select id="row1WD" name="row1WD" class="form-select" style="width:60px;">
+            <select id="row@(Model.Index)WD" name="row@(Model.Index)WD" class="form-select" style="width:60px;">
                 <option value="Dry">Dry</option>
                 <option value="Wet">Wet</option>
             </select>
         </div>
         <div class="col-5">
-            <input id="row1ItemName" name="row1ItemName" class="form-control" type="text" />
+            <input id="row@(Model.Index)ItemName" name="row@(Model.Index)ItemName" class="form-control" type="text" />
 
         </div>
 
         <div class="col-4">
-            <input id="row1DetailPage" name="row1DetailPage" class="form-control" type="text" />
+            <input id="row@(Model.Index)DetailPage" name="row@(Model.Index)DetailPage" class="form-control" type="text" />
         </div>
         <div class="col-12">
             <div class="col-3 float-left">
@@ -58,7 +57,7 @@
                 <div class="row">
                     <div class="col-4"></div>
                     <div class="col-8">
-                        <select id="row1Category" name="row1Category" class="form-select" style="width:80px;">
+                        <select id="row@(Model.Index)Category" name="row@(Model.Index)Category" class="form-select" style="width:80px;">
                             <option value="">Select</option>
                             <option value="Band">Band</option>
                             <option value="Bench">Bench</option>
@@ -90,45 +89,48 @@
             <div class="col-9  float-left text-align-left">
 
                 <label class="col-7 "> Disposition (Special Notes)</label>
-                <textarea id="row1DispositionSpecialNote" name="row1DispositionSpecialNote" class="form-control" type="text" style="height:50px"></textarea>
+                <textarea id="row@(Model.Index)DispositionSpecialNote" name="row@(Model.Index)DispositionSpecialNote" class="form-control" type="text" style="height:50px"></textarea>
                 <label class="col-7 ">Plan/Elevation</label>
-                <input id="row1PlanElevation" name="row1PlanElevation" class="form-control" type="text" />
+                <input id="row@(Model.Index)PlanElevation" name="row@(Model.Index)PlanElevation" class="form-control" type="text" />
 
             </div>
         </div>
     </div>
     <div class="col-1">
         <div class="col">
-            <input id="row1TakeOffColor" name="row1TakeOffColor" type="text" class="form-control" style="width:100px" />
+            <input id="row@(Model.Index)TakeOffColor" name="row@(Model.Index)TakeOffColor" type="text" class="form-control" style="width:100px" />
         </div>
         <div class="col text-align-left"> Section</div>
         <div class="col-12 no-margin text-align-left">
         </div>
         <div class="col-12 text-align-left">
-            <input type="file" id="row1File" name="row1File" class="form-control" />
+            <input type="file" id="row@(Model.Index)File" name="row@(Model.Index)File" class="form-control" />
         </div>
 
     </div>
     <div class="col-5 row">
 
         <div class="col">
-            <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);ConvertNumberToFraction(this);" style="width:70px" />
+            <input id="row@(Model.Index)Length" name="row@(Model.Index)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
+            <input id="row@(Model.Index)LengthHidden" name="row@(Model.Index)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
         </div>
         <div class="col">
-            <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)Width" name="row@(Model.Index)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(1);CalculateNomCFLF(1);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)WidthHidden" name="row@(Model.Index)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);" style="width:70px" />
         </div>
         <div class="col">
-            <input id="row1Height" name="row1Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);ConvertNumberToFraction(this);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)Height" name="row@(Model.Index)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(1);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)HeightHidden" name="row@(Model.Index)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);" class="form-control" style="width:70px" />
         </div>
         <div class="col">
-            <input id="row1Pieces" name="row1Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)Pieces" name="row@(Model.Index)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
         </div>
 
 
 
 
         <div class="col">
-            <input id="row1MoldQTY" name="row1MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
+            <input id="row@(Model.Index)MoldQTY" name="row@(Model.Index)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
         </div>
         <div class="row">
             <div class="col text-align-left">Total LF</div>
@@ -139,14 +141,14 @@
         </div>
         <div class="row">
             <div class="col">
-                <input id="row1TotalLF" name="row1TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(1);CalculateTotalNomCF(1);CalculateActSFCFLF(1);" class="form-control" style="width:70px" />
+                <input id="row@(Model.Index)TotalLF" name="row@(Model.Index)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(1);CalculateTotalNomCF(1);CalculateActSFCFLF(1);" class="form-control" style="width:70px" />
             </div>
             <div class="col"></div>
             <div class="col float-left">
-                <input id="row1NomCFLF" name="row1NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(1);CalculateTotalNomCF(1);" style="width:70px" />
+                <input id="row@(Model.Index)NomCFLF" name="row@(Model.Index)NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(1);CalculateTotalNomCF(1);" style="width:70px" />
             </div>
             <div class="col float-left">
-                <input id="row1TotalNomCF" name="row1TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(1)" />
+                <input id="row@(Model.Index)TotalNomCF" name="row@(Model.Index)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(1)" />
             </div>
             <div class="col"></div>
         </div>
@@ -159,17 +161,17 @@
         </div>
         <div class="row">
             <div class="col float-left">
-                <input id="row1ActSFCFLF" name="row1ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateTotalActCF(1);" style="width:70px" />
+                <input id="row@(Model.Index)ActSFCFLF" name="row@(Model.Index)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateTotalActCF(1);" style="width:70px" />
             </div>
             <div class="col float-left">
-                <input id="row1ActCFPcs" name="row1ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" />
+                <input id="row@(Model.Index)ActCFPcs" name="row@(Model.Index)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" />
             </div>
             <div class="col float-left">
-                <input id="row1TotalActCF" name="row1TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(1);" class="form-control" style="width:70px" />
+                <input id="row@(Model.Index)TotalActCF" name="row@(Model.Index)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(1);" class="form-control" style="width:70px" />
             </div>
 
             <div class="col float-left">
-                <input id="row1NomCFPcs" name="row1NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" />
+                <input id="row@(Model.Index)NomCFPcs" name="row@(Model.Index)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" />
             </div>
             <div class="col"></div>
 
@@ -177,10 +179,10 @@
     </div>
     <div class="col-2 row">
         <div class="light-green col float-left">
-            <span class="float-left">$</span><input id="row1TotalActual" name="row1TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+            <span class="float-left">$</span><input id="row@(Model.Index)TotalActual" name="row@(Model.Index)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
         </div>
         <div class="light-green col float-left">
-            <span class="float-left">$</span><input id="row1TotalNominal" name="row1TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+            <span class="float-left">$</span><input id="row@(Model.Index)TotalNominal" name="row@(Model.Index)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
         </div>
     </div>
 </div>

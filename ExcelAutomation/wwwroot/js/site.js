@@ -40,36 +40,49 @@ function CalculateTotalActCF(rownumber) {
 
     if (ActSFCFLF !== "" && TotalLF !== "") {
         document.getElementById('row' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
-        document.getElementById('rowFP' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);        
+        if (document.getElementById('rowFP' + rownumber + 'TotalActCF'))
+            document.getElementById('rowFP' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'TotalActCF').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'TotalActCF'))
+            document.getElementById('rowFP' + rownumber + 'TotalActCF').value = "";
+    }
     CalculateTotalActual(rownumber);
 }
 
 function CalculateNomCFLF(rownumber) {
-    var Width = document.getElementById('row' + rownumber + 'Width').value;
-    var Height = document.getElementById('row' + rownumber + 'Height').value;
+    var Width = document.getElementById('row' + rownumber + 'WidthHidden').value;
+    var Height = document.getElementById('row' + rownumber + 'HeightHidden').value;
 
     if (Width !== "" && Height !== "") {
         document.getElementById('row' + rownumber + 'NomCFLF').value = ((Width * Height) / 144).round(2);
-        document.getElementById('rowFP' + rownumber + 'NomCFLF').value = ((Width * Height) / 144).round(2);
+        if (document.getElementById('rowFP' + rownumber + 'NomCFLF'))
+            document.getElementById('rowFP' + rownumber + 'NomCFLF').value = ((Width * Height) / 144).round(2);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'NomCFLF').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'NomCFLF'))
+            document.getElementById('rowFP' + rownumber + 'NomCFLF').value = "";
+    }
     CalculateTotalNomCF(rownumber);
 }
 
 function CalculateNomCFPcs(rownumber) {
-    var Length = document.getElementById('row' + rownumber + 'Length').value;
+    var Length = document.getElementById('row' + rownumber + 'LengthHidden').value;
     var NomCFLF = document.getElementById('row' + rownumber + 'NomCFLF').value;
 
     if (Length !== "" && NomCFLF !== "") {
         document.getElementById('row' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
-        document.getElementById('rowFP' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
+        if (document.getElementById('rowFP' + rownumber + 'NomCFPcs'))
+            document.getElementById('rowFP' + rownumber + 'NomCFPcs').value = (Length * NomCFLF).round(2);
     }
-    else
+    else {
         document.getElementById('row' + rownumber + 'NomCFPcs').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'NomCFPcs'))
+            document.getElementById('rowFP' + rownumber + 'NomCFPcs').value = "";
+    }
+     CalculateTotalNomCF(rownumber);
 }
 
 function CalculateTotalNomCF(rownumber) {
@@ -78,19 +91,21 @@ function CalculateTotalNomCF(rownumber) {
 
     if (TotalLF !== "" && NomCFLF !== "") {
         document.getElementById('row' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
-        document.getElementById('rowFP' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
+        if (document.getElementById('rowFP' + rownumber + 'TotalNomCF'))
+            document.getElementById('rowFP' + rownumber + 'TotalNomCF').value = (TotalLF * NomCFLF).round(2);
         CalculateTotalNominal(rownumber);
     }
     else {
         document.getElementById('row' + rownumber + 'TotalNomCF').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'TotalNomCF'))
         document.getElementById('rowFP' + rownumber + 'TotalNomCF').value = "";
     }
 }
 
 function CalculateActSFCFLF(rownumber) {
-    var Width = document.getElementById('row' + rownumber + 'Width').value;
+    var Width = document.getElementById('row' + rownumber + 'WidthHidden').value;
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
-    var Length = document.getElementById('row' + rownumber + 'Length').value;
+    var Length = document.getElementById('row' + rownumber + 'LengthHidden').value;
 
     if (TotalLF !== "" && Width !== "" && Length !== "") {
         document.getElementById('row' + rownumber + 'ActSFCFLF').value = (Length * Width / 144 * TotalLF).round(2);
@@ -102,7 +117,7 @@ function CalculateActSFCFLF(rownumber) {
 }
 
 function CalculateActCFPcs(rownumber) {
-    var length = document.getElementById('row' + rownumber + 'Length').value;
+    var length = document.getElementById('row' + rownumber + 'LengthHidden').value;
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
 
     if (ActSFCFLF !== "" && length !== "") {
@@ -134,10 +149,12 @@ function CalculateTotalActual(rownumber) {
 
     if (TotalActCF !== "" && ActualCF !== "") {
         document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
+        if (document.getElementById('rowFP' + rownumber + 'TotalActual'))
         document.getElementById('rowFP' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
     }
     else {
         document.getElementById('row' + rownumber + 'TotalActual').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'TotalActual'))
         document.getElementById('rowFP' + rownumber + 'TotalActual').value = "";
     }
 }
@@ -163,10 +180,12 @@ function CalculateTotalNominal(rownumber) {
 
     if (TotalNomCF !== "" && NominalCF !== "") {
         document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
+        if (document.getElementById('rowFP' + rownumber + 'TotalNominal'))
         document.getElementById('rowFP' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
     }
     else {
         document.getElementById('row' + rownumber + 'TotalNominal').value = "";
+        if (document.getElementById('rowFP' + rownumber + 'TotalNominal'))
         document.getElementById('rowFP' + rownumber + 'TotalNominal').value = "";
     }
 }
@@ -299,6 +318,9 @@ function SumLineItemChargeCF() {
 }
 
 function ConvertNumberToFraction(input) {
+    var hiddenInput = document.getElementById(input.id + "Hidden");
+    if (hiddenInput)
+        hiddenInput.value = input.value;
     var numberDecimal = Math.abs(input.value);
     var decimalValue = numberDecimal - Math.floor(numberDecimal);
     var intergerValue = numberDecimal - (numberDecimal - Math.floor(numberDecimal));
@@ -387,6 +409,40 @@ function GetFraction(decimalNumber) {
     if (decimalNumber == 0.8125)
         return "13/16";
     if (decimalNumber == 0.9375)
+        return "15/16";
+
+}
+
+function GetDecimalFromFraction(fractionNumber) {
+    if (fractionNumber == "1/8")
+        return 0.125;
+    if (fractionNumber == "1/4")
+        return 0.250;
+    if (fractionNumber == "3/8")
+        return 0.375;
+    if (fractionNumber == 0.500)
+        return "1/2";
+    if (fractionNumber == 0.625)
+        return "5/8";
+    if (fractionNumber == 0.750)
+        return "3/4";
+    if (fractionNumber == 0.875)
+        return "7/8";
+    if (fractionNumber == 0.0625)
+        return "1/16";
+    if (fractionNumber == 0.1875)
+        return "3/16";
+    if (fractionNumber == 0.3125)
+        return "5/16";
+    if (fractionNumber == 0.4375)
+        return "7/16";
+    if (fractionNumber == 0.5625)
+        return "9/16";
+    if (fractionNumber == 0.6875)
+        return "11/16";
+    if (fractionNumber == 0.8125)
+        return "13/16";
+    if (fractionNumber == 0.9375)
         return "15/16";
 
 }
