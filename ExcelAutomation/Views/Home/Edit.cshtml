@@ -186,28 +186,28 @@
                                                         <div class="col-8">
                                                             <select id="row@(i)Category" name="row@(i)Category" class="form-select" style="width:80px;">
                                                                 <option value="">Select</option>
-                                                                <option value="Band" selected="@projectDetail.Category.Equals("Band")">Band</option>
-                                                                <option value="Bench" selected="@projectDetail.Category.Equals("Bench")">Bench</option>
-                                                                <option value="Block" selected="@projectDetail.Category.Equals("Block")">Block</option>
-                                                                <option value="Bollard" selected="@projectDetail.Category.Equals("Bollard")">Bollard</option>
-                                                                <option value="Cap" selected="@projectDetail.Category.Equals("Cap")">Cap</option>
-                                                                <option value="Coping" selected="@projectDetail.Category.Equals("Coping")">Coping</option>
-                                                                <option value="Cornice" selected="@projectDetail.Category.Equals("Cornice")">Cornice</option>
-                                                                <option value="Date Stone" selected="@projectDetail.Category.Equals("Date Stone")">Date Stone</option>
-                                                                <option value="Header" selected="@projectDetail.Category.Equals("Header")">Header</option>
-                                                                <option value="Lintel" selected="@projectDetail.Category.Equals("Lintel")">Lintel</option>
-                                                                <option value="Panel" selected="@projectDetail.Category.Equals("Panel")">Panel</option>
-                                                                <option value="Planter" selected="@projectDetail.Category.Equals("Planter")">Planter</option>
-                                                                <option value="Sill" selected="@projectDetail.Category.Equals("Sill")">Sill</option>
-                                                                <option value="Site Furniture" selected="@projectDetail.Category.Equals("Site Furniture")">Site Furniture</option>
-                                                                <option value="Slab" selected="@projectDetail.Category.Equals("Slab")">Slab</option>
-                                                                <option value="Soffit" selected="@projectDetail.Category.Equals("Soffit")">Soffit</option>
-                                                                <option value="Spandrel" selected="@projectDetail.Category.Equals("Spandrel")">Spandrel</option>
-                                                                <option value="Stair" selected="@projectDetail.Category.Equals("Stair")">Stair</option>
-                                                                <option value="Veneer" selected="@projectDetail.Category.Equals("Veneer")">Veneer</option>
-                                                                <option value="Wall" selected="@projectDetail.Category.Equals("Wall")">Wall</option>
-                                                                <option value="Water Table" selected="@projectDetail.Category.Equals("Water Table")">Water Table</option>
-                                                                <option value="Unique Item" selected="@projectDetail.Category.Equals("Unique Item")">Unique Item</option>
+                                                                <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
+                                                                <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
+                                                                <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
+                                                                <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
+                                                                <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
+                                                                <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
+                                                                <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
+                                                                <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
+                                                                <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
+                                                                <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
+                                                                <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
+                                                                <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
+                                                                <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
+                                                                <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
+                                                                <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
+                                                                <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
+                                                                <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
+                                                                <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
+                                                                <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
+                                                                <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
+                                                                <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
+                                                                <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -217,7 +217,7 @@
                                                     <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
 
-                                                    <textarea id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" type="text" value="@projectDetail.DispositionSpecialNote" style="height:50px"></textarea>
+                                                    <textarea id="row@(i)DispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control" style="height:50px">@projectDetail.DispositionSpecialNote</textarea>
                                                     <label for="inputPassword" class="col-7 ">Plan/Elevation</label>
                                                     <input id="row@(i)PlanElevation" name="row@(i)PlanElevation" class="form-control" type="text" value="@projectDetail.PlanElevation"/>
                                                 </div>
