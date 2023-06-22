@@ -52,7 +52,8 @@ namespace ExcelAutomation.Controllers
             project.ProjectName = Request.Form["projectname"];
             project.NominalCF = Request.Form["NominalCF"];
             project.ActualCF = Request.Form["ActualCF"];
-            project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"],"MM/dd/yyyy",CultureInfo.InvariantCulture);
+            if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
+                project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"],"MM/dd/yyyy",CultureInfo.InvariantCulture);
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
@@ -118,6 +119,7 @@ namespace ExcelAutomation.Controllers
             project.NominalCF = Request.Form["NominalCF"];
             project.ActualCF = Request.Form["ActualCF"];
             project.LineItemTotal = Request.Form["LineItemTotal"];
+            if(!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
             project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy", CultureInfo.InvariantCulture);
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
