@@ -39,9 +39,9 @@ function CalculateTotalActCF(rownumber) {
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;
 
     if (ActSFCFLF !== "" && TotalLF !== "") {
-        document.getElementById('row' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
+        document.getElementById('row' + rownumber + 'TotalActCF').value = ((ActSFCFLF) * TotalLF).round(2);
         if (document.getElementById('rowFP' + rownumber + 'TotalActCF'))
-            document.getElementById('rowFP' + rownumber + 'TotalActCF').value = ((ActSFCFLF / 12) * TotalLF).round(2);
+            document.getElementById('rowFP' + rownumber + 'TotalActCF').value = ((ActSFCFLF ) * TotalLF).round(2);
     }
     else {
         document.getElementById('row' + rownumber + 'TotalActCF').value = "";
