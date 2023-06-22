@@ -231,16 +231,16 @@
                                 <div class="col-5 row">
 
                                     <div class="col">
-                                    <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
-                                    <input id="row1LengthHidden" name="row1LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
+                                    <input id="row1Length" name="row1Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
+                                    <input id="row1LengthHidden" name="row1LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateNomCFPcs(1);" style="width:70px" />
                                     </div>
                                     <div class="col">
-                                    <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateActSFCFLF(1);CalculateNomCFLF(1);" class="form-control" style="width:70px" />
-                                        <input id="row1WidthHidden" name="row1WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActSFCFLF(1);CalculateNomCFLF(1);" style="width:70px" />
+                                    <input id="row1Width" name="row1Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(1);CalculateNomCFPcs(1);" class="form-control" style="width:70px" />
+                                    <input id="row1WidthHidden" name="row1WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFLF(1);CalculateNomCFPcs(1);" style="width:70px" />
                                     </div>
                                     <div class="col">
-                                    <input id="row1Height" name="row1Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(1);" class="form-control" style="width:70px" />
-                                    <input id="row1HeightHidden" name="row1HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);" class="form-control" style="width:70px" />
+                                    <input id="row1Height" name="row1Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(1);CalculateNomCFPcs(1);" class="form-control" style="width:70px" />
+                                    <input id="row1HeightHidden" name="row1HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(1);CalculateNomCFPcs(1);" class="form-control" style="width:70px" />
                                     </div>
                                     <div class="col">
                                         <input id="row1Pieces" name="row1Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" />
@@ -261,11 +261,11 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input id="row1TotalLF" name="row1TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(1);CalculateTotalNomCF(1);CalculateActSFCFLF(1);" class="form-control" style="width:70px"  />
+                                            <input id="row1TotalLF" name="row1TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(1);CalculateTotalNomCF(1);" class="form-control" style="width:70px"  />
                                         </div>
                                         <div class="col"></div>
                                         <div class="col float-left">
-                                            <input id="row1NomCFLF" name="row1NomCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(1);CalculateTotalNomCF(1);" style="width:70px"  />
+                                            <input id="row1NomCFLF" name="row1NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(1);CalculateTotalNomCF(1);" style="width:70px" />
                                         </div>
                                         <div class="col float-left">
                                             <input id="row1TotalNomCF" name="row1TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(1)"  />
@@ -281,7 +281,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col float-left">
-                                            <input id="row1ActSFCFLF" name="row1ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateTotalActCF(1);" style="width:70px"  />
+                                            <input id="row1ActSFCFLF" name="row1ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(1);CalculateTotalActCF(1);" style="width:70px"  />
                                         </div>
                                         <div class="col float-left">
                                             <input id="row1ActCFPcs" name="row1ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px"  />
