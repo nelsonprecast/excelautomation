@@ -73,7 +73,7 @@
                 <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
                 <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
             </div>
-            <label for="staticEmail" class="col-sm-2">Date:</label>
+            <label for="staticEmail" class="col-sm-2">Plan Date:</label>
             <div class="col-sm-1">
                 
                 <div class="input-group date" id="datepicker">
@@ -186,28 +186,28 @@
                                                         <div class="col-8">
                                                             <select id="row@(i)Category" name="row@(i)Category" class="form-select" style="width:80px;">
                                                                 <option value="">Select</option>
-                                                                <option value="Band" selected="@projectDetail.WD.Equals("Band")">Band</option>
-                                                                <option value="Bench" selected="@projectDetail.WD.Equals("Bench")">Bench</option>
-                                                                <option value="Block" selected="@projectDetail.WD.Equals("Block")">Block</option>
-                                                                <option value="Bollard" selected="@projectDetail.WD.Equals("Bollard")">Bollard</option>
-                                                                <option value="Cap" selected="@projectDetail.WD.Equals("Cap")">Cap</option>
-                                                                <option value="Coping" selected="@projectDetail.WD.Equals("Coping")">Coping</option>
-                                                                <option value="Cornice" selected="@projectDetail.WD.Equals("Cornice")">Cornice</option>
-                                                                <option value="Date Stone" selected="@projectDetail.WD.Equals("Date Stone")">Date Stone</option>
-                                                                <option value="Header" selected="@projectDetail.WD.Equals("Header")">Header</option>
-                                                                <option value="Lintel" selected="@projectDetail.WD.Equals("Lintel")">Lintel</option>
-                                                                <option value="Panel" selected="@projectDetail.WD.Equals("Panel")">Panel</option>
-                                                                <option value="Planter" selected="@projectDetail.WD.Equals("Planter")">Planter</option>
-                                                                <option value="Sill" selected="@projectDetail.WD.Equals("Sill")">Sill</option>
-                                                                <option value="Site Furniture" selected="@projectDetail.WD.Equals("Site Furniture")">Site Furniture</option>
-                                                                <option value="Slab" selected="@projectDetail.WD.Equals("Slab")">Slab</option>
-                                                                <option value="Soffit" selected="@projectDetail.WD.Equals("Soffit")">Soffit</option>
-                                                                <option value="Spandrel" selected="@projectDetail.WD.Equals("Spandrel")">Spandrel</option>
-                                                                <option value="Stair" selected="@projectDetail.WD.Equals("Stair")">Stair</option>
-                                                                <option value="Veneer" selected="@projectDetail.WD.Equals("Veneer")">Veneer</option>
-                                                                <option value="Wall" selected="@projectDetail.WD.Equals("Wall")">Wall</option>
-                                                                <option value="Water Table" selected="@projectDetail.WD.Equals("Water Table")">Water Table</option>
-                                                                <option value="Unique Item" selected="@projectDetail.WD.Equals("Unique Item")">Unique Item</option>
+                                                                <option value="Band" selected="@projectDetail.Category.Equals("Band")">Band</option>
+                                                                <option value="Bench" selected="@projectDetail.Category.Equals("Bench")">Bench</option>
+                                                                <option value="Block" selected="@projectDetail.Category.Equals("Block")">Block</option>
+                                                                <option value="Bollard" selected="@projectDetail.Category.Equals("Bollard")">Bollard</option>
+                                                                <option value="Cap" selected="@projectDetail.Category.Equals("Cap")">Cap</option>
+                                                                <option value="Coping" selected="@projectDetail.Category.Equals("Coping")">Coping</option>
+                                                                <option value="Cornice" selected="@projectDetail.Category.Equals("Cornice")">Cornice</option>
+                                                                <option value="Date Stone" selected="@projectDetail.Category.Equals("Date Stone")">Date Stone</option>
+                                                                <option value="Header" selected="@projectDetail.Category.Equals("Header")">Header</option>
+                                                                <option value="Lintel" selected="@projectDetail.Category.Equals("Lintel")">Lintel</option>
+                                                                <option value="Panel" selected="@projectDetail.Category.Equals("Panel")">Panel</option>
+                                                                <option value="Planter" selected="@projectDetail.Category.Equals("Planter")">Planter</option>
+                                                                <option value="Sill" selected="@projectDetail.Category.Equals("Sill")">Sill</option>
+                                                                <option value="Site Furniture" selected="@projectDetail.Category.Equals("Site Furniture")">Site Furniture</option>
+                                                                <option value="Slab" selected="@projectDetail.Category.Equals("Slab")">Slab</option>
+                                                                <option value="Soffit" selected="@projectDetail.Category.Equals("Soffit")">Soffit</option>
+                                                                <option value="Spandrel" selected="@projectDetail.Category.Equals("Spandrel")">Spandrel</option>
+                                                                <option value="Stair" selected="@projectDetail.Category.Equals("Stair")">Stair</option>
+                                                                <option value="Veneer" selected="@projectDetail.Category.Equals("Veneer")">Veneer</option>
+                                                                <option value="Wall" selected="@projectDetail.Category.Equals("Wall")">Wall</option>
+                                                                <option value="Water Table" selected="@projectDetail.Category.Equals("Water Table")">Water Table</option>
+                                                                <option value="Unique Item" selected="@projectDetail.Category.Equals("Unique Item")">Unique Item</option>
                                                             </select>
                                                         </div>
                                                     </div>

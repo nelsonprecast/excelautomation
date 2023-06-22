@@ -34,7 +34,19 @@ namespace ExcelAutomation.Service
                     Width = projectDetail.Width,
                     TakeOffColor = projectDetail.TakeOffColor,
                     Pieces = projectDetail.Pieces,  
-                    ImagePath = projectDetail.ImagePath
+                    ImagePath = projectDetail.ImagePath,
+                    TotalLf = projectDetail.TotalLf,
+                    ActSfcflf = projectDetail.ActSfcflf,
+                    ActCfpcs = projectDetail.ActCfpcs,
+                    TotalActCf = projectDetail.TotalActCf,
+                    NomCflf = projectDetail.NomCflf,
+                    NomCfpcs = projectDetail.NomCfpcs,
+                    TotalNomCf = projectDetail.TotalNomCf,
+                    MoldQty = projectDetail.MoldQty,
+                    LineItemCharge = projectDetail.LineItemCharge,
+                    TotalActualNominalValue = projectDetail.TotalActualNominalValue,
+                    PlanElevation = projectDetail.PlanElevation,
+                    Category = projectDetail.Category
                 });
             }           
             _context.Add(dbProject);
