@@ -74,12 +74,12 @@
                 <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
             </div>
             
-            <label for="inputPassword" class="col-sm-2">Nominal CF:</label>
+            <label for="inputPassword" class="col-sm-1">Nominal CF:</label>
             <span class="float-left">$</span>
             <div class="col-sm-2">
                 <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
             </div>
-            <label for="inputPassword" class="col-sm-2 ">Actual CF:</label>
+            <label for="inputPassword" class="col-sm-1 ">Actual CF:</label>
             <span class="float-left">$</span>
             <div class="col-sm-2">
                 <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
@@ -98,7 +98,7 @@
                     </span>
                 </div>
             </div>
-            <label for="staticEmail" class="col-sm-2">Contract Specs:</label>
+            <label for="staticEmail" class="col-sm-1">Contract Specs:</label>
             <div class="col-sm-2">
                 <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
             </div>
