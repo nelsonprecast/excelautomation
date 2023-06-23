@@ -1,4 +1,5 @@
 ﻿using Azure.Core;
+using ExcelAutomation.Data;
 using ExcelAutomation.Models;
 using ExcelAutomation.Service;
 using Microsoft.AspNetCore.Mvc;
@@ -54,6 +55,18 @@ namespace ExcelAutomation.Controllers
             project.ActualCF = Request.Form["ActualCF"];
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"],"MM/dd/yyyy",CultureInfo.InvariantCulture);
+            if (Request.Form.Files["ContactSpecs"] != null)
+            {
+                var file = Request.Form.Files["ContactSpecs"];
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ContactSpecs\\") + fileName;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                project.ContactSpecs = "/ContactSpecs/" + fileName;
+            }
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {
@@ -122,6 +135,18 @@ namespace ExcelAutomation.Controllers
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy",
                     CultureInfo.InvariantCulture);
+            if (Request.Form.Files["ContactSpecs"] != null)
+            {
+                var file = Request.Form.Files["ContactSpecs"];
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ContactSpecs\\") + fileName;
+                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                project.ContactSpecs = "/ContactSpecs/" + fileName;
+            }
 
             while (!string.IsNullOrEmpty(Request.Form[wd]))
             {

@@ -69,13 +69,26 @@
     <form action="Edit" method="POST" role="form" enctype="multipart/form-data">
         <div class="input-group">
             <label for="staticEmail" class="col-sm-2">Job Name:</label>
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
                 <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
             </div>
+            
+            <label for="inputPassword" class="col-sm-2">Nominal CF:</label>
+            <span class="float-left">$</span>
+            <div class="col-sm-2">
+                <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
+            </div>
+            <label for="inputPassword" class="col-sm-2 ">Actual CF:</label>
+            <span class="float-left">$</span>
+            <div class="col-sm-2">
+                <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
+            </div>
+        </div>
+        <div class="input-group">
             <label for="staticEmail" class="col-sm-2">Plan Date:</label>
-            <div class="col-sm-1">
-                
+            <div class="col-sm-2">
+
                 <div class="input-group date" id="datepicker">
                     <input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
                     <span class="input-group-append">
@@ -85,21 +98,13 @@
                     </span>
                 </div>
             </div>
-        </div>
-        <div class="input-group">
-            <label for="inputPassword" class="col-sm-2">Nominal CF:</label>
-            <span class="float-left">$</span>
-            <div class="col-sm-3">
-                 <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
+            <label for="staticEmail" class="col-sm-2">Contract Specs:</label>
+            <div class="col-sm-2">
+                <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
             </div>
-            
         </div>
         <div class="input-group mb-3">
-            <label for="inputPassword" class="col-sm-2 ">Actual CF:</label>
-            <span class="float-left">$</span>
-            <div class="col-sm-3">
-                <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
-            </div>
+           
             
         </div>
         <nav>

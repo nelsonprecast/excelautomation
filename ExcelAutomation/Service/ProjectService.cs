@@ -21,6 +21,7 @@ namespace ExcelAutomation.Service
             dbProject.ActualCf = project.ActualCF;
             dbProject.NominalCf = project.NominalCF;
             dbProject.CreatedDate = DateTime.Now;
+            dbProject.ContactSpecs = project.ContactSpecs;
 
             foreach(var projectDetail in project.ProjectDetails)
             {
@@ -68,7 +69,8 @@ namespace ExcelAutomation.Service
                         ProjectName = project.ProjectName,
                         ActualCF = project.ActualCf,
                         NominalCF = project.NominalCf,
-                        CreatedDate = project.CreatedDate ?? DateTime.MinValue
+                        CreatedDate = project.CreatedDate ?? DateTime.MinValue,
+                        ContactSpecs = project.ContactSpecs
                     });
                 }
             }
@@ -87,6 +89,7 @@ namespace ExcelAutomation.Service
             projectDto.CreatedDate = project.CreatedDate ?? DateTime.MinValue;
             projectDto.LineItemTotal = project.LineItemTotal;
             projectDto.RevisionDate = project.RevisionDate;
+            projectDto.ContactSpecs = project.ContactSpecs;
 
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)
@@ -136,6 +139,7 @@ namespace ExcelAutomation.Service
                 project.NominalCf = projectDto.NominalCF;
                 project.LineItemTotal = projectDto.LineItemTotal;
                 project.RevisionDate = projectDto.RevisionDate;
+                project.ContactSpecs = projectDto.ContactSpecs;
 
                 _context.Update(project);
                 _context.SaveChanges();

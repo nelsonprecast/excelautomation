@@ -19,5 +19,7 @@ public partial class Project
 
     public DateTime? RevisionDate { get; set; }
 
+    public string ContactSpecs { get; set; }
+
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }
