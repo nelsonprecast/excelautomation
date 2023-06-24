@@ -210,6 +210,18 @@ function ShowImageSelection(rowNumber) {
     document.getElementById('row' + rowNumber + 'File').click();
 }
 
+
+function CallSumMethods() {
+    SumTotalOfActual();
+    SumTotalOfNominal();
+    SumLineItemCharge();
+    SumLineItemChargePCs();
+    SumLineItemChargeCF();
+    SumOfPcs();
+    SumOfTotalActualCF();
+    SumOfTotalNomCF();
+    SumOfTotalLF();
+}
 function SumTotalOfActual() {
     var rowCount = $('.exceldatarow1').length;
 
@@ -293,7 +305,6 @@ function SumLineItemCharge() {
 function SumLineItemChargePCs() {
     var rowCount = $('.exceldatarow1').length;
 
-    var LineItemTotal = document.getElementById('LineItemTotal').value;
     var sum = 0;
     for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
         var LineItemChargePCs = document.getElementById('rowFP' + rownumber + 'LineItemChargePCs').value;
@@ -301,7 +312,7 @@ function SumLineItemChargePCs() {
             sum = sum + parseFloat(LineItemChargePCs);
     }
     if ( sum != "")
-        document.getElementById('rowFPSumLineItemChargePCs').value = (sum - LineItemTotal).round(2);
+        document.getElementById('rowFPSumLineItemChargePCs').value = (sum).round(2);
 }
 
 function SumLineItemChargeCF() {
@@ -328,6 +339,58 @@ function ConvertNumberToFraction(input) {
         var decimalNumber = GetUpperLimitOfDecimalToGetFractionValue(decimalValue);
         input.value = intergerValue + " " + GetFraction(decimalNumber);
     }
+}
+
+function SumOfPcs() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var Pieces = document.getElementById('rowFP' + rownumber + 'Pieces').value;
+        if (Pieces != "")
+            sum = sum + parseFloat(Pieces);
+    }
+    if (sum != "")
+        document.getElementById('rowFPSumOfPcs').value = (sum).round(2);
+}
+
+function SumOfTotalActualCF() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var TotalActCF = document.getElementById('rowFP' + rownumber + 'TotalActCF').value;
+        if (TotalActCF != "")
+            sum = sum + parseFloat(TotalActCF);
+    }
+    if (sum != "")
+        document.getElementById('rowFPSumOfTotalActualCF').value = (sum).round(2);
+}
+
+function SumOfTotalNomCF() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var TotalNomCF = document.getElementById('rowFP' + rownumber + 'TotalNomCF').value;
+        if (TotalNomCF != "")
+            sum = sum + parseFloat(TotalNomCF);
+    }
+    if (sum != "")
+        document.getElementById('rowFPSumOfTotalNomCF').value = (sum).round(2);
+}
+
+function SumOfTotalLF() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var TotalLF = document.getElementById('rowFP' + rownumber + 'TotalLF').value;
+        if (TotalLF != "")
+            sum = sum + parseFloat(TotalLF);
+    }
+    if (sum != "")
+        document.getElementById('rowFPSumOfTotalLF').value = (sum).round(2);
 }
 
 function GetUpperLimitOfDecimalToGetFractionValue(inputNumber) {

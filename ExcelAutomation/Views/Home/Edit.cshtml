@@ -551,12 +551,19 @@
                         j++;
                     }
                     <div class="row align-items-start">
-                        <div class="col-3 row">
+                        <div class="col-4 row">
                             <div class="col-1"><b>TOTALS</b></div>
 
 
                         </div>
-                        <div class="col-5 row"></div>
+                        <div class="col-4 row">
+                            <div class="col text-align-left"><b>Total LF</b></div>
+                            <div class="col text-align-left"><b>Total Nom. CF</b></div>
+                            <div class="col text-align-left"><b>Total Act CF</b></div>
+                            <div class="col text-align-left"><b>Total Pcs</b></div>
+                            <div class="col text-align-left"></div>
+                        </div>
+                        
                         <div class="col-2 row">
                             <div class="col text-align-left"><b>Total Actual</b></div>
                             <div class="col text-align-left"><b>Total Nominal</b></div>
@@ -567,12 +574,19 @@
                         </div>
                     </div>
                 <div class="row align-items-start">
-                    <div class="col-3 row">
+                    <div class="col-4 row">
                         <div class="col-1"></div>
 
 
                     </div>
-                    <div class="col-5 row"></div>
+                    <div class="col-4 row">
+                        <div class="col text-align-left"><input id="rowFPSumOfTotalLF" name="rowFPSumOfTotalLF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                        <div class="col text-align-left"><input id="rowFPSumOfTotalNomCF" name="rowFPSumOfTotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                        <div class="col text-align-left"><input id="rowFPSumOfTotalActualCF" name="rowFPSumOfTotalActualCF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+                        <div class="col text-align-left"><input id="rowFPSumOfPcs" name="rowFPSumOfPcs" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/></div>
+                        <div class="col text-align-left"></div>
+                    </div>
+                        
                     <div class="col-2 row">
                         <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
                         <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
@@ -599,7 +613,10 @@
 
 
                         </div>
-                        <div class="col-5 row"></div>
+                        <div class="col-5 row">
+
+                        </div>
+                        
                         <div class="col-2 row"></div>
                         <div class="col-2 row">
                             <div class="col text-align-left"><input id="rowFPSumLineItemChargePCs" name="rowFPSumLineItemChargePCs" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
@@ -675,11 +692,7 @@
                 CalculateTotalNomCF(rownumber);
                 OnLineItemChange(rownumber);
             }
-            SumTotalOfActual();
-            SumTotalOfNominal();
-            SumLineItemCharge();
-            SumLineItemChargePCs();
-            SumLineItemChargeCF();
+            CallSumMethods();
             });
         
     </script>
