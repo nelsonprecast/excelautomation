@@ -509,3 +509,24 @@ function GetDecimalFromFraction(fractionNumber) {
         return "15/16";
 
 }
+
+function AddNewLFRow() {
+    $('#planElevationModal').modal('show');
+}
+
+
+
+function CopyProjectClick(idValue) {
+    var dataDto = { projectId: idValue };
+
+
+
+    $.ajax({
+        type: 'POST',
+        url: "/Home/CopyProject",
+        data: JSON.stringify(dataDto),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: function (resultData) { }
+    });
+}

@@ -11,5 +11,9 @@ namespace ExcelAutomation.Service
         ProjectDto GetProjectById(int  projectId);
 
         void UpdateProjectDetail(ProjectDto projectDto);
+
+        int DeleteProjectDetailRow(int id);
+
+        int CopyProject(int id);
     }
 }

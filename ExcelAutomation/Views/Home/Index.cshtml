@@ -50,7 +50,9 @@
                     <td>@projectDto.ActualCF</td>
                     <td>@projectDto.NominalCF</td>
                         <td>@projectDto.CreatedDate.Value.ToString("MM-dd-yyyy")</td>
-                        <td><a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button">Edit Project</a></td>
+                    <td><a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button">Edit Project</a>
+                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject">Copy Project</a>
+                        </td>
                 </tr>
             }
             

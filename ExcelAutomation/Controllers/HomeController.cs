@@ -207,5 +207,19 @@ namespace ExcelAutomation.Controllers
             projectDetailDto.Index = id;
             return PartialView("_ProjectDetailPartial", projectDetailDto);
         }
+
+        [HttpPost]
+        public IActionResult DeleteRow(int id)
+        {
+           var projectId=  _projectService.DeleteProjectDetailRow(id);
+           return RedirectToAction("Edit", new {id = projectId});
+        }
+
+       
+        public IActionResult CopyProject(int id)
+        {
+            var newProjectId = _projectService.CopyProject(id);
+            return RedirectToAction("Edit", new { id = newProjectId });
+        }
     }
 }

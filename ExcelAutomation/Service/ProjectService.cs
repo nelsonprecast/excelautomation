@@ -185,5 +185,62 @@ namespace ExcelAutomation.Service
                 }
             }
         }
+
+        public int DeleteProjectDetailRow(int id)
+        {
+            var projectDetail = _context.ProjectDetails.FirstOrDefault(x => x.ProjectDetailId == id);
+            if(projectDetail  != null)
+            {
+                _context.Remove(projectDetail);
+                _context.SaveChanges();
+            }
+
+            return projectDetail.ProjectId;
+        }
+
+        public int CopyProject(int id)
+        {
+            var project = _context.Projects.FirstOrDefault(x => x.ProjectId == id);
+            var newProject = new Data.Project();
+            newProject.ProjectName = project.ProjectName+" Copy";
+            newProject.ActualCf = project.ActualCf;
+            newProject.NominalCf = project.NominalCf;
+            newProject.CreatedDate = DateTime.Now;
+            newProject.LineItemTotal = project.LineItemTotal;
+            ;
+            
+            var projectDetails = _context.ProjectDetails.Where(x => x.ProjectId == project.ProjectId);
+            foreach (var projectDetail in projectDetails)
+            {
+                var newProjectDetail = new Data.ProjectDetail();
+                newProjectDetail.Wd = projectDetail.Wd;
+                newProjectDetail.ItemName = projectDetail.ItemName;
+                newProjectDetail.DispositionSpecialNote = projectDetail.DispositionSpecialNote;
+                newProjectDetail.DetailPage = projectDetail.DetailPage;
+                newProjectDetail.TakeOffColor = projectDetail.TakeOffColor;
+                newProjectDetail.Length = projectDetail.Length;
+                newProjectDetail.Width = projectDetail.Width;
+                newProjectDetail.Height = projectDetail.Height;
+                newProjectDetail.Pieces = projectDetail.Pieces;
+                newProjectDetail.TotalLf = projectDetail.TotalLf;
+                newProjectDetail.ActSfcflf = projectDetail.ActSfcflf;
+                newProjectDetail.ActCfpcs = projectDetail.ActCfpcs;
+                newProjectDetail.TotalActCf = projectDetail.TotalActCf;
+                newProjectDetail.NomCflf = projectDetail.NomCflf;
+                newProjectDetail.NomCfpcs = projectDetail.NomCfpcs;
+                newProjectDetail.TotalNomCf = projectDetail.TotalNomCf;
+                newProjectDetail.MoldQty = projectDetail.MoldQty;
+                newProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
+                newProjectDetail.ProjectId = project.ProjectId;
+                newProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
+                newProjectDetail.PlanElevation = projectDetail.PlanElevation;
+                newProjectDetail.Category = projectDetail.Category;
+                newProject.ProjectDetails.Add(newProjectDetail);
+            }
+
+            _context.Add(newProject);
+            _context.SaveChanges();
+            return newProject.ProjectId;
+        }
     }
 }
