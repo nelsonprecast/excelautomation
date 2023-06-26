@@ -102,6 +102,14 @@
             <div class="col-sm-2">
                 <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
             </div>
+            <div class="col-sm-2">
+                @if(!string.IsNullOrEmpty(Model.ContactSpecs))
+                {
+                    <a id="single_image" href="@Model.ContactSpecs" target="_blank">
+                        Open File
+                    </a>
+                }
+            </div>
         </div>
         <div class="input-group mb-3">
            
@@ -167,7 +175,7 @@
                                         </div>
                                         <div class="col-2 row light-green"></div>
                                         <div class="col-4 row">
-                                            <div class="col-1">&nbsp;</div>
+                                            <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
                                             <div class="col-2">
                                                 <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
                                                 <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width:60px;">
@@ -361,7 +369,9 @@
                     {
                         <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow1">
                             <div class="col-4 row">
-                                <div class="col-1">@(j)</div>
+                                <div class="col-1">@(j)
+
+                                </div>
                                 <div class="col-2 text-align-left">W/D</div>
                                 <div class="col-5 text-align-left">
                                     Item Name
@@ -395,7 +405,7 @@
                             </div>
                             <div class="col-2 row"></div>
                             <div class="col-4 row">
-                                <div class="col-1">&nbsp;</div>
+                                <div class="col-1"></div>
                                 <div class="col-2">
                                     <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
                                     <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width:60px;">

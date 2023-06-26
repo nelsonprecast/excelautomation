@@ -516,17 +516,18 @@ function AddNewLFRow() {
 
 
 
-function CopyProjectClick(idValue) {
-    var dataDto = { projectId: idValue };
+function DeleteProjectDetail(idValue) {
+    var dataDto = { Id : idValue };
 
+    if (alert("Are you sure you want to delete row?")) {
 
-
-    $.ajax({
-        type: 'POST',
-        url: "/Home/CopyProject",
-        data: JSON.stringify(dataDto),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: function (resultData) { }
-    });
+        $.ajax({
+            type: 'POST',
+            url: "/Home/DeleteRow",
+            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            data: dataDto,
+            success: function (resultData) { }
+        });
+    }
 }
