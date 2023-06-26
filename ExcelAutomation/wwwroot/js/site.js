@@ -519,7 +519,7 @@ function AddNewLFRow() {
 function DeleteProjectDetail(idValue) {
     var dataDto = { Id : idValue };
 
-    if (alert("Are you sure you want to delete row?")) {
+    if (confirm("Are you sure you want to delete row?")) {
 
         $.ajax({
             type: 'POST',
@@ -527,7 +527,10 @@ function DeleteProjectDetail(idValue) {
             'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
             dataType: "json",
             data: dataDto,
-            success: function (resultData) { }
+            success: function (resultData) {
+                
+            }
         });
+        window.location.reload();
     }
 }
