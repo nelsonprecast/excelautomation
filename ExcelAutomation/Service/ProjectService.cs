@@ -282,6 +282,7 @@ namespace ExcelAutomation.Service
                 newProjectDetail.ProjectId = project.ProjectId;
                 newProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                 newProjectDetail.Category = projectDetail.Category;
+                newProjectDetail.ImagePath = projectDetail.ImagePath;
                 newProject.ProjectDetails.Add(newProjectDetail);
             }
 
