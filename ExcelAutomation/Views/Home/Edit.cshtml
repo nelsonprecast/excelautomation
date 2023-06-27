@@ -247,10 +247,10 @@
                 <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:100px" value="@projectDetail.TakeOffColor"/>
             </div>
             <div class="col text-align-left" > Section</div>
-                                            <div class="col-12 no-margin text-align-left img-container">
-                
-                    <img src="@projectDetail.ImagePath" style="width:120px;height:100px"/>
-                
+                                            <div class="col-12 no-margin text-align-left">
+                                                <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                                    <img src="@projectDetail.ImagePath" style="width:120px;height:100px"/>
+                                                </a>
             </div>
             <div class="col-12 text-align-left">
                 <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void();"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*"/>Change Image</a>
@@ -467,8 +467,8 @@
 
 
                     <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" readonly="readonly" style="height:80px;" class="form-control">@projectDetail.DispositionSpecialNote</textarea>
-                    <label class="col-7 ">Plan/Elevation</label>
-                    <input id="row@(j)PlanElevation" name="row@(j)PlanElevation" readonly="readonly" class="form-control" type="text" value="@projectDetail.PlanElevation" />
+                    @*<label class="col-7 ">Plan/Elevation</label>
+                    <input id="row@(j)PlanElevation" name="row@(j)PlanElevation" readonly="readonly" class="form-control" type="text" value="@projectDetail.PlanElevation" />*@
                 </div>
             </div>
         </div>
