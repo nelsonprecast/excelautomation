@@ -90,8 +90,10 @@
 
                 <label class="col-7 "> Disposition (Special Notes)</label>
                 <textarea id="row@(Model.Index)DispositionSpecialNote" name="row@(Model.Index)DispositionSpecialNote" class="form-control disposition" type="text" style="height:50px"></textarea>
-                <label class="col-7 ">Plan/Elevation</label>
                 
+                <input id="row@(Model.Index)PlanElevationHidden" name="row@(Model.Index)PlanElevationHidden" class="form-control" type="hidden" />
+                <input id="row@(Model.Index)TotalLFHidden" name="row@(Model.Index)TotalLFHidden" class="form-control" type="hidden" />
+                <input id="rowIndex" class="form-control" type="hidden" value="@(Model.Index)" />
                 <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
             </div>
         </div>
