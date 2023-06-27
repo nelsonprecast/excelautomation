@@ -231,11 +231,14 @@
 
 
                     <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height:50px">@projectDetail.DispositionSpecialNote</textarea>
-                    
+                    <div class="row exceldatarow11">
+                        <div class="totallfdata">
                     <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
                     <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
                     <input id="rowIndex" class="form-control" type="hidden" value="@(i)" />
                     <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -244,7 +247,7 @@
                 <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:100px" value="@projectDetail.TakeOffColor"/>
             </div>
             <div class="col text-align-left" > Section</div>
-            <div class="col-12 no-margin text-align-left">
+                                            <div class="col-12 no-margin text-align-left img-container">
                 <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
                     <img src="@projectDetail.ImagePath" style="width:120px;height:100px"/>
                 </a>
@@ -717,5 +720,6 @@
 @section scripts {
 
     <script type="text/javascript" src="~/js/editproject.js" language="javascript" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/lib/jquery-lightbox/jquery.popup.lightbox.js" language="javascript" asp-append-version="true"></script>
 
 }

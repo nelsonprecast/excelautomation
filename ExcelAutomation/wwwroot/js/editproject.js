@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#datepicker').datepicker({
         autoclose: true
     });
-    $('.exceldatarow').click(function () {
+    $('.exceldatarow11').click(function () {
 
         console.log($(this));
         $(this).find('.totallfdata').each(function (index, data) {
@@ -16,8 +16,8 @@ $(document).ready(function () {
             console.log(totalLFString);
 
             if (planElevationString != "") {
-                var planElevationArray = planElevationString.split("@@_@@");
-                var totalLFArray = totalLFString.split("@@_@@");
+                var planElevationArray = planElevationString.split("@_@");
+                var totalLFArray = totalLFString.split("@_@");
                 if (planElevationArray.length > 0) {
 
                     for (var i = 0; i < planElevationArray.length; i++) {
@@ -34,6 +34,8 @@ $(document).ready(function () {
         });
 
     });
+
+    $(".img-container").popupLightbox();
     /* This is basic - uses default settings */
     window.console.log(1);
     CalculateTotalActualOnChangeOfActualCF();

@@ -23,8 +23,8 @@ function BindEvent() {
             console.log(totalLFString);
 
             if (planElevationString != "") {
-                var planElevationArray = planElevationString.split("@@_@@");
-                var totalLFArray = totalLFString.split("@@_@@");
+                var planElevationArray = planElevationString.split("@_@");
+                var totalLFArray = totalLFString.split("@_@");
                 if (planElevationArray.length > 0) {
 
                     for (var i = 0; i < planElevationArray.length; i++) {
