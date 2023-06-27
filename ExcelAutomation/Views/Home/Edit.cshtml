@@ -469,6 +469,14 @@
                     <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" readonly="readonly" style="height:80px;" class="form-control">@projectDetail.DispositionSpecialNote</textarea>
                     @*<label class="col-7 ">Plan/Elevation</label>
                     <input id="row@(j)PlanElevation" name="row@(j)PlanElevation" readonly="readonly" class="form-control" type="text" value="@projectDetail.PlanElevation" />*@
+                    <div class="row exceldatarow11" readonly="true">
+                        <div class="totallfdata">
+                            <input id="row@(j)PlanElevationHidden" name="row@(j)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
+                            <input id="row@(j)TotalLFHidden" name="row@(j)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
+                            <input id="rowIndex" class="form-control" type="hidden" value="@(j)" />
+                            <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

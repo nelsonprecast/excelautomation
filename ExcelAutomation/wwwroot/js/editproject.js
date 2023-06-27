@@ -27,7 +27,11 @@ $(document).ready(function () {
 
 function BindEvent() {
     $('.exceldatarow11').click(function () {
-
+        if ($(this).attr('readonly')) {
+            $('.modal-footer').hide();
+        }
+        else
+            $('.modal-footer').show();
         console.log($(this));
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
