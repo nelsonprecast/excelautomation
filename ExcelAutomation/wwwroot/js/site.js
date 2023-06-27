@@ -511,7 +511,7 @@ function GetDecimalFromFraction(fractionNumber) {
 }
 
 function AddNewLFRow() {
-    $('#planElevationModal').modal('show');
+    //dialog.dialog("open");
 }
 
 
@@ -533,4 +533,47 @@ function DeleteProjectDetail(idValue) {
         });
         window.location.reload();
     }
+}
+
+function AddPlanElevationRow() {
+    var rowCount = $('.planelevation').length+1;
+
+    $('#rows').append(
+        '<div class="row planelevation">'+
+        '<div class= "col-2"> ' + rowCount +'</div> ' +
+        ' <div class= "col-5" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
+        '<div class= "col-5" > <input type="text" id="lf' + rowCount +'" name="lf' + rowCount +'" class="form-control" /></div> ' +
+        '</div>');
+}
+
+function CloseModal() {
+    $('#exampleModal').modal('hide');
+}
+
+function CalculateLF() {
+    var rowCount = $('.planelevation').length;
+
+    var sum = 0;
+    var planElevationString = "";
+    var totalLFString = "";
+
+    for (var i = 1; i <= rowCount; i++) {
+        if ($('#lf' + i).val() != "") {
+            sum = sum + parseFloat($('#lf' + i).val());
+            if (totalLFString == "") {
+                totalLFString = $('#lf' + i).val();
+                planElevationString = $('#planelevation' + i).val();
+            }
+            else {
+                totalLFString += "@_@" + $('#lf' + i).val();
+                planElevationString += "@_@" + $('#planelevation' + i).val();
+            }
+        }
+    }
+    if (sum != "") { 
+        document.getElementById('row1TotalLF').value = (sum).round(2); 
+        document.getElementById('row' + rowIndex + 'PlanElevationHidden').value = planElevationString;
+        document.getElementById('row' + rowIndex + 'TotalLFHidden').value = totalLFString;
+    }
+    $('#exampleModal').modal('hide');
 }

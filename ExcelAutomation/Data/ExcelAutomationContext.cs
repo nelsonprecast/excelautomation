@@ -19,6 +19,8 @@ public partial class ExcelAutomationContext : DbContext
 
     public virtual DbSet<ProjectDetail> ProjectDetails { get; set; }
 
+    public virtual DbSet<PlanElevationReferance> PlanElevationReferances { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ExcelAutomation");
 
@@ -85,13 +87,26 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.LineItemCharge).IsRequired(false);
 
             entity.Property(e => e.TotalActualNominalValue).IsRequired(false).HasMaxLength(50);
-            entity.Property(e => e.PlanElevation).IsRequired(false).HasMaxLength(250);
             entity.Property(e => e.Category).IsRequired(false).HasMaxLength(50);
 
             entity.HasOne(d => d.Project).WithMany(p => p.ProjectDetails)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ProjectDetail_Project");
+        });
+
+        modelBuilder.Entity<PlanElevationReferance>(entity =>
+        {
+            entity.ToTable("PlanElevationReferance");
+
+            entity.Property(e => e.PlanElevationValue).HasMaxLength(500);
+
+            entity.Property(e => e.LFValue).HasMaxLength(50);
+
+            entity.HasOne(d => d.ProjectDetail).WithMany(p => p.PlanElevationReferances)
+                .HasForeignKey(d => d.ProjectDetailId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_PlanElevationReferance_ProjectDetail");
         });
 
         OnModelCreatingPartial(modelBuilder);

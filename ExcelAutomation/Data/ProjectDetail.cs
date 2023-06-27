@@ -48,10 +48,10 @@ public partial class ProjectDetail
     public string? LineItemCharge { get; set; }
 
     public string TotalActualNominalValue { get; set; }
-
-    public string PlanElevation { get; set; }
-
+    
     public string Category { get; set; }
 
     public virtual Project Project { get; set; } = null!;
+
+    public ICollection<PlanElevationReferance> PlanElevationReferances { get; set; }
 }

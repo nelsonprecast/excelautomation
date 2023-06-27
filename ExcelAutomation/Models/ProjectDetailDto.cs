@@ -40,5 +40,9 @@
 
         public string Category { get; set; }
 
+        public string LFValue { get; set; }
+
+        public ICollection<PlanElevationReferenceDto> PlanElevationReferences { get; set; }
+
     }
 }

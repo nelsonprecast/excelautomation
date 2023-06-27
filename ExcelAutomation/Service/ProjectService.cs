@@ -46,7 +46,6 @@ namespace ExcelAutomation.Service
                     MoldQty = projectDetail.MoldQty,
                     LineItemCharge = projectDetail.LineItemCharge,
                     TotalActualNominalValue = projectDetail.TotalActualNominalValue,
-                    PlanElevation = projectDetail.PlanElevation,
                     Category = projectDetail.Category
                 });
             }           
@@ -94,6 +93,9 @@ namespace ExcelAutomation.Service
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
             if (projectDetails != null)
             {
+                var projectDetailIds = projectDetails.Select(x => x.ProjectDetailId).ToArray();
+                var planElevationReferences = _context.PlanElevationReferances
+                    .Where(x => projectDetailIds.Contains(x.ProjectDetailId)).ToList();
                 projectDto.ProjectDetails = new List<ProjectDetailDto>();
                 foreach (var projectDetail in projectDetails)
                 {
@@ -120,8 +122,9 @@ namespace ExcelAutomation.Service
                         MoldQty = projectDetail.MoldQty,
                         LineItemCharge = projectDetail.LineItemCharge,
                         TotalActualNominalValue = projectDetail.TotalActualNominalValue,
-                        PlanElevation = projectDetail.PlanElevation,
-                        Category = projectDetail.Category
+                        Category = projectDetail.Category,
+                        PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty),
+                        LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue)) : string.Empty)
                     });
                 }
             }
@@ -172,7 +175,6 @@ namespace ExcelAutomation.Service
                         dbProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
                         dbProjectDetail.ProjectId = project.ProjectId;
                         dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
-                        dbProjectDetail.PlanElevation = projectDetail.PlanElevation;
                         dbProjectDetail.Category = projectDetail.Category;
                         if(!string.IsNullOrEmpty(projectDetail.ImagePath) )
                             dbProjectDetail.ImagePath = projectDetail.ImagePath;
@@ -180,7 +182,30 @@ namespace ExcelAutomation.Service
                             _context.Update(dbProjectDetail);
                         else
                             _context.Add(dbProjectDetail);
+                        
                         _context.SaveChanges();
+
+                        var removeList = _context.PlanElevationReferances.Where(x =>
+                            x.ProjectDetailId == dbProjectDetail.ProjectDetailId).ToList();
+                        _context.PlanElevationReferances.RemoveRange(removeList);
+
+                        if (!string.IsNullOrEmpty(projectDetail.PlanElevation))
+                        {
+                            var planElevationArray = projectDetail.PlanElevation.Split("@_@");
+                            var lfValueArray = projectDetail.LFValue.Split("@_@");
+
+                            for (int i = 0; i < planElevationArray.Length; i++)
+                            {
+                                _context.Add(new PlanElevationReferance()
+                                {
+                                    ProjectDetailId = dbProjectDetail.ProjectDetailId,
+                                    LFValue = lfValueArray[i],
+                                    PlanElevationValue = planElevationArray[i]
+                                });
+                            }
+
+                            _context.SaveChanges();
+                        }
                     }
                 }
             }
@@ -233,7 +258,6 @@ namespace ExcelAutomation.Service
                 newProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
                 newProjectDetail.ProjectId = project.ProjectId;
                 newProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
-                newProjectDetail.PlanElevation = projectDetail.PlanElevation;
                 newProjectDetail.Category = projectDetail.Category;
                 newProject.ProjectDetails.Add(newProjectDetail);
             }
