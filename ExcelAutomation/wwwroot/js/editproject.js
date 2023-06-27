@@ -35,8 +35,18 @@ function BindEvent() {
         console.log($(this));
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
-            var planElevationString = document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
-            var totalLFString = document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
+            var planElevationString = ""; document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
+            var totalLFString = ""; document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
+
+            if ($(this).attr('readonly')) {
+                planElevationString = document.getElementById('rowFP' + rowIndex + 'PlanElevationHidden').value;
+                totalLFString = document.getElementById('rowFP' + rowIndex + 'TotalLFHidden').value;
+            }
+            else {
+                planElevationString =  document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
+                totalLFString =  document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
+            }
+
             $('#rows').html('');
 
             console.log(planElevationString);
