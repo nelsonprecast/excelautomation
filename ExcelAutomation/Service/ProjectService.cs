@@ -23,34 +23,57 @@ namespace ExcelAutomation.Service
             dbProject.CreatedDate = DateTime.Now;
             dbProject.ContactSpecs = project.ContactSpecs;
 
-            foreach(var projectDetail in project.ProjectDetails)
-            {
-                dbProject.ProjectDetails.Add(new ProjectDetail() { 
-                    Wd = projectDetail.WD,
-                    ItemName = projectDetail.ItemName,
-                    DispositionSpecialNote = projectDetail.DispositionSpecialNote,
-                    DetailPage = projectDetail.DetailPage,
-                    Height = projectDetail.Height,
-                    Length = projectDetail.Length,
-                    Width = projectDetail.Width,
-                    TakeOffColor = projectDetail.TakeOffColor,
-                    Pieces = projectDetail.Pieces,  
-                    ImagePath = projectDetail.ImagePath,
-                    TotalLf = projectDetail.TotalLf,
-                    ActSfcflf = projectDetail.ActSfcflf,
-                    ActCfpcs = projectDetail.ActCfpcs,
-                    TotalActCf = projectDetail.TotalActCf,
-                    NomCflf = projectDetail.NomCflf,
-                    NomCfpcs = projectDetail.NomCfpcs,
-                    TotalNomCf = projectDetail.TotalNomCf,
-                    MoldQty = projectDetail.MoldQty,
-                    LineItemCharge = projectDetail.LineItemCharge,
-                    TotalActualNominalValue = projectDetail.TotalActualNominalValue,
-                    Category = projectDetail.Category
-                });
-            }           
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
+            foreach (var projectDetail in project.ProjectDetails)
+            {
+                var dbProjectDetail = new ProjectDetail();
+                dbProjectDetail.ProjectId = dbProject.ProjectId;
+                dbProjectDetail.Wd = projectDetail.WD;
+                dbProjectDetail.ItemName = projectDetail.ItemName;
+                dbProjectDetail.DispositionSpecialNote = projectDetail.DispositionSpecialNote;
+                dbProjectDetail.DetailPage = projectDetail.DetailPage;
+                dbProjectDetail.Height = projectDetail.Height;
+                dbProjectDetail.Length = projectDetail.Length;
+                dbProjectDetail.Width = projectDetail.Width;
+                dbProjectDetail.TakeOffColor = projectDetail.TakeOffColor;
+                dbProjectDetail.Pieces = projectDetail.Pieces;
+                dbProjectDetail.ImagePath = projectDetail.ImagePath;
+                dbProjectDetail.TotalLf = projectDetail.TotalLf;
+                dbProjectDetail.ActSfcflf = projectDetail.ActSfcflf;
+                dbProjectDetail.ActCfpcs = projectDetail.ActCfpcs;
+                dbProjectDetail.TotalActCf = projectDetail.TotalActCf;
+                dbProjectDetail.NomCflf = projectDetail.NomCflf;
+                dbProjectDetail.NomCfpcs = projectDetail.NomCfpcs;
+                dbProjectDetail.TotalNomCf = projectDetail.TotalNomCf;
+                dbProjectDetail.MoldQty = projectDetail.MoldQty;
+                dbProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
+                dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
+                dbProjectDetail.Category = projectDetail.Category;
+
+                _context.Add(dbProjectDetail);
+                await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(projectDetail.PlanElevation))
+                {
+                    var planElevationArray = projectDetail.PlanElevation.Split("@_@");
+                    var lfValueArray = projectDetail.LFValue.Split("@_@");
+
+                    for (int i = 0; i < planElevationArray.Length; i++)
+                    {
+                        _context.Add(new PlanElevationReferance()
+                        {
+                            ProjectDetailId = dbProjectDetail.ProjectDetailId,
+                            LFValue = lfValueArray[i],
+                            PlanElevationValue = planElevationArray[i]
+                        });
+                    }
+
+                    await _context.SaveChangesAsync();
+                }
+            }           
+            
+            
             return dbProject.ProjectId;
         }
 

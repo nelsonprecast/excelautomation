@@ -88,7 +88,8 @@ namespace ExcelAutomation.Controllers
                 projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
-                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevation"];
+                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevationHidden"];
+                projectDetail.LFValue = Request.Form["row" + i + "TotalLFHidden"];
                 projectDetail.Category = Request.Form["row" + i + "Category"];
                 if (Request.Form.Files["row" + i + "File"] != null)
                 {

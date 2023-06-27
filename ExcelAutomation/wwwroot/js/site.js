@@ -23,6 +23,7 @@ function OnAddRow() {
         dataType: 'html',
         success: function (response) {
             $('#RowsTable').append(response);
+            BindEvent();
         },
         failure: function (response) {
             alert(response.responseText);
@@ -571,7 +572,7 @@ function CalculateLF() {
         }
     }
     if (sum != "") { 
-        document.getElementById('row1TotalLF').value = (sum).round(2); 
+        document.getElementById('row' + rowIndex + 'TotalLF').value = (sum).round(2); 
         document.getElementById('row' + rowIndex + 'PlanElevationHidden').value = planElevationString;
         document.getElementById('row' + rowIndex + 'TotalLFHidden').value = totalLFString;
     }

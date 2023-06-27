@@ -214,8 +214,15 @@
 
                 <label class="col-7 "> Disposition (Special Notes)</label>
                 <textarea id="row1DispositionSpecialNote" name="row1DispositionSpecialNote" class="form-control disposition" type="text" style="height:50px"></textarea>
-
-                <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                <div class="row exceldatarow11">
+                    <div class="totallfdata">
+                        <input id="row1PlanElevationHidden" name="row1PlanElevationHidden" class="form-control" type="hidden"/>
+                        <input id="row1TotalLFHidden" name="row1TotalLFHidden" class="form-control" type="hidden"/>
+                        <input id="rowIndex" class="form-control" type="hidden" value="1"/>
+                        <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                    </div>
+                </div>
+                
                                      
             </div>
         </div>
@@ -338,28 +345,36 @@
 </form>
 
 
-<div id="dialog-form" title="Plan/Elevation">
-    
-    <form>
-        <fieldset>
-            <div class="row" id="rows">
-                <div class="row planelevation">
-                    <div class="col-2">1</div>
-                    <div class="col-5"><input type="text" id="planelevation1" name="planelevation1" class="form-control" /></div>
-                        <div class="col-5"><input type="text" id="lf1" name="lf1" class="form-control lf" /></div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Plan/Elevation</h5>
+                    
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-2"> #</div>
+                    <div class="col-5"> Plan/Elevation</div>
+                    <div class="col-5"> LF</div>
+                </div>
+                <div id="rows" class="row">
+                    <div class="row planelevation">
+                        <div class="col-2"> 1</div>
+                        <div class="col-5"> <input type="text" id="planelevation1" name="planelevation1" class="form-control"/></div>
+                        <div class="col-5"> <input type="text" id="lf1" name="lf1" class="form-control"/></div>
+                    </div>
                 </div>
             </div>
-                
-            <div class="row">
-                <div class="col-4"><input type="submit" tabindex="-1" onclick="AddPlanElevationRow();" value="Add Row"/></div>
-                <div class="col-3"></div>
-                <div class="col-5"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="AddPlanElevationRow();">Add Row</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
+                <button type="button" class="btn btn-primary" onclick="CalculateLF();">Save & Close</button>
             </div>
-            <input id="LFId" name="LFId" value="" />
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </fieldset>
-    </form>
+           
+        </div>
+    </div>
 </div>
 
 
@@ -367,46 +382,6 @@
 
 @section scripts {
 
-    <script>
-        var dialog, form;
-        $(document).ready(function () {
-            $('#datepicker').datepicker({
-                autoclose: true
-            });
-
-            dialog = $("#dialog-form").dialog({
-                autoOpen: false,
-                height: 400,
-                width: 450,
-                modal: true,
-                buttons: {
-                    "Calculate LF": CalculateLF,
-                    Cancel: function () {
-                        dialog.dialog("close");
-                    }
-                },
-                close: function () {
-                    form[0].reset();
-                },
-                open: function (event, ui) {
-                    var id=0;
-                }
-            });
-
-            form = dialog.find("form").on("submit", function (event) {
-                event.preventDefault();
-            });
-
-            $("#create-user").button().on("click", function () {
-                dialog.dialog("open");
-            });
-            
-            $(document).on('click','.edit',function(){
-                console.log($('.disposition').attr('id'));
-            });
-        });
-        
-    
-    </script>
+    <script language="javascript" src="~/js/addproject.js" type="text/javascript" asp-append-version="true"></script>
 
 }
