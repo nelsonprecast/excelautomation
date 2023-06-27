@@ -3,6 +3,29 @@ $(document).ready(function () {
     $('#datepicker').datepicker({
         autoclose: true
     });
+    BindEvent();
+
+    $(".img-container").popupLightbox();
+    /* This is basic - uses default settings */
+    window.console.log(1);
+    CalculateTotalActualOnChangeOfActualCF();
+    CalculateTotalNominalOnChangeOfNominalCF();
+    var rowCount = $('.exceldatarow').length;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Length'));
+        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Width'));
+        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Height'));
+        CalculateActCFPcs(rownumber);
+        CalculateTotalActCF(rownumber);
+        CalculateNomCFLF(rownumber);
+        CalculateNomCFPcs(rownumber);
+        CalculateTotalNomCF(rownumber);
+        OnLineItemChange(rownumber);
+    }
+    CallSumMethods();
+});
+
+function BindEvent() {
     $('.exceldatarow11').click(function () {
 
         console.log($(this));
@@ -34,23 +57,4 @@ $(document).ready(function () {
         });
 
     });
-
-    $(".img-container").popupLightbox();
-    /* This is basic - uses default settings */
-    window.console.log(1);
-    CalculateTotalActualOnChangeOfActualCF();
-    CalculateTotalNominalOnChangeOfNominalCF();
-    var rowCount = $('.exceldatarow').length;
-    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
-        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Length'));
-        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Width'));
-        ConvertNumberToFraction(document.getElementById('row' + rownumber + 'Height'));
-        CalculateActCFPcs(rownumber);
-        CalculateTotalActCF(rownumber);
-        CalculateNomCFLF(rownumber);
-        CalculateNomCFPcs(rownumber);
-        CalculateTotalNomCF(rownumber);
-        OnLineItemChange(rownumber);
-    }
-    CallSumMethods();
-});
+}
