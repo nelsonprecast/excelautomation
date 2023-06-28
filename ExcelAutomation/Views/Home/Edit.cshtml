@@ -173,7 +173,7 @@
                 Mold QTY
             </div>
         </div>
-        <div class="col-2 row light-green"></div>
+        <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
         <div class="col-4 row">
             <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
             <div class="col-2">
@@ -326,11 +326,11 @@
                                                 
             </div>
         </div>
-        <div class="col-2 row">
-            <div class="light-green col float-left">
+        <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")">
+            <div class="col float-left">
                 <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/>
             </div>
-            <div class="light-green col float-left">
+            <div class="col float-left">
                 <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
             </div>
         </div>
@@ -405,7 +405,7 @@
                 Mold QTY
             </div>
         </div>
-        <div class="col-2 row light-green">
+        <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
             <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));" value="1" /></div>
             <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue ==null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));" value="2" /></div>
         </div>
@@ -547,11 +547,11 @@
 
             </div>
         </div>
-        <div class="col-2 row">
-            <div class="light-green col float-left">
+        <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
+            <div class="col float-left">
                 <span class="float-left">$</span><input id="rowFP@(j)TotalActual" name="rowFP@(j)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
             </div>
-            <div class="light-green col float-left">
+            <div class="col float-left">
                 <span class="float-left">$</span><input id="rowFP@(j)TotalNominal" name="rowFP@(j)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
             </div>
         </div>
