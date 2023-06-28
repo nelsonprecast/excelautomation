@@ -216,12 +216,14 @@ function CallSumMethods() {
     SumTotalOfActual();
     SumTotalOfNominal();
     SumLineItemCharge();
-    SumLineItemChargePCs();
-    SumLineItemChargeCF();
+    
     SumOfPcs();
     SumOfTotalActualCF();
     SumOfTotalNomCF();
     SumOfTotalLF();
+    SumOfLineItemCharge();
+    SumLineItemChargePCs();
+    SumLineItemChargeCF();
 }
 function SumTotalOfActual() {
     var rowCount = $('.exceldatarow1').length;
@@ -305,15 +307,11 @@ function SumLineItemCharge() {
 
 function SumLineItemChargePCs() {
     var rowCount = $('.exceldatarow1').length;
-
-    var sum = 0;
-    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
-        var LineItemChargePCs = document.getElementById('rowFP' + rownumber + 'LineItemChargePCs').value;
-        if (LineItemChargePCs != "")
-            sum = sum + parseFloat(LineItemChargePCs);
-    }
-    if ( sum != "")
-        document.getElementById('rowFPSumLineItemChargePCs').value = (sum).round(2);
+    var rowFPSumOfPcs = document.getElementById('rowFPSumOfPcs').value;
+    var LineItemTotal = document.getElementById('LineItemTotal').value;
+    
+    if (LineItemTotal != "" && rowFPSumOfPcs != "")
+        document.getElementById('rowFPSumLineItemChargePCs').value = (LineItemTotal / rowFPSumOfPcs).round(2);
 }
 
 function SumLineItemChargeCF() {
@@ -392,6 +390,19 @@ function SumOfTotalLF() {
     }
     if (sum != "")
         document.getElementById('rowFPSumOfTotalLF').value = (sum).round(2);
+}
+
+function SumOfLineItemCharge() {
+    var rowCount = $('.exceldatarow1').length;
+
+    var sum = 0;
+    for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
+        var LineItemCharge = document.getElementById('rowFP' + rownumber + 'LineItemCharge').value;
+        if (LineItemCharge != "")
+            sum = sum + parseFloat(LineItemCharge);
+    }
+    if (sum != "")
+        document.getElementById('rowFPSumLineItemCharge').value = (sum).round(2);
 }
 
 function GetUpperLimitOfDecimalToGetFractionValue(inputNumber) {
