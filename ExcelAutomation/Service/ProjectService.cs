@@ -92,7 +92,8 @@ namespace ExcelAutomation.Service
                         ActualCF = project.ActualCf,
                         NominalCF = project.NominalCf,
                         CreatedDate = project.CreatedDate ?? DateTime.MinValue,
-                        ContactSpecs = project.ContactSpecs
+                        ContactSpecs = project.ContactSpecs,
+                        RevisionDate = project.RevisionDate
                     });
                 }
             }
