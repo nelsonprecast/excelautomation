@@ -406,8 +406,8 @@
             </div>
         </div>
         <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
-            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));" value="1" /></div>
-            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue ==null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));" value="2" /></div>
+            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="1" /></div>
+            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue ==null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="2" /></div>
         </div>
         <div class="col-2 row"></div>
         <div class="col-4 row">
@@ -616,7 +616,7 @@
         <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
     </div>
     <div class="col-2 row">
-        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();" /></div>
+        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();SumLineItemChargeCF();" /></div>
         <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly" /></div>
     </div>
 </div>

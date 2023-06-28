@@ -317,14 +317,21 @@ function SumLineItemChargePCs() {
 function SumLineItemChargeCF() {
     var rowCount = $('.exceldatarow1').length;
 
+    
+    var LineItemTotal = document.getElementById('LineItemTotal').value;
     var sum = 0;
     for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
-        var LineItemChargeCF = document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value;
-        if (LineItemChargeCF != "")
-            sum = sum + parseFloat(LineItemChargeCF);
+        var LineItemCharge = document.getElementById('rowFP' + rownumber + 'LineItemCharge').value;
+        var TotalCheckBox = $("input[name='rowFP" + rownumber + "TotalCheckBox']:checked").val();
+
+        if (TotalCheckBox == "1") {
+            sum = sum + parseFloat(document.getElementById('rowFP' + rownumber + 'TotalActCF').value);
+        }
+        else
+            sum = sum + parseFloat(document.getElementById('rowFP' + rownumber + 'TotalNomCF').value);
     }
     if ( sum != "")
-        document.getElementById('rowFPSumOfLineItemChargeCF').value = (sum).round(2);
+        document.getElementById('rowFPSumOfLineItemChargeCF').value = (LineItemTotal/sum).round(2);
 }
 
 function ConvertNumberToFraction(input) {
