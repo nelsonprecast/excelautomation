@@ -684,6 +684,8 @@
         <div class="col">
         </div>
         <div class="col" style="text-align:right;">
+           
+                    <input type="button" onclick="ExportToExcelTable();exportReportToExcel(this);" value="Export to Excel">
             <button type="submit" onclick="return Validate();" class="btn btn-primary"> Save </button>
         </div>
     </div>
@@ -723,11 +725,19 @@
 </div>
 </div>
 
+<div id="hiddenTable">
 
+</div>
 
 @section scripts {
 
     <script type="text/javascript" src="~/js/editproject.js" language="javascript" asp-append-version="true"></script>
     <script type="text/javascript" src="~/lib/jquery-lightbox/jquery.popup.lightbox.js" language="javascript" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
 
+    <script type="text/javascript">
+        
+        
+        
+    </script>
 }

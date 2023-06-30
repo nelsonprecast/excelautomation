@@ -72,3 +72,33 @@ function BindEvent() {
 
     });
 }
+
+function ExportToExcelTable() {
+    var rowcount = $('.exceldatarow1').length;
+    var table = "<table id='testTable'> <tr> <td>No</td> <td>WD</td> <td>Category</td><td>Item Name</td> <td>Detail#/Page</td> <td>Length</td> <td>Width</td> <td>Height</td> <td>Pcs</td> </tr> ";
+    for (var rownumber = 1; rownumber <= rowcount; rownumber++) {
+        table += "<tr><td>" + rownumber + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'WD').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'Category').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'ItemName').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'DetailPage').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'Length').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'Width').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'Height').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'Pieces').value + "</td>" +
+            "</tr>"
+    }
+    table += "</table>";
+    $('#hiddenTable').html(table);
+}
+
+
+function exportReportToExcel() {
+    let table = document.getElementById("testTable"); // you can use document.getElementById('tableId') as well by providing id to the table tag
+    TableToExcel.convert(table, { // html code may contain multiple tables so here we are refering to 1st table tag
+        name: `export.xlsx`, // fileName you could use any name
+        sheet: {
+            name: 'Sheet 1' // sheetName
+        }
+    });
+}
