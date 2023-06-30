@@ -75,7 +75,8 @@ function BindEvent() {
 
 function ExportToExcelTable() {
     var rowcount = $('.exceldatarow1').length;
-    var table = "<table id='testTable'> <tr> <td>No</td> <td>WD</td> <td>Category</td><td>Item Name</td> <td>Detail#/Page</td> <td>Length</td> <td>Width</td> <td>Height</td> <td>Pcs</td> </tr> ";
+    var table = "<table id='testTable'> <tr> <td>No</td> <td>WD</td> <td>Category</td><td>Item Name</td> <td>Detail#/Page</td> <td>Length</td> <td>Width</td> <td>Height</td> <td>Pcs</td>  ";
+    table += " <td>Disposition (Special Notes)</td> <td>Total LF</td> <td>Nom. CF/LF</td><td>Act SF CF/LF</td> <td>Act CF/Pcs</td> <td>Total Act CF</td> <td>Nom. CF/Pcs</td> <td>Line Item Charge</td> </tr> ";
     for (var rownumber = 1; rownumber <= rowcount; rownumber++) {
         table += "<tr><td>" + rownumber + "</td>" +
             "<td>" + document.getElementById('rowFP' + rownumber + 'WD').value + "</td>" +
@@ -86,6 +87,16 @@ function ExportToExcelTable() {
             "<td>" + document.getElementById('rowFP' + rownumber + 'Width').value + "</td>" +
             "<td>" + document.getElementById('rowFP' + rownumber + 'Height').value + "</td>" +
             "<td>" + document.getElementById('rowFP' + rownumber + 'Pieces').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'DispositionSpecialNote').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'TotalLF').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'NomCFLF').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'TotalNomCF').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'ActSFCFLF').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'ActCFPcs').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'TotalActCF').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'NomCFPcs').value + "</td>" +
+            "<td>" + document.getElementById('rowFP' + rownumber + 'LineItemCharge').value + "</td>" +
+
             "</tr>"
     }
     table += "</table>";
