@@ -103,6 +103,8 @@ public partial class ExcelAutomationContext : DbContext
 
             entity.Property(e => e.LFValue).HasMaxLength(50);
 
+            entity.Property(e => e.ImagePath).IsRequired(false).HasMaxLength(1000);
+
             entity.HasOne(d => d.ProjectDetail).WithMany(p => p.PlanElevationReferances)
                 .HasForeignKey(d => d.ProjectDetailId)
                 .OnDelete(DeleteBehavior.ClientSetNull)

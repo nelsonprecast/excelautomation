@@ -44,5 +44,7 @@
 
         public ICollection<PlanElevationReferenceDto> PlanElevationReferences { get; set; }
 
+        public ICollection<IFormFile> PlanElevationFiles { get; set; }
+
     }
 }

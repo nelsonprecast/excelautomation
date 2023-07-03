@@ -383,5 +383,17 @@
 @section scripts {
 
     <script language="javascript" src="~/js/addproject.js" type="text/javascript" asp-append-version="true"></script>
+    <script type="text/javascript">
+        //e.originalEvent.clipboardData.files
+        //const form = document.getElementById("new_document_attachment");
+        const fileInput = document.getElementById("ContactSpecs");
 
+        //fileInput.addEventListener('change', () => {
+        //    form.submit();
+        //});
+
+        window.addEventListener('paste', e => {
+            fileInput.files = e.clipboardData.files;
+        });
+    </script>
 }

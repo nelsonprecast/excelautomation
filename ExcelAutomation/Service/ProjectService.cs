@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Azure.Core;
 using ExcelAutomation.Data;
 using ExcelAutomation.Models;
 using Microsoft.CodeAnalysis;
@@ -8,10 +9,12 @@ namespace ExcelAutomation.Service
     public class ProjectService : IProjectService
     {
         private readonly ExcelAutomationContext _context;
+        private IWebHostEnvironment _hostingEnvironment;
 
-        public ProjectService(ExcelAutomationContext context)
+        public ProjectService(ExcelAutomationContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _hostingEnvironment = environment;
         }
 
         public async Task<int> SaveProject(ProjectDto project)
@@ -148,7 +151,7 @@ namespace ExcelAutomation.Service
                         TotalActualNominalValue = projectDetail.TotalActualNominalValue,
                         Category = projectDetail.Category,
                         PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty),
-                        LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue)) : string.Empty)
+                        LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue + "_" + x.ImagePath)) : string.Empty),
                     });
                 }
             }
@@ -172,6 +175,7 @@ namespace ExcelAutomation.Service
                 _context.SaveChanges();
                 if (project.ProjectDetails != null)
                 {
+                    var pdIndex = 1;
                     foreach (var projectDetail in projectDto.ProjectDetails)
                     {
                         var dbProjectDetail =
@@ -209,6 +213,7 @@ namespace ExcelAutomation.Service
                         
                         _context.SaveChanges();
 
+
                         var removeList = _context.PlanElevationReferances.Where(x =>
                             x.ProjectDetailId == dbProjectDetail.ProjectDetailId).ToList();
                         _context.PlanElevationReferances.RemoveRange(removeList);
@@ -220,16 +225,33 @@ namespace ExcelAutomation.Service
 
                             for (int i = 0; i < planElevationArray.Length; i++)
                             {
+                                var dbfilePath = string.Empty;
+                                var file = projectDetail.PlanElevationFiles.FirstOrDefault(x =>
+                                    x.Name.Equals($"hiddenPlanElevationFile{pdIndex}_{i + 1}"));
+                                if (file != null)
+                                {
+                                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "PlanElevation\\") + fileName;
+                                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                                    {
+                                        file.CopyTo(fileStream);
+                                        dbfilePath = "/PlanElevation/" + fileName;
+                                    }
+                                }
+
                                 _context.Add(new PlanElevationReferance()
                                 {
                                     ProjectDetailId = dbProjectDetail.ProjectDetailId,
                                     LFValue = lfValueArray[i],
-                                    PlanElevationValue = planElevationArray[i]
+                                    PlanElevationValue = planElevationArray[i],
+                                    ImagePath = dbfilePath
                                 });
                             }
 
                             _context.SaveChanges();
                         }
+
+                        pdIndex++;
                     }
                 }
             }

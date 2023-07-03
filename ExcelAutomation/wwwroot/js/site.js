@@ -559,9 +559,10 @@ function AddPlanElevationRow() {
 
     $('#rows').append(
         '<div class="row planelevation">'+
-        '<div class= "col-2"> ' + rowCount +'</div> ' +
-        ' <div class= "col-5" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
-        '<div class= "col-5" > <input type="text" id="lf' + rowCount +'" name="lf' + rowCount +'" class="form-control" /></div> ' +
+        '<div class= "col-1"> ' + rowCount +'</div> ' +
+        ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
+        '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
+        '<div class= "col-4" ><img src="" id="image' + rowCount + '" style="width:100px;" /> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '"  /></div> ' +
         '</div>');
 }
 
@@ -575,18 +576,24 @@ function CalculateLF() {
     var sum = 0;
     var planElevationString = "";
     var totalLFString = "";
-
+    $('#hiddenPlanElevationFiles').html('');
     for (var i = 1; i <= rowCount; i++) {
         if ($('#lf' + i).val() != "") {
             sum = sum + parseFloat($('#lf' + i).val());
+            $('#hiddenPlanElevationFiles').append(
+                '<input type="file" id="hiddenPlanElevationFile' + rowIndex + "_" + i + '" name="hiddenPlanElevationFile' + rowIndex + "_" + i + '"  />');
+           
             if (totalLFString == "") {
                 totalLFString = $('#lf' + i).val();
-                planElevationString = $('#planelevation' + i).val();
+                planElevationString = $('#planelevation' + i).val();               
             }
             else {
                 totalLFString += "@_@" + $('#lf' + i).val();
                 planElevationString += "@_@" + $('#planelevation' + i).val();
             }
+            var file = $('#planElevationFile' + i).prop('files');
+            if (file.length > 0)
+                document.getElementById('hiddenPlanElevationFile' + rowIndex + '_' + i).files = $('#planElevationFile' + i).prop('files');
         }
     }
     if (sum != "") { 

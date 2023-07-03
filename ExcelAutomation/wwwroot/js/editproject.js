@@ -60,7 +60,11 @@ function BindEvent() {
                     for (var i = 0; i < planElevationArray.length; i++) {
                         AddPlanElevationRow();
                         $('#planelevation' + (i + 1)).val(planElevationArray[i]);
-                        $('#lf' + (i + 1)).val(totalLFArray[i]);
+                        $('#lf' + (i + 1)).val((totalLFArray[i].split("_")[0]));
+                        if (totalLFArray[i].split("_")[1] != "")
+                            $('#image' + (i + 1)).prop('src', totalLFArray[i].split("_")[1]);
+                        else
+                            $('#image' + (i + 1)).hide();
                     }
                 }
             }

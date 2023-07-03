@@ -22,6 +22,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\ContactSpecs\" />
     <Folder Include="wwwroot\lib\jquery-lightbox\" />
+    <Folder Include="wwwroot\PlanElevation\" />
     <Folder Include="wwwroot\ProjectImages\" />
   </ItemGroup>
 
