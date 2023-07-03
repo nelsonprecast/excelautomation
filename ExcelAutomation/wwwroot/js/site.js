@@ -562,10 +562,14 @@ function AddPlanElevationRow() {
         '<div class= "col-1"> ' + rowCount +'</div> ' +
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
-        '<div class= "col-4" ><img src="" id="image' + rowCount + '" style="width:100px;" /> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '"  /></div> ' +
+        '<div class= "col-4" ><div class="row"> <div class= "col-6"><img src="" id="image' + rowCount + '" style="width:100px;" /> </div> <div class= "col-6"> <a id="planElevationFileSelect' + rowCount + '" class="link" onclick="ShowPlanElevationFileSelection(' + rowCount + ')" href="javascript:void(0);"><input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  />Select Image </a>  </div> </div></div> ' +
         '</div>');
 }
 
+function ShowPlanElevationFileSelection(rowNumber) {
+
+    document.getElementById('planElevationFile' + rowNumber).click();
+}
 function CloseModal() {
     $('#exampleModal').modal('hide');
 }
