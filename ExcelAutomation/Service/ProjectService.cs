@@ -28,6 +28,7 @@ namespace ExcelAutomation.Service
 
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
+            var pdIndex = 1;
             foreach (var projectDetail in project.ProjectDetails)
             {
                 var dbProjectDetail = new ProjectDetail();
@@ -64,6 +65,19 @@ namespace ExcelAutomation.Service
 
                     for (int i = 0; i < planElevationArray.Length; i++)
                     {
+                        var dbfilePath = string.Empty;
+                        var file = projectDetail.PlanElevationFiles.FirstOrDefault(x =>
+                            x.Name.Equals($"hiddenPlanElevationFile{pdIndex}_{i + 1}"));
+                        if (file != null)
+                        {
+                            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "PlanElevation\\") + fileName;
+                            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                            {
+                                file.CopyTo(fileStream);
+                                dbfilePath = "/PlanElevation/" + fileName;
+                            }
+                        }
                         _context.Add(new PlanElevationReferance()
                         {
                             ProjectDetailId = dbProjectDetail.ProjectDetailId,
@@ -74,6 +88,7 @@ namespace ExcelAutomation.Service
 
                     await _context.SaveChangesAsync();
                 }
+                pdIndex++;
             }           
             
             

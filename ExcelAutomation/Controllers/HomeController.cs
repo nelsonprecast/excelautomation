@@ -104,6 +104,8 @@ namespace ExcelAutomation.Controllers
                     projectDetail.ImagePath = "/ProjectImages/" + fileName;
                 }
 
+                projectDetail.PlanElevationFiles =
+                    Request.Form.Files.Where(x => x.Name.Contains($"hiddenPlanElevationFile{i}_")).ToList();
                 projectDetails.Add(projectDetail);
                 i++;
                 wd = "row" + i + "WD";
