@@ -741,5 +741,17 @@
     <script type="text/javascript" src="~/js/editproject.js" language="javascript" asp-append-version="true"></script>
     <script type="text/javascript" src="~/lib/jquery-lightbox/jquery.popup.lightbox.js" language="javascript" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/gh/linways/table-to-excel@v1.0.4/dist/tableToExcel.js"></script>
-    
+    <script type="text/javascript">
+        //e.originalEvent.clipboardData.files
+        //const form = document.getElementById("new_document_attachment");
+        const fileInput = document.getElementById("ContactSpecs");
+
+        //fileInput.addEventListener('change', () => {
+        //    form.submit();
+        //});
+
+        window.addEventListener('paste', e => {
+            fileInput.files = e.clipboardData.files;
+        });
+    </script>
 }

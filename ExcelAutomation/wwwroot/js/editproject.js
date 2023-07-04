@@ -39,8 +39,7 @@ function BindEvent() {
             var planElevationJsonArray = [];
             if (planElevationJsonString != "")
                 planElevationJsonArray= JSON.parse(planElevationJsonString);
-            var planElevationString = ""; document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
-            var totalLFString = ""; document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
+            
 
             if ($(this).attr('readonly')) {
                 planElevationString = document.getElementById('rowFP' + rowIndex + 'PlanElevationHidden').value;
@@ -53,24 +52,19 @@ function BindEvent() {
 
             $('#rows').html('');
             console.log(planElevationJsonArray);
-            console.log(planElevationString);
-            console.log(totalLFString);
 
-            if (planElevationJsonArray.length > 0) {
-                var planElevationArray = planElevationString.split("@_@");
-                var totalLFArray = totalLFString.split("@_@");
-                if (planElevationArray.length > 0) {
+            if (planElevationJsonArray.length > 0) {               
 
-                    for (var i = 0; i < planElevationJsonArray.length; i++) {
-                        AddPlanElevationRow();
-                        $('#planelevation' + (i + 1)).val(planElevationArray[i]);
-                        $('#lf' + (i + 1)).val((totalLFArray[i].split("_")[0]));
-                        if (totalLFArray[i].split("_")[1] != "")
-                            $('#image' + (i + 1)).prop('src', totalLFArray[i].split("_")[1]);
-                        else
-                            $('#image' + (i + 1)).hide();
-                    }
-                }
+                for (var i = 0; i < planElevationJsonArray.length; i++) {
+                    AddPlanElevationRow();
+                    $('#PlanElevationReferanceId' + (i + 1)).val(planElevationJsonArray[i].PlanElevationReferanceId);
+                    $('#planelevation' + (i + 1)).val(planElevationJsonArray[i].PlanElevationValue);
+                    $('#lf' + (i + 1)).val(planElevationJsonArray[i].LFValue);
+                    if (planElevationJsonArray[i].ImagePath != "")
+                        $('#image' + (i + 1)).prop('src', planElevationJsonArray[i].ImagePath);
+                    else
+                        $('#image' + (i + 1)).hide();
+                }               
             }
             else {
                 AddPlanElevationRow();

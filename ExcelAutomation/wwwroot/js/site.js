@@ -559,11 +559,11 @@ function AddPlanElevationRow() {
 
     $('#rows').append(
         '<div class="row planelevation">'+
-        '<div class= "col-1"> ' + rowCount +'</div> ' +
+        '<div class= "col-1"> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount +'" value="0" /></div> ' +
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-4" ><div class="row"> <div class= "col-6">  <img src="" id="image' + rowCount + '" style="width:100px;" /> </div> ' +
-        '<div class= "col-6 font-size-08" ondrop="drop(event)" onclick="ShowPlanElevationFileSelection(' + rowCount + ')" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true"></i> <br/>Select or Drop Image   </div>' +
+        '<div class= "col-6 font-size-08" onpaste="paste(event)" ondrop="drop(event)" onclick="ShowPlanElevationFileSelection(' + rowCount + ')" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true"></i> <br/>Select or Drop Image   </div>' +
         ' </div></div> ' +
         '</div>');
 }
@@ -591,6 +591,25 @@ function drop(ev) {
     }
 }
 
+function paste(ev) {
+    ev.preventDefault();
+    var id = ev.currentTarget.id;
+    var data = ev.clipboardData.files;
+    //ev.target.appendChild(document.getElementById(data));
+    document.getElementById('planElevationFile' + id).files = data;
+
+    var file = data[0];
+    if (file) {
+        var filereader = new FileReader();
+        filereader.readAsDataURL(file);
+        filereader.onload = function (evt) {
+            var base64 = evt.target.result;
+            $('#image' + id).prop('src', base64);
+            $('#image' + id).show();
+        }
+    }
+}
+
 function ShowPlanElevationFileSelection(rowNumber) {
 
     document.getElementById('planElevationFile' + rowNumber).click();
@@ -602,12 +621,20 @@ function CloseModal() {
 function CalculateLF() {
     var rowCount = $('.planelevation').length;
 
+    var planElevationJsonString = document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value;
+    var planElevationJsonArray = [];
+    if (planElevationJsonString != "")
+        planElevationJsonArray = JSON.parse(planElevationJsonString);
+
     var sum = 0;
     var planElevationString = "";
     var totalLFString = "";
     $('#hiddenPlanElevationFiles').html('');
     for (var i = 1; i <= rowCount; i++) {
         if ($('#lf' + i).val() != "") {
+            var planElevObj = planElevationJsonArray.find(({ PlanElevationReferanceId }) => PlanElevationReferanceId == $('#PlanElevationReferanceId' + i).val());
+            var planElevIndex = planElevationJsonArray.findIndex(x => x.PlanElevationReferanceId == $('#PlanElevationReferanceId' + i).val());
+            
             sum = sum + parseFloat($('#lf' + i).val());
             $('#hiddenPlanElevationFiles').append(
                 '<input type="file" id="hiddenPlanElevationFile' + rowIndex + "_" + i + '" name="hiddenPlanElevationFile' + rowIndex + "_" + i + '"  />');
