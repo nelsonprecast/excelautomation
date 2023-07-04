@@ -562,8 +562,33 @@ function AddPlanElevationRow() {
         '<div class= "col-1"> ' + rowCount +'</div> ' +
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
-        '<div class= "col-4" ><div class="row"> <div class= "col-6"><img src="" id="image' + rowCount + '" style="width:100px;" /> </div> <div class= "col-6"> <a id="planElevationFileSelect' + rowCount + '" class="link" onclick="ShowPlanElevationFileSelection(' + rowCount + ')" href="javascript:void(0);"><input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  />Select Image </a>  </div> </div></div> ' +
+        '<div class= "col-4" ><div class="row"> <div class= "col-6">  <img src="" id="image' + rowCount + '" style="width:100px;" /> </div> ' +
+        '<div class= "col-6 font-size-08" ondrop="drop(event)" onclick="ShowPlanElevationFileSelection(' + rowCount + ')" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true"></i> <br/>Select or Drop Image   </div>' +
+        ' </div></div> ' +
         '</div>');
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var id = ev.currentTarget.id;
+    var data = ev.dataTransfer.files;
+    //ev.target.appendChild(document.getElementById(data));
+    document.getElementById('planElevationFile' + id).files = data;
+
+    var file = data[0];
+    if (file) {
+        var filereader = new FileReader();
+        filereader.readAsDataURL(file);
+        filereader.onload = function (evt) {
+            var base64 = evt.target.result;
+            $('#image' + id).prop('src', base64);
+            $('#image' + id).show();
+        }
+    }
 }
 
 function ShowPlanElevationFileSelection(rowNumber) {
