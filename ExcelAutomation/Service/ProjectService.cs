@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using Azure.Core;
-using ExcelAutomation.Data;
+﻿using ExcelAutomation.Data;
 using ExcelAutomation.Models;
-using Microsoft.CodeAnalysis;
+using Newtonsoft.Json;
+
 
 namespace ExcelAutomation.Service
 {
@@ -82,7 +81,8 @@ namespace ExcelAutomation.Service
                         {
                             ProjectDetailId = dbProjectDetail.ProjectDetailId,
                             LFValue = lfValueArray[i],
-                            PlanElevationValue = planElevationArray[i]
+                            PlanElevationValue = planElevationArray[i],
+                            ImagePath = dbfilePath
                         });
                     }
 
@@ -139,35 +139,53 @@ namespace ExcelAutomation.Service
                 var planElevationReferences = _context.PlanElevationReferances
                     .Where(x => projectDetailIds.Contains(x.ProjectDetailId)).ToList();
                 projectDto.ProjectDetails = new List<ProjectDetailDto>();
+                
                 foreach (var projectDetail in projectDetails)
                 {
-                    projectDto.ProjectDetails.Add(new ProjectDetailDto()
-                    {
-                        ProjectDetailId = projectDetail.ProjectDetailId,
-                        WD = projectDetail.Wd,
-                        ItemName = projectDetail.ItemName,
-                        DispositionSpecialNote = projectDetail.DispositionSpecialNote,
-                        DetailPage = projectDetail.DetailPage,
-                        TakeOffColor = projectDetail.TakeOffColor,
-                        Length = projectDetail.Length,
-                        Width = projectDetail.Width,
-                        Height = projectDetail.Height,
-                        Pieces = projectDetail.Pieces,
-                        ImagePath = projectDetail.ImagePath,
-                        TotalLf = projectDetail.TotalLf,
-                        ActSfcflf = projectDetail.ActSfcflf,
-                        ActCfpcs = projectDetail.ActCfpcs,
-                        TotalActCf = projectDetail.TotalActCf,
-                        NomCflf = projectDetail.NomCflf,
-                        NomCfpcs = projectDetail.NomCfpcs,
-                        TotalNomCf = projectDetail.TotalNomCf,
-                        MoldQty = projectDetail.MoldQty,
-                        LineItemCharge = projectDetail.LineItemCharge,
-                        TotalActualNominalValue = projectDetail.TotalActualNominalValue,
-                        Category = projectDetail.Category,
-                        PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty),
-                        LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue + "_" + x.ImagePath)) : string.Empty),
-                    });
+                    var projectDetailDto = new ProjectDetailDto();
+
+                    projectDetailDto.ProjectDetailId = projectDetail.ProjectDetailId;
+                    projectDetailDto.WD = projectDetail.Wd;
+                        projectDetailDto.ItemName = projectDetail.ItemName;
+                    projectDetailDto.DispositionSpecialNote = projectDetail.DispositionSpecialNote;
+                    projectDetailDto.DetailPage = projectDetail.DetailPage;
+                    projectDetailDto.TakeOffColor = projectDetail.TakeOffColor;
+                    projectDetailDto.Length = projectDetail.Length;
+                    projectDetailDto.Width = projectDetail.Width;
+                    projectDetailDto.Height = projectDetail.Height;
+                    projectDetailDto.Pieces = projectDetail.Pieces;
+                    projectDetailDto.ImagePath = projectDetail.ImagePath;
+                    projectDetailDto.TotalLf = projectDetail.TotalLf;
+                    projectDetailDto.ActSfcflf = projectDetail.ActSfcflf;
+                    projectDetailDto.ActCfpcs = projectDetail.ActCfpcs;
+                    projectDetailDto.TotalActCf = projectDetail.TotalActCf;
+                    projectDetailDto.NomCflf = projectDetail.NomCflf;
+                    projectDetailDto.NomCfpcs = projectDetail.NomCfpcs;
+                    projectDetailDto.TotalNomCf = projectDetail.TotalNomCf;
+                    projectDetailDto.MoldQty = projectDetail.MoldQty;
+                    projectDetailDto.LineItemCharge = projectDetail.LineItemCharge;
+                    projectDetailDto.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
+                    projectDetailDto.Category = projectDetail.Category;
+                    projectDetailDto.PlanElevationJson = planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) 
+                        ? JsonConvert.SerializeObject(planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId)
+                            .Select(x=>new PlanElevationReferenceDto()
+                            {
+                                ProjectDetailId = x.ProjectDetailId,
+                                PlanElevationReferanceId = x.PlanElevationReferanceId,
+                                ImagePath = x.ImagePath,
+                                LFValue = x.LFValue,
+                                PlanElevationValue = x.PlanElevationValue
+                            })
+                            .ToList(), Formatting.Indented, new JsonSerializerSettings()
+                            {
+                                TypeNameHandling = TypeNameHandling.Objects,
+                                TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
+                                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+                                MaxDepth = 1
+                            }) :string.Empty;
+                    projectDetailDto.PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty);
+                    projectDetailDto.LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue + "_" + x.ImagePath)) : string.Empty);
+                    projectDto.ProjectDetails.Add(projectDetailDto);
                 }
             }
 

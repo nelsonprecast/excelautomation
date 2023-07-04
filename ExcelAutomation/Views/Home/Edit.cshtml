@@ -234,10 +234,11 @@
                     <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height:50px">@projectDetail.DispositionSpecialNote</textarea>
                     <div class="row exceldatarow11">
                         <div class="totallfdata">
-                    <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
-                    <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
-                    <input id="rowIndex" class="form-control" type="hidden" value="@(i)" />
-                    <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                            <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
+                            <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
+                            <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
+                            <input id="rowIndex" class="form-control" type="hidden" value="@(i)" />
+                            <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
                         </div>
                     </div>
                 </div>

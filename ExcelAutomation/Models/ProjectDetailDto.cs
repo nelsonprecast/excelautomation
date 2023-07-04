@@ -42,6 +42,8 @@
 
         public string LFValue { get; set; }
 
+        public string PlanElevationJson { get; set; }
+
         public ICollection<PlanElevationReferenceDto> PlanElevationReferences { get; set; }
 
         public ICollection<IFormFile> PlanElevationFiles { get; set; }

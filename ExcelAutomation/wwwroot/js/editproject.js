@@ -35,6 +35,10 @@ function BindEvent() {
         console.log($(this));
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
+            var planElevationJsonString = document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value;
+            var planElevationJsonArray = [];
+            if (planElevationJsonString != "")
+                JSON.parse(planElevationJsonString);
             var planElevationString = ""; document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
             var totalLFString = ""; document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
 
@@ -48,7 +52,7 @@ function BindEvent() {
             }
 
             $('#rows').html('');
-
+            console.log(planElevationJsonArray);
             console.log(planElevationString);
             console.log(totalLFString);
 
