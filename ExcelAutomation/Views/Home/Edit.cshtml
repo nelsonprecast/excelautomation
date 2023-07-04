@@ -238,7 +238,7 @@
                             <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
                             <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
                             <input id="rowIndex" class="form-control" type="hidden" value="@(i)" />
-                            <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                                                            <a href="#" class="edit" onclick="AddNewLFRow();return false;">Plan/Elevation</a>
                         </div>
                     </div>
                 </div>
@@ -476,7 +476,7 @@
                             <input id="rowFP@(j)PlanElevationHidden" name="rowFP@(j)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
                             <input id="rowFP@(j)TotalLFHidden" name="rowFP@(j)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
                             <input id="rowIndex" class="form-control" type="hidden" value="@(j)" />
-                            <a href="javascript:void(0)" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
+                            <a href="javascript:void(0);" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
                         </div>
                     </div>
                 </div>
@@ -750,8 +750,8 @@
         //    form.submit();
         //});
 
-        window.addEventListener('paste', e => {
-            fileInput.files = e.clipboardData.files;
-        });
+        //window.addEventListener('paste', e => {
+        //    fileInput.files = e.clipboardData.files;
+        //});
     </script>
 }
