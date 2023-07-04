@@ -38,7 +38,7 @@ function BindEvent() {
             var planElevationJsonString = document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value;
             var planElevationJsonArray = [];
             if (planElevationJsonString != "")
-                JSON.parse(planElevationJsonString);
+                planElevationJsonArray= JSON.parse(planElevationJsonString);
             var planElevationString = ""; document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
             var totalLFString = ""; document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
 
@@ -56,12 +56,12 @@ function BindEvent() {
             console.log(planElevationString);
             console.log(totalLFString);
 
-            if (planElevationString != "") {
+            if (planElevationJsonArray.length > 0) {
                 var planElevationArray = planElevationString.split("@_@");
                 var totalLFArray = totalLFString.split("@_@");
                 if (planElevationArray.length > 0) {
 
-                    for (var i = 0; i < planElevationArray.length; i++) {
+                    for (var i = 0; i < planElevationJsonArray.length; i++) {
                         AddPlanElevationRow();
                         $('#planelevation' + (i + 1)).val(planElevationArray[i]);
                         $('#lf' + (i + 1)).val((totalLFArray[i].split("_")[0]));
