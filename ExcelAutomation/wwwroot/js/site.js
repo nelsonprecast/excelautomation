@@ -31,10 +31,20 @@ function OnAddRow() {
         error: function (response) {
             alert(response.responseText);
         }
-    });
-   
+    });  
 }
 
+function OnCreateGroup() {
+    var projectDetails = [];
+    $("input[type = 'checkbox']").each(function () {
+        var el = $(this);
+        var c = $(this).is(":checked")
+        if (c) {
+            var v = $(this).val();
+            projectDetails.push(v);
+        }
+    });
+}
 function CalculateTotalActCF(rownumber) {
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
     var ActSFCFLF = document.getElementById('row' + rownumber + 'ActSFCFLF').value;

@@ -221,7 +221,14 @@ namespace ExcelAutomation.Controllers
            return RedirectToAction("Edit", new {id = projectId});
         }
 
-       
+        [HttpPost]
+        public IActionResult CreateGroup()
+        {
+            var projectId = _projectService.SaveGroup(new ProjectGroupDto());
+            return RedirectToAction("Edit", new { id = projectId });
+        }
+
+
         public IActionResult CopyProject(int id)
         {
             var newProjectId = _projectService.CopyProject(id);

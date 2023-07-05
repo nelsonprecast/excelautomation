@@ -20,6 +20,7 @@ public partial class ExcelAutomationContext : DbContext
     public virtual DbSet<ProjectDetail> ProjectDetails { get; set; }
 
     public virtual DbSet<PlanElevationReferance> PlanElevationReferances { get; set; }
+    public virtual DbSet<ProjectGroup> ProjectGroups { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ExcelAutomation");
@@ -109,6 +110,18 @@ public partial class ExcelAutomationContext : DbContext
                 .HasForeignKey(d => d.ProjectDetailId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_PlanElevationReferance_ProjectDetail");
+        });
+
+        modelBuilder.Entity<ProjectGroup>(entity => {
+            entity.ToTable("ProjectGroup");
+
+            entity.Property(e=>e.GroupName).HasMaxLength(50);
+            
+
+            entity.HasOne(d => d.ProjectDetail).WithMany(p => p.ProjectGroups)
+                .HasForeignKey(d => d.GroupId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+                
         });
 
         OnModelCreatingPartial(modelBuilder);

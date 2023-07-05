@@ -54,4 +54,6 @@ public partial class ProjectDetail
     public virtual Project Project { get; set; } = null!;
 
     public ICollection<PlanElevationReferance> PlanElevationReferances { get; set; }
+    public ICollection<ProjectGroup>  ProjectGroups { get; set; }
+    public int? GroupId { get; set; }
 }

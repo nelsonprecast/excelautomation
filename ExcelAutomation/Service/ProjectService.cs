@@ -346,5 +346,26 @@ namespace ExcelAutomation.Service
             _context.SaveChanges();
             return newProject.ProjectId;
         }
+
+        public Task<int> SaveGroup(ProjectGroupDto projectGroupDto)
+        {
+            var newGroup = new ProjectGroup();
+            newGroup.GroupName = projectGroupDto.GroupName;
+            newGroup.CreatedDate = DateTime.Now;
+            _context.Add(newGroup);
+            _context.SaveChanges();
+
+
+            var projectDetails = _context.ProjectDetails.Where(x => projectGroupDto.ProjectDetailIds.Contains(x.ProjectDetailId)).ToList();
+
+
+            foreach (var projectDetail in projectDetails)
+            {
+               projectDetail.GroupId = newGroup.GroupId;
+                _context.Update(projectDetail);
+            }
+         return   _context.SaveChangesAsync();
+
+        }
     }
 }

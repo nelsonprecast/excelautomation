@@ -193,7 +193,7 @@
                 <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
             </div>
             <div class="col-12 row">
-                <div class="col-1"><input type="checkbox" id="groupCheckBoxId"/>  </div>
+                                                <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId" />  </div>
                 <div class="col-2">
                     <div class="col-12"><label> Category</label></div>
                     <div class="row">
@@ -346,10 +346,9 @@
 </tr>
 <tr>
     <td colspan="2" style="text-align:left;">
-        <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
-                            <input type="button" value="New Group" onclick="OnCreateGroup();" class="btn btn-primary" />
-
-                        </td>
+    <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
+    <input type="button" value="New Group" onclick="OnCreateGroup();" class="btn btn-primary" />
+     </td>
 </tr>
 
 </table>
