@@ -653,7 +653,9 @@ function CalculateLF() {
                 planElevationJsonArray[planElevIndex] = planElevObj;
             }
             else {
-                planElevObj = { PlanElevationReferanceId: $('#PlanElevationReferanceId' + i).val() , LFValue: $('#lf' + i).val(), PlanElevationValue: $('#planelevation' + i).val() };
+                planElevObj = {
+                    PlanElevationReferanceId: parseInt($('#PlanElevationReferanceId' + i).val()), LFValue: $('#lf' + i).val(), PlanElevationValue: $('#planelevation' + i).val()
+            };
                 if (file.length > 0)
                     planElevObj.ImagePath = GetImageBase64(file[0]);
                 planElevationJsonArray.push(planElevObj);

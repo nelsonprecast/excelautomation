@@ -3,6 +3,7 @@ using ExcelAutomation.Data;
 using ExcelAutomation.Models;
 using ExcelAutomation.Service;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
 
@@ -176,6 +177,7 @@ namespace ExcelAutomation.Controllers
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
                 projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevationHidden"];
+                projectDetail.PlanElevationJson = Request.Form["row" + i + "PlanElevationJsonHidden"];
                 projectDetail.LFValue = Request.Form["row" + i + "TotalLFHidden"];
                 projectDetail.Category = Request.Form["row" + i + "Category"];
                 if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "LineItemCharge"]))
@@ -195,7 +197,9 @@ namespace ExcelAutomation.Controllers
 
                     projectDetail.ImagePath = "/ProjectImages/" + fileName;
                 }
-
+                if(!string.IsNullOrEmpty(projectDetail.PlanElevationJson)) {
+                    projectDetail.PlanElevationReferences = JsonConvert.DeserializeObject<ICollection<PlanElevationReferenceDto>>(projectDetail.PlanElevationJson);
+                }
                 projectDetail.PlanElevationFiles =
                     Request.Form.Files.Where(x => x.Name.Contains($"hiddenPlanElevationFile{i}_")).ToList();
                 projectDetails.Add(projectDetail);
