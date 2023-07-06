@@ -63,6 +63,9 @@
         margin-left: 0px;
         margin-right: 0px;
     }
+
+
+
 </style>
 
 <div class="text-center">
@@ -347,7 +350,7 @@
 <tr>
     <td colspan="2" style="text-align:left;">
     <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
-    <input type="button" value="New Group" onclick="OnCreateGroup();" class="btn btn-primary" />
+    <input type="button" value="New Group"  class="btn btn-primary" id="newGroupBtn" />
      </td>
 </tr>
 
@@ -737,6 +740,63 @@
 
 </div>
 
+@*
+<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display:none">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="groupModalLabel">Create Group</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-1"> Group Name</div>
+                </div>
+                <div id="rows" class="row">
+                    <div class="row ">
+                        <div class="col-1"> 
+                            <input type="text" id="groupName1" name="groupName1" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="groupCreateButton" type="button" class="btn btn-secondary" >Create</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+*@
+
+<div id="groupModal" class="modal">
+
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="groupModalLabel">Create Group</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-3"> Group Name</div>
+                </div>
+                <div id="rows" class="row">
+                    <div class="row ">
+                        <div class="col-3">
+                            <input type="text" id="groupName1" name="groupName1" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="modal-footer">
+                <button id="groupCreateButton" type="button" class="btn btn-secondary" onclick="OnCreateGroup();">Create</button>
+                <button id="closeGroupModel" type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
+            </div>           
+        </div>
+    </div>
+    <!-- Modal content -->
+  
+
+</div>
 
 @section scripts {
 

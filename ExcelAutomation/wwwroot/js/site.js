@@ -34,7 +34,13 @@ function OnAddRow() {
     });  
 }
 
+// Get the button that opens the modal
+var newGroupBtn = document.getElementById("newGroupBtn");
+var closeGroupModel = document.getElementById("closeGroupModel");
+// Get the modal
+var modal = document.getElementById("groupModal");
 function OnCreateGroup() {
+    modal.style.display = "none";
     var projectDetails = [];
     $("input[type = 'checkbox']").each(function () {       
         var c = $(this).is(":checked")
@@ -43,13 +49,14 @@ function OnCreateGroup() {
             projectDetails.push(parseInt(v));
         }
     });
-
+    debugger;
+    var gName = $('#groupName1').val();
     var postData = {
         GroupId: null,
-        GroupName: 'Test',
+        GroupName: gName,
         ProjectDetailIds: projectDetails
     }
-    debugger;
+  
     $.ajax({
         type: 'POST',
         url: "/Home/CreateGroup",
@@ -57,11 +64,32 @@ function OnCreateGroup() {
         dataType: "json",
         data: postData,
         success: function (resultData) {
-            debugger;
+           
         }
-    });
+    });  
+}
 
-   
+
+// Get the <span> element that closes the modal
+
+
+// When the user clicks the button, open the modal 
+newGroupBtn.onclick = function () {
+    debugger;
+    modal.style.display = "block";
+}
+
+closeGroupModel.onclick = function () {
+    modal.style.display = "none";
+}
+
+
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
 }
 function CalculateTotalActCF(rownumber) {
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
