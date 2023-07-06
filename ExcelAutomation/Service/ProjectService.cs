@@ -132,7 +132,7 @@ namespace ExcelAutomation.Service
             projectDto.RevisionDate = project.RevisionDate;
             projectDto.ContactSpecs = project.ContactSpecs;
 
-            var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).ToList();
+            var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).OrderBy(p=>p.GroupId).ToList();
             if (projectDetails != null)
             {
                 var projectDetailIds = projectDetails.Select(x => x.ProjectDetailId).ToArray();
@@ -166,6 +166,7 @@ namespace ExcelAutomation.Service
                     projectDetailDto.LineItemCharge = projectDetail.LineItemCharge;
                     projectDetailDto.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                     projectDetailDto.Category = projectDetail.Category;
+                    projectDetailDto.GroupName = GetGroupName(projectDetail.GroupId);
                     projectDetailDto.PlanElevationJson = planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) 
                         ? JsonConvert.SerializeObject(planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId)
                             .Select(x=>new PlanElevationReferenceDto()
@@ -190,6 +191,16 @@ namespace ExcelAutomation.Service
             }
 
             return projectDto;
+        }
+
+        private string GetGroupName(int? groupId)
+        {
+            if (groupId == null)
+            {
+                return "";
+            }
+            var gName = _context.ProjectGroups.FirstOrDefault(p=>p.GroupId == groupId).GroupName;
+            return gName;
         }
 
         public void UpdateProjectDetail(ProjectDto projectDto)

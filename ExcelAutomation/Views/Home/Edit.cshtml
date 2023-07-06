@@ -150,13 +150,14 @@
     <div class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
         <div class="col-4 row">
             <div class="col-1">@(i)</div>
+            <div class="col-2 text-align-left">Group Name</div>
             <div class="col-2 text-align-left">W/D</div>
-            <div class="col-5 text-align-left">
+            <div class="col-4 text-align-left">
                 Item Name
 
             </div>
 
-            <div class="col-4 text-align-left">
+            <div class="col-3 text-align-left">
 
                 Detail
                 #/Page
@@ -180,6 +181,7 @@
         <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
         <div class="col-4 row">
             <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
+            <div class="col-2"> <input type="text" readonly="readonly" value="@projectDetail.GroupName" class="form-control" id="row@(i)GroupName"/> </div>
             <div class="col-2">
                 <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
                 <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width:60px;">
@@ -187,12 +189,12 @@
                     <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
                 </select>
             </div>
-            <div class="col-5">
+            <div class="col-4">
                 <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
 
             </div>
 
-            <div class="col-4">
+            <div class="col-3">
                 <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
             </div>
             <div class="col-12 row">
@@ -381,6 +383,7 @@
 @foreach (var projectDetail in Model.ProjectDetails)
 {
     <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow1">
+       
         <div class="col-4 row">
             <div class="col-1">@(j)
 
@@ -419,6 +422,7 @@
         <div class="col-2 row"></div>
         <div class="col-4 row">
             <div class="col-1"></div>
+
             <div class="col-2">
                 <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
                 <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width:60px;">
@@ -740,33 +744,6 @@
 
 </div>
 
-@*
-<div class="modal fade" id="groupModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" style="display:none">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="groupModalLabel">Create Group</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-1"> Group Name</div>
-                </div>
-                <div id="rows" class="row">
-                    <div class="row ">
-                        <div class="col-1"> 
-                            <input type="text" id="groupName1" name="groupName1" class="form-control" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button id="groupCreateButton" type="button" class="btn btn-secondary" >Create</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-*@
 
 <div id="groupModal" class="modal">
 
