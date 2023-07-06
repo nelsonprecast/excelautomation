@@ -247,20 +247,18 @@ namespace ExcelAutomation.Service
                         _context.SaveChanges();
 
 
-                        var removeList = _context.PlanElevationReferances.Where(x =>
+                        var existingList = _context.PlanElevationReferances.Where(x =>
                             x.ProjectDetailId == dbProjectDetail.ProjectDetailId).ToList();
-                        _context.PlanElevationReferances.RemoveRange(removeList);
+                        
 
-                        if (!string.IsNullOrEmpty(projectDetail.PlanElevation))
+                        if (projectDetail.PlanElevationReferences != null && projectDetail.PlanElevationReferences.Count > 0)
                         {
-                            var planElevationArray = projectDetail.PlanElevation.Split("@_@");
-                            var lfValueArray = projectDetail.LFValue.Split("@_@");
-
-                            for (int i = 0; i < planElevationArray.Length; i++)
+                            var i = 1;
+                            foreach (var planElevationObj in projectDetail.PlanElevationReferences)
                             {
                                 var dbfilePath = string.Empty;
                                 var file = projectDetail.PlanElevationFiles.FirstOrDefault(x =>
-                                    x.Name.Equals($"hiddenPlanElevationFile{pdIndex}_{i + 1}"));
+                                    x.Name.Equals($"hiddenPlanElevationFile{pdIndex}_{i}"));
                                 if (file != null)
                                 {
                                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
@@ -272,13 +270,27 @@ namespace ExcelAutomation.Service
                                     }
                                 }
 
-                                _context.Add(new PlanElevationReferance()
+                                var dbPlanElevation = existingList.FirstOrDefault(x => x.PlanElevationReferanceId == planElevationObj.PlanElevationReferanceId);
+                                if (dbPlanElevation != null)
                                 {
-                                    ProjectDetailId = dbProjectDetail.ProjectDetailId,
-                                    LFValue = lfValueArray[i],
-                                    PlanElevationValue = planElevationArray[i],
-                                    ImagePath = dbfilePath
-                                });
+                                    dbPlanElevation.LFValue = planElevationObj.LFValue;
+                                    dbPlanElevation.PlanElevationValue = planElevationObj.PlanElevationValue;
+                                    dbPlanElevation.ProjectDetailId = dbProjectDetail.ProjectDetailId;
+                                    if (!string.IsNullOrEmpty(dbfilePath))
+                                        dbPlanElevation.ImagePath = dbfilePath;
+                                    _context.Update(dbPlanElevation);
+                                }
+                                else
+                                {
+                                    _context.Add(new PlanElevationReferance()
+                                    {
+                                        ProjectDetailId = dbProjectDetail.ProjectDetailId,
+                                        LFValue = planElevationObj.LFValue,
+                                        PlanElevationValue = planElevationObj.PlanElevationValue,
+                                        ImagePath = dbfilePath
+                                    });
+                                }
+                                i++;
                             }
 
                             _context.SaveChanges();
