@@ -352,7 +352,9 @@
 <tr>
     <td colspan="2" style="text-align:left;">
     <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
-    <input type="button" value="New Group"  class="btn btn-primary" id="newGroupBtn" />
+                            <input type="button" value="New Group" class="btn btn-primary" id="newGroupBtn" />
+                            <input type="button" value="Convert To Pdf" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);" />
+                            <a id="convertToPdfDownload" href="#" style="display:none" target="_blank"></a>
      </td>
 </tr>
 

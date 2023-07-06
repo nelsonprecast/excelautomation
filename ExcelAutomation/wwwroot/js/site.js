@@ -39,6 +39,16 @@ var newGroupBtn = document.getElementById("newGroupBtn");
 var closeGroupModel = document.getElementById("closeGroupModel");
 // Get the modal
 var modal = document.getElementById("groupModal");
+
+function DoConvertToPdf(projectId) {
+
+    var id = document.getElementById('convertToPdfDownload');
+    id.href = '/Home/ConvertToPdf/?projectId=' + projectId;
+    id.click();
+
+    
+}
+
 function OnCreateGroup() {
     modal.style.display = "none";
     var projectDetails = [];
@@ -49,14 +59,12 @@ function OnCreateGroup() {
             projectDetails.push(parseInt(v));
         }
     });
-    debugger;
     var gName = $('#groupName1').val();
     var postData = {
         GroupId: null,
         GroupName: gName,
         ProjectDetailIds: projectDetails
     }
-  
     $.ajax({
         type: 'POST',
         url: "/Home/CreateGroup",

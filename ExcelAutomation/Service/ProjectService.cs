@@ -143,7 +143,7 @@ namespace ExcelAutomation.Service
                 foreach (var projectDetail in projectDetails)
                 {
                     var projectDetailDto = new ProjectDetailDto();
-
+                    
                     projectDetailDto.ProjectDetailId = projectDetail.ProjectDetailId;
                     projectDetailDto.WD = projectDetail.Wd;
                         projectDetailDto.ItemName = projectDetail.ItemName;
@@ -184,7 +184,18 @@ namespace ExcelAutomation.Service
                                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
                                 MaxDepth = 1
                             }) :string.Empty;
-                    projectDetailDto.PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty);
+                    projectDetailDto.PlanElevationReferences = planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId)
+                        ? planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId)
+                            .Select(x => new PlanElevationReferenceDto()
+                            {
+                                ProjectDetailId = x.ProjectDetailId,
+                                PlanElevationReferanceId = x.PlanElevationReferanceId,
+                                ImagePath = x.ImagePath,
+                                LFValue = x.LFValue,
+                                PlanElevationValue = x.PlanElevationValue
+                            })
+                            .ToList():null;
+                     projectDetailDto.PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty);
                     projectDetailDto.LFValue = (planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x => x.LFValue + "_" + x.ImagePath)) : string.Empty);
                     projectDto.ProjectDetails.Add(projectDetailDto);
                 }

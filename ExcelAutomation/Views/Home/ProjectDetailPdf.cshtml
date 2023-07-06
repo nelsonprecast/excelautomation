@@ -1,0 +1,56 @@
+﻿@model ProjectDto
+@{
+    ViewData["Title"] = "Edit";
+}
+@{
+    Layout = "";
+}
+<!doctype html>
+<html>
+    <body>
+        <table border="0" style="width:100%">
+            <tbody>
+                <tr>
+                <td>Job Name: </td>
+                <td>@Model.ProjectName</td>
+                <td style="text-align:right"><img src="data:image/png;base64,@(ViewBag.logo)" style="width:100px;height:80px" /></td>
+                </tr>
+        </tbody>
+    </table>
+    <br />
+    
+            @foreach (var projectDetail in Model.ProjectDetails)
+            {
+        <table border="0" style="width:100%">
+            <tbody>
+                <tr>
+                    <td> <img src="data:image/png;base64,@(projectDetail.ImagePath)" style="width:300px;" /></td>
+                    
+                </tr>
+                @foreach (var plan in projectDetail.PlanElevationReferences)
+                {
+                    <tr style="margin-bottom:5px">
+                        <td> <img src="data:image/png;base64,@(plan.ImagePath)" style="width:500px;" /></td>
+                        <td valign="top">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Plan Elevation: @plan.PlanElevationValue</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LF: @plan.LFValue</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+       
+            }
+       
+            
+    </body>
+</html>

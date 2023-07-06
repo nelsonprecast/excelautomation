@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
+using Razor.Templating.Core;
+using iText.Html2pdf;
+using System.Drawing;
 
 namespace ExcelAutomation.Controllers
 {
@@ -14,12 +17,15 @@ namespace ExcelAutomation.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
+        private readonly IRazorTemplateEngine _engine;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger,IProjectService projectService, IWebHostEnvironment environment)
+        public HomeController(ILogger<HomeController> logger, IProjectService projectService, IWebHostEnvironment environment, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _projectService = projectService;
             _hostingEnvironment = environment;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         public IActionResult Index()
@@ -121,6 +127,50 @@ namespace ExcelAutomation.Controllers
         public IActionResult Edit(int id)
         {
             return View(_projectService.GetProjectById(id));
+        }
+
+        [HttpGet]
+        public async  Task<IActionResult> ConvertToPdf(int projectId)
+        {
+            var project = _projectService.GetProjectById(projectId);
+            var viewDataOrViewBag = new Dictionary<string, object>();
+            // ViewData is same as mvc
+            viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
+            
+            foreach (var projectDetail in project.ProjectDetails) {
+                projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
+                foreach (var planReference in projectDetail.PlanElevationReferences)
+                {
+                    planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                }
+            }
+
+            var projectHtml = await RazorTemplateEngine.RenderAsync("~/Views/Home/ProjectDetailPdf.cshtml", project,viewDataOrViewBag);
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                HtmlConverter.ConvertToPdf(projectHtml, stream);
+
+
+                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+            }
+
+
+            //return Content(projectHtml);
+        }
+
+        private string ReturnBase64Image(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+            {
+                return "";
+            }
+            string webRootPath = _webHostEnvironment.WebRootPath;
+ 
+            var fullPath = webRootPath + "/" + imagePath;
+            byte[] imageArray = System.IO.File.ReadAllBytes(fullPath);
+            string base64ImageRepresentation = Convert.ToBase64String(imageArray);
+            return base64ImageRepresentation;
         }
 
         [HttpPost]
