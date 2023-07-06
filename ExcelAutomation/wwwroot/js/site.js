@@ -664,9 +664,14 @@ function paste(ev) {
 
     var file = data[0];
     if (file) {
-        
-        $('#image' + id).prop('src', GetImageBase64(file));
-        $('#image' + id).show();
+        var filereader = new FileReader();
+        filereader.readAsDataURL(file);
+        filereader.onload = function (evt) {
+            var base64 = evt.target.result;
+            $('#image' + id).prop('src', base64);
+            $('#image' + id).show();
+        }
+       
     }
 }
 

@@ -29,26 +29,28 @@
                 </tr>
                 @foreach (var plan in projectDetail.PlanElevationReferences)
                 {
-                    <tr style="margin-bottom:5px">
-                        <td> <img src="data:image/png;base64,@(plan.ImagePath)" style="width:500px;" /></td>
-                        <td valign="top">
-                            <table>
-                                <tbody>
+                    if(!string.IsNullOrEmpty(plan.ImagePath))
+                    {
+                        <tr style="margin-bottom:5px">
+                            <td> <img src="data:image/png;base64,@(plan.ImagePath)" style="width:500px;" /></td>
+                            <td valign="top">
+                                <table>
+                                    <tbody>
                                     <tr>
                                         <td>Plan Elevation: @plan.PlanElevationValue</td>
                                     </tr>
                                     <tr>
                                         <td>LF: @plan.LFValue</td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
                 }
+                <p style="page-break-after: always;">&nbsp;</p>
             </tbody>
         </table>
-        <br />
-       
             }
        
             
