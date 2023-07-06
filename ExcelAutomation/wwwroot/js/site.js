@@ -36,14 +36,32 @@ function OnAddRow() {
 
 function OnCreateGroup() {
     var projectDetails = [];
-    $("input[type = 'checkbox']").each(function () {
-        var el = $(this);
+    $("input[type = 'checkbox']").each(function () {       
         var c = $(this).is(":checked")
         if (c) {
             var v = $(this).val();
-            projectDetails.push(v);
+            projectDetails.push(parseInt(v));
         }
     });
+
+    var postData = {
+        GroupId: null,
+        GroupName: 'Test',
+        ProjectDetailIds: projectDetails
+    }
+    debugger;
+    $.ajax({
+        type: 'POST',
+        url: "/Home/CreateGroup",
+        'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: "json",
+        data: postData,
+        success: function (resultData) {
+            debugger;
+        }
+    });
+
+   
 }
 function CalculateTotalActCF(rownumber) {
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;

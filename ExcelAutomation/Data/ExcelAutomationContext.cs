@@ -114,14 +114,7 @@ public partial class ExcelAutomationContext : DbContext
 
         modelBuilder.Entity<ProjectGroup>(entity => {
             entity.ToTable("ProjectGroup");
-
-            entity.Property(e=>e.GroupName).HasMaxLength(50);
-            
-
-            entity.HasOne(d => d.ProjectDetail).WithMany(p => p.ProjectGroups)
-                .HasForeignKey(d => d.GroupId)
-                .OnDelete(DeleteBehavior.ClientSetNull);
-                
+           
         });
 
         OnModelCreatingPartial(modelBuilder);

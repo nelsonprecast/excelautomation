@@ -359,12 +359,12 @@ namespace ExcelAutomation.Service
             return newProject.ProjectId;
         }
 
-        public Task<int> SaveGroup(ProjectGroupDto projectGroupDto)
+        public int SaveGroup(ProjectGroupDto projectGroupDto)
         {
             var newGroup = new ProjectGroup();
             newGroup.GroupName = projectGroupDto.GroupName;
             newGroup.CreatedDate = DateTime.Now;
-            _context.Add(newGroup);
+            _context.ProjectGroups.Add(newGroup);
             _context.SaveChanges();
 
 
@@ -376,7 +376,8 @@ namespace ExcelAutomation.Service
                projectDetail.GroupId = newGroup.GroupId;
                 _context.Update(projectDetail);
             }
-         return   _context.SaveChangesAsync();
+            _context.SaveChangesAsync();
+            return projectDetails.FirstOrDefault().ProjectId;
 
         }
     }

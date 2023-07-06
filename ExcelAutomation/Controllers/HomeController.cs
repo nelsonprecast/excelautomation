@@ -226,9 +226,9 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateGroup()
+        public IActionResult CreateGroup(ProjectGroupDto projectGroupDto)
         {
-            var projectId = _projectService.SaveGroup(new ProjectGroupDto());
+            var projectId = _projectService.SaveGroup(projectGroupDto);
             return RedirectToAction("Edit", new { id = projectId });
         }
 
