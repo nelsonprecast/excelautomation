@@ -363,7 +363,7 @@
     </div>
     i++;
 }
-</>
+</div>
                            
 </td>
 </tr>
@@ -397,9 +397,28 @@
 </div>
 @{
     var j = 1;
+    currentGroupName = "";
+    displayed = false;
+    groupingApplied = false;
 }
-@foreach (var projectDetail in Model.ProjectDetails)
+@foreach (var projectDetail in Model.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
 {
+    if (!currentGroupName.Equals(projectDetail.GroupName))
+    {
+        currentGroupName = projectDetail.GroupName;
+        displayed = false;
+        groupingApplied = true;
+    }
+    if (!displayed && groupingApplied)
+    {
+        if (string.IsNullOrEmpty(currentGroupName))
+            currentGroupName = "Un-Grouped";
+        displayed = true;
+        <div class="row">
+            <div class="col-2 text-align-left green">@currentGroupName</div>
+            <div class="col-10"></div>
+        </div>
+    }
     <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow1">
        
         <div class="col-4 row">
