@@ -138,14 +138,11 @@ namespace ExcelAutomation.Controllers
             viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
             
             foreach (var projectDetail in project.ProjectDetails) {
-                if (!string.IsNullOrEmpty(projectDetail.ImagePath))
+                
+                projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
+                foreach (var planReference in projectDetail.PlanElevationReferences)
                 {
-                    projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
-                    foreach (var planReference in projectDetail.PlanElevationReferences)
-                    {
-                        if (!string.IsNullOrEmpty(planReference.ImagePath))
-                            planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
-                    }
+                    planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
                 }
             }
 
@@ -172,6 +169,8 @@ namespace ExcelAutomation.Controllers
             string webRootPath = _webHostEnvironment.WebRootPath;
  
             var fullPath = webRootPath + "/" + imagePath;
+            if (!System.IO.File.Exists(fullPath))
+                return string.Empty;
             byte[] imageArray = System.IO.File.ReadAllBytes(fullPath);
             string base64ImageRepresentation = Convert.ToBase64String(imageArray);
             return base64ImageRepresentation;
