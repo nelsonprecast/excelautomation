@@ -140,9 +140,12 @@ namespace ExcelAutomation.Controllers
             foreach (var projectDetail in project.ProjectDetails) {
                 
                 projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
-                foreach (var planReference in projectDetail.PlanElevationReferences)
+                if (projectDetail.PlanElevationReferences != null)
                 {
-                    planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                    foreach (var planReference in projectDetail.PlanElevationReferences)
+                    {
+                        planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                    }
                 }
             }
 
