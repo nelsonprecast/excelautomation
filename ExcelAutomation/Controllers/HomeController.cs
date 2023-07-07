@@ -134,7 +134,6 @@ namespace ExcelAutomation.Controllers
         {
             var project = _projectService.GetProjectById(projectId);
             var viewDataOrViewBag = new Dictionary<string, object>();
-            // ViewData is same as mvc
             viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
             
             foreach (var projectDetail in project.ProjectDetails) {
@@ -148,19 +147,12 @@ namespace ExcelAutomation.Controllers
                     }
                 }
             }
-
             var projectHtml = await RazorTemplateEngine.RenderAsync("~/Views/Home/ProjectDetailPdf.cshtml", project,viewDataOrViewBag);
-
             using (MemoryStream stream = new MemoryStream())
             {
                 HtmlConverter.ConvertToPdf(projectHtml, stream);
-
-
-                return File(stream.ToArray(), "application/pdf", "Grid.pdf");
+                return File(stream.ToArray(), "application/pdf", "ProjectDetail.pdf");
             }
-
-
-            //return Content(projectHtml);
         }
 
         private string ReturnBase64Image(string imagePath)

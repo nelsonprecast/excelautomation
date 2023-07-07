@@ -31,9 +31,14 @@
 {
     <table border="0" style="width:100%">
         <tbody>
+                <tr>
+                    <td>Item Name: @projectDetail.ItemName</td>
+                </tr>              
+                <tr>
+                    <td>Detail Page: @projectDetail.DetailPage</td>
+                </tr>
         <tr>
             <td> <img src="data:image/png;base64,@(projectDetail.ImagePath)" style="width:300px;"/></td>
-
         </tr>
         @if (projectDetail.PlanElevationReferences != null)
         {
