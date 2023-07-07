@@ -138,10 +138,14 @@ namespace ExcelAutomation.Controllers
             viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
             
             foreach (var projectDetail in project.ProjectDetails) {
-                projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
-                foreach (var planReference in projectDetail.PlanElevationReferences)
+                if (!string.IsNullOrEmpty(projectDetail.ImagePath))
                 {
-                    planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                    projectDetail.ImagePath = ReturnBase64Image(projectDetail.ImagePath);
+                    foreach (var planReference in projectDetail.PlanElevationReferences)
+                    {
+                        if (!string.IsNullOrEmpty(planReference.ImagePath))
+                            planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                    }
                 }
             }
 
