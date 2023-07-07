@@ -627,7 +627,7 @@ function AddPlanElevationRow() {
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-4" ><div class="row"> <div class= "col-6">  <img src="" id="image' + rowCount + '" style="width:100px;" /> </div> ' +
-        '<div class= "col-6 font-size-08" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
+        '<div class= "col-6 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         ' </div></div> ' +
         '</div>');
 }
