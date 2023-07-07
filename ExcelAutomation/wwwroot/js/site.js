@@ -72,7 +72,7 @@ function OnCreateGroup() {
         dataType: "json",
         data: postData,
         success: function (resultData) {
-           
+            window.location.reload();
         }
     });  
 }
