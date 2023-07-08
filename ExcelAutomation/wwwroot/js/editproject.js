@@ -32,6 +32,7 @@ function BindEvent() {
         }
         else
             $('.modal-footer').show();
+        var projectDetailId = $(this).attr('rel');
         console.log($(this));
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
@@ -49,7 +50,7 @@ function BindEvent() {
                 planElevationString =  document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
                 totalLFString =  document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
             }
-
+            $('#ProjectDetailIdHidden').val(projectDetailId);
             $('#rows').html('');
             console.log(planElevationJsonArray);
 

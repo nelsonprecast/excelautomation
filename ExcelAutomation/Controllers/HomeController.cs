@@ -9,6 +9,7 @@ using System.Globalization;
 using Razor.Templating.Core;
 using iText.Html2pdf;
 using System.Drawing;
+using System.Net.Http.Headers;
 
 namespace ExcelAutomation.Controllers
 {
@@ -154,7 +155,22 @@ namespace ExcelAutomation.Controllers
                 return File(stream.ToArray(), "application/pdf", "ProjectDetail.pdf");
             }
         }
-
+        [HttpPost]
+        public  JsonResult UploadImages(ICollection<IFormFile> files,int projectDetailId)
+        {
+            var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "ProjectImages");
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                         file.CopyTo(fileStream);
+                    }
+                }
+            }
+            return new JsonResult("");
+        }
         private string ReturnBase64Image(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))

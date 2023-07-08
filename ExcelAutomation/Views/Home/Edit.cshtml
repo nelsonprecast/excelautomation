@@ -256,7 +256,7 @@
 
 
                     <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height:50px">@projectDetail.DispositionSpecialNote</textarea>
-                    <div class="row exceldatarow11">
+                    <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
                         <div class="totallfdata">
                             <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
                             <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
@@ -758,18 +758,14 @@
                     <div class="col-4"> Plan/Elevation</div>
                     <div class="col-2"> LF</div>
                     <div class="col-4"> </div>
+                        <input type="hidden" id="ProjectDetailIdHidden" name="ProjectDetailIdHidden" />
                 </div>
                 <div id="rows" class="row">
-                    <div class="row planelevation">
-                        <div class="col-1"> 1</div>
-                        <div class="col-4"> <input type="text" id="planelevation1" name="planelevation1" class="form-control"/></div>
-                        <div class="col-2"> <input type="text" id="lf1" name="lf1" class="form-control"/></div>
-                        <div class="col-4"> <input type="file" id="planElevationFile1" name="planElevationFile1" /></div>
-                    </div>
+                    
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="AddPlanElevationRow();">Add Row</button>
+                <button type="button" class="btn btn-secondary" onclick="AddPlanElevationRow();">Add Row</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
                 <button type="button" class="btn btn-primary" onclick="CalculateLF();">Save & Close</button>
             </div>

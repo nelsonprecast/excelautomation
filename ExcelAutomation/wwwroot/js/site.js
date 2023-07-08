@@ -627,7 +627,7 @@ function AddPlanElevationRow() {
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-4" ><div class="row"> <div class= "col-6">  <img src="" id="image' + rowCount + '" style="width:100px;" /> </div> ' +
-        '<div class= "col-6 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
+        '<div class= "col-6 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         ' </div></div> ' +
         '</div>');
 }
@@ -676,6 +676,7 @@ function paste(ev) {
 }
 
 function GetImageBase64(file) {
+    debugger;
     if (file) {
         var filereader = new FileReader();
         filereader.readAsDataURL(file);
@@ -749,5 +750,50 @@ function CalculateLF() {
         document.getElementById('row' + rowIndex + 'PlanElevationHidden').value = planElevationString;
         document.getElementById('row' + rowIndex + 'TotalLFHidden').value = totalLFString;
     }
+    UploadImages();
     $('#exampleModal').modal('hide');
 }
+
+
+function UploadImages() {
+    debugger;
+
+    event.preventDefault();
+    var id = $('#ProjectDetailIdHidden').val();
+
+    var formData = new FormData();
+
+    var files = $('.fileUploads')
+
+    for (let i = 0; i < files.length; i++) {
+        var element = files[i];
+        var fileUploaded = $('#'+element.id).prop('files');
+        if (fileUploaded.length > 0) {
+            formData.append("files", fileUploaded[0]);
+        }
+    }
+    
+
+    
+   
+    
+    $.ajax({
+        url: "/Home/UploadImages/?projectDetailId="+id,
+        type: "POST",      
+        
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+            //code after success
+            //$("#txtImg").val(response);
+            //$("#imgPreview").attr('src', '/Upload/' + response);
+        },
+        error: function (er) {
+            alert(er);
+        }
+
+    });
+
+}
+
