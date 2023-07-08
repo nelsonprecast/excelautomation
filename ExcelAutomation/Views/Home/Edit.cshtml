@@ -115,10 +115,24 @@
         }
     </div>
 </div>
+        <hr />
 <div class="input-group mb-3">
-           
+            <div class="container-fluid">
+                <div class="row align-items-start">
+                    <div class="col">
+                    </div>
+                    <div class="col">
+                    </div>
+                    <div class="col" style="text-align:right;">
+
+                        <input type="button" onclick="ExportToExcelTable();exportReportToExcel(this);" value="Export to Excel">
+                        <button type="submit" onclick="return Validate();" class="btn btn-primary"> Save </button>
+                    </div>
+                </div>
+            </div>
             
 </div>
+<hr />
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
@@ -726,20 +740,7 @@
 </div>
 </div>
 </div>
-        
-<div class="container-fluid">
-    <div class="row align-items-start">
-        <div class="col">
-        </div>
-        <div class="col">
-        </div>
-        <div class="col" style="text-align:right;">
-           
-            <input type="button" onclick="ExportToExcelTable();exportReportToExcel(this);" value="Export to Excel">
-            <button type="submit" onclick="return Validate();" class="btn btn-primary"> Save </button>
-        </div>
-    </div>
-</div>
+      
 <div id="hiddenPlanElevationFiles" style="display:none;">
 </div>
 </form>
