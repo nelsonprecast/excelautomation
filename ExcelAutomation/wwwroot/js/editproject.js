@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#datepicker').datepicker({
         autoclose: true
     });
+    
     BindEvent();
 
     $(".img-container").popupLightbox();

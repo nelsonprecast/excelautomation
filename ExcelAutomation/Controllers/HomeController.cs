@@ -160,28 +160,27 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public  JsonResult UploadImages(ICollection<IFormFile> files,int projectDetailId,string pElevationJsonArray)
         {
-            var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "ProjectImages");
+            var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "PlanElevation");
             foreach (var file in files)
             {
                 if (file.Length > 0)
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                     {
-                         //file.CopyTo(fileStream);
+                         file.CopyTo(fileStream);
                     }
                 }
             }
-
-             var pElevationList = DoDeserilization(pElevationJsonArray);
+            var pElevationList = DoDeserilization(pElevationJsonArray);
             foreach (var pElevation in pElevationList) { 
                 if (pElevation != null && pElevation.PlanElevationReferanceId < 0)
                 {
-                    _planElevationReferenceService.SaveGroup(pElevation,projectDetailId);                    
+                    pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
+                  pElevation.PlanElevationReferanceId=  _planElevationReferenceService.Save(pElevation,projectDetailId);  
+                  pElevation.ImagePath = "PlanElevation/" + pElevation.ImagePath;
                 }
             }
-
-
-            return new JsonResult("");
+            return new JsonResult(JsonConvert.SerializeObject(pElevationList));
         }
 
         private List<PlanElevationReferenceDto> DoDeserilization(string pElevationJsonArray)

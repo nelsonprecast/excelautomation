@@ -4,7 +4,7 @@ namespace ExcelAutomation.Service
 {
     public interface IPlanElevationReferenceService
     {
-        int SaveGroup(PlanElevationReferenceDto planElevationReferenceDto,int projectDetailId);
-       
+        int Save(PlanElevationReferenceDto planElevationReferenceDto,int projectDetailId);
+       ICollection<PlanElevationReferenceDto> GetByProjectDetailId(int projectDetailID);
     }
 }

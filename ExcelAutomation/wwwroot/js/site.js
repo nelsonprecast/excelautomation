@@ -759,9 +759,7 @@ function CalculateLF() {
 
 
 function UploadImages(pElevationArray) {
-   
-
-    event.preventDefault();
+     event.preventDefault();
     var id = $('#ProjectDetailIdHidden').val();
 
     var formData = new FormData();
@@ -777,15 +775,12 @@ function UploadImages(pElevationArray) {
     }
     $.ajax({
         url: "/Home/UploadImages/?projectDetailId=" + id + "&pElevationJsonArray=" + JSON.stringify(pElevationArray),
-        type: "POST",      
-        
+        type: "POST",       
         data: formData,
         processData: false,
         contentType: false,
         success: function (response) {
-            //code after success
-            //$("#txtImg").val(response);
-            //$("#imgPreview").attr('src', '/Upload/' + response);
+            debugger;
         },
         error: function (er) {
             alert(er);

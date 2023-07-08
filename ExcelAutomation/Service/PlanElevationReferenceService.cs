@@ -13,7 +13,20 @@ namespace ExcelAutomation.Service
             _context = context;
             _hostingEnvironment = hostingEnvironment;
         }
-        public int SaveGroup(PlanElevationReferenceDto pElevation, int projectDetailId)
+
+        public ICollection<PlanElevationReferenceDto> GetByProjectDetailId(int projectDetailID)
+        {
+           return _context.PlanElevationReferances.Where(p=>p.ProjectDetailId==projectDetailID)
+                .Select(p => new PlanElevationReferenceDto() { 
+                    ProjectDetailId = p.ProjectDetailId,
+                    ImagePath = p.ImagePath,    
+                    PlanElevationReferanceId = p.PlanElevationReferanceId,
+                    LFValue = p.LFValue,
+                    PlanElevationValue = p.PlanElevationValue,
+                }).ToList();
+        }
+
+        public int Save(PlanElevationReferenceDto pElevation, int projectDetailId)
         {
             var dbObject = new PlanElevationReferance();
             dbObject.PlanElevationValue = pElevation.PlanElevationValue;
@@ -21,7 +34,8 @@ namespace ExcelAutomation.Service
             dbObject.ProjectDetailId = projectDetailId;
             dbObject.ImagePath = "PlanElevation/" + pElevation.ImagePath;
             _context.Add(dbObject);
-            return _context.SaveChanges();
+            _context.SaveChanges();
+            return dbObject.PlanElevationReferanceId;
         }
     }
 }

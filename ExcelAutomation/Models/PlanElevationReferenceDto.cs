@@ -11,5 +11,6 @@
         public string LFValue { get; set; }
 
         public string ImagePath { get; set; }
+        public int? OriginalPlanElevationRefernceId { get; set; }
     }
 }
