@@ -32,7 +32,7 @@ namespace ExcelAutomation.Service
             dbObject.PlanElevationValue = pElevation.PlanElevationValue;
             dbObject.LFValue = pElevation.LFValue;
             dbObject.ProjectDetailId = projectDetailId;
-            dbObject.ImagePath = "PlanElevation/" + pElevation.ImagePath;
+            dbObject.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
             _context.Add(dbObject);
             _context.SaveChanges();
             return dbObject.PlanElevationReferanceId;

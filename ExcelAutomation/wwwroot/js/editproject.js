@@ -34,7 +34,7 @@ function BindEvent() {
         else
             $('.modal-footer').show();
         var projectDetailId = $(this).attr('rel');
-        console.log($(this));
+        debugger;
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
             var planElevationJsonString = document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value;
@@ -53,8 +53,7 @@ function BindEvent() {
             }
             $('#ProjectDetailIdHidden').val(projectDetailId);
             $('#rows').html('');
-            console.log(planElevationJsonArray);
-
+            
             if (planElevationJsonArray.length > 0) {               
 
                 for (var i = 0; i < planElevationJsonArray.length; i++) {
@@ -62,10 +61,17 @@ function BindEvent() {
                     $('#PlanElevationReferanceId' + (i + 1)).val(planElevationJsonArray[i].PlanElevationReferanceId);
                     $('#planelevation' + (i + 1)).val(planElevationJsonArray[i].PlanElevationValue);
                     $('#lf' + (i + 1)).val(planElevationJsonArray[i].LFValue);
-                    if (planElevationJsonArray[i].ImagePath != "")
+                    if (planElevationJsonArray[i].ImagePath != "") {
+                        
                         $('#image' + (i + 1)).prop('src', planElevationJsonArray[i].ImagePath);
-                    else
+                        $('#pElevationImage' + (i + 1)).prop('href', planElevationJsonArray[i].ImagePath);
+
+                    }
+                    else {
                         $('#image' + (i + 1)).hide();
+                        $('#pElevationImage' + (i + 1)).hide();
+                    }
+                        
                 }               
             }
             else {
