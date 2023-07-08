@@ -20,13 +20,15 @@ namespace ExcelAutomation.Controllers
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IRazorTemplateEngine _engine;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IPlanElevationReferenceService _planElevationReferenceService;
 
-        public HomeController(ILogger<HomeController> logger, IProjectService projectService, IWebHostEnvironment environment, IWebHostEnvironment webHostEnvironment)
+        public HomeController(ILogger<HomeController> logger, IProjectService projectService, IWebHostEnvironment environment, IWebHostEnvironment webHostEnvironment, IPlanElevationReferenceService planElevationReferenceService)
         {
             _logger = logger;
             _projectService = projectService;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
+            _planElevationReferenceService = planElevationReferenceService;
         }
 
         public IActionResult Index()
@@ -156,7 +158,7 @@ namespace ExcelAutomation.Controllers
             }
         }
         [HttpPost]
-        public  JsonResult UploadImages(ICollection<IFormFile> files,int projectDetailId)
+        public  JsonResult UploadImages(ICollection<IFormFile> files,int projectDetailId,string pElevationJsonArray)
         {
             var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "ProjectImages");
             foreach (var file in files)
@@ -165,12 +167,28 @@ namespace ExcelAutomation.Controllers
                 {
                     using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
                     {
-                         file.CopyTo(fileStream);
+                         //file.CopyTo(fileStream);
                     }
                 }
             }
+
+             var pElevationList = DoDeserilization(pElevationJsonArray);
+            foreach (var pElevation in pElevationList) { 
+                if (pElevation != null && pElevation.PlanElevationReferanceId < 0)
+                {
+                    _planElevationReferenceService.SaveGroup(pElevation,projectDetailId);                    
+                }
+            }
+
+
             return new JsonResult("");
         }
+
+        private List<PlanElevationReferenceDto> DoDeserilization(string pElevationJsonArray)
+        {
+           return JsonConvert.DeserializeObject<List<PlanElevationReferenceDto>>(pElevationJsonArray);
+        }
+
         private string ReturnBase64Image(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))

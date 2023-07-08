@@ -725,9 +725,11 @@ function CalculateLF() {
             else {
                 planElevObj = {
                     PlanElevationReferanceId: parseInt($('#PlanElevationReferanceId' + i).val()), LFValue: $('#lf' + i).val(), PlanElevationValue: $('#planelevation' + i).val()
-            };
+                };
+               
                 if (file.length > 0)
-                    planElevObj.ImagePath = GetImageBase64(file[0]);
+                    //planElevObj.ImagePath = GetImageBase64(file[0]);
+                    planElevObj.ImagePath = file[0].name;
                 planElevationJsonArray.push(planElevObj);
             }
 
@@ -750,13 +752,14 @@ function CalculateLF() {
         document.getElementById('row' + rowIndex + 'PlanElevationHidden').value = planElevationString;
         document.getElementById('row' + rowIndex + 'TotalLFHidden').value = totalLFString;
     }
-    UploadImages();
+   
+    UploadImages(planElevationJsonArray);
     $('#exampleModal').modal('hide');
 }
 
 
-function UploadImages() {
-    debugger;
+function UploadImages(pElevationArray) {
+   
 
     event.preventDefault();
     var id = $('#ProjectDetailIdHidden').val();
@@ -772,13 +775,8 @@ function UploadImages() {
             formData.append("files", fileUploaded[0]);
         }
     }
-    
-
-    
-   
-    
     $.ajax({
-        url: "/Home/UploadImages/?projectDetailId="+id,
+        url: "/Home/UploadImages/?projectDetailId=" + id + "&pElevationJsonArray=" + JSON.stringify(pElevationArray),
         type: "POST",      
         
         data: formData,

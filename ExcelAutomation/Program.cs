@@ -9,6 +9,7 @@ builder.Services.AddControllersWithViews();
 var connectionString = builder.Configuration.GetConnectionString("ExcelAutomation");
 builder.Services.AddDbContext<ExcelAutomationContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped<IProjectService,ProjectService>();
+builder.Services.AddScoped<IPlanElevationReferenceService, PlanElevationReferenceService>();
 
 var app = builder.Build();
 
