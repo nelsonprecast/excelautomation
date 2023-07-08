@@ -34,7 +34,7 @@ function BindEvent() {
         else
             $('.modal-footer').show();
         var projectDetailId = $(this).attr('rel');
-        debugger;
+        
         $(this).find('.totallfdata').each(function (index, data) {
             rowIndex = $(data).find('#rowIndex').first().val();
             var planElevationJsonString = document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value;
