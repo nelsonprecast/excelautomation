@@ -319,5 +319,12 @@ namespace ExcelAutomation.Controllers
             var newProjectId = _projectService.CopyProject(id);
             return RedirectToAction("Edit", new { id = newProjectId });
         }
+
+        [HttpPost]
+        public IActionResult DeleteProjectPlanElevation(int id)
+        {
+            _projectService.DeleteProjectPlanElevationReferances(id);
+            return Ok();
+        }
     }
 }

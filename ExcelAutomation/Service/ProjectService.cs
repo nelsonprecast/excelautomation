@@ -402,5 +402,15 @@ namespace ExcelAutomation.Service
             return projectDetails.FirstOrDefault().ProjectId;
 
         }
+
+        public void DeleteProjectPlanElevationReferances(int id)
+        {
+            var planElevationReferance = _context.PlanElevationReferances.FirstOrDefault(x => x.PlanElevationReferanceId == id);
+            if (planElevationReferance != null)
+            {
+                _context.Remove(planElevationReferance);
+                _context.SaveChanges();
+            }
+        }
     }
 }

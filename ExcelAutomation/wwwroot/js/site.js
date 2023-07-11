@@ -621,8 +621,8 @@ function AddPlanElevationRow() {
     var rowCount = $('.planelevation').length+1;
 
     $('#rows').append(
-        '<div class="row planelevation">'+
-        '<div class= "col-1"> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount + '" value="-' + rowCount +'" /></div> ' +
+        '<div class="row planelevation" id="rowelevation' + rowCount + '">' +
+        '<div class= "col-1"><a href="#" onclick="DeletePlanElevationRow(' + rowCount + ');"><i class="fa fa-trash fa-lg"></i></a> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount + '" value="-' + rowCount + '" /></div> ' +
         ' <div class= "col-4" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
         '<div class= "col-2" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-4" ><div class="row"> <div class= "col-6"> <a id="pElevationImage' + rowCount +'" href = "" target = "_blank" > <img src="" id="image' + rowCount + '" style="width:100px;" /> </a > </div > ' +
@@ -789,3 +789,26 @@ function UploadImages(pElevationArray) {
 
 }
 
+function DeletePlanElevationRow(idValue) {
+    if (confirm("Are you sure to delete Plan/Elevation?")) { 
+    var PlanElevationReferanceId = $('#rowelevation' + idValue).find('input[id=PlanElevationReferanceId' + idValue+']');
+    var dataDto = { Id: PlanElevationReferanceId.val() };
+        if (PlanElevationReferanceId.val() > 0) {
+        $.ajax({
+            url: "/Home/DeleteProjectPlanElevation/",
+            type: "POST",
+            data: dataDto,
+            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            success: function (response) {
+
+            },
+            error: function (er) {
+               
+            }
+
+        });
+    }
+        $('#rowelevation' + idValue).remove();
+    }
+}

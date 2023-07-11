@@ -16,5 +16,7 @@ namespace ExcelAutomation.Service
         int DeleteProjectDetailRow(int id);
 
         int CopyProject(int id);
+
+        void DeleteProjectPlanElevationReferances(int id);
     }
 }
