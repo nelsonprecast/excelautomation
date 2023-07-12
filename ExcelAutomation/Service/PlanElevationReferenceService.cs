@@ -27,6 +27,23 @@ namespace ExcelAutomation.Service
                 }).ToList();
         }
 
+        public int Update(PlanElevationReferenceDto pElevation, int projectDetailId)
+        {
+            var dbObject = _context.PlanElevationReferances.FirstOrDefault(p =>
+                p.PlanElevationReferanceId == pElevation.PlanElevationReferanceId);
+            if (dbObject != null)
+            {
+                dbObject.PlanElevationValue = pElevation.PlanElevationValue;
+                dbObject.LFValue = pElevation.LFValue;
+                dbObject.ProjectDetailId = projectDetailId;
+                dbObject.ImagePath = pElevation.ImagePath;
+                dbObject.PageRefPath = pElevation.PageRefPath;
+                _context.Update(dbObject);
+            }
+
+            return _context.SaveChanges();
+        }
+
         public int Save(PlanElevationReferenceDto pElevation, int projectDetailId)
         {
             var dbObject = new PlanElevationReferance();

@@ -774,11 +774,11 @@ function CalculateLF() {
                     PlanElevationReferanceId: parseInt($('#PlanElevationReferanceId' + i).val()), LFValue: $('#lf' + i).val(), PlanElevationValue: $('#planelevation' + i).val()
                 };
                 
-                if (file.length > 0)
-                    //planElevObj.ImagePath = GetImageBase64(file[0]);
+                if (file && file.length > 0)
+                   
                     planElevObj.ImagePath = '/PlanElevation/' + file[0].name;
-                if (ifile.length > 0)
-                    //planElevObj.ImagePath = GetImageBase64(file[0]);
+                if (ifile && ifile.length > 0)
+
                     planElevObj.PageRefPath = '/PlanElevation/' + ifile[0].name;
                 planElevationJsonArray.push(planElevObj);
             }

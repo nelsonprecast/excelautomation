@@ -187,6 +187,11 @@ namespace ExcelAutomation.Controllers
                   pElevation.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
                   pElevation.PageRefPath = "/PlanElevation/" + pElevation.PageRefPath;
                 }
+                else
+                {
+                    pElevation.PlanElevationReferanceId = _planElevationReferenceService.Update(pElevation, projectDetailId);
+                }
+
             }
             return new JsonResult(JsonConvert.SerializeObject(pElevationList));
         }
