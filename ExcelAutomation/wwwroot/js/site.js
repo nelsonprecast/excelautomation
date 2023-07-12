@@ -629,7 +629,7 @@ function AddPlanElevationRow() {
         '<div class= "col-3"> <a id="pElevationImage' + rowCount + '" href = "" target = "_blank" > <img src="" id="image' + rowCount + '" style="width:100px;" /> </a > </div > ' +
         '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         '<div class= "col-3"> <a id="pElevationImagePageRef' + rowCount + '" href = "" target = "_blank" > <img src="" id="imagePageRef' + rowCount + '" style="width:100px;" /> </a > </div > ' +
-        '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="imagePageRef' + rowCount + '" name="imagePageRef' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
+        '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="imagePageRef' + rowCount + '" name="imagePageRef' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         ' </div></div> ' +
         '</div>');
 }
@@ -693,6 +693,26 @@ function paste(ev) {
             $('#image' + id).show();
         }
        
+    }
+}
+
+function paste1(ev) {
+    ev.preventDefault();
+    var id = ev.currentTarget.id;
+    var data = ev.clipboardData.files;
+    //ev.target.appendChild(document.getElementById(data));
+    document.getElementById('planElevationFile' + id).files = data;
+
+    var file = data[0];
+    if (file) {
+        var filereader = new FileReader();
+        filereader.readAsDataURL(file);
+        filereader.onload = function (evt) {
+            var base64 = evt.target.result;
+            $('#imagePageRef' + id).prop('src', base64);
+            $('#imagePageRef' + id).show();
+        }
+
     }
 }
 
