@@ -12,6 +12,8 @@
 
         public string ImagePath { get; set; }
 
+        public string PageRefPath { get; set; }
+
         public virtual ProjectDetail ProjectDetail { get; set; } = null!;
     }
 }
