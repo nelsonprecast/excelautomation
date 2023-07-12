@@ -165,17 +165,14 @@ namespace ExcelAutomation.Controllers
             {
                 if (file.Length > 0)
                 {
-                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
-                    {
-                         file.CopyTo(fileStream);
-                    }
+                    using var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create);
+                    file.CopyTo(fileStream);
                 }
             }
             var pElevationList = DoDeserilization(pElevationJsonArray);
             foreach (var pElevation in pElevationList) { 
-                if (pElevation != null && pElevation.PlanElevationReferanceId < 0)
-                {
-                    pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
+                if (pElevation.PlanElevationReferanceId < 0)
+                { pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
                   pElevation.PlanElevationReferanceId=  _planElevationReferenceService.Save(pElevation,projectDetailId);  
                   pElevation.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
                 }

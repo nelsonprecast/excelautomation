@@ -629,7 +629,7 @@ function AddPlanElevationRow() {
         '<div class= "col-3"> <a id="pElevationImage' + rowCount + '" href = "" target = "_blank" > <img src="" id="image' + rowCount + '" style="width:100px;" /> </a > </div > ' +
         '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         '<div class= "col-3"> <a id="pElevationImagePageRef' + rowCount + '" href = "" target = "_blank" > <img src="" id="imagePageRef' + rowCount + '" style="width:100px;" /> </a > </div > ' +
-        '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="imagePageRef' + rowCount + '" name="imagePageRef' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
+        '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="imagePageReffileUploads" id="imagePageRef' + rowCount + '" name="imagePageRef' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowImagePageRefFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         ' </div></div> ' +
         '</div>');
 }
@@ -701,7 +701,7 @@ function paste1(ev) {
     var id = ev.currentTarget.id;
     var data = ev.clipboardData.files;
     //ev.target.appendChild(document.getElementById(data));
-    document.getElementById('planElevationFile' + id).files = data;
+    document.getElementById('imagePageRef' + id).files = data;
 
     var file = data[0];
     if (file) {
@@ -732,6 +732,11 @@ function ShowPlanElevationFileSelection(rowNumber) {
 
     document.getElementById('planElevationFile' + rowNumber).click();
 }
+
+function ShowImagePageRefFileSelection(rowNumber) {
+
+    document.getElementById('imagePageRef' + rowNumber).click();
+}
 function CloseModal() {
     $('#exampleModal').modal('hide');
 }
@@ -753,6 +758,7 @@ function CalculateLF() {
             var planElevObj = planElevationJsonArray.find(({ PlanElevationReferanceId }) => PlanElevationReferanceId == $('#PlanElevationReferanceId' + i).val());
             var planElevIndex = planElevationJsonArray.findIndex(x => x.PlanElevationReferanceId == $('#PlanElevationReferanceId' + i).val());
             var file = $('#planElevationFile' + i).prop('files');
+            var ifile = $('#imagePageRef' + i).prop('files');
             sum = sum + parseFloat($('#lf' + i).val());
             
             $('#hiddenPlanElevationFiles').append(
@@ -800,20 +806,33 @@ function CalculateLF() {
 
 
 function UploadImages(pElevationArray) {
-     event.preventDefault();
+    
     var id = $('#ProjectDetailIdHidden').val();
 
     var formData = new FormData();
 
-    var files = $('.fileUploads')
+    var pfiles = $('.fileUploads')
 
-    for (let i = 0; i < files.length; i++) {
-        var element = files[i];
-        var fileUploaded = $('#'+element.id).prop('files');
-        if (fileUploaded.length > 0) {
-            formData.append("files", fileUploaded[0]);
+    for (let i = 0; i < pfiles.length; i++) {
+        var element = pfiles[i];
+        var pfileUploaded = $('#'+element.id).prop('files');
+        if (pfileUploaded.length > 0) {
+            formData.append("files", pfileUploaded[0]);
         }
     }
+
+    var ifiles = $('.imagePageReffileUploads')
+
+    for (let i = 0; i < ifiles.length; i++) {
+        var element = ifiles[i];
+        var ifileUploaded = $('#' + element.id).prop('files');
+        if (ifileUploaded) {
+            if (ifileUploaded.length > 0) {
+                formData.append("files", ifileUploaded[0]);
+            }
+        }
+    }
+
     $.ajax({
         url: "/Home/UploadImages/?projectDetailId=" + id + "&pElevationJsonArray=" + JSON.stringify(pElevationArray),
         type: "POST",       
