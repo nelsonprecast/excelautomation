@@ -71,6 +71,17 @@ function BindEvent() {
                         $('#image' + (i + 1)).hide();
                         $('#pElevationImage' + (i + 1)).hide();
                     }
+
+                    if (planElevationJsonArray[i].PageRefPath != "") {
+
+                        $('#imagePageRef' + (i + 1)).prop('src', planElevationJsonArray[i].PageRefPath);
+                        $('#pElevationImagePageRef' + (i + 1)).prop('href', planElevationJsonArray[i].PageRefPath);
+
+                    }
+                    else {
+                        $('#imagePageRef' + (i + 1)).hide();
+                        $('#pElevationImagePageRef' + (i + 1)).hide();
+                    }
                         
                 }               
             }

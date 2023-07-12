@@ -147,6 +147,8 @@ namespace ExcelAutomation.Controllers
                     foreach (var planReference in projectDetail.PlanElevationReferences)
                     {
                         planReference.ImagePath = ReturnBase64Image(planReference.ImagePath);
+                        planReference.PageRefPath= ReturnBase64Image(planReference.PageRefPath);
+
                     }
                 }
             }
@@ -158,10 +160,18 @@ namespace ExcelAutomation.Controllers
             }
         }
         [HttpPost]
-        public  JsonResult UploadImages(ICollection<IFormFile> files,int projectDetailId,string pElevationJsonArray)
+        public  JsonResult UploadImages(ICollection<IFormFile> files, ICollection<IFormFile> ifiles, int projectDetailId,string pElevationJsonArray)
         {
             var uploads = Path.Combine(_webHostEnvironment.WebRootPath, "PlanElevation");
             foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    using var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create);
+                    file.CopyTo(fileStream);
+                }
+            }
+            foreach (var file in ifiles)
             {
                 if (file.Length > 0)
                 {
@@ -175,6 +185,7 @@ namespace ExcelAutomation.Controllers
                 { pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
                   pElevation.PlanElevationReferanceId=  _planElevationReferenceService.Save(pElevation,projectDetailId);  
                   pElevation.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
+                  pElevation.PageRefPath = "/PlanElevation/" + pElevation.PageRefPath;
                 }
             }
             return new JsonResult(JsonConvert.SerializeObject(pElevationList));

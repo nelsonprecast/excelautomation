@@ -776,7 +776,10 @@ function CalculateLF() {
                 
                 if (file.length > 0)
                     //planElevObj.ImagePath = GetImageBase64(file[0]);
-                    planElevObj.ImagePath = '/PlanElevation/'+file[0].name;
+                    planElevObj.ImagePath = '/PlanElevation/' + file[0].name;
+                if (ifile.length > 0)
+                    //planElevObj.ImagePath = GetImageBase64(file[0]);
+                    planElevObj.PageRefPath = '/PlanElevation/' + ifile[0].name;
                 planElevationJsonArray.push(planElevObj);
             }
 
@@ -828,7 +831,7 @@ function UploadImages(pElevationArray) {
         var ifileUploaded = $('#' + element.id).prop('files');
         if (ifileUploaded) {
             if (ifileUploaded.length > 0) {
-                formData.append("files", ifileUploaded[0]);
+                formData.append("ifiles", ifileUploaded[0]);
             }
         }
     }

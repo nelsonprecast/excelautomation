@@ -23,6 +23,7 @@ namespace ExcelAutomation.Service
                     PlanElevationReferanceId = p.PlanElevationReferanceId,
                     LFValue = p.LFValue,
                     PlanElevationValue = p.PlanElevationValue,
+                    PageRefPath = p.PageRefPath,
                 }).ToList();
         }
 
@@ -32,7 +33,8 @@ namespace ExcelAutomation.Service
             dbObject.PlanElevationValue = pElevation.PlanElevationValue;
             dbObject.LFValue = pElevation.LFValue;
             dbObject.ProjectDetailId = projectDetailId;
-            dbObject.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
+            dbObject.ImagePath =  pElevation.ImagePath;
+            dbObject.PageRefPath =  pElevation.PageRefPath;
             _context.Add(dbObject);
             _context.SaveChanges();
             return dbObject.PlanElevationReferanceId;
