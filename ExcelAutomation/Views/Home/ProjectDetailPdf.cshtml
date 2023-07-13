@@ -9,103 +9,112 @@
 <html>
 <head>
     <style>
-        table{
-            font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
-            font-size:12px;
-            }
+        table {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
 
 @foreach (var projectDetail in Model.ProjectDetails)
 {
-        <table border="0" style="width:100%">
-            <tbody>
-                <tr><td><b>Highlighted Scope Pages</b></td></tr>
-                <tr>
-                    <td><b>Job Name: </b></td>
-                    <td>@Model.ProjectName</td>
-                    <td style="text-align:right"><img src="data:image/png;base64,@(ViewBag.logo)" style="height:80px" /></td>
-                </tr>
-            </tbody>
-        </table>
-        <br />
-    <table border="1" style="width:100%" cellpadding="0" cellspacing="0">
+    <table border="0" style="width: 100%">
         <tbody>
-                <tr>
-                    <td> <img src="data:image/png;base64,@(projectDetail.ImagePath)" style="width:200px;" /></td>
-                    <td>
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Section Name: @projectDetail.ItemName</td><td></td>
-                                    <td>Detail Page: @projectDetail.DetailPage</td>
-                                </tr>
-                                <tr>
-                                    <td>Wet/Dry: @projectDetail.WD</td><td></td>
-                                    <td>Category: @projectDetail.Category</td>
-                                </tr>
-                                <tr>
-                                    <td>Take-off Color: @projectDetail.TakeOffColor</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>                       
+        <tr>
+            <td>
+                <b>Highlighted Scope Pages</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Job Name: </b>
+            </td>
+            <td>@Model.ProjectName</td>
+            <td style="text-align: right">
+                <img src="data:image/png;base64,@(ViewBag.logo)" style="height: 80px"/>
+            </td>
+        </tr>
         </tbody>
-        </table>
-        <br />
-        <table border="1" width="100%" cellpadding="0" cellspacing="0">
-            <tbody>
+    </table>
+    <br/>
+    <table border="1" style="width: 100%" cellpadding="0" cellspacing="0">
+        <tbody>
+        <tr>
+            <td>
+                <img src="data:image/png;base64,@(projectDetail.ImagePath)" style="width: 200px;"/>
+            </td>
+            <td>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>Section Name: @projectDetail.ItemName</td><td></td>
+                        <td>Detail Page: @projectDetail.DetailPage</td>
+                    </tr>
+                    <tr>
+                        <td>Wet/Dry: @projectDetail.WD</td><td></td>
+                        <td>Category: @projectDetail.Category</td>
+                    </tr>
+                    <tr>
+                        <td>Take-off Color: @projectDetail.TakeOffColor</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <table border="1" width="100%" cellpadding="0" cellspacing="0">
+        <tbody>
         @if (projectDetail.PlanElevationReferences != null)
         {
-                   int i = 1;
+            int i = 1;
             foreach (var plan in projectDetail.PlanElevationReferences)
             {
                 if (!string.IsNullOrEmpty(plan.ImagePath))
                 {
-                    <tr style="margin-bottom:5px">
-                        <td valign="top" style="width:75%">
-                                    <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <b>Plan Elevation:</b> @plan.PlanElevationValue
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <b>LF:</b> @plan.LFValue
-                                            </td>
-                                        </tr>
-                                        <tr >
-                                            <td>
-                                                <img src="data:image/png;base64,@(plan.ImagePath)" style="width: 100%;"/>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                                <td valign="top" style="width:25%">
-                                        <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
-                                            <tbody>
-                                            <tr>
-                                                <td> <img src="data:image/png;base64,@(plan.PageRefPath)" style="width:100%;" /></td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                    <tr style="margin-bottom: 5px">
+                        <td valign="top" style="width: 75%">
+                            <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <b>Plan Elevation:</b> @plan.PlanElevationValue
                                     </td>
                                 </tr>
-                            i++;
-                    
+                                <tr>
+                                    <td>
+                                        <b>LF:</b> @plan.LFValue
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td>
+                                        <img src="data:image/png;base64,@(plan.ImagePath)" style="width: 100%;"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td valign="top" style="width: 25%">
+                            <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <img src="data:image/png;base64,@(plan.PageRefPath)" style="width: 100%;"/>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    i++;
                 }
             }
-            
-           
         }
         </tbody>
     </table>
-        <p style="page-break-after: always;">&nbsp;</p>
+    <p style="page-break-after: always;">&nbsp;</p>
 }
 
 
