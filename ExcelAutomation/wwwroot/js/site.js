@@ -630,6 +630,8 @@ function AddPlanElevationRow() {
         '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="fileUploads" id="planElevationFile' + rowCount + '" name="planElevationFile' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowPlanElevationFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
         '<div class= "col-3"> <a id="pElevationImagePageRef' + rowCount + '" href = "" target = "_blank" > <img src="" id="imagePageRef' + rowCount + '" style="width:100px;" /> </a > </div > ' +
         '<div class= "col-3 font-size-08" style="border:dashed" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="' + rowCount + '"> <input type="file" class="imagePageReffileUploads" id="imagePageRef' + rowCount + '" name="imagePageRef' + rowCount + '" accept="image/*" style="display:none;"  /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="ShowImagePageRefFileSelection(' + rowCount + ')"></i> <br/>Select or Drop Image   </div>' +
+        '<div><input type="hidden" id="PlanElevationImageNameHidden' + rowCount + '" name="PlanElevationImageNameHidden' + rowCount + '" /></div>' +
+        '<div><input type="hidden" id="PlanElevationPlanImageNameHidden' + rowCount + '" name="PlanElevationPlanImageNameHidden' + rowCount + '" /></div>' +
         ' </div></div> ' +
         '</div>');
 }
@@ -644,7 +646,8 @@ function drop(ev) {
     var data = ev.dataTransfer.files;
     //ev.target.appendChild(document.getElementById(data));
     document.getElementById('planElevationFile' + id).files = data;
-
+    var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
+    document.getElementById('PlanElevationPlanImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
@@ -663,7 +666,8 @@ function drop1(ev) {
     var data = ev.dataTransfer.files;
     //ev.target.appendChild(document.getElementById(data));
     document.getElementById('imagePageRef' + id).files = data;
-
+    var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
+    document.getElementById('PlanElevationImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
@@ -682,7 +686,8 @@ function paste(ev) {
     var data = ev.clipboardData.files;
     //ev.target.appendChild(document.getElementById(data));
     document.getElementById('planElevationFile' + id).files = data;
-
+    var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
+    document.getElementById('PlanElevationPlanImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
@@ -698,11 +703,12 @@ function paste(ev) {
 
 function paste1(ev) {
     ev.preventDefault();
-    var id = ev.currentTarget.id;
+    var id = parseInt(ev.currentTarget.id);
     var data = ev.clipboardData.files;
-    //ev.target.appendChild(document.getElementById(data));
-    document.getElementById('imagePageRef' + id).files = data;
 
+    document.getElementById('imagePageRef' + id).files = data;
+    var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
+    document.getElementById('PlanElevationImageNameHidden' + id).value = '/PlanElevation/'+CreateGuid() + '.' + fileExt;
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
@@ -767,6 +773,11 @@ function CalculateLF() {
             if (planElevObj !== undefined) {
                 planElevObj.LFValue = $('#lf' + i).val();
                 planElevObj.PlanElevationValue = $('#planelevation' + i).val();
+                if (file && file.length > 0) {
+                    planElevObj.ImagePath = '/PlanElevation/' + file[0].name;
+                }
+                if (ifile && ifile.length > 0)
+                    planElevObj.PageRefPath = '/PlanElevation/' + ifile[0].name;
                 planElevationJsonArray[planElevIndex] = planElevObj;
             }
             else {
@@ -777,9 +788,11 @@ function CalculateLF() {
                 if (file && file.length > 0)
                    
                     planElevObj.ImagePath = '/PlanElevation/' + file[0].name;
-                if (ifile && ifile.length > 0)
 
+                if (ifile && ifile.length > 0)
+                {
                     planElevObj.PageRefPath = '/PlanElevation/' + ifile[0].name;
+                }
                 planElevationJsonArray.push(planElevObj);
             }
 
@@ -807,7 +820,13 @@ function CalculateLF() {
     $('#exampleModal').modal('hide');
 }
 
-
+function CreateGuid() {
+    function _p8(s) {
+        var p = (Math.random().toString(16) + "000000000").substr(2, 8);
+        return s ? "-" + p.substr(0, 4) + "-" + p.substr(4, 4) : p;
+    }
+    return _p8() + _p8(true) + _p8(true) + _p8();
+}
 function UploadImages(pElevationArray) {
     
     var id = $('#ProjectDetailIdHidden').val();
@@ -820,7 +839,11 @@ function UploadImages(pElevationArray) {
         var element = pfiles[i];
         var pfileUploaded = $('#'+element.id).prop('files');
         if (pfileUploaded.length > 0) {
-            formData.append("files", pfileUploaded[0]);
+            var rowNum = i + 1;
+            var renameFile = document.getElementById('PlanElevationPlanImageNameHidden' + rowNum).value;
+
+            pElevationArray[i].ImagePath = renameFile;
+            formData.append("files", pfileUploaded[0], renameFile);
         }
     }
 
@@ -831,7 +854,11 @@ function UploadImages(pElevationArray) {
         var ifileUploaded = $('#' + element.id).prop('files');
         if (ifileUploaded) {
             if (ifileUploaded.length > 0) {
-                formData.append("ifiles", ifileUploaded[0]);
+                var rowNum = i + 1;
+                var renameFile = document.getElementById('PlanElevationImageNameHidden' + rowNum).value;
+
+                pElevationArray[i].PageRefPath = renameFile;
+                formData.append("ifiles", ifileUploaded[0], renameFile);
             }
         }
     }
@@ -843,7 +870,8 @@ function UploadImages(pElevationArray) {
         processData: false,
         contentType: false,
         success: function (response) {
-         
+            var responseArray = JSON.parse(response);
+            document.getElementById('row' + rowIndex + 'PlanElevationJsonHidden').value = JSON.stringify(responseArray);                                
         },
         error: function (er) {
             alert(er);

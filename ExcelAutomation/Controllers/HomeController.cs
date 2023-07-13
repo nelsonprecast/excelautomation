@@ -167,7 +167,8 @@ namespace ExcelAutomation.Controllers
             {
                 if (file.Length > 0)
                 {
-                    using var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create);
+                    var fName = file.FileName.Substring(15);
+                    using var fileStream = new FileStream(Path.Combine(uploads, fName), FileMode.Create);
                     file.CopyTo(fileStream);
                 }
             }
@@ -175,17 +176,20 @@ namespace ExcelAutomation.Controllers
             {
                 if (file.Length > 0)
                 {
-                    using var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create);
+                    var fName = file.FileName.Substring(15);
+                    using var fileStream = new FileStream(Path.Combine(uploads, fName), FileMode.Create);
                     file.CopyTo(fileStream);
                 }
             }
             var pElevationList = DoDeserilization(pElevationJsonArray);
-            foreach (var pElevation in pElevationList) { 
+            foreach (var pElevation in pElevationList) {
                 if (pElevation.PlanElevationReferanceId < 0)
-                { pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
-                  pElevation.PlanElevationReferanceId=  _planElevationReferenceService.Save(pElevation,projectDetailId);  
-                  pElevation.ImagePath = "/PlanElevation/" + pElevation.ImagePath;
-                  pElevation.PageRefPath = "/PlanElevation/" + pElevation.PageRefPath;
+                {
+                    pElevation.OriginalPlanElevationRefernceId = pElevation.PlanElevationReferanceId;
+                    pElevation.PlanElevationReferanceId = _planElevationReferenceService.Save(pElevation,
+                        projectDetailId);
+                    pElevation.ImagePath = pElevation.ImagePath;
+                    pElevation.PageRefPath = pElevation.PageRefPath;
                 }
                 else
                 {
@@ -193,7 +197,7 @@ namespace ExcelAutomation.Controllers
                 }
 
             }
-            return new JsonResult(JsonConvert.SerializeObject(pElevationList));
+            return new JsonResult(JsonConvert.SerializeObject(_planElevationReferenceService.GetByProjectDetailId(projectDetailId)));
         }
 
         private List<PlanElevationReferenceDto> DoDeserilization(string pElevationJsonArray)
