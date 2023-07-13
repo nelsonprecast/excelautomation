@@ -332,6 +332,7 @@ function OnLineItemChange(rownumber) {
     var TotalCheckBox = $("input[name='rowFP" + rownumber + "TotalCheckBox']:checked").val();
     var TotalNomCF = document.getElementById('rowFP' + rownumber + 'TotalNomCF').value;
     var TotalActCF = document.getElementById('rowFP' + rownumber + 'TotalActCF').value;
+    var TotalLF = document.getElementById('rowFP' + rownumber + 'TotalLF').value;
     var totalValue = 0;
     if (TotalCheckBox == "1") {
         totalValue = document.getElementById('rowFP' + rownumber + 'TotalActual').value;
@@ -350,6 +351,11 @@ function OnLineItemChange(rownumber) {
     if (LineItemCharge != "" && TotalNomCF != "") {
         document.getElementById('rowFP' + rownumber + 'LineItemChargeCF').value = (LineItemCharge / TotalActCF).round(2);
     }
+
+    if (LineItemCharge != "" && TotalLF != "") {
+        document.getElementById('rowFP' + rownumber + 'LineItemChargeLF').value = (LineItemCharge / TotalLF).round(2);
+    }
+
     SumLineItemChargePCs();
     SumLineItemChargeCF();
 }
