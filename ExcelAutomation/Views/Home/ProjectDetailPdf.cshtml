@@ -23,7 +23,7 @@
             <tbody>
                 <tr><td><b>Highlighted Scope Pages</b></td></tr>
                 <tr>
-                    <td>Job Name: </td>
+                    <td><b>Job Name: </b></td>
                     <td>@Model.ProjectName</td>
                     <td style="text-align:right"><img src="data:image/png;base64,@(ViewBag.logo)" style="height:80px" /></td>
                 </tr>
@@ -51,8 +51,6 @@
                             </tbody>
                         </table>
                     </td>
-                   @* <td>Item Name: @projectDetail.ItemName</td>
-                    <td>Detail Page: @projectDetail.DetailPage</td>*@
                 </tr>                       
         </tbody>
         </table>
@@ -66,31 +64,31 @@
             {
                 if (!string.IsNullOrEmpty(plan.ImagePath))
                 {
-                            
-                                
-                                <tr style="margin-bottom:5px">
-                                     
-                                <td valign="top" style="width:75%">
-                                    <table cellpadding="0" cellspacing="0" border="0">
+                    <tr style="margin-bottom:5px">
+                        <td valign="top" style="width:75%">
+                                    <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
                                         <tbody>
-                                            
-                                            <tr>
-                                                <td>Plan Elevation: @plan.PlanElevationValue</td>
-                                            </tr>
-                                            <tr>
-                                                <td>LF: @plan.LFValue</td>
-                                            </tr>
-                                            <tr>
-                                                <td> <img src="data:image/png;base64,@(plan.ImagePath)" style="width:100%;" /></td>
-                                            </tr>
+                                        <tr>
+                                            <td>
+                                                <b>Plan Elevation:</b> @plan.PlanElevationValue
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <b>LF:</b> @plan.LFValue
+                                            </td>
+                                        </tr>
+                                        <tr >
+                                            <td>
+                                                <img src="data:image/png;base64,@(plan.ImagePath)" style="width: 100%;"/>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>
                                 <td valign="top" style="width:25%">
-                                        <table cellpadding="0" cellspacing="0" border="0">
+                                        <table style="margin: 10px" cellpadding="0" cellspacing="0" border="0">
                                             <tbody>
-                                            
-                                           
                                             <tr>
                                                 <td> <img src="data:image/png;base64,@(plan.PageRefPath)" style="width:100%;" /></td>
                                             </tr>
