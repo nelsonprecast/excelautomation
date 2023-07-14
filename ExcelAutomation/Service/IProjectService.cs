@@ -18,5 +18,6 @@ namespace ExcelAutomation.Service
         int CopyProject(int id);
 
         void DeleteProjectPlanElevationReferances(int id);
+        void ChangeGroup(int projectDetailId, int groupId);
     }
 }

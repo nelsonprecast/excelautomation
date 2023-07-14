@@ -14,6 +14,36 @@ Number.prototype.round = function (places) {
     return +(Math.round(this + "e+" + places) + "e-" + places);
 }
 
+function allowDropDiv(ev) {
+    ev.preventDefault();
+}
+
+function dragDiv(ev) {
+    ev.dataTransfer.setData("projectDetailId", ev.target.id);
+}
+
+function dropDiv(ev) {
+    ev.preventDefault();
+    var projectDetailId = ev.dataTransfer.getData("projectDetailId");
+    var newGroupId = ev.target.id;
+    
+    $.ajax({
+        url: '/Home/ChangeGroup/?projectDetailId=' + projectDetailId + '&GroupId=' + newGroupId,
+        contentType: 'application/html; charset=utf-8',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            window.location.reload();
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+    });
+}
+
 function OnAddRow() {
     var rowCount = $('.exceldatarow').length + 1;
     $.ajax({

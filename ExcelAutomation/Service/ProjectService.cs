@@ -18,7 +18,7 @@ namespace ExcelAutomation.Service
 
         public async Task<int> SaveProject(ProjectDto project)
         {
-            var dbProject = new Data.Project();
+            var dbProject = new Project();
             dbProject.ProjectName = project.ProjectName;
             dbProject.ActualCf = project.ActualCF;
             dbProject.NominalCf = project.NominalCF;
@@ -99,21 +99,18 @@ namespace ExcelAutomation.Service
         {
             ICollection<ProjectDto> projectDtos = new List<ProjectDto>();
             var projects =  _context.Projects.ToList();
-            if (projects != null)
+            foreach (var project in projects)
             {
-                foreach (var project in projects)
+                projectDtos.Add(new ProjectDto()
                 {
-                    projectDtos.Add(new ProjectDto()
-                    {
-                        ProjectId = project.ProjectId,
-                        ProjectName = project.ProjectName,
-                        ActualCF = project.ActualCf,
-                        NominalCF = project.NominalCf,
-                        CreatedDate = project.CreatedDate ?? DateTime.MinValue,
-                        ContactSpecs = project.ContactSpecs,
-                        RevisionDate = project.RevisionDate
-                    });
-                }
+                    ProjectId = project.ProjectId,
+                    ProjectName = project.ProjectName,
+                    ActualCF = project.ActualCf,
+                    NominalCF = project.NominalCf,
+                    CreatedDate = project.CreatedDate ?? DateTime.MinValue,
+                    ContactSpecs = project.ContactSpecs,
+                    RevisionDate = project.RevisionDate
+                });
             }
 
             return projectDtos;
@@ -166,6 +163,7 @@ namespace ExcelAutomation.Service
                     projectDetailDto.LineItemCharge = projectDetail.LineItemCharge;
                     projectDetailDto.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                     projectDetailDto.Category = projectDetail.Category;
+                    projectDetailDto.GroupId = projectDetail.GroupId;
                     projectDetailDto.GroupName = GetGroupName(projectDetail.GroupId);
                     projectDetailDto.PlanElevationJson = planElevationReferences.Any(x => x.ProjectDetailId == projectDetail.ProjectDetailId) 
                         ? JsonConvert.SerializeObject(planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId)
@@ -411,6 +409,16 @@ namespace ExcelAutomation.Service
             if (planElevationReferance != null)
             {
                 _context.Remove(planElevationReferance);
+                _context.SaveChanges();
+            }
+        }
+
+        public void ChangeGroup(int projectDetailId, int groupId){
+            var dbObject = _context.ProjectDetails.FirstOrDefault(p => p.ProjectDetailId == projectDetailId);
+            if (dbObject != null)
+            {
+                dbObject.GroupId = groupId < 0 ? null : groupId;
+                _context.Update(dbObject);
                 _context.SaveChanges();
             }
         }

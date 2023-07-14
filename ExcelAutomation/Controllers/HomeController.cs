@@ -1,6 +1,4 @@
-﻿using Azure.Core;
-using ExcelAutomation.Data;
-using ExcelAutomation.Models;
+﻿using ExcelAutomation.Models;
 using ExcelAutomation.Service;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,8 +6,6 @@ using System.Diagnostics;
 using System.Globalization;
 using Razor.Templating.Core;
 using iText.Html2pdf;
-using System.Drawing;
-using System.Net.Http.Headers;
 
 namespace ExcelAutomation.Controllers
 {
@@ -328,6 +324,14 @@ namespace ExcelAutomation.Controllers
         {
             var projectId = _projectService.SaveGroup(projectGroupDto);
             return RedirectToAction("Edit", new { id = projectId });
+        }
+
+        [HttpGet]
+        public IActionResult ChangeGroup(int projectDetailId,int GroupId)
+        {
+            if (GroupId == 0) return new BadRequestResult();
+            _projectService.ChangeGroup(projectDetailId, GroupId);
+            return new OkResult();
         }
 
 
