@@ -27,71 +27,6 @@ namespace ExcelAutomation.Service
 
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
-            var pdIndex = 1;
-            foreach (var projectDetail in project.ProjectDetails)
-            {
-                var dbProjectDetail = new ProjectDetail();
-                dbProjectDetail.ProjectId = dbProject.ProjectId;
-                dbProjectDetail.Wd = projectDetail.WD;
-                dbProjectDetail.ItemName = projectDetail.ItemName;
-                dbProjectDetail.DispositionSpecialNote = projectDetail.DispositionSpecialNote;
-                dbProjectDetail.DetailPage = projectDetail.DetailPage;
-                dbProjectDetail.Height = projectDetail.Height;
-                dbProjectDetail.Length = projectDetail.Length;
-                dbProjectDetail.Width = projectDetail.Width;
-                dbProjectDetail.TakeOffColor = projectDetail.TakeOffColor;
-                dbProjectDetail.Pieces = projectDetail.Pieces;
-                dbProjectDetail.ImagePath = projectDetail.ImagePath;
-                dbProjectDetail.TotalLf = projectDetail.TotalLf;
-                dbProjectDetail.ActSfcflf = projectDetail.ActSfcflf;
-                dbProjectDetail.ActCfpcs = projectDetail.ActCfpcs;
-                dbProjectDetail.TotalActCf = projectDetail.TotalActCf;
-                dbProjectDetail.NomCflf = projectDetail.NomCflf;
-                dbProjectDetail.NomCfpcs = projectDetail.NomCfpcs;
-                dbProjectDetail.TotalNomCf = projectDetail.TotalNomCf;
-                dbProjectDetail.MoldQty = projectDetail.MoldQty;
-                dbProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
-                dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
-                dbProjectDetail.Category = projectDetail.Category;
-
-                _context.Add(dbProjectDetail);
-                await _context.SaveChangesAsync();
-
-                if (!string.IsNullOrEmpty(projectDetail.PlanElevation))
-                {
-                    var planElevationArray = projectDetail.PlanElevation.Split("@_@");
-                    var lfValueArray = projectDetail.LFValue.Split("@_@");
-
-                    for (int i = 0; i < planElevationArray.Length; i++)
-                    {
-                        var dbfilePath = string.Empty;
-                        var file = projectDetail.PlanElevationFiles.FirstOrDefault(x =>
-                            x.Name.Equals($"hiddenPlanElevationFile{pdIndex}_{i + 1}"));
-                        if (file != null)
-                        {
-                            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "PlanElevation\\") + fileName;
-                            using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                            {
-                                file.CopyTo(fileStream);
-                                dbfilePath = "/PlanElevation/" + fileName;
-                            }
-                        }
-                        _context.Add(new PlanElevationReferance()
-                        {
-                            ProjectDetailId = dbProjectDetail.ProjectDetailId,
-                            LFValue = lfValueArray[i],
-                            PlanElevationValue = planElevationArray[i],
-                            ImagePath = dbfilePath
-                        });
-                    }
-
-                    await _context.SaveChangesAsync();
-                }
-                pdIndex++;
-            }           
-            
-            
             return dbProject.ProjectId;
         }
 
@@ -119,6 +54,10 @@ namespace ExcelAutomation.Service
         public ProjectDto GetProjectById(int projectId)
         {
             var project = _context.Projects.SingleOrDefault(x => x.ProjectId == projectId);
+            if (project == null)
+            {
+                return new ProjectDto();
+            }
             var projectDto = new ProjectDto();
             projectDto.ProjectId = projectId;
             projectDto.ProjectName = project.ProjectName;

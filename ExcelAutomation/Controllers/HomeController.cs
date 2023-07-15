@@ -11,20 +11,23 @@ namespace ExcelAutomation.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
-        private readonly IRazorTemplateEngine _engine;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPlanElevationReferenceService _planElevationReferenceService;
+        private readonly IPlanElevationTextService _planElevationTextService;
 
-        public HomeController(ILogger<HomeController> logger, IProjectService projectService, IWebHostEnvironment environment, IWebHostEnvironment webHostEnvironment, IPlanElevationReferenceService planElevationReferenceService)
+        public HomeController(IProjectService projectService,
+            IWebHostEnvironment environment,
+            IWebHostEnvironment webHostEnvironment,
+            IPlanElevationReferenceService planElevationReferenceService,
+            IPlanElevationTextService planTextService)
         {
-            _logger = logger;
             _projectService = projectService;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
             _planElevationReferenceService = planElevationReferenceService;
+            _planElevationTextService = planTextService;
         }
 
         public IActionResult Index()
@@ -51,10 +54,6 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public async Task<IActionResult> Save()
         {
-            int i = 1;
-            var wd = "row" + i + "WD";
-            var projectDetails = new List<ProjectDetailDto>();
-
             var project = new ProjectDto();
             project.ProjectName = Request.Form["projectname"];
             project.NominalCF = Request.Form["NominalCF"];
@@ -64,9 +63,9 @@ namespace ExcelAutomation.Controllers
             if (Request.Form.Files["ContactSpecs"] != null)
             {
                 var file = Request.Form.Files["ContactSpecs"];
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
                 var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ContactSpecs\\") + fileName;
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
+                await using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
@@ -74,51 +73,27 @@ namespace ExcelAutomation.Controllers
                 project.ContactSpecs = "/ContactSpecs/" + fileName;
             }
 
-            while (!string.IsNullOrEmpty(Request.Form[wd]))
-            {
-                var projectDetail = new ProjectDetailDto();
-                projectDetail.WD = Request.Form[wd];
-                projectDetail.ItemName = Request.Form["row" + i + "ItemName"];
-                projectDetail.DispositionSpecialNote = Request.Form["row" + i + "DispositionSpecialNote"];
-                projectDetail.DetailPage = Request.Form["row" + i + "DetailPage"];
-                projectDetail.TakeOffColor = Request.Form["row" + i + "TakeOffColor"];
-                projectDetail.Length = Request.Form["row" + i + "LengthHidden"];
-                projectDetail.Width = Request.Form["row" + i + "WidthHidden"];
-                projectDetail.Height = Request.Form["row" + i + "HeightHidden"];
-                projectDetail.Pieces = Request.Form["row" + i + "Pieces"];
-                projectDetail.TotalLf = Request.Form["row" + i + "TotalLF"];
-                projectDetail.ActSfcflf = Request.Form["row" + i + "ActSFCFLF"];
-                projectDetail.ActCfpcs = Request.Form["row" + i + "ActCFPcs"];
-                projectDetail.TotalActCf = Request.Form["row" + i + "TotalActCF"];
-                projectDetail.NomCflf = Request.Form["row" + i + "NomCFLF"];
-                projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
-                projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
-                projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
-                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevationHidden"];
-                projectDetail.LFValue = Request.Form["row" + i + "TotalLFHidden"];
-                projectDetail.Category = Request.Form["row" + i + "Category"];
-                if (Request.Form.Files["row" + i + "File"] != null)
-                {
-                    var file = Request.Form.Files["row" + i + "File"];
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-
-                    projectDetail.ImagePath = "/ProjectImages/" + fileName;
-                }
-
-                projectDetail.PlanElevationFiles =
-                    Request.Form.Files.Where(x => x.Name.Contains($"hiddenPlanElevationFile{i}_")).ToList();
-                projectDetails.Add(projectDetail);
-                i++;
-                wd = "row" + i + "WD";
-            }
-            project.ProjectDetails = projectDetails;
-            
             var projectId = await _projectService.SaveProject(project);
+
+            var projectPlanElevationDto = new ProjectPlanElevationTextDto();
+            projectPlanElevationDto.ProjectId = projectId;
+            projectPlanElevationDto.PlanElevationText = new List<PlanElevationTextDto>();
+            int i = 1;
+            var key = "planElevationTextRow"+i;
+            while (!string.IsNullOrEmpty(Request.Form[key]))
+            {
+                var dtoObject = new PlanElevationTextDto
+                {
+                    Text = Request.Form[key],
+                    CreatedDate = DateTime.Now
+                };
+                projectPlanElevationDto.PlanElevationText.Add(dtoObject);
+                i++;
+                key = "planElevationTextRow" + i;
+            }
+
+            _planElevationTextService.Save(projectPlanElevationDto);
+
             return RedirectToAction("Edit", new { id = projectId });
         }
 

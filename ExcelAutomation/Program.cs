@@ -10,6 +10,7 @@ var connectionString = builder.Configuration.GetConnectionString("ExcelAutomatio
 builder.Services.AddDbContext<ExcelAutomationContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped<IProjectService,ProjectService>();
 builder.Services.AddScoped<IPlanElevationReferenceService, PlanElevationReferenceService>();
+builder.Services.AddScoped<IPlanElevationTextService, PlanElevationTextService>();
 
 var app = builder.Build();
 

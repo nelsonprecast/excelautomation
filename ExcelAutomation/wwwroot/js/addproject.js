@@ -1,4 +1,4 @@
-﻿var rowIndex = 0;
+﻿var rowIndex = 2;
 $(document).ready(function () {
     $('#datepicker').datepicker({
         autoclose: true
@@ -9,6 +9,21 @@ $(document).ready(function () {
     
 });
 
+function AddNewRowForPlanElevationDropDown() {
+
+    
+
+    $('.planElevationText').append(
+        '<div class="input-group">'+
+        '<label for="" class="col-sm-3">Plan Elevation Text:</label>' +
+        '<div class="col-sm-2" >' +
+        '<input type="text" id="planElevationTextRow' + rowIndex + '" name = "planElevationTextRow' + rowIndex + '" class= "form-control" /> ' +
+        '</div>' +
+        '</div>');
+
+    rowIndex = rowIndex+1;
+
+}
 function BindEvent() {
     $('.exceldatarow11').click(function () {
 

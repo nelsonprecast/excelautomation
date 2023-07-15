@@ -21,6 +21,7 @@ public partial class ExcelAutomationContext : DbContext
 
     public virtual DbSet<PlanElevationReferance> PlanElevationReferances { get; set; }
     public virtual DbSet<ProjectGroup> ProjectGroups { get; set; }
+    public virtual DbSet<PlanElevationText> PlanElevationText { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer("Name=ExcelAutomation");
@@ -117,6 +118,11 @@ public partial class ExcelAutomationContext : DbContext
         modelBuilder.Entity<ProjectGroup>(entity => {
             entity.ToTable("ProjectGroup");
            
+        });
+
+        modelBuilder.Entity<PlanElevationText>(entity => {
+            entity.ToTable("PlanElevationText");
+
         });
 
         OnModelCreatingPartial(modelBuilder);
