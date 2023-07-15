@@ -113,7 +113,8 @@ namespace ExcelAutomation.Service
                                 ImagePath = x.ImagePath,
                                 LFValue = x.LFValue,
                                 PlanElevationValue = x.PlanElevationValue,
-                                PageRefPath = x.PageRefPath
+                                PageRefPath = x.PageRefPath,
+                                PcsValue = x.PcsValue
                             })
                             .ToList(), Formatting.Indented, new JsonSerializerSettings()
                             {
@@ -131,7 +132,8 @@ namespace ExcelAutomation.Service
                                 ImagePath = x.ImagePath,
                                 LFValue = x.LFValue,
                                 PlanElevationValue = x.PlanElevationValue,
-                                PageRefPath = x.PageRefPath
+                                PageRefPath = x.PageRefPath,
+                                PcsValue = x.PcsValue
                             })
                             .ToList():null;
                      projectDetailDto.PlanElevation = (planElevationReferences.Any(x=>x.ProjectDetailId == projectDetail.ProjectDetailId) ? string.Join("@_@", planElevationReferences.Where(x => x.ProjectDetailId == projectDetail.ProjectDetailId).Select(x=>x.PlanElevationValue)):string.Empty);

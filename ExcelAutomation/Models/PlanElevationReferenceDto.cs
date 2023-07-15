@@ -15,5 +15,6 @@
         public string PageRefPath { get; set; }
 
         public int? OriginalPlanElevationRefernceId { get; set; }
+        public string PcsValue { get; set; }
     }
 }

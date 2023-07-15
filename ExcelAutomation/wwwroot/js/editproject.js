@@ -61,6 +61,7 @@ function BindEvent() {
                     $('#PlanElevationReferanceId' + (i + 1)).val(planElevationJsonArray[i].PlanElevationReferanceId);
                     $('#planelevation' + (i + 1)).val(planElevationJsonArray[i].PlanElevationValue);
                     $('#lf' + (i + 1)).val(planElevationJsonArray[i].LFValue);
+                    $('#pcs' + (i + 1)).val(planElevationJsonArray[i].PcsValue);
                     if (planElevationJsonArray[i].ImagePath != "") {
                         
                         $('#image' + (i + 1)).prop('src', planElevationJsonArray[i].ImagePath);
