@@ -18,5 +18,6 @@
         public string ContactSpecs { get; set; }
 
         public ICollection<ProjectDetailDto> ProjectDetails { get; set; }
+        public ICollection<PlanElevationTextDto> ProjectPlanElevationText { get; set; } 
     }
 }

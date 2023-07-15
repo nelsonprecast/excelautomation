@@ -140,6 +140,14 @@ namespace ExcelAutomation.Service
                 }
             }
 
+            projectDto.ProjectPlanElevationText = _context.PlanElevationText.Where(p => p.ProjectId == projectId)
+                .Select(x=> new PlanElevationTextDto()
+                {
+                    Id = x.Id,
+                    CreatedDate = x.CreatedDate,
+                    Text = x.Text
+                }).ToList();
+            
             return projectDto;
         }
 

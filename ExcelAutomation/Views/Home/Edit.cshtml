@@ -1,4 +1,6 @@
-﻿@model ProjectDto
+﻿@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model ProjectDto
 @{
     ViewData["Title"] = "Edit";
 }
@@ -754,6 +756,9 @@
 </div>
       
 <div id="hiddenPlanElevationFiles" style="display:none;">
+</div>
+<div id="planElevationTextDivHidden" style="display: none;">
+    <input type="hidden" id="planElevationTextHidden" value="@JsonConvert.SerializeObject(Model.ProjectPlanElevationText)" />
 </div>
 </form>
 

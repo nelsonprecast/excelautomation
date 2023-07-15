@@ -659,7 +659,7 @@ function AddPlanElevationRow() {
     $('#rows').append(
         '<div class="row planelevation" id="rowelevation' + rowCount + '">' +
         '<div class= "col-1"><a href="#" onclick="DeletePlanElevationRow(' + rowCount + ');"><i class="fa fa-trash fa-lg"></i></a> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount + '" value="-' + rowCount + '" /></div> ' +
-        ' <div class= "col-3" > <input type="text" id="planelevation' + rowCount + '" name="planelevation' + rowCount +'" class="form-control" /></div> ' +
+        '<div class= "col-3"><select id="planelevation' + rowCount + '" class="form-control planElevationDropDown" /><option value="0">----select----</option></select></div> ' +
         '<div class= "col-1" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-6" ><div class="row"> ' +
         '<div class= "col-3"> <a id="pElevationImage' + rowCount + '" href = "" target = "_blank" > <img src="" id="image' + rowCount + '" style="width:100px;" /> </a > </div > ' +
@@ -670,6 +670,18 @@ function AddPlanElevationRow() {
         '<div><input type="hidden" id="PlanElevationPlanImageNameHidden' + rowCount + '" name="PlanElevationPlanImageNameHidden' + rowCount + '" /></div>' +
         ' </div></div> ' +
         '</div>');
+
+    var dropDownValuesJson = document.getElementById('planElevationTextHidden').value;
+
+    var dropDownValuesArray = JSON.parse(dropDownValuesJson);
+
+    for (var index = 0; index < dropDownValuesArray.length; index++) {
+        var key = '#planelevation' + rowCount;
+        var ele = $(key);
+        $(key).append(
+             '"<option value = ' + dropDownValuesArray[index].Id + '> ' + dropDownValuesArray[index].Text + '</option > ');
+    }
+
 }
 
 function allowDrop(ev) {
@@ -818,7 +830,10 @@ function CalculateLF() {
             }
             else {
                 planElevObj = {
-                    PlanElevationReferanceId: parseInt($('#PlanElevationReferanceId' + i).val()), LFValue: $('#lf' + i).val(), PlanElevationValue: $('#planelevation' + i).val()
+                    PlanElevationReferanceId: parseInt($('#PlanElevationReferanceId' + i).val()),
+                    LFValue: $('#lf' + i).val(),
+                    PlanElevationValue: $('#planelevation' + i).val(),
+                    
                 };
                 
                 if (file && file.length > 0)
@@ -866,6 +881,9 @@ function CreateGuid() {
 function UploadImages(pElevationArray) {
     
     var id = $('#ProjectDetailIdHidden').val();
+
+    var se = $('.planElevationDropDown');
+
 
     var formData = new FormData();
 
