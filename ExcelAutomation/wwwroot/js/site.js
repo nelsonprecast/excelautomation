@@ -653,6 +653,38 @@ function DeleteProjectDetail(idValue) {
     }
 }
 
+function DeletePlanElevationText(id) {
+    var dataDto = { Id: id };
+
+    if (confirm("Are you sure you want to delete row?")) {
+
+        $.ajax({
+            type: 'POST',
+            url: "/Home/DeletePlanElevationText",
+            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            data: dataDto,
+            success: function (resultData) {                
+            },            
+        });
+        window.location.reload();
+    }
+}
+
+function AddNewRowForPlanElevationDropDown() {    
+    $('.planElevationText').append(
+        '<div class="input-group">'+
+        '<label for="" class="col-sm-3">Plan Elevation Text:</label>' +
+        '<div class="col-sm-2" >' +
+        '<input type="text" id="planElevationTextRow' + rowIndex + '" name = "planElevationTextRow' + rowIndex + '" class= "form-control" /> ' +
+        '</div>' +
+        '<div class="col-sm-1" style="align-self: normal">' +
+        '<a href="#" onclick="DeletePlanElevationNewRow()"><i class="fa fa-trash fa-lg"></i></a>'+
+        '</div>'+
+        '</div>');
+    rowIndex = rowIndex+1;
+}
+
 function AddPlanElevationRow() {
     var rowCount = $('.planelevation').length+1;
 
@@ -936,6 +968,35 @@ function UploadImages(pElevationArray) {
 
 }
 
+function SaveRowForPlanElevationText(projectId) {
+    
+    var planTextList = [];
+        $(".planElevationText input[type=text]")
+        .each(function () {
+
+            planTextList.push(this.value);
+        });
+
+    $.ajax({
+        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId,
+        contentType: 'application/html; charset=utf-8',
+        type: 'GET',
+        dataType: 'html',
+        success: function (response) {
+            window.location.reload();
+        },
+        failure: function (response) {
+            alert(response.responseText);
+        },
+        error: function (response) {
+            alert(response.responseText);
+        }
+    });
+
+}
+function DeletePlanElevationNewRow() {
+    $('.planElevationText').children().last().remove();
+}
 function DeletePlanElevationRow(idValue) {
     if (confirm("Are you sure to delete Plan/Elevation?")) { 
     var PlanElevationReferanceId = $('#rowelevation' + idValue).find('input[id=PlanElevationReferanceId' + idValue+']');

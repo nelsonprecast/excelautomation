@@ -78,17 +78,6 @@
         <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
         <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
     </div>
-            
-    <label for="inputPassword" class="col-sm-1">Nominal CF:</label>
-    <span class="float-left">$</span>
-    <div class="col-sm-2">
-        <input id="NominalCF" name="NominalCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalNominalOnChangeOfNominalCF();" class="form-control" type="text" value="@Model.NominalCF" />
-    </div>
-    <label for="inputPassword" class="col-sm-1 ">Actual CF:</label>
-    <span class="float-left">$</span>
-    <div class="col-sm-2">
-        <input id="ActualCF" name="ActualCF" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActualOnChangeOfActualCF();" class="form-control" type="text" value="@Model.ActualCF" />
-    </div>
 </div>
 <div class="input-group">
     <label for="staticEmail" class="col-sm-2">Plan Date:</label>
@@ -103,7 +92,7 @@
             </span>
         </div>
     </div>
-    <label for="staticEmail" class="col-sm-1">Contract Specs:</label>
+   @* <label for="staticEmail" class="col-sm-1">Contract Specs:</label>
     <div class="col-sm-2">
         <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
         
@@ -115,7 +104,7 @@
                 Open File
             </a>
         }
-    </div>
+    </div>*@
 </div>
         <hr />
 <div class="input-group mb-3">
@@ -137,25 +126,102 @@
 <hr />
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
+        <button class="nav-link active" id="nav-project-tab" data-bs-toggle="tab" data-bs-target="#nav-project" type="button" role="tab" aria-controls="nav-project-tab" aria-selected="true">Project </button>
+        <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
         <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Line Cost</button>
         <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Final Price</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
-<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-<table style="width:100%" class="table font-size-08">
+<div class="tab-pane fade show active" id="nav-project" role="tabpanel" aria-labelledby="nav-project-tab" tabindex="0">
+    <br/>
+    <div class="input-group">
+                    <label for="projectname" class="col-sm-3">Job Name:</label>
+                    <div class="col-sm-3">
+                        <input readonly="readonly" class="form-control" value="@Model.ProjectName" />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="" class="col-sm-3">Nominal CF:</label>
+                    <div class="">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" style="width:95%" readonly="readonly" value="@Model.NominalCF" />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="" class="col-sm-3">Actual CF:</label>
+                    <div class="">
+                        <span class="input-group-text">$</span>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" type="text" style="width:95%" readonly="readonly" value="@Model.ActualCF" />
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="datepicker" class="col-sm-3">Plan Date:</label>
+                    <div class="col-sm-2">
+
+                        <div class="input-group " >
+                            <input type="text" class="form-control" readonly="readonly" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
+                            <span class="">
+                                <span class="input-group-text bg-light d-block">
+                                    <i class=""></i>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+    <div class="input-group">
+        <label for="" class="col-sm-3">Contract Specs:</label>
+        <div class="col-sm-2">
+            <input type="file"  class="form-control" />
+        </div>
+    </div>
+
+                
+    @foreach (var projectPlanElevationTextDto in Model.ProjectPlanElevationText)
+    {
+       
+            <div class="input-group">
+                <label for="" class="col-sm-3">Plan Elevation Text:</label>
+                <div class="col-sm-2">
+                    <input type="text" id="@projectPlanElevationTextDto.Id" readonly="readonly" class="form-control"
+                           value="@projectPlanElevationTextDto.Text"/>
+                </div>
+                <div class="col-sm-1" style="align-self: normal">
+                    <a href="#" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
+                </div>
+            </div>
+        
+    }
+    <div class="planElevationText">
+    </div>
+    <hr/>
+    <div class="input-group">                    
+        <button type="button" onclick="AddNewRowForPlanElevationDropDown()" class="btn btn-primary"> Add Plan Elevation Text Row </button>
+        <div class="col-sm-4"></div>
+        <button type="button" onclick="SaveRowForPlanElevationText(@Model.ProjectId)" class="btn btn-primary"> Save Plan Elevation Text</button>
+    </div>
+                <div class="input-group">
+                </div>
+</div>
+<div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+<table style="width: 100%" class="table font-size-08">
 <tr>
 <td>
-<div style="width:100%" id="RowsTable" class="container-fluid">
+<div style="width: 100%" id="RowsTable" class="container-fluid">
 <div class="row align-items-start">
     <div class="col-4 row">
         <div class="col-1">No</div>
-                                        
-                                        
+
+
     </div>
     <div class="col-6 row"></div>
-    <div class="col-2 row"><div class="col text-align-left">Total Actual</div>
+    <div class="col-2 row">
+        <div class="col text-align-left">Total Actual</div>
         <div class="col text-align-left">Total Nominal</div></div>
 </div>
 @{
@@ -165,7 +231,7 @@
     var groupingApplied = false;
     int? currentGroupId = null;
 }
-@foreach (var projectDetail in Model.ProjectDetails.OrderByDescending(x=>x.GroupName).ToList())
+@foreach (var projectDetail in Model.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
 {
     if (!currentGroupName.Equals(projectDetail.GroupName))
     {
@@ -182,229 +248,229 @@
             currentGroupId = -1;
         }
         displayed = true;
-                                        <div class="row">
-                                            <div class="col-2 text-align-left green">@currentGroupName</div>
-                                            <div class="col-8" id="@currentGroupId" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)" style="border: dotted; align-content: center"> drop row area</div>
+        <div class="row">
+            <div class="col-2 text-align-left green">@currentGroupName</div>
+            <div class="col-8" id="@currentGroupId" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)" style="border: dotted; align-content: center"> drop row area</div>
         </div>
     }
-                                    <div ondrop="dropDiv(event)"  ondragover="allowDropDiv(event)">
+    <div ondrop="dropDiv(event)" ondragover="allowDropDiv(event)">
 
-                                        <div id="@projectDetail.ProjectDetailId" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
-                                            <div class="col-4 row">
-                                                <div class="col-1">@(i)</div>
-                                                <div class="col-2 text-align-left">W/D</div>
-                                                <div class="col-4 text-align-left">
-                                                    Item Name
+        <div id="@projectDetail.ProjectDetailId" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
+            <div class="col-4 row">
+                <div class="col-1">@(i)</div>
+                <div class="col-2 text-align-left">W/D</div>
+                <div class="col-4 text-align-left">
+                    Item Name
 
-                                                </div>
+                </div>
 
-                                                <div class="col-3 text-align-left">
+                <div class="col-3 text-align-left">
 
-                                                    Detail
-                                                    #/Page
+                    Detail
+                    #/Page
 
-                                                </div>
-                                            </div>
-                                            <div class="col text-align-left">Takeoff Color</div>
-                                            <div class="col-5 row text-align-left">
-                                                <div class="col text-align-left">Length</div>
-                                                <div class="col text-align-left">Width</div>
-                                                <div class="col text-align-left">
-                                                    Height
-                                                </div>
-                                                <div class="col text-align-left">
-                                                   Total Pcs
-                                                </div>
-                                                <div class="col text-align-left">
-                                                    Mold QTY
-                                                </div>
-                                            </div>
-                                            <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
-                                            <div class="col-4 row">
-                                                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
+                </div>
+            </div>
+            <div class="col text-align-left">Takeoff Color</div>
+            <div class="col-5 row text-align-left">
+                <div class="col text-align-left">Length</div>
+                <div class="col text-align-left">Width</div>
+                <div class="col text-align-left">
+                    Height
+                </div>
+                <div class="col text-align-left">
+                    Total Pcs
+                </div>
+                <div class="col text-align-left">
+                    Mold QTY
+                </div>
+            </div>
+            <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
+            <div class="col-4 row">
+                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
 
-                                                <div class="col-2">
-                                                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
-                                                    <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width:60px;">
-                                                        <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
-                                                        <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-4">
-                                                    <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName" />
+                <div class="col-2">
+                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
+                    <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width: 60px;">
+                        <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
+                        <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
 
-                                                </div>
+                </div>
 
-                                                <div class="col-3">
-                                                    <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage" />
-                                                </div>
-                                                <div class="col-12 row">
-                                                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId" />  </div>
-                                                    <div class="col-2">
-                                                        <div class="col-12"><label> Category</label></div>
-                                                        <div class="row">
-                                                            <div class="col-1"></div>
-                                                            <div class="col-8">
-                                                                <select id="row@(i)Category" name="row@(i)Category" class="form-select" style="width:80px;">
-                                                                    <option value="">Select</option>
-                                                                    <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
-                                                                    <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
-                                                                    <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
-                                                                    <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
-                                                                    <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
-                                                                    <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
-                                                                    <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
-                                                                    <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
-                                                                    <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
-                                                                    <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
-                                                                    <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
-                                                                    <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
-                                                                    <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
-                                                                    <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
-                                                                    <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
-                                                                    <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
-                                                                    <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
-                                                                    <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
-                                                                    <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
-                                                                    <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
-                                                                    <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
-                                                                    <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-9 text-align-left totallfdata">
+                <div class="col-3">
+                    <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
+                </div>
+                <div class="col-12 row">
+                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId"/> </div>
+                    <div class="col-2">
+                        <div class="col-12"><label> Category</label></div>
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <div class="col-8">
+                                <select id="row@(i)Category" name="row@(i)Category" class="form-select" style="width: 80px;">
+                                    <option value="">Select</option>
+                                    <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
+                                    <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
+                                    <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
+                                    <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
+                                    <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
+                                    <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
+                                    <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
+                                    <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
+                                    <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
+                                    <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
+                                    <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
+                                    <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
+                                    <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
+                                    <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
+                                    <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
+                                    <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
+                                    <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
+                                    <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
+                                    <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
+                                    <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
+                                    <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
+                                    <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-9 text-align-left totallfdata">
 
-                                                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
-
-
-                                                        <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height:50px">@projectDetail.DispositionSpecialNote</textarea>
-                                                        <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
-                                                            <div class="totallfdata">
-                                                                <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
-                                                                <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
-                                                                <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
-                                                                <input id="rowIndex" class="form-control" type="hidden" value="@(i)" />
-                                                                <a href="#" class="edit" onclick="AddNewLFRow();return false;">Plan/Elevation</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-1">
-                                                <div class="col">
-                                                    <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width:100px" value="@projectDetail.TakeOffColor" />
-                                                </div>
-                                                <div class="col text-align-left"> Section</div>
-                                                <div class="col-12 no-margin text-align-left">
-                                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                                                        <img src="@projectDetail.ImagePath" style="width:120px;height:100px" />
-                                                    </a>
-                                                </div>
-                                                <div class="col-12 text-align-left">
-                                                    <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void(0);"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display:none;" accept="image/*" />Change Image</a>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-5 row">
-
-                                                <div class="col">
-                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
-                                                    <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Length" />
-                                                </div>
-                                                <div class="col">
-                                                    <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));" class="form-control" style="width:70px" value="@projectDetail.Width" />
-                                                    <input id="row@(i)WidthHidden" name="row@(i)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" style="width:70px" value="@projectDetail.Width" />
-                                                </div>
-                                                <div class="col">
-                                                    <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
-                                                    <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width:70px" value="@projectDetail.Height" />
-                                                </div>
-                                                <div class="col">
-                                                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="" />
-                                                </div>
+                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
 
+                        <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
+                        <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
+                            <div class="totallfdata">
+                                <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation"/>
+                                <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson"/>
+                                <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue"/>
+                                <input id="rowIndex" class="form-control" type="hidden" value="@(i)"/>
+                                <a href="#" class="edit" onclick="AddNewLFRow();return false;">Plan/Elevation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1">
+                <div class="col">
+                    <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor"/>
+                </div>
+                <div class="col text-align-left"> Section</div>
+                <div class="col-12 no-margin text-align-left">
+                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                        <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px"/>
+                    </a>
+                </div>
+                <div class="col-12 text-align-left">
+                    <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void(0);"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display: none;" accept="image/*"/>Change Image</a>
+                </div>
+
+            </div>
+            <div class="col-5 row">
+
+                <div class="col">
+                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length"/>
+                    <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length"/>
+                </div>
+                <div class="col">
+                    <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Width"/>
+                    <input id="row@(i)WidthHidden" name="row@(i)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Width"/>
+                </div>
+                <div class="col">
+                    <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
+                    <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
+                </div>
+                <div class="col">
+                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value=""/>
+                </div>
 
 
-                                                <div class="col">
-                                                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty" />
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col text-align-left">Total LF</div>
-                                                    <div class="col text-align-left"></div>
-                                                    <div class="col text-align-left">Nom. CF/LF</div>
-                                                    <div class="col text-align-left">Total Nom. CF</div>
-                                                    <div class="col text-align-left"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf" />
-                                                    </div>
-                                                    <div class="col"></div>
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
-                                                    </div>
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
-                                                    </div>
-                                                    <div class="col"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col text-align-left">Act SF CF/LF</div>
-                                                    <div class="col text-align-left">Act CF/Pcs</div>
-                                                    <div class="col text-align-left">Total Act CF</div>
-                                                    <div class="col text-align-left">Nom. CF/Pcs</div>
-                                                    <div class="col"></div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:70px" value="@projectDetail.ActSfcflf" />
-                                                    </div>
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" value="@projectDetail.ActCfpcs" />
-                                                    </div>
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalActCf" />
-                                                    </div>
 
-                                                    <div class="col float-left">
-                                                        <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" value="@projectDetail.NomCfpcs" />
-                                                    </div>
-                                                    <div class="col"></div>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")">
-                                                <div class="col float-left">
-                                                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
-                                                </div>
-                                                <div class="col float-left">
-                                                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
-                                                </div>
-                                            </div>
-                                        </div>
+                <div class="col">
+                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
+                </div>
+                <div class="row">
+                    <div class="col text-align-left">Total LF</div>
+                    <div class="col text-align-left"></div>
+                    <div class="col text-align-left">Nom. CF/LF</div>
+                    <div class="col text-align-left">Total Nom. CF</div>
+                    <div class="col text-align-left"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf"/>
+                    </div>
+                    <div class="col"></div>
+                    <div class="col float-left">
+                        <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width: 70px" value="@projectDetail.NomCflf"/>
+                    </div>
+                    <div class="col float-left">
+                        <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col text-align-left">Act SF CF/LF</div>
+                    <div class="col text-align-left">Act CF/Pcs</div>
+                    <div class="col text-align-left">Total Act CF</div>
+                    <div class="col text-align-left">Nom. CF/Pcs</div>
+                    <div class="col"></div>
+                </div>
+                <div class="row">
+                    <div class="col float-left">
+                        <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
+                    </div>
+                    <div class="col float-left">
+                        <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.ActCfpcs"/>
+                    </div>
+                    <div class="col float-left">
+                        <input id="row@(i)TotalActCF" name="row@(i)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalActCf"/>
+                    </div>
+
+                    <div class="col float-left">
+                        <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width: 70px" value="@projectDetail.NomCfpcs"/>
+                    </div>
+                    <div class="col"></div>
+
+                </div>
+            </div>
+            <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")">
+                <div class="col float-left">
+                    <span class="float-left">$</span><input id="row@(i)TotalActual" name="row@(i)TotalActual" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/>
+                </div>
+                <div class="col float-left">
+                    <span class="float-left">$</span><input id="row@(i)TotalNominal" name="row@(i)TotalNominal" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/>
+                </div>
+            </div>
+        </div>
     </div>
     i++;
 }
 </div>
-                           
+
 </td>
 </tr>
 <tr>
-    <td colspan="2" style="text-align:left;">
-    <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
-                            <input type="button" value="New Group" class="btn btn-primary" id="newGroupBtn" />
-                            <input type="button" value="Convert To Pdf" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);" />
-                            <a id="convertToPdfDownload" href="#" style="display:none" target="_blank"></a>
-     </td>
+    <td colspan="2" style="text-align: left;">
+        <input type="button" value="New Row" onclick="OnAddRow();" class="btn btn-primary"/>
+        <input type="button" value="New Group" class="btn btn-primary" id="newGroupBtn"/>
+        <input type="button" value="Convert To Pdf" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);"/>
+        <a id="convertToPdfDownload" href="#" style="display: none" target="_blank"></a>
+    </td>
 </tr>
 
 </table>
 </div>
 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
-<div style="width:100%" id="RowsTable" class="container-fluid font-size-08">
+<div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
 <div class="row align-items-start">
     <div class="col-3 row">
         <div class="col-1">No</div>
@@ -446,209 +512,209 @@
         </div>
     }
     <div class="@(j % 2 != 0 ? "primary" : "secondary") row exceldatarow1">
-       
-        <div class="col-4 row">
-            <div class="col-1">@(j)
 
-            </div>
-            <div class="col-2 text-align-left">W/D</div>
-            <div class="col-5 text-align-left">
-                Item Name
+    <div class="col-4 row">
+        <div class="col-1">@(j)
 
-            </div>
-
-            <div class="col-4 text-align-left">
-
-                Detail
-                #/Page
-
-            </div>
         </div>
-                            
-        <div class="col-4 row text-align-left">
-            <div class="col text-align-left">Length</div>
-            <div class="col text-align-left">Width</div>
-            <div class="col text-align-left">
-                Height
-            </div>
-            <div class="col text-align-left">
-                Pcs
-            </div>
-            <div class="col text-align-left">
-                Mold QTY
-            </div>
+        <div class="col-2 text-align-left">W/D</div>
+        <div class="col-5 text-align-left">
+            Item Name
+
         </div>
-        <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
-            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="1" /></div>
-            <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue ==null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="2" /></div>
+
+        <div class="col-4 text-align-left">
+
+            Detail
+            #/Page
+
         </div>
-        <div class="col-2 row"></div>
-        <div class="col-4 row">
-            <div class="col-1"></div>
+    </div>
 
-            <div class="col-2">
-                <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId" />
-                <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width:60px;">
-                    <option value="Dry">Dry</option>
-                    <option value="Wet">Wet</option>
-                </select>
-            </div>
-            <div class="col-5">
-                <input id="rowFP@(j)ItemName" name="rowFP@(j)ItemName" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName" />
+    <div class="col-4 row text-align-left">
+        <div class="col text-align-left">Length</div>
+        <div class="col text-align-left">Width</div>
+        <div class="col text-align-left">
+            Height
+        </div>
+        <div class="col text-align-left">
+            Pcs
+        </div>
+        <div class="col text-align-left">
+            Mold QTY
+        </div>
+    </div>
+    <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
+        <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="1"/></div>
+        <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalNominalCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue == null || projectDetail.TotalActualNominalValue.Equals("2"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="2"/></div>
+    </div>
+    <div class="col-2 row"></div>
+    <div class="col-4 row">
+        <div class="col-1"></div>
 
-            </div>
+        <div class="col-2">
+            <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
+            <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width: 60px;">
+                <option value="Dry">Dry</option>
+                <option value="Wet">Wet</option>
+            </select>
+        </div>
+        <div class="col-5">
+            <input id="rowFP@(j)ItemName" name="rowFP@(j)ItemName" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName"/>
 
-            <div class="col-4">
-                <input id="rowFP@(j)DetailPage" name="rowFP@(j)DetailPage" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage" />
-            </div>
-            <div class="col-12">
-                <div class="col-3 float-left">
-                    <div class="col-12"><label> Category</label></div>
-                    <div class="row">
-                        <div class="col-4"></div>
-                        <div class="col-8">
-                            <select id="rowFP@(j)Category" name="rowFP@(j)Category" class="form-select" style="width:80px;" readonly="readonly">
-                                <option value="">Select</option>
-                                <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
-                                <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
-                                <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
-                                <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
-                                <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
-                                <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
-                                <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
-                                <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
-                                <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
-                                <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
-                                <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
-                                <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
-                                <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
-                                <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
-                                <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
-                                <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
-                                <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
-                                <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
-                                <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
-                                <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
-                                <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
-                                <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
-                            </select>
-                        </div>
+        </div>
+
+        <div class="col-4">
+            <input id="rowFP@(j)DetailPage" name="rowFP@(j)DetailPage" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage"/>
+        </div>
+        <div class="col-12">
+            <div class="col-3 float-left">
+                <div class="col-12"><label> Category</label></div>
+                <div class="row">
+                    <div class="col-4"></div>
+                    <div class="col-8">
+                        <select id="rowFP@(j)Category" name="rowFP@(j)Category" class="form-select" style="width: 80px;" readonly="readonly">
+                            <option value="">Select</option>
+                            <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
+                            <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
+                            <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
+                            <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
+                            <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
+                            <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
+                            <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
+                            <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
+                            <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
+                            <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
+                            <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
+                            <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
+                            <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
+                            <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
+                            <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
+                            <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
+                            <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
+                            <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
+                            <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
+                            <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
+                            <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
+                            <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
+                        </select>
                     </div>
                 </div>
-                <div class="col-9  float-left text-align-left">
+            </div>
+            <div class="col-9  float-left text-align-left">
 
-                    <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+                <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
 
-                    <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" readonly="readonly" style="height:80px;" class="form-control">@projectDetail.DispositionSpecialNote</textarea>
-                    @*<label class="col-7 ">Plan/Elevation</label>
+                <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" readonly="readonly" style="height: 80px;" class="form-control">@projectDetail.DispositionSpecialNote</textarea>
+                @*<label class="col-7 ">Plan/Elevation</label>
                     <input id="row@(j)PlanElevation" name="row@(j)PlanElevation" readonly="readonly" class="form-control" type="text" value="@projectDetail.PlanElevation" />*@
-                    <div class="row exceldatarow11" readonly="true">
-                        <div class="totallfdata">
-                            <input id="rowFP@(j)PlanElevationHidden" name="rowFP@(j)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
-                            <input id="rowFP@(j)TotalLFHidden" name="rowFP@(j)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
-                            <input id="rowIndex" class="form-control" type="hidden" value="@(j)" />
-                            <a href="javascript:void(0);" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
-                        </div>
+                <div class="row exceldatarow11" readonly="true">
+                    <div class="totallfdata">
+                        <input id="rowFP@(j)PlanElevationHidden" name="rowFP@(j)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation"/>
+                        <input id="rowFP@(j)TotalLFHidden" name="rowFP@(j)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue"/>
+                        <input id="rowIndex" class="form-control" type="hidden" value="@(j)"/>
+                        <a href="javascript:void(0);" class="edit" onclick="AddNewLFRow();">Plan/Elevation</a>
                     </div>
                 </div>
             </div>
         </div>
-                            
-        <div class="col-4 row">
+    </div>
 
-            <div class="col">
-                <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width:70px" value="@projectDetail.Length" />
-            </div>
-            <div class="col">
-                <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width:70px" value="@projectDetail.Width" />
-            </div>
-            <div class="col">
-                <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width:70px" value="@projectDetail.Height" />
-            </div>
-            <div class="col">
-                <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.Pieces" />
-            </div>
+    <div class="col-4 row">
 
-
-
-
-            <div class="col">
-                <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width:70px" value="@projectDetail.MoldQty" />
-            </div>
-            <div class="row">
-                <div class="col text-align-left">Total LF</div>
-                <div class="col text-align-left"></div>
-                <div class="col text-align-left">Nom. CF/LF</div>
-                <div class="col text-align-left">Total Nom. CF</div>
-                <div class="col text-align-left"></div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <input id="rowFP@(j)TotalLF" name="rowFP@(j)TotalLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalLf" />
-                </div>
-                <div class="col"></div>
-                <div class="col float-left">
-                    <input id="rowFP@(j)NomCFLF" name="rowFP@(j)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width:70px" value="@projectDetail.NomCflf" />
-                </div>
-                <div class="col float-left">
-                    <input id="rowFP@(j)TotalNomCF" name="rowFP@(j)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf" />
-                </div>
-                <div class="col"></div>
-            </div>
-            <div class="row">
-                <div class="col text-align-left">Act SF CF/LF</div>
-                <div class="col text-align-left">Act CF/Pcs</div>
-                <div class="col text-align-left">Total Act CF</div>
-                <div class="col text-align-left">Nom. CF/Pcs</div>
-                <div class="col"></div>
-            </div>
-            <div class="row">
-                <div class="col float-left">
-                    <input id="rowFP@(j)ActSFCFLF" name="rowFP@(j)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width:70px" value="@projectDetail.ActSfcflf" />
-                </div>
-                <div class="col float-left">
-                    <input id="rowFP@(j)ActCFPcs" name="rowFP@(j)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width:70px" value="@projectDetail.ActCfpcs" />
-                </div>
-                <div class="col float-left">
-                    <input id="rowFP@(j)TotalActCF" name="rowFP@(j)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width:70px" value="@projectDetail.TotalActCf" />
-                </div>
-
-                <div class="col float-left">
-                    <input id="rowFP@(j)NomCFPcs" name="rowFP@(j)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width:70px" value="@projectDetail.NomCfpcs" />
-                </div>
-                <div class="col"></div>
-
-            </div>
+        <div class="col">
+            <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width: 70px" value="@projectDetail.Length"/>
         </div>
-        <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
+        <div class="col">
+            <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width: 70px" value="@projectDetail.Width"/>
+        </div>
+        <div class="col">
+            <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
+        </div>
+        <div class="col">
+            <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.Pieces"/>
+        </div>
+
+
+
+
+        <div class="col">
+            <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
+        </div>
+        <div class="row">
+            <div class="col text-align-left">Total LF</div>
+            <div class="col text-align-left"></div>
+            <div class="col text-align-left">Nom. CF/LF</div>
+            <div class="col text-align-left">Total Nom. CF</div>
+            <div class="col text-align-left"></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <input id="rowFP@(j)TotalLF" name="rowFP@(j)TotalLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf"/>
+            </div>
+            <div class="col"></div>
             <div class="col float-left">
-                <span class="float-left">$</span><input id="rowFP@(j)TotalActual" name="rowFP@(j)TotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+                <input id="rowFP@(j)NomCFLF" name="rowFP@(j)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width: 70px" value="@projectDetail.NomCflf"/>
             </div>
             <div class="col float-left">
-                <span class="float-left">$</span><input id="rowFP@(j)TotalNominal" name="rowFP@(j)TotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" />
+                <input id="rowFP@(j)TotalNomCF" name="rowFP@(j)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
             </div>
+            <div class="col"></div>
         </div>
-        <div class="col-2 row">
-            <div class="col-6">
-                <input id="rowFP@(j)LineItemCharge" name="rowFP@(j)LineItemCharge" onchange="OnLineItemChange(@(j));SumLineItemCharge();SumOfLineItemCharge();" value="@projectDetail.LineItemCharge" type="text" class="form-control" style="width:70px;" />
+        <div class="row">
+            <div class="col text-align-left">Act SF CF/LF</div>
+            <div class="col text-align-left">Act CF/Pcs</div>
+            <div class="col text-align-left">Total Act CF</div>
+            <div class="col text-align-left">Nom. CF/Pcs</div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+            <div class="col float-left">
+                <input id="rowFP@(j)ActSFCFLF" name="rowFP@(j)ActSFCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
             </div>
-            <div class="col-6">
-                <input id="rowFP@(j)LineData" name="rowFP@(j)LineData" readonly="readonly" type="text" class="form-control" style="width:70px;" />
+            <div class="col float-left">
+                <input id="rowFP@(j)ActCFPcs" name="rowFP@(j)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.ActCfpcs"/>
             </div>
-            <div class="col-6 text-align-left">$/pc</div>
-            <div class="col-6 text-align-left"></div>
-            <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargePCs" name="rowFP@(j)LineItemChargePCs" onchange="SumLineItemChargePCs();" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
-            <div class="col-6 text-align-left"></div>
-            <div class="col-6 text-align-left">$/CF</div>
-            <div class="col-6 text-align-left"></div>
-            <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeCF" name="rowFP@(j)LineItemChargeCF" onchange="SumLineItemChargeCF()" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
-            <div class="col-6 text-align-left"></div>
-            <div class="col-6 text-align-left">$/LF</div>
-            <div class="col-6 text-align-left"></div>
-                                <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeLF" name="rowFP@(j)LineItemChargeLF" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+            <div class="col float-left">
+                <input id="rowFP@(j)TotalActCF" name="rowFP@(j)TotalActCF" readonly="readonly" type="text" onchange="CalculateTotalActual(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalActCf"/>
+            </div>
+
+            <div class="col float-left">
+                <input id="rowFP@(j)NomCFPcs" name="rowFP@(j)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width: 70px" value="@projectDetail.NomCfpcs"/>
+            </div>
+            <div class="col"></div>
 
         </div>
+    </div>
+    <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
+        <div class="col float-left">
+            <span class="float-left">$</span><input id="rowFP@(j)TotalActual" name="rowFP@(j)TotalActual" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/>
+        </div>
+        <div class="col float-left">
+            <span class="float-left">$</span><input id="rowFP@(j)TotalNominal" name="rowFP@(j)TotalNominal" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/>
+        </div>
+    </div>
+    <div class="col-2 row">
+        <div class="col-6">
+            <input id="rowFP@(j)LineItemCharge" name="rowFP@(j)LineItemCharge" onchange="OnLineItemChange(@(j));SumLineItemCharge();SumOfLineItemCharge();" value="@projectDetail.LineItemCharge" type="text" class="form-control" style="width: 70px;"/>
+        </div>
+        <div class="col-6">
+            <input id="rowFP@(j)LineData" name="rowFP@(j)LineData" readonly="readonly" type="text" class="form-control" style="width: 70px;"/>
+        </div>
+        <div class="col-6 text-align-left">$/pc</div>
+        <div class="col-6 text-align-left"></div>
+        <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargePCs" name="rowFP@(j)LineItemChargePCs" onchange="SumLineItemChargePCs();" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
+        <div class="col-6 text-align-left"></div>
+        <div class="col-6 text-align-left">$/CF</div>
+        <div class="col-6 text-align-left"></div>
+        <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeCF" name="rowFP@(j)LineItemChargeCF" onchange="SumLineItemChargeCF()" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
+        <div class="col-6 text-align-left"></div>
+        <div class="col-6 text-align-left">$/LF</div>
+        <div class="col-6 text-align-left"></div>
+        <div class="col-6 text-align-left"><input id="rowFP@(j)LineItemChargeLF" name="rowFP@(j)LineItemChargeLF" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
+
+    </div>
     </div>
     j++;
 }
@@ -665,13 +731,13 @@
         <div class="col text-align-left"><b>Total Pcs</b></div>
         <div class="col text-align-left"></div>
     </div>
-                        
+
     <div class="col-2 row">
         <div class="col text-align-left"><b>Total Actual</b></div>
         <div class="col text-align-left"><b>Total Nominal</b></div>
     </div>
     <div class="col-2 row">
-    <div class="col text-align-left"><input id="rowFPSumLineItemCharge" name="rowFPSumLineItemCharge" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+        <div class="col text-align-left"><input id="rowFPSumLineItemCharge" name="rowFPSumLineItemCharge" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
         <div class="col text-align-left"></div>
     </div>
 </div>
@@ -682,20 +748,20 @@
 
     </div>
     <div class="col-4 row">
-        <div class="col text-align-left"><input id="rowFPSumOfTotalLF" name="rowFPSumOfTotalLF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
-        <div class="col text-align-left"><input id="rowFPSumOfTotalNomCF" name="rowFPSumOfTotalNomCF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
-        <div class="col text-align-left"><input id="rowFPSumOfTotalActualCF" name="rowFPSumOfTotalActualCF" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
-        <div class="col text-align-left"><input id="rowFPSumOfPcs" name="rowFPSumOfPcs" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;"/></div>
+        <div class="col text-align-left"><input id="rowFPSumOfTotalLF" name="rowFPSumOfTotalLF" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
+        <div class="col text-align-left"><input id="rowFPSumOfTotalNomCF" name="rowFPSumOfTotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
+        <div class="col text-align-left"><input id="rowFPSumOfTotalActualCF" name="rowFPSumOfTotalActualCF" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
+        <div class="col text-align-left"><input id="rowFPSumOfPcs" name="rowFPSumOfPcs" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
         <div class="col text-align-left"></div>
     </div>
-                        
+
     <div class="col-2 row">
-        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
-        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width:70px;background-color:transparent !important; border: 0px solid;" /></div>
+        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalActual" name="rowFPSumTotalActual" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
+        <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
     </div>
     <div class="col-2 row">
-        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();SumLineItemChargeCF();" /></div>
-        <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly" /></div>
+        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();SumLineItemChargeCF();"/></div>
+        <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly"/></div>
     </div>
 </div>
 <div class="row align-items-start">
@@ -718,10 +784,10 @@
     <div class="col-5 row">
 
     </div>
-                        
+
     <div class="col-2 row"></div>
     <div class="col-2 row">
-        <div class="col text-align-left"><input id="rowFPSumLineItemChargePCs" name="rowFPSumLineItemChargePCs" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+        <div class="col text-align-left"><input id="rowFPSumLineItemChargePCs" name="rowFPSumLineItemChargePCs" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
         <div class="col text-align-left"></div>
     </div>
 </div>
@@ -747,7 +813,7 @@
     <div class="col-5 row"></div>
     <div class="col-2 row"></div>
     <div class="col-2 row">
-        <div class="col text-align-left"><input id="rowFPSumOfLineItemChargeCF" name="rowFPSumOfLineItemChargeCF" readonly="readonly" type="text" class="form-control" style="width:70px;" /></div>
+        <div class="col text-align-left"><input id="rowFPSumOfLineItemChargeCF" name="rowFPSumOfLineItemChargeCF" readonly="readonly" type="text" class="form-control" style="width: 70px;"/></div>
         <div class="col text-align-left"></div>
     </div>
 </div>

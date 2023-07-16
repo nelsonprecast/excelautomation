@@ -104,6 +104,32 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpGet]
+        public IActionResult SavePlanElevationText(string planTextList,int projectId)
+        {
+            var dserialize = JsonConvert.DeserializeObject<List<string>>(planTextList);
+
+            if (dserialize != null)
+                foreach (var planText in dserialize)
+                {
+                    _planElevationTextService.Save(new ProjectPlanElevationTextDto()
+                    {
+                        ProjectId = projectId,
+                        PlanElevationText = new List<PlanElevationTextDto>()
+                        {
+                            new PlanElevationTextDto()
+                            {
+                                CreatedDate = DateTime.Now,
+                                Text = planText
+                            }
+                        }
+                    });
+                }
+
+            return new OkResult();
+        }
+
+
+        [HttpGet]
         public async  Task<IActionResult> ConvertToPdf(int projectId)
         {
             var project = _projectService.GetProjectById(projectId);
@@ -292,6 +318,13 @@ namespace ExcelAutomation.Controllers
         {
            var projectId=  _projectService.DeleteProjectDetailRow(id);
            return RedirectToAction("Edit", new {id = projectId});
+        }
+
+        [HttpPost]
+        public IActionResult DeletePlanElevationText(int id)
+        {
+            _planElevationTextService.DeletePlanElevationText(id);
+            return new OkResult();
         }
 
         [HttpPost]

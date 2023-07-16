@@ -9,10 +9,7 @@ $(document).ready(function () {
     
 });
 
-function AddNewRowForPlanElevationDropDown() {
-
-    
-
+function AddNewRowForPlanElevationDropDown() {    
     $('.planElevationText').append(
         '<div class="input-group">'+
         '<label for="" class="col-sm-3">Plan Elevation Text:</label>' +
@@ -20,10 +17,9 @@ function AddNewRowForPlanElevationDropDown() {
         '<input type="text" id="planElevationTextRow' + rowIndex + '" name = "planElevationTextRow' + rowIndex + '" class= "form-control" /> ' +
         '</div>' +
         '</div>');
-
     rowIndex = rowIndex+1;
-
 }
+
 function BindEvent() {
     $('.exceldatarow11').click(function () {
 
