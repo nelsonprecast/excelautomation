@@ -10,7 +10,7 @@ namespace ExcelAutomation.Service
         ICollection<ProjectDto> GetProjects();
 
         ProjectDto GetProjectById(int  projectId);
-
+        void UpdateProject(ProjectDto projectDto);
         void UpdateProjectDetail(ProjectDto projectDto);
 
         int DeleteProjectDetailRow(int id);

@@ -664,7 +664,8 @@ function DeletePlanElevationText(id) {
             'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
             dataType: "json",
             data: dataDto,
-            success: function (resultData) {                
+            success: function (resultData) {
+               
             },            
         });
         window.location.reload();
@@ -691,7 +692,7 @@ function AddPlanElevationRow() {
     $('#rows').append(
         '<div class="row planelevation" id="rowelevation' + rowCount + '">' +
         '<div class= "col-1"><a href="#" onclick="DeletePlanElevationRow(' + rowCount + ');"><i class="fa fa-trash fa-lg"></i></a> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount + '" value="-' + rowCount + '" /></div> ' +
-        '<div class= "col-2"><select id="planelevation' + rowCount + '" class="form-control planElevationDropDown" /><option value="0">----select----</option></select></div> ' +
+        '<div class= "col-2"><select id="planelevation' + rowCount + '" class="form-select planElevationDropDown" /></select></div> ' +
         '<div class= "col-1" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-1" > <input type="text" id="pcs' + rowCount + '" name="pcs' + rowCount + '" class="form-control" /></div> ' +
         '<div class= "col-6" ><div class="row"> ' +
@@ -969,7 +970,25 @@ function UploadImages(pElevationArray) {
 }
 
 function SaveRowForPlanElevationText(projectId) {
-    
+
+    var projectDto =
+    {
+        ProjectId: document.getElementById("projectId").value,
+        ProjectName: document.getElementById("projectIdForProjectTab").value,
+        NominalCF: document.getElementById("nominalCFForProjectTab").value,
+        ActualCF: document.getElementById("actualCFIdForProjectTab").value,
+        Notes: document.getElementById("notesForProjectTab").value,
+    };
+
+    var editPlanTextList = [];
+
+    $(".planElevationTextForEdit input[type=text]")
+        .each(function () {
+
+            var obj = { Id : this.id, Text : this.value };
+            editPlanTextList.push(obj);
+        });
+
     var planTextList = [];
         $(".planElevationText input[type=text]")
         .each(function () {
@@ -978,7 +997,7 @@ function SaveRowForPlanElevationText(projectId) {
         });
 
     $.ajax({
-        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId,
+        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId + '&editPlanTextList=' + JSON.stringify(editPlanTextList) + '&projectDto=' + JSON.stringify(projectDto),
         contentType: 'application/html; charset=utf-8',
         type: 'GET',
         dataType: 'html',

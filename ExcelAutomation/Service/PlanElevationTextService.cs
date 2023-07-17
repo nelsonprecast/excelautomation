@@ -27,6 +27,18 @@ public class PlanElevationTextService : IPlanElevationTextService
         return _context.SaveChanges();
     }
 
+    public int Update(PlanElevationTextDto planElevationTextDto)
+    {
+        var dbObject = _context.PlanElevationText.FirstOrDefault(p=>p.Id == planElevationTextDto.Id);
+        if (dbObject != null)
+        {
+            dbObject.Text = planElevationTextDto.Text;
+            dbObject.CreatedDate = DateTime.Now;
+            _context.Update(dbObject);
+        }
+        return _context.SaveChanges();
+    }
+
     public int DeletePlanElevationText(int id)
     {
         var dbObject = _context.PlanElevationText.FirstOrDefault(p=>p.Id == id);

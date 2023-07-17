@@ -163,6 +163,22 @@ namespace ExcelAutomation.Service
             return gName;
         }
 
+        public void UpdateProject(ProjectDto projectDto)
+        {
+            var project = _context.Projects.SingleOrDefault(x => x.ProjectId == projectDto.ProjectId);
+            if (project != null)
+            {
+                project.ProjectName = projectDto.ProjectName;
+                project.ActualCf = projectDto.ActualCF;
+                project.NominalCf = projectDto.NominalCF;
+                project.RevisionDate = projectDto.RevisionDate;
+                project.ContactSpecs = projectDto.ContactSpecs;
+                project.Notes = projectDto.Notes;
+                _context.Update(project);
+                _context.SaveChanges();
+            }
+        }
+
         public void UpdateProjectDetail(ProjectDto projectDto)
         {
             var project = _context.Projects.SingleOrDefault(x => x.ProjectId == projectDto.ProjectId);

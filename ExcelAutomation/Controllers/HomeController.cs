@@ -105,12 +105,14 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpGet]
-        public IActionResult SavePlanElevationText(string planTextList,int projectId)
+        public IActionResult SavePlanElevationText(string planTextList,int projectId,string editPlanTextList, string projectDto)
         {
-            var dserialize = JsonConvert.DeserializeObject<List<string>>(planTextList);
+            var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
+            var EditPlanTexts = JsonConvert.DeserializeObject<List<PlanElevationTextDto>>(editPlanTextList);
+            var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
 
-            if (dserialize != null)
-                foreach (var planText in dserialize)
+            if (planTexts != null)
+                foreach (var planText in planTexts)
                 {
                     _planElevationTextService.Save(new ProjectPlanElevationTextDto()
                     {
@@ -126,6 +128,21 @@ namespace ExcelAutomation.Controllers
                     });
                 }
 
+            if (EditPlanTexts != null)
+            {
+                foreach (var objectDto in EditPlanTexts)
+                {
+                    _planElevationTextService.Update(new PlanElevationTextDto()
+                    {
+                        Id = objectDto.Id, CreatedDate = DateTime.Now, Text = objectDto.Text
+                    });
+                }
+            }
+
+            if (projectDtoObject != null)
+            {
+                _projectService.UpdateProject(projectDtoObject);
+            }
             return new OkResult();
         }
 
