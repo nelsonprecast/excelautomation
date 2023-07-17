@@ -73,24 +73,25 @@
 <div class="text-center">
 <form action="Edit" method="POST" role="form" enctype="multipart/form-data">
 <div class="input-group">
-            <label for="projectname" class="col-sm-2">Job Name:</label>
+            @*<label for="projectname" class="col-sm-2">Job Name:</label>*@
     <div class="col-sm-2">
-        <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId" />
-        <input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" />
+        <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectId"  />
+        @*<input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" style="font-weight: bold" />*@
+        <span><b>@Model.ProjectName</b></span>
     </div>
 </div>
 <div class="input-group">
-    <label for="staticEmail" class="col-sm-2">Plan Date:</label>
+    @*<label for="staticEmail" class="col-sm-2">Plan Date:</label>*@
     <div class="col-sm-2">
 
-        <div class="input-group date" id="datepicker">
-            <input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
-            <span class="input-group-append">
+        
+            @*<input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />*@
+            <span><b>@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")</b></span>
+           @* <span class="input-group-append">
                 <span class="input-group-text bg-light d-block">
                     <i class="fa fa-calendar"></i>
                 </span>
-            </span>
-        </div>
+            </span>*@
     </div>
 </div>
         <hr />
@@ -103,8 +104,9 @@
                     </div>
                     <div class="col" style="text-align:right;">
 
-                        <input type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="ExportToExcelTable();exportReportToExcel(this);" value="Export to Excel">
-                        <button type="submit" style="background-color: #17a2b8" onclick="return Validate();" class="btn btn-primary"> Save </button>
+                        @*<input type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="ExportToExcelTable();exportReportToExcel(this);" value="Export to Excel">*@
+                        <button type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="ExportToExcelTable();exportReportToExcel(this);"><i class="fa fa-file-export"> <i class="fa fa-copy"></i> Export to EXCEL</i></button>
+                        <button type="submit" style="background-color: #17a2b8" onclick="return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save</i> </button>
                     </div>
                 </div>
             </div>
@@ -194,9 +196,9 @@
     </div>
     <hr/>
     <div class="input-group">
-                    <button type="button" style="background-color: #17a2b8" onclick="AddNewRowForPlanElevationDropDown()" class="btn btn-primary"> Add Plan Elevation Text Row </button>
+        <button type="button" style="background-color: #17a2b8" onclick="AddNewRowForPlanElevationDropDown()" class="btn btn-primary"><i class="fa fa-plus"> Add Plan Elevation Text Row</i>  </button>
         <div class="col-sm-8"></div>
-                    <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.ProjectId)" class="btn btn-primary"> Save Plan Elevation Text</button>
+                    <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.ProjectId)" class="btn btn-primary"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
     </div>
                 <div class="input-group">
                 </div>
@@ -452,9 +454,9 @@
 </tr>
 <tr>
     <td colspan="2" style="text-align: left;">
-                            <input type="button" style="background-color: #17a2b8" value="New Row" onclick="OnAddRow();" class="btn btn-primary" />
-                            <input type="button" style="background-color: #17a2b8" value="New Group" class="btn btn-primary" id="newGroupBtn" />
-                            <input type="button" style="background-color: #17a2b8" value="Convert To Pdf" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);" />
+        <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary" ><i class="fa fa-plus"></i> New Row</button>
+        <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn" ><i class="fa fa-plus"> New Group</i></button>
+        <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);" > <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
     </td>
 </tr>
@@ -464,7 +466,12 @@
 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
 <div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
+<div class="row">
+                        <div class="col-sm-1"> <b>NomianalCF:</b> 33</div>
+                        <div class="col-sm-1"> <b>ActualCF:</b> 35</div>
+</div>
 <div class="row align-items-start">
+
     <div class="col-3 row">
         <div class="col-1">No</div>
 
@@ -848,9 +855,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="AddPlanElevationRow();">Add Row</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="CloseModal();">Close</button>
-                <button type="button" class="btn btn-primary" onclick="CalculateLF();">Save & Close</button>
+                <button type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="AddPlanElevationRow();"><i class="fa fa-plus"> Add Row</i></button>
+                <button type="button" class="btn btn-primary" style="background-color: #17a2b8" data-dismiss="modal" onclick="CloseModal();"><i class="fa fa-close"> Close</i></button>
+                    <button type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="CalculateLF();"><i class="fa fa-save"> Save & Close </i> </button>
             </div>
            
         </div>

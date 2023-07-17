@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row align-items-start">
             <div class="col" style="text-align:left;">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8">New Project</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8"><i class="fa fa-plus"> New Project</i></a>
             </div>
             <div class="col">
                
@@ -28,14 +28,15 @@
             </div>
         </div>
     </div>
-    <table class="table">
-        <thead>
+    <br/>
+    <table class="table table-striped table-bordered">
+        <thead style="color: #17a2b8">
         <tr>
             <th scope="col">#</th>
             <th scope="col">Project Name</th>
             <th scope="col">Plan Date</th>
                 <th scope="col">Created Date</th>
-            <th scope="col"></th>
+            <th scope="col"> Actions </th>
         </tr>
         </thead>
         <tbody>
@@ -49,8 +50,8 @@
                         <td>@(projectDto.RevisionDate.HasValue ? projectDto.RevisionDate.Value.ToString("MM-dd-yyyy"):string.Empty)</td>
                         <td>@projectDto.CreatedDate.Value.ToString("MM-dd-yyyy")</td>
                         <td>
-                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button" style="background-color: #17a2b8">Edit Project</a>
-                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject" style="background-color: #17a2b8">Copy Project</a>
+                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button" style="background-color: #17a2b8"><i class="fa fa-pencil"> Edit</i></a>
+                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject" style="background-color: #17a2b8"><i class="fa fa-copy"> Copy</i> </a>
                         </td>
                 </tr>
             }
