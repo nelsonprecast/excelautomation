@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NuGet.Protocol.Core.Types;
 
 namespace ExcelAutomation.Data;
 
@@ -20,6 +21,7 @@ public partial class Project
     public DateTime? RevisionDate { get; set; }
 
     public string ContactSpecs { get; set; }
+    public string Notes { get; set; }
 
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }

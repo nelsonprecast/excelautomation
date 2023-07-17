@@ -24,7 +24,7 @@ namespace ExcelAutomation.Service
             dbProject.NominalCf = project.NominalCF;
             dbProject.CreatedDate = DateTime.Now;
             dbProject.ContactSpecs = project.ContactSpecs;
-
+            dbProject.Notes = project.Notes;
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
             return dbProject.ProjectId;
@@ -67,7 +67,7 @@ namespace ExcelAutomation.Service
             projectDto.LineItemTotal = project.LineItemTotal;
             projectDto.RevisionDate = project.RevisionDate;
             projectDto.ContactSpecs = project.ContactSpecs;
-
+            projectDto.Notes = project.Notes;
             var projectDetails = _context.ProjectDetails.Where(x=>x.ProjectId == projectId).OrderBy(p=>p.GroupId).ToList();
             if (projectDetails != null)
             {

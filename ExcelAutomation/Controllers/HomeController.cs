@@ -73,6 +73,7 @@ namespace ExcelAutomation.Controllers
                 project.ContactSpecs = "/ContactSpecs/" + fileName;
             }
 
+            project.Notes = Request.Form["notes"];
             var projectId = await _projectService.SaveProject(project);
 
             var projectPlanElevationDto = new ProjectPlanElevationTextDto();

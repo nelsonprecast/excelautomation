@@ -180,7 +180,12 @@
             <input type="file"  class="form-control" />
         </div>
     </div>
-
+    <div class="input-group">
+        <label for="notes" class="col-sm-3">Notes: </label>
+        <div class="col-sm-2">
+            <textarea id="notes" name="notes" rows="4" readonly="readonly" cols="10" class="form-control" >@Model.Notes</textarea>
+        </div>
+    </div>
                 
     @foreach (var projectPlanElevationTextDto in Model.ProjectPlanElevationText)
     {
