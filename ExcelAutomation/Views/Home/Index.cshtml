@@ -18,7 +18,7 @@
     <div class="container-fluid">
         <div class="row align-items-start">
             <div class="col" style="text-align:left;">
-                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button">New Project</a>
+                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8">New Project</a>
             </div>
             <div class="col">
                
@@ -48,8 +48,9 @@
                     <td>@projectDto.ProjectName</td>
                         <td>@(projectDto.RevisionDate.HasValue ? projectDto.RevisionDate.Value.ToString("MM-dd-yyyy"):string.Empty)</td>
                         <td>@projectDto.CreatedDate.Value.ToString("MM-dd-yyyy")</td>
-                    <td><a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button">Edit Project</a>
-                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject">Copy Project</a>
+                        <td>
+                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button" style="background-color: #17a2b8">Edit Project</a>
+                            <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject" style="background-color: #17a2b8">Copy Project</a>
                         </td>
                 </tr>
             }

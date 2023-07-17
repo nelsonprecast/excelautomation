@@ -13,8 +13,21 @@ html {
   min-height: 100%;
 }
 
-body {
+.nav-link.active {
+    background-color: #17a2b8 !important;
+}
+
+.nav-link {
+    color: #17a2b8;
+}
+
+a {
+    color: #17a2b8;
+}
+    body {
   margin-bottom: 60px;
+    padding-left: 35px;
+    padding-right: 35px;
 }
 .float-left
 {
