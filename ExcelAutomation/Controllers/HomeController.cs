@@ -105,11 +105,11 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpGet]
-        public IActionResult SavePlanElevationText(string planTextList,int projectId,string editPlanTextList, string projectDto)
+        public IActionResult SavePlanElevationText(string planTextList,int projectId,string editPlanTextList)
         {
             var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
             var EditPlanTexts = JsonConvert.DeserializeObject<List<PlanElevationTextDto>>(editPlanTextList);
-            var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
+           // var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
 
             if (planTexts != null)
                 foreach (var planText in planTexts)
@@ -139,10 +139,7 @@ namespace ExcelAutomation.Controllers
                 }
             }
 
-            if (projectDtoObject != null)
-            {
-                _projectService.UpdateProject(projectDtoObject);
-            }
+           
             return new OkResult();
         }
 
@@ -245,10 +242,11 @@ namespace ExcelAutomation.Controllers
 
             var project = new ProjectDto();
             project.ProjectId = Convert.ToInt32(Request.Form["projectId"]);
-            project.ProjectName = Request.Form["projectname"];
-            project.NominalCF = Request.Form["NominalCF"];
-            project.ActualCF = Request.Form["ActualCF"];
+            project.ProjectName = Request.Form["projectIdForProjectTab"];
+            project.NominalCF = Request.Form["nominalCFForProjectTab"];
+            project.ActualCF = Request.Form["actualCFIdForProjectTab"];
             project.LineItemTotal = Request.Form["LineItemTotal"];
+            project.Notes = Request.Form["notesForProjectTab"];
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy",
                     CultureInfo.InvariantCulture);

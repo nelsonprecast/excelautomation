@@ -190,7 +190,7 @@ namespace ExcelAutomation.Service
                 project.LineItemTotal = projectDto.LineItemTotal;
                 project.RevisionDate = projectDto.RevisionDate;
                 project.ContactSpecs = projectDto.ContactSpecs;
-
+                project.Notes = projectDto.Notes;
                 _context.Update(project);
                 _context.SaveChanges();
                 if (project.ProjectDetails != null)

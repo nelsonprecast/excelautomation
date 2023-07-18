@@ -127,7 +127,7 @@
     <div class="input-group">
                     <label for="projectname" class="col-sm-3">Job Name:</label>
                     <div class="col-sm-3">
-                        <input id="projectIdForProjectTab" readonly="readonly" class="form-control" value="@Model.ProjectName" />
+                        <input id="projectIdForProjectTab" name="projectIdForProjectTab" readonly="readonly" class="form-control" value="@Model.ProjectName" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -136,7 +136,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-3">
-                        <input id="nominalCFForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.NominalCF" />
+                        <input id="nominalCFForProjectTab" name="nominalCFForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.NominalCF" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -145,18 +145,18 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-2">
-                        <input id="actualCFIdForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.ActualCF" />
+                        <input id="actualCFIdForProjectTab" name="actualCFIdForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.ActualCF" />
                     </div>
                 </div>
                 <div class="input-group">
                     <label for="datepicker" class="col-sm-3">Plan Date:</label>
                     <div class="col-sm-2">
 
-                        <div class="input-group " >
-                            <input type="text" class="form-control" readonly="readonly" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
-                            <span class="">
+                        <div class="input-group date" id="datepicker">
+                            <input type="text" class="form-control" id="RevisionDate" name="RevisionDate"  value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
+                            <span class="input-group-append">
                                 <span class="input-group-text bg-light d-block">
-                                    <i class=""></i>
+                                    <i class="fa fa-calendar"></i>
                                 </span>
                             </span>
                         </div>
@@ -166,7 +166,7 @@
     <div class="input-group">
         <label for="" class="col-sm-3">Contract Specs:</label>
         <div class="col-sm-2">
-            <input type="file"  class="form-control" />
+                        <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
         </div>
     </div>
     <div class="input-group">
@@ -467,8 +467,10 @@
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
 <div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
 <div class="row">
-                        <div class="col-sm-1"> <b>NomianalCF:</b> 33</div>
-                        <div class="col-sm-1"> <b>ActualCF:</b> 35</div>
+    <div class="col-sm-1"> <b>NomianalCF:</b></div>
+    <div class="col-sm-1"><input id="nomilaCFForFinalTab" readonly="readonly" value="@Model.NominalCF"/></div>
+    <div class="col-sm-2"> <b>ActualCF:</b></div>
+                        <div class="col-sm-1"><input id="actualcfForFinalTab" readonly="readonly" value="@Model.ActualCF" /></div>
 </div>
 <div class="row align-items-start">
 

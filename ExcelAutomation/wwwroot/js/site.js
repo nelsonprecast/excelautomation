@@ -971,14 +971,7 @@ function UploadImages(pElevationArray) {
 
 function SaveRowForPlanElevationText(projectId) {
 
-    var projectDto =
-    {
-        ProjectId: document.getElementById("projectId").value,
-        ProjectName: document.getElementById("projectIdForProjectTab").value,
-        NominalCF: document.getElementById("nominalCFForProjectTab").value,
-        ActualCF: document.getElementById("actualCFIdForProjectTab").value,
-        Notes: document.getElementById("notesForProjectTab").value,
-    };
+   
 
     var editPlanTextList = [];
 
@@ -997,7 +990,7 @@ function SaveRowForPlanElevationText(projectId) {
         });
 
     $.ajax({
-        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId + '&editPlanTextList=' + JSON.stringify(editPlanTextList) + '&projectDto=' + JSON.stringify(projectDto),
+        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId + '&editPlanTextList=' + JSON.stringify(editPlanTextList),
         contentType: 'application/html; charset=utf-8',
         type: 'GET',
         dataType: 'html',
