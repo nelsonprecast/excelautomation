@@ -641,10 +641,11 @@
                                                         <input type="text" id="row@(iForProfileTab)DraftingHours" name="row@(iForProfileTab)DraftingHours" class="form-control" onkeypress="return isNumberKey(this, event);" style="width: 70px" />
                                                     </div>
                                                     <div class="col text-align-left">
-                                                        <select id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)Foam"  class="form-select" style="width: 60px;">
-                                                            <option value="Yes" >Yes</option>
-                                                            <option value="No" >No</option>
-                                                        </select>
+                                                        <input type="radio" id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)FoamName" value="YES" >
+                                                        <label>Yes</label><br/>
+                                                        <input type="radio" id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)FoamName" value="NO" checked="checked" />
+                                                        <label>NO</label><br>
+
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -669,10 +670,10 @@
                                                         <input type="text" id="row@(iForProfileTab)ProductionWorker" name="row@(iForProfileTab)ProductionWorker" class="form-control" onkeypress="return isNumberKey(this, event);" />
                                                     </div>
                                                     <div class="col text-align-left">
-                                                        <select id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" class="form-select" style="width: 60px;">
-                                                            <option value="Yes" >Yes</option>
-                                                            <option value="No" >No</option>
-                                                        </select>
+                                                        <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="YES" >
+                                                        <label>Yes</label><br/>
+                                                        <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="NO" checked="checked" />
+                                                        <label>NO</label><br>
                                                     </div>
                                                     <div class="col text-align-left">
                                                         <select id="row@(iForProfileTab)Complexity" name="row@(iForProfileTab)Complexity" class="form-select" style="width: 80px;">
