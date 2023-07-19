@@ -239,7 +239,7 @@ function isNumberKey(txt, evt) {
 
 function CalculateTotalActual(rownumber) {
     var TotalActCF = document.getElementById('row' + rownumber + 'TotalActCF').value;
-    var ActualCF = document.getElementById('ActualCF').value;
+    var ActualCF = document.getElementById('actualCfForFinalTab').value;
 
     if (TotalActCF !== "" && ActualCF !== "") {
         document.getElementById('row' + rownumber + 'TotalActual').value = (TotalActCF * ActualCF).round(2);
@@ -255,7 +255,7 @@ function CalculateTotalActual(rownumber) {
 
 function CalculateTotalActualOnChangeOfActualCF() {
     
-    var ActualCF = document.getElementById('ActualCF').value;
+    var ActualCF = document.getElementById('actualCfForFinalTab').value;
     var rowCount = $('.exceldatarow').length;
 
     for (var rownumber = 1; rownumber <= rowCount; rownumber++) { 
@@ -270,7 +270,7 @@ function CalculateTotalActualOnChangeOfActualCF() {
 
 function CalculateTotalNominal(rownumber) {
     var TotalNomCF = document.getElementById('row' + rownumber + 'TotalNomCF').value;
-    var NominalCF = document.getElementById('NominalCF').value;
+    var NominalCF = document.getElementById('nominalCFForFinalTab').value;
 
     if (TotalNomCF !== "" && NominalCF !== "") {
         document.getElementById('row' + rownumber + 'TotalNominal').value = (TotalNomCF * NominalCF).round(2);
@@ -286,7 +286,7 @@ function CalculateTotalNominal(rownumber) {
 
 function CalculateTotalNominalOnChangeOfNominalCF() {
 
-    var NominalCF = document.getElementById('NominalCF').value;
+    var NominalCF = document.getElementById('nominalCFForFinalTab').value;
     var rowCount = $('.exceldatarow').length;
 
     for (var rownumber = 1; rownumber <= rowCount; rownumber++) {
