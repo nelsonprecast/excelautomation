@@ -136,7 +136,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-3">
-                        <input id="nominalCFForProjectTab" name="nominalCFForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.NominalCF" />
+                        <input id="nominalCFForProjectTab" name="nominalCFForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.NominalCF" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -145,7 +145,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-2">
-                        <input id="actualCFIdForProjectTab" name="actualCFIdForProjectTab" class="form-control" type="text" style="width:95%" value="@Model.ActualCF" />
+                        <input id="actualCFIdForProjectTab" name="actualCFIdForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.ActualCF" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -268,10 +268,10 @@
             </div>
             <div class="col text-align-left">Takeoff Color</div>
             <div class="col-5 row text-align-left">
-                <div class="col text-align-left">Length</div>
-                <div class="col text-align-left">Width</div>
+                <div class="col text-align-left">Length (In.)</div>
+                <div class="col text-align-left">Width (In.)</div>
                 <div class="col text-align-left">
-                    Height
+                                                    Height (In.)
                 </div>
                 <div class="col text-align-left">
                     Total Pcs
@@ -454,7 +454,7 @@
 </tr>
 <tr>
     <td colspan="2" style="text-align: left;">
-        <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary" ><i class="fa fa-plus"></i> New Row</button>
+                            <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
         <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn" ><i class="fa fa-plus"> New Group</i></button>
         <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);" > <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
@@ -463,14 +463,259 @@
 
 </table>
 </div>
-<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">2</div>
+<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+
+                <table style="width: 100%" class="table font-size-08">
+                    <tr>
+                        <td>
+                            <div style="width: 100%" id="RowsTable" class="container-fluid">
+                                <div class="row align-items-start">
+                                    <div class="col-4 row">
+                                        <div class="col-1">No</div>
+
+
+                                    </div>
+                                    <div class="col-6 row"></div>
+                                    <div class="col-2 row">
+                                        <div class="col text-align-left"></div>
+                                        <div class="col text-align-left"></div>
+                                    </div>
+                                </div>
+                                @{
+                                    var iForProfileTab = 1;
+                                    var currentGroupNameForProfileTab = "";
+                                    var displayedForProfileTab = false;
+                                    var groupingAppliedForProfileTab = false;
+                                    int? currentGroupIdForProfileTab = null;
+                                }
+                                @foreach (var projectDetail in Model.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
+                                {
+                                    if (!currentGroupNameForProfileTab.Equals(projectDetail.GroupName))
+                                    {
+                                        currentGroupNameForProfileTab = projectDetail.GroupName;
+                                        displayedForProfileTab = false;
+                                        groupingAppliedForProfileTab = true;
+                                        currentGroupIdForProfileTab = projectDetail.GroupId;
+                                    }
+                                    if (!displayedForProfileTab && groupingAppliedForProfileTab)
+                                    {
+                                        if (string.IsNullOrEmpty(currentGroupNameForProfileTab))
+                                        {
+                                            currentGroupNameForProfileTab = "Un-Grouped";
+                                            currentGroupIdForProfileTab = -1;
+                                        }
+                                        displayedForProfileTab = true;
+                                        <div class="row">
+                                            <div class="col-2 text-align-left green">@currentGroupNameForProfileTab</div>
+                                            <div class="col-8" id="@currentGroupIdForProfileTab" style=""> </div>
+                                        </div>
+                                    }
+                                    <div>
+
+                                        <div id="@projectDetail.ProjectDetailId" class="@(iForProfileTab % 2 != 0 ? "primary" : "secondary") row exceldatarow">
+                                            <div class="col-4 row">
+                                                <div class="col-1">@(iForProfileTab)</div>
+                                                <div class="col-2 text-align-left">W/D</div>
+                                                <div class="col-4 text-align-left">
+                                                    Item Name
+
+                                                </div>
+
+                                                <div class="col-3 text-align-left">
+
+                                                    Detail
+                                                    #/Page
+
+                                                </div>
+                                            </div>
+                                            <div class="col text-align-left">Takeoff Color</div>
+                                            <div class="col-5 row text-align-left">
+                                                <div class="col text-align-left"></div>
+                                                <div class="col text-align-left">Mold QTY</div>
+                                                <div class="col text-align-left">
+                                                    # Mold Worker
+                                                </div>
+                                                <div class="col text-align-left">
+                                                    Drafting Hours
+                                                </div>
+                                                <div class="col text-align-left">
+                                                    Foam
+                                                </div>
+                                            </div>
+                                            
+
+                                            <div class="col-2 row @(iForProfileTab % 2 != 0 ? "light-green" : "green")"></div>
+                                            <div class="col-4 row">
+                                                <div class="col-1"></div>
+
+                                                <div class="col-2">
+                                                    <select id="row@(iForProfileTab)WD" name="row@(iForProfileTab)WD" disabled="disabled" class="form-select" style="width: 60px;">
+                                                        <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
+                                                        <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-4">
+                                                    <input id="row@(iForProfileTab)ItemName" name="row@(iForProfileTab)ItemName" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName" />
+
+                                                </div>
+
+                                                <div class="col-3">
+                                                    <input id="row@(iForProfileTab)DetailPage" name="row@(iForProfileTab)DetailPage" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage" />
+                                                </div>
+                                                <div class="col-12 row">
+                                                    <div class="col-1"><input type="checkbox" id="row@(iForProfileTab)GroupCheckBoxId" readonly="readonly" value="@projectDetail.ProjectDetailId" /> </div>
+                                                    <div class="col-2">
+                                                        <div class="col-12"><label> Category</label></div>
+                                                        <div class="row">
+                                                            <div class="col-1"></div>
+                                                            <div class="col-8">
+                                                                <select id="row@(iForProfileTab)Category" name="row@(iForProfileTab)Category" disabled="disabled" class="form-select" style="width: 80px;">
+                                                                    <option value="">Select</option>
+                                                                    <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
+                                                                    <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
+                                                                    <option value="Block" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Block"))">Block</option>
+                                                                    <option value="Bollard" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bollard"))">Bollard</option>
+                                                                    <option value="Cap" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cap"))">Cap</option>
+                                                                    <option value="Coping" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Coping"))">Coping</option>
+                                                                    <option value="Cornice" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Cornice"))">Cornice</option>
+                                                                    <option value="Date Stone" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Date Stone"))">Date Stone</option>
+                                                                    <option value="Header" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Header"))">Header</option>
+                                                                    <option value="Lintel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Lintel"))">Lintel</option>
+                                                                    <option value="Panel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Panel"))">Panel</option>
+                                                                    <option value="Planter" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Planter"))">Planter</option>
+                                                                    <option value="Sill" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Sill"))">Sill</option>
+                                                                    <option value="Site Furniture" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Site Furniture"))">Site Furniture</option>
+                                                                    <option value="Slab" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Slab"))">Slab</option>
+                                                                    <option value="Soffit" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Soffit"))">Soffit</option>
+                                                                    <option value="Spandrel" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Spandrel"))">Spandrel</option>
+                                                                    <option value="Stair" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Stair"))">Stair</option>
+                                                                    <option value="Veneer" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Veneer"))">Veneer</option>
+                                                                    <option value="Wall" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Wall"))">Wall</option>
+                                                                    <option value="Water Table" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Water Table"))">Water Table</option>
+                                                                    <option value="Unique Item" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Unique Item"))">Unique Item</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-9 text-align-left totallfdata">
+
+                                                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+
+
+                                                        <textarea id="rowDispositionSpecialNote" name="row@(iForProfileTab)DispositionSpecialNote" readonly="readonly" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
+                                                        <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
+                                                            <div class="totallfdata">
+                                                                <input id="row@(iForProfileTab)PlanElevationHidden" name="row@(iForProfileTab)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
+                                                                <input id="row@(iForProfileTab)PlanElevationJsonHidden" name="row@(iForProfileTab)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
+                                                                <input id="row@(iForProfileTab)TotalLFHidden" name="row@(iForProfileTab)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
+                                                                <input id="rowIndex" class="form-control" type="hidden" value="@(iForProfileTab)" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-1">
+                                                <div class="col">
+                                                    <input id="row@(iForProfileTab)TakeOffColor" name="row@(iForProfileTab)TakeOffColor" readonly="readonly" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor" />
+                                                </div>
+                                                <div class="col text-align-left"> Section</div>
+                                                <div class="col-12 no-margin text-align-left">
+                                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                                        <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                                    </a>
+                                                </div>
+                                                <div class="col-12 text-align-left">
+                                                    <br/>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="col-5 row text-align-left">
+                                                <div class="row">
+                                                    <div class="col text-align-left"></div>
+                                                    <div class="col text-align-left">                   
+                                                        <input type="text" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <input type="text" id="row@(iForProfileTab)MoldWorkerCount" name="row@(iForProfileTab)MoldWorkerCount" class="form-control" onkeypress="return isNumberKey(this, event);" style="width: 70px" />
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <input type="text" id="row@(iForProfileTab)DraftingHours" name="row@(iForProfileTab)DraftingHours" class="form-control" onkeypress="return isNumberKey(this, event);" style="width: 70px" />
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <select id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)Foam"  class="form-select" style="width: 60px;">
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col text-align-left"></div>
+                                                    <div class="col text-align-left">
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        #Production Worker
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        Metal Fab
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        Complexity/Difficulty:
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col text-align-left"></div>
+                                                    <div class="col text-align-left">
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <input type="text" id="row@(iForProfileTab)ProductionWorker" name="row@(iForProfileTab)ProductionWorker" class="form-control" onkeypress="return isNumberKey(this, event);" />
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <select id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" class="form-select" style="width: 60px;">
+                                                            <option value="Yes" >Yes</option>
+                                                            <option value="No" >No</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <select id="row@(iForProfileTab)Complexity" name="row@(iForProfileTab)Complexity" class="form-select" style="width: 80px;">
+                                                            <option value="Simple">Simple</option>
+                                                            <option value="Moderate">Moderate</option>
+                                                            <option value="Hard">Hard</option>
+                                                            <option value="Extreme">Extreme</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row"></div>
+                                            </div>
+                                         
+                                        </div>
+                                    </div>
+                                    iForProfileTab++;
+                                }
+                            </div>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
+                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn"><i class="fa fa-plus"> New Group</i></button>
+                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectId);"> <i class="fa fa-copy"> Convert to PDF</i></button>
+                            <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
+                        </td>
+                    </tr>
+
+                </table>
+    
+    
+
+</div>
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
 <div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
 <div class="row">
     <div class="col-sm-1"> <b>NomianalCF:</b></div>
-    <div class="col-sm-1"><input id="nomilaCFForFinalTab" readonly="readonly" value="@Model.NominalCF"/></div>
+                        <div class="col-sm-1"><input id="nominalCFForFinalTab" name="nominalCFForFinalTab" value="@Model.NominalCF" /></div>
     <div class="col-sm-2"> <b>ActualCF:</b></div>
-                        <div class="col-sm-1"><input id="actualcfForFinalTab" readonly="readonly" value="@Model.ActualCF" /></div>
+                        <div class="col-sm-1"><input id="actualCfForFinalTab" name="actualCfForFinalTab" value="@Model.ActualCF" /></div>
 </div>
 <div class="row align-items-start">
 
@@ -534,10 +779,10 @@
     </div>
 
     <div class="col-4 row text-align-left">
-        <div class="col text-align-left">Length</div>
-        <div class="col text-align-left">Width</div>
+        <div class="col text-align-left">Length (In.)</div>
+        <div class="col text-align-left">Width (In.)</div>
         <div class="col text-align-left">
-            Height
+                                    Height (In.)
         </div>
         <div class="col text-align-left">
             Pcs

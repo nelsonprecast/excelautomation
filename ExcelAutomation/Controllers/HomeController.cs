@@ -243,8 +243,8 @@ namespace ExcelAutomation.Controllers
             var project = new ProjectDto();
             project.ProjectId = Convert.ToInt32(Request.Form["projectId"]);
             project.ProjectName = Request.Form["projectIdForProjectTab"];
-            project.NominalCF = Request.Form["nominalCFForProjectTab"];
-            project.ActualCF = Request.Form["actualCFIdForProjectTab"];
+            project.NominalCF = Request.Form["nominalCFForFinalTab"];
+            project.ActualCF = Request.Form["actualCfForFinalTab"];
             project.LineItemTotal = Request.Form["LineItemTotal"];
             project.Notes = Request.Form["notesForProjectTab"];
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
