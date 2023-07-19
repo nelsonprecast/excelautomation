@@ -277,7 +277,7 @@
                     Total Pcs
                 </div>
                 <div class="col text-align-left">
-                    Mold QTY
+                   
                 </div>
             </div>
             <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
@@ -389,7 +389,6 @@
 
 
                 <div class="col">
-                    <input id="row@(i)MoldQTY" name="row@(i)MoldQTY" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
                 </div>
                 <div class="row">
                     <div class="col text-align-left">Total LF</div>
@@ -549,27 +548,27 @@
                                                 <div class="col-1"></div>
 
                                                 <div class="col-2">
-                                                    <select id="row@(iForProfileTab)WD" name="row@(iForProfileTab)WD" disabled="disabled" class="form-select" style="width: 60px;">
+                                                    <select id="row@(iForProfileTab)WDForProfileTab" name="row@(iForProfileTab)WDForProfileTab" disabled="disabled" class="form-select" style="width: 60px;">
                                                         <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
                                                         <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-4">
-                                                    <input id="row@(iForProfileTab)ItemName" name="row@(iForProfileTab)ItemName" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName" />
+                                                    <input id="row@(iForProfileTab)ItemNameForProfileTab" name="row@(iForProfileTab)ItemNameForProfileTab" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName" />
 
                                                 </div>
 
                                                 <div class="col-3">
-                                                    <input id="row@(iForProfileTab)DetailPage" name="row@(iForProfileTab)DetailPage" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage" />
+                                                    <input id="row@(iForProfileTab)DetailPageForProfileTab" name="row@(iForProfileTab)DetailPageForProfileTab" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage" />
                                                 </div>
                                                 <div class="col-12 row">
-                                                    <div class="col-1"><input type="checkbox" id="row@(iForProfileTab)GroupCheckBoxId" readonly="readonly" value="@projectDetail.ProjectDetailId" /> </div>
+                                                    <div class="col-1"><input type="checkbox" id="row@(iForProfileTab)GroupCheckBoxIdForProfileTab" readonly="readonly" value="@projectDetail.ProjectDetailId" /> </div>
                                                     <div class="col-2">
                                                         <div class="col-12"><label> Category</label></div>
                                                         <div class="row">
                                                             <div class="col-1"></div>
                                                             <div class="col-8">
-                                                                <select id="row@(iForProfileTab)Category" name="row@(iForProfileTab)Category" disabled="disabled" class="form-select" style="width: 80px;">
+                                                                <select id="row@(iForProfileTab)CategoryForProfileTab" name="row@(iForProfileTab)CategoryForProfileTab" disabled="disabled" class="form-select" style="width: 80px;">
                                                                     <option value="">Select</option>
                                                                     <option value="Band" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Band"))">Band</option>
                                                                     <option value="Bench" selected="@(projectDetail.Category != null && projectDetail.Category.Equals("Bench"))">Bench</option>
@@ -602,12 +601,12 @@
                                                         <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
 
-                                                        <textarea id="rowDispositionSpecialNote" name="row@(iForProfileTab)DispositionSpecialNote" readonly="readonly" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
+                                                        <textarea id="rowDispositionSpecialNoteForProfileTab" name="row@(iForProfileTab)DispositionSpecialNoteForProfileTab" readonly="readonly" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
                                                         <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
                                                             <div class="totallfdata">
-                                                                <input id="row@(iForProfileTab)PlanElevationHidden" name="row@(iForProfileTab)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
-                                                                <input id="row@(iForProfileTab)PlanElevationJsonHidden" name="row@(iForProfileTab)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
-                                                                <input id="row@(iForProfileTab)TotalLFHidden" name="row@(iForProfileTab)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue" />
+                                                                <input id="row@(iForProfileTab)PlanElevationHiddenForProfileTab" name="row@(iForProfileTab)PlanElevationHiddenForProfileTab" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
+                                                                <input id="row@(iForProfileTab)PlanElevationJsonHiddenForProfileTab" name="row@(iForProfileTab)PlanElevationJsonHiddenForProfileTab" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
+                                                                <input id="row@(iForProfileTab)TotalLFHiddenForProfileTab" name="row@(iForProfileTab)TotalLFHiddenForProfileTab" class="form-control" type="hidden" value="@projectDetail.LFValue" />
                                                                 <input id="rowIndex" class="form-control" type="hidden" value="@(iForProfileTab)" />
                                                             </div>
                                                         </div>
@@ -616,11 +615,11 @@
                                             </div>
                                             <div class="col-1">
                                                 <div class="col">
-                                                    <input id="row@(iForProfileTab)TakeOffColor" name="row@(iForProfileTab)TakeOffColor" readonly="readonly" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor" />
+                                                    <input id="row@(iForProfileTab)TakeOffColorForProfileTab" name="row@(iForProfileTab)TakeOffColorForProfileTab" readonly="readonly" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor" />
                                                 </div>
                                                 <div class="col text-align-left"> Section</div>
                                                 <div class="col-12 no-margin text-align-left">
-                                                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                                    <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
                                                         <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
                                                     </a>
                                                 </div>
@@ -632,8 +631,8 @@
                                             <div class="col-5 row text-align-left">
                                                 <div class="row">
                                                     <div class="col text-align-left"></div>
-                                                    <div class="col text-align-left">                   
-                                                        <input type="text" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
+                                                    <div class="col text-align-left">
+                                                        <input type="text" id="row@(iForProfileTab)MoldQTY" name="row@(iForProfileTab)MoldQTY" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty" />
                                                     </div>
                                                     <div class="col text-align-left">
                                                         <input type="text" id="row@(iForProfileTab)MoldWorkerCount" name="row@(iForProfileTab)MoldWorkerCount" class="form-control" onkeypress="return isNumberKey(this, event);" style="width: 70px" />
