@@ -22,6 +22,8 @@ $(document).ready(function () {
         CalculateNomCFPcs(rownumber);
         CalculateTotalNomCF(rownumber);
         OnLineItemChange(rownumber);
+        CalculatePCS(rownumber);
+        CalculateLengthFromPCS(rownumber);
     }
     CallSumMethods();
 });
