@@ -368,7 +368,7 @@
             <div class="col-5 row">
 
                 <div class="col">
-                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length" />
+                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));CalculatePCS(@(i));" style="width: 70px" value="@projectDetail.Length" />
                     <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length"/>
                 </div>
                 <div class="col">
@@ -380,7 +380,7 @@
                     <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                 </div>
                 <div class="col">
-                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" class="form-control" style="width: 70px" value=""/>
+                                                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="" />
                 </div>
 
 
@@ -397,7 +397,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                                                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf" />
+                                                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculatePCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf" />
                     </div>
                     <div class="col"></div>
                     <div class="col float-left">
