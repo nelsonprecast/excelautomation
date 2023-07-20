@@ -4,8 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Globalization;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using Razor.Templating.Core;
 using iText.Html2pdf;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.AspNetCore.WebUtilities;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ExcelAutomation.Controllers
 {
@@ -38,6 +43,70 @@ namespace ExcelAutomation.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult GetJobNameList(string searchString)
+        {
+            string sugarCrmUrl = "https://nelsonprecast.sugarondemand.com/rest/v11_20/oauth2/token";
+            
+            using var client = new HttpClient();
+
+            var data = new Dictionary<string, string>
+            {
+                {"grant_type", "password"},
+                {"client_id", "Sugar"},
+                {"client_secret", ""},
+                {"username", "upworkdev"},
+                {"password", "Patapsco2023!"},
+                {"platform", "nelson_utility"}
+            };
+
+            var res = client.PostAsync(sugarCrmUrl, new FormUrlEncodedContent(data));
+
+            var content = res.Result.Content.ReadAsStringAsync();
+
+            var contentJson = JsonConvert.DeserializeObject<dynamic>(content.Result);
+
+            if (contentJson != null)
+            {
+                foreach (var obj in contentJson)
+                {
+                    client.DefaultRequestHeaders.Add("Authorization","Bearer " + obj.Value.Value);
+                    
+                    break;
+                }
+            }
+
+            var jss = new Root()
+            {
+                name = new Name()
+                {
+                    starts = searchString
+                }
+            };
+
+            var jsonData = JsonConvert.SerializeObject(jss);
+
+
+            var uri = "https://nelsonprecast.sugarondemand.com/rest/v11_20/Opportunities?filter=[" + jsonData + "]";
+
+            var opp = client.GetAsync(uri).Result.Content.ReadAsStringAsync();
+
+            var returnVal = JsonConvert.DeserializeObject<OppertunityDto>(opp.Result);
+
+            return Ok(returnVal?.records);
+        }
+
+        public class Name
+        {
+            [JsonProperty("$contains")]
+            public string starts { get; set; }
+        }
+
+        public class Root
+        {
+            public Name name { get; set; }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -371,5 +440,19 @@ namespace ExcelAutomation.Controllers
             _projectService.DeleteProjectPlanElevationReferances(id);
             return Ok();
         }
+    }
+
+    public class OppertunityDto
+    {
+        public int next_offset { get; set; }
+
+        public List<Oppertunity> records { get; set; }
+    }
+
+    public class Oppertunity
+    {
+
+        public string Id { get; set; }
+        public string Name { get; set; }
     }
 }
