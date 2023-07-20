@@ -284,9 +284,10 @@
 
                 <div class="col-2">
                     <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
-                    <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width: 60px;">
+                    <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width: 70px;">
                         <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
                         <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
+                        <option value="UnSpecified" selected="@projectDetail.WD.Equals("UnSpecified")">UnSpecified</option>
                     </select>
                 </div>
                 <div class="col-4">
@@ -543,9 +544,10 @@
                                                 <div class="col-1"></div>
 
                                                 <div class="col-2">
-                                                    <select id="row@(iForProfileTab)WDForProfileTab" name="row@(iForProfileTab)WDForProfileTab" disabled="disabled" class="form-select" style="width: 60px;">
+                                                    <select id="row@(iForProfileTab)WDForProfileTab" name="row@(iForProfileTab)WDForProfileTab" disabled="disabled" class="form-select" style="width: 70px;">
                                                         <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
                                                         <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
+                                                        <option value="UnSpecified" selected="@projectDetail.WD.Equals("UnSpecified")">UnSpecified</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-4">
@@ -796,9 +798,11 @@
 
         <div class="col-2">
             <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
-            <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width: 60px;">
-                <option value="Dry">Dry</option>
-                <option value="Wet">Wet</option>
+            <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width: 70px;">
+                                        <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
+                                        <option value="Wet" selected="@projectDetail.WD.Equals("Dry")">Wet</option>
+                                        <option value="UnSpecified" selected="@projectDetail.WD.Equals("Dry")">UnSpecified</option>
+
             </select>
         </div>
         <div class="col-5">
