@@ -179,6 +179,27 @@ function CalculateNomCFPcs(rownumber) {
      CalculateTotalNomCF(rownumber);
 }
 
+function CalculateLengthFromPCS(rowNumber) {
+
+    let TotalLF = document.getElementById('row' + rowNumber + 'TotalLF').value;
+    let TotalPcs = document.getElementById('row' + rowNumber + 'Pieces').value ;
+
+    if (TotalLF && TotalPcs) {
+        let Length = (TotalLF / TotalPcs).round(2);
+        document.getElementById('row' + rowNumber + 'Length').value = Length;
+    }
+
+}
+function CalculatePCS(rowNumber) {
+    let TotalLF = document.getElementById('row' + rowNumber + 'TotalLF').value;
+    let Length = document.getElementById('row' + rowNumber + 'Length').value;
+
+    if (TotalLF && Length) {
+        let TotalPcs = (TotalLF / Length).round(2);
+        document.getElementById('row' + rowNumber + 'Pieces').value = TotalPcs;
+    }
+
+}
 function CalculateTotalNomCF(rownumber) {
     var TotalLF = document.getElementById('row' + rownumber + 'TotalLF').value;
     var NomCFLF = document.getElementById('row' + rownumber + 'NomCFLF').value;
