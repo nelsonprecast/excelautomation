@@ -22,18 +22,21 @@ namespace ExcelAutomation.Controllers
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPlanElevationReferenceService _planElevationReferenceService;
         private readonly IPlanElevationTextService _planElevationTextService;
+        private readonly IConfiguration configuration;
 
         public HomeController(IProjectService projectService,
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
             IPlanElevationReferenceService planElevationReferenceService,
-            IPlanElevationTextService planTextService)
+            IPlanElevationTextService planTextService,
+            IConfiguration configuration)
         {
             _projectService = projectService;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
             _planElevationReferenceService = planElevationReferenceService;
             _planElevationTextService = planTextService;
+            this.configuration = configuration;
         }
 
         public IActionResult Index()
@@ -49,18 +52,19 @@ namespace ExcelAutomation.Controllers
         [HttpGet]
         public IActionResult GetJobNameList(string searchString)
         {
-            string sugarCrmUrl = "https://nelsonprecast.sugarondemand.com/rest/v11_20/oauth2/token";
+                        
+            string sugarCrmUrl = this.configuration["SugarCrmUrl"] + "oauth2/token";
             
             using var client = new HttpClient();
 
             var data = new Dictionary<string, string>
             {
                 {"grant_type", "password"},
-                {"client_id", "Sugar"},
-                {"client_secret", ""},
-                {"username", "upworkdev"},
-                {"password", "Patapsco2023!"},
-                {"platform", "nelson_utility"}
+                {"client_id", this.configuration["ClientId"]},
+                {"client_secret", this.configuration["CleintSecret"]},
+                {"username", this.configuration["CrmUserName"]},
+                {"password", this.configuration["CrmPassword"]},
+                {"platform", this.configuration["CrmPlatform"]}
             };
 
             var res = client.PostAsync(sugarCrmUrl, new FormUrlEncodedContent(data));
@@ -79,7 +83,7 @@ namespace ExcelAutomation.Controllers
                 }
             }
 
-            var jss = new Root()
+            var jsObject = new Root()
             {
                 name = new Name()
                 {
@@ -87,10 +91,10 @@ namespace ExcelAutomation.Controllers
                 }
             };
 
-            var jsonData = JsonConvert.SerializeObject(jss);
+            var jsonData = JsonConvert.SerializeObject(jsObject);
 
 
-            var uri = "https://nelsonprecast.sugarondemand.com/rest/v11_20/Opportunities?filter=[" + jsonData + "]";
+            var uri = this.configuration["SugarCrmUrl"] + "Opportunities?filter=[" + jsonData + "]";
 
             var opp = client.GetAsync(uri).Result.Content.ReadAsStringAsync();
 
