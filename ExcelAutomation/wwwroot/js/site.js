@@ -1053,3 +1053,21 @@ function DeletePlanElevationRow(idValue) {
         $('#rowelevation' + idValue).remove();
     }
 }
+
+function ArchiveProjects() {
+    document.forms[0].action = "Archive";
+    var $boxes = $('input[name=ArchiveActive]:checked');
+    if ($boxes.length > 0)
+        document.forms[0].submit();
+    else
+        document.forms[0].preventDefault();
+}
+
+function ActiveProjects() {
+    document.forms[0].action = "Active";
+    var $boxes = $('input[name=ArchiveActive]:checked');
+    if ($boxes.length > 0)
+        document.forms[0].submit();
+    else
+        document.forms[0].preventDefault();
+}

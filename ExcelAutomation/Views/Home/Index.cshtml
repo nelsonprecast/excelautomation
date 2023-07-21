@@ -15,16 +15,22 @@
 </style>
 
 <div class="text-center">
+    <form id="form1" name="form1" method="post" >
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group text-lg-start">
                     <label for="Status">Status</label>
-                    <select class="form-select cleartextClass" id="Status">
-                        <option value="">All</option>
-                        <option value="Active" selected="">Active</option>
+                    <select class="form-select cleartextClass" id="Status" name="status">
+                        <option value="All">All</option>
+                        <option value="Active">Active</option>
                         <option value="Archived">Archived</option>
                     </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group d-inline-flex">
+                        <button class="btn btn-outline-primary mt-10 mr-2" asp-controller="Home" asp-action="Index"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
                 </div>
             </div>
         </div>
@@ -32,8 +38,8 @@
         <div class="row align-items-start">
             <div class="col" style="text-align:left;">
                 <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8"><i class="fa fa-plus"> New Project</i></a>
-                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8"><i class="fa fa-plus"> Archive</i></a>
-                <a class="btn btn-primary" asp-controller="Home" asp-action="AddProject" role="button" style="background-color: #17a2b8"><i class="fa fa-plus"> Active</i></a>
+                    <button class="btn btn-outline-danger" asp-controller="Home" asp-action="Archive" onclick="ArchiveProjects(this);" role="button" ><i class="fa fa-trash"> Archive</i></button>
+                    <button class="btn btn-outline-success" asp-controller="Home" asp-action="Active" onclick="ActiveProjects(this);" role="button" ><i class="fa fa-check"> Active</i></button>
             </div>
             <div class="col">
 
@@ -43,6 +49,7 @@
             </div>
         </div>
     </div>
+    
     <br/>
     <table class="table table-striped table-bordered">
         <thead style="color: #17a2b8">
@@ -56,12 +63,12 @@
         </tr>
         </thead>
         <tbody>
-        @if(Model != null)
+        @if (Model != null)
         {
             foreach (var projectDto in Model)
             {
                 <tr>
-                        <td><input type="checkbox" id="ArchiveActive@(projectDto.ProjectId)" name="ArchiveActive" value="@projectDto.ProjectId" /></td>
+                    <td><input type="checkbox" id="ArchiveActive@(projectDto.ProjectId)" name="ArchiveActive" value="@projectDto.ProjectId"/></td>
                     <td scope="row">@projectDto.ProjectId</td>
 
                     <td>@projectDto.ProjectName</td>
@@ -73,8 +80,9 @@
                     </td>
                 </tr>
             }
-            
+
         }
         </tbody>
     </table>
+    </form>
 </div>

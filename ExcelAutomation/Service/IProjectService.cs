@@ -7,7 +7,7 @@ namespace ExcelAutomation.Service
         int SaveGroup(ProjectGroupDto projectGroupDto);
         Task<int> SaveProject(ProjectDto project);
 
-        ICollection<ProjectDto> GetProjects();
+        ICollection<ProjectDto> GetProjects(string status);
 
         ProjectDto GetProjectById(int  projectId);
         void UpdateProject(ProjectDto projectDto);
@@ -19,5 +19,7 @@ namespace ExcelAutomation.Service
 
         void DeleteProjectPlanElevationReferances(int id);
         void ChangeGroup(int projectDetailId, int groupId);
+
+        void ChangeProjectsStatus(int[] projectIds, string status);
     }
 }

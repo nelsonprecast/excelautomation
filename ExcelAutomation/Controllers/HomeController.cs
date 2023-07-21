@@ -23,6 +23,7 @@ namespace ExcelAutomation.Controllers
         private readonly IPlanElevationReferenceService _planElevationReferenceService;
         private readonly IPlanElevationTextService _planElevationTextService;
         private readonly IConfiguration configuration;
+        
 
         public HomeController(IProjectService projectService,
             IWebHostEnvironment environment,
@@ -39,9 +40,13 @@ namespace ExcelAutomation.Controllers
             this.configuration = configuration;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string status)
         {
-            return View(_projectService.GetProjects());
+            if (string.IsNullOrEmpty(status))
+            {
+                status = "Active";
+            }
+            return View(_projectService.GetProjects(status));
         }
 
         public IActionResult Privacy()
@@ -103,11 +108,7 @@ namespace ExcelAutomation.Controllers
             return Ok(returnVal?.records);
         }
 
-        public class Name
-        {
-            [JsonProperty("$contains")]
-            public string starts { get; set; }
-        }
+        
 
         public class Root
         {
@@ -446,6 +447,35 @@ namespace ExcelAutomation.Controllers
         {
             _projectService.DeleteProjectPlanElevationReferances(id);
             return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Archive()
+        {
+            var projectIds = Request.Form["ArchiveActive"];
+            var projectIdArray = new List<int>();
+            foreach (var projectId in projectIds)
+                projectIdArray.Add(Convert.ToInt32(projectId));
+            _projectService.ChangeProjectsStatus(projectIdArray.ToArray(), "Archived");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Active()
+        {
+            var projectIds = Request.Form["ArchiveActive"];
+            var projectIdArray = new List<int>();
+            foreach (var projectId in projectIds)
+                projectIdArray.Add(Convert.ToInt32(projectId));
+            _projectService.ChangeProjectsStatus(projectIdArray.ToArray(), "Active");
+            return RedirectToAction("Index");
+        }
+
+
+        public class Name
+        {
+            [JsonProperty("$contains")]
+            public string starts { get; set; }
         }
     }
 

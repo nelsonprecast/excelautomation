@@ -45,6 +45,13 @@ public partial class ExcelAutomationContext : DbContext
             entity.Property(e => e.RevisionDate).IsRequired(false);
 
             entity.Property(e => e.ContactSpecs).IsRequired(false);
+
+            entity.Property(e => e.OpportunityId).IsRequired(false);
+
+            entity.Property(e => e.AccountName).IsRequired(false);
+
+            entity.Property(e => e.Status).IsRequired(false);
+
         });
 
         modelBuilder.Entity<ProjectDetail>(entity =>

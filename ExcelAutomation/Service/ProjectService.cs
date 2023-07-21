@@ -27,15 +27,19 @@ namespace ExcelAutomation.Service
             dbProject.Notes = project.Notes;
             dbProject.OpportunityId = project.OpportunityId;
             dbProject.AccountName=project.AccountName;
+            dbProject.Status = "Active";
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
             return dbProject.ProjectId;
         }
 
-        public ICollection<ProjectDto> GetProjects()
+        public ICollection<ProjectDto> GetProjects(string status)
         {
             ICollection<ProjectDto> projectDtos = new List<ProjectDto>();
-            var projects =  _context.Projects.ToList();
+            var query =  _context.Projects.AsQueryable();
+            if (!string.IsNullOrEmpty(status) && !status.Equals("All"))
+                query = query.Where(x => x.Status.Equals(status));
+            var projects = query.ToList();
             foreach (var project in projects)
             {
                 projectDtos.Add(new ProjectDto()
@@ -389,5 +393,18 @@ namespace ExcelAutomation.Service
                 _context.SaveChanges();
             }
         }
+
+        public void ChangeProjectsStatus(int[] projectIds,string status)
+        {
+            var projects = _context.Projects.Where(x=>projectIds.Contains(x.ProjectId)).ToList();
+
+            foreach (var project in projects)
+            {
+                project.Status = status;
+            }
+            _context.UpdateRange(projects);
+            _context.SaveChanges();
+        }
+        
     }
 }

@@ -24,5 +24,7 @@ public partial class Project
     public string Notes { get; set; }
     public string OpportunityId { get; set; }
     public string AccountName { get; set; }
+
+    public string Status { get; set; }
     public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
 }
