@@ -9,47 +9,6 @@ $(document).ready(function () {
     
 });
 
-//$(function () {
-//    function log(message) {
-//        $("<div>").text(message).prependTo("#log");
-//        $("#log").scrollTop(0);
-//    }
-
-//    $("#projectname").autocomplete({
-//        source: function (request, response) {
-//            $.ajax({
-//                url: "/Home/GetJobNameList/?searchString='" + "test",
-//                dataType: "json",
-//                data: {
-//                    searchText: request.term
-//                },
-//                success: function (data) {
-//                    response($.map(data, function (item) {
-//                        return {
-//                            label: item.name,
-//                            value: item.id
-//                        };
-//                    }));
-//                }
-//            });
-//        },
-//        minLength: 3,
-//        select: function (event, ui) {
-//            log(ui.item ?
-//                "Selected: " + ui.item.label :
-//                "Nothing selected, input was " + this.value);
-//        },
-//        open: function () {
-//            $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
-//        },
-//        close: function () {
-//            $(this).removeClass("ui-corner-top").addClass("ui-corner-all");
-//        }
-//    });
-//});
-
-
-
 $(function () {
     function log(message) {
         //$("<div>").text(message).prependTo("#log");
@@ -67,8 +26,10 @@ $(function () {
                 success: function (data) {
                     response($.map(data, function (item) {
                         return {
-                            label: item.name,
-                            value: item.name
+                            label: item.displayName,
+                            value: item.displayName,
+                            id: item.id,
+                            accountName: item.account_name
                         };
                     }));
                 }

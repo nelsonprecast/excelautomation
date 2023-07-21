@@ -10,6 +10,7 @@ using Razor.Templating.Core;
 using iText.Html2pdf;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ExcelAutomation.Controllers
@@ -454,5 +455,8 @@ namespace ExcelAutomation.Controllers
 
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public string Account_name { get; set; }
+        public string DisplayName => Name + " (" + Account_name + ")";
     }
 }
