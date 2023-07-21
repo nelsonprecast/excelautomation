@@ -144,6 +144,8 @@ namespace ExcelAutomation.Controllers
             }
 
             project.Notes = Request.Form["notes"];
+            project.OpportunityId = Request.Form["opportunityId"];
+            project.AccountName = Request.Form["accountName"];
             var projectId = await _projectService.SaveProject(project);
 
             var projectPlanElevationDto = new ProjectPlanElevationTextDto();

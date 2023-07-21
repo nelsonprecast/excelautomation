@@ -25,6 +25,8 @@ namespace ExcelAutomation.Service
             dbProject.CreatedDate = DateTime.Now;
             dbProject.ContactSpecs = project.ContactSpecs;
             dbProject.Notes = project.Notes;
+            dbProject.OpportunityId = project.OpportunityId;
+            dbProject.AccountName=project.AccountName;
             _context.Add(dbProject);
             await _context.SaveChangesAsync();
             return dbProject.ProjectId;

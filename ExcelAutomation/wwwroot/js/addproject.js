@@ -36,10 +36,10 @@ $(function () {
             });
         },
         minLength: 2,
-        select: function (event, ui) {
-            log(ui.item ?
-                "Selected: " + ui.item.label :
-                "Nothing selected, input was " + this.value);
+        select: function (event, ui) {            
+            $('#opportunityId').val(ui.item.id);
+            $('#accountName').val(ui.item.accountName);
+
         },
         open: function () {
             $(this).removeClass("ui-corner-all").addClass("ui-corner-top");
