@@ -99,8 +99,32 @@ function BindEvent() {
 
 function ExportToExcelTable() {
     var rowcount = $('.exceldatarow1').length;
-    var table = "<table id='testTable'> <tr> <td>No</td> <td>WD</td> <td>Category</td><td>Item Name</td> <td>Detail#/Page</td> <td>Length</td> <td>Width</td> <td>Height</td> <td>Pcs</td>  ";
-    table += " <td>Disposition (Special Notes)</td> <td>Total LF</td> <td>Nom. CF/LF</td><td>Act SF CF/LF</td> <td>Act CF/Pcs</td> <td>Total Act CF</td> <td>Nom. CF/Pcs</td> <td>Line Item Charge</td><td></td> <td>Mold Worker Count</td> <td> Drafting Hours </td> <td> Foam </td> <td> Production Worker Count </td> <td> Metal Fab </td> <td> Complexity </td> </tr> ";
+    var table = "<table id='testTable'> <tr> "+
+        "<td>No</td>" +
+        " <td>WD</td>" +
+        " <td>Category</td>" +
+        "<td>Item Name</td>" +
+        " <td>Detail#/Page</td>" +
+        " <td>Length</td>" +
+        " <td>Width</td>" +
+        " <td>Height</td>" +
+        " <td>Pcs</td>  " + 
+        " <td>Disposition (Special Notes)</td>" +
+        " <td>Total LF</td>" +
+        " <td>Total Nom CF</td>" +
+        " <td>Nom. CF/LF</td>" +
+        "<td>Act SF CF/LF</td>" +
+        " <td>Act CF/Pcs</td>" +
+        " <td>Total Act CF</td>" +
+        " <td>Nom. CF/Pcs</td>" +
+        " <td>Line Item Charge</td>" +
+        "<td>Mold Worker Count</td>" +
+        " <td> Drafting Hours </td>" +
+        " <td> Foam </td>" +
+        " <td> Production Worker Count </td>" +
+        " <td> Metal Fab </td>" +
+        " <td> Complexity </td>" +
+        " </tr> ";
     for (var rownumber = 1; rownumber <= rowcount; rownumber++) {
         table += "<tr><td>" + rownumber + "</td>" +
             "<td>" + document.getElementById('rowFP' + rownumber + 'WD').value + "</td>" +
