@@ -1,4 +1,4 @@
-﻿@model ICollection<ExcelAutomation.Models.ProjectDto>
+﻿@model ExcelAutomation.Models.HomeIndexViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -18,15 +18,18 @@
     <form id="form1" name="form1" method="post" >
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <div class="form-group text-lg-start">
                     <label for="Status">Status</label>
-                    <select class="form-select cleartextClass" id="Status" name="status">
-                        <option value="All">All</option>
-                        <option value="Active">Active</option>
-                        <option value="Archived">Archived</option>
-                    </select>
+                    
                 </div>
+            </div>
+            <div class="col-md-2">
+                <select class="form-select cleartextClass" id="Status" name="status">
+                    <option value="All" selected="@(Model.Status.Equals("All"))">All</option>
+                    <option value="Active" selected="@(Model.Status.Equals("Active"))">Active</option>
+                    <option value="Archived" selected="@(Model.Status.Equals("Archived"))">Archived</option>
+                </select>
             </div>
             <div class="col-md-2">
                 <div class="form-group d-inline-flex">
@@ -65,7 +68,7 @@
         <tbody>
         @if (Model != null)
         {
-            foreach (var projectDto in Model)
+            foreach (var projectDto in Model.Projects)
             {
                 <tr>
                     <td><input type="checkbox" id="ArchiveActive@(projectDto.ProjectId)" name="ArchiveActive" value="@projectDto.ProjectId"/></td>

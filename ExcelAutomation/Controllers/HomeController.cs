@@ -42,11 +42,15 @@ namespace ExcelAutomation.Controllers
 
         public IActionResult Index(string status)
         {
+            var model = new HomeIndexViewModel();
             if (string.IsNullOrEmpty(status))
             {
                 status = "Active";
             }
-            return View(_projectService.GetProjects(status));
+
+            model.Status = status;
+            model.Projects = _projectService.GetProjects(status);
+            return View(model);
         }
 
         public IActionResult Privacy()
