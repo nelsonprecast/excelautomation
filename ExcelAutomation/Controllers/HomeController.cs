@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ExcelAutomation.Controllers
 {
@@ -182,7 +183,10 @@ namespace ExcelAutomation.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            return View(_projectService.GetProjectById(id));
+            var model = new HomeEditViewModel();
+            model.ActiveTab = "1";
+            model.ProjectDto = _projectService.GetProjectById(id);
+            return View(model);
         }
 
         [HttpGet]
@@ -317,10 +321,12 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit()
         {
+
             int i = 1;
             var wd = "row" + i + "WD";
             var projectDetails = new List<ProjectDetailDto>();
-
+            TempData["TabNumber"] = Request.Form["TabNumber"];
+            TempData.Keep("TabNumber");
             var project = new ProjectDto();
             project.ProjectId = Convert.ToInt32(Request.Form["projectId"]);
             project.ProjectName = Request.Form["projectIdForProjectTab"];
@@ -400,7 +406,10 @@ namespace ExcelAutomation.Controllers
             }
             project.ProjectDetails = projectDetails;
             _projectService.UpdateProjectDetail(project);
-            return RedirectToAction("Edit",new{id= project.ProjectId });
+            var model = new HomeEditViewModel();
+            model.ActiveTab = (string)Request.Form["TabNumber"];
+            model.ProjectDto = _projectService.GetProjectById(project.ProjectId);
+            return View(model);
         }
 
         public IActionResult GetProjectDetailView(int id)

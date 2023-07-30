@@ -1,5 +1,21 @@
 ﻿var rowIndex = 0;
 $(document).ready(function () {
+    var TabNumber = $('#TabNumber').val();
+    switch (TabNumber) {
+        case "1":
+            activaTab('nav-project-tab');
+            break;
+        case "2":
+            activaTab('nav-home-tab');
+            break;
+        case "3":
+            activaTab('nav-profile-tab');
+            break;
+        case "4":
+            activaTab('nav-contact-tab');
+            break;
+    }
+
     $('#datepicker').datepicker({
         autoclose: true
     });
@@ -168,3 +184,11 @@ function exportReportToExcel() {
         }
     });
 }
+
+function SetTab(no) {
+    document.getElementById('TabNumber').value = no;
+}
+
+function activaTab(tab) {
+    $('.nav-tabs button[id="' + tab + '"]').tab('show');
+};
