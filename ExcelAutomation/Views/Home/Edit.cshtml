@@ -168,13 +168,17 @@
                 </div>
     <div class="input-group">
         <label for="" class="col-sm-3">Contract Specs:</label>
-        <div class="col-sm-2">
-                        <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control" />
+        <div class="col-sm-3">
+                        <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control  float-left" />
+            @if (!string.IsNullOrEmpty(Model.ProjectDto.ContactSpecs))
+            {
+                <a href="@Model.ProjectDto.ContactSpecs" class="edit float-left" target="_blank">View File</a>
+            }
         </div>
     </div>
     <div class="input-group">
         <label for="notes" class="col-sm-3">Notes: </label>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
                         <textarea id="notesForProjectTab" name="notesForProjectTab" rows="4" cols="10" class="form-control">@Model.ProjectDto.Notes</textarea>
         </div>
     </div>
