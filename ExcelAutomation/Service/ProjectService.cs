@@ -405,6 +405,37 @@ namespace ExcelAutomation.Service
             _context.UpdateRange(projects);
             _context.SaveChanges();
         }
-        
+
+        public bool EditGroup(int groupId, string groupName)
+        {
+            var group = _context.ProjectGroups.FirstOrDefault(x => x.GroupId == groupId);
+            if (group != null)
+            {
+                group.GroupName = groupName;
+                _context.Update(group);
+                _context.SaveChanges();
+            }
+            return true;
+        }
+
+        public bool DeleteGroup(int groupId)
+        {
+            var group = _context.ProjectGroups.FirstOrDefault(x => x.GroupId == groupId);
+            if (group != null)
+            {
+                _context.Remove(group);
+                var projectDetails = _context.ProjectDetails.Where(x => x.GroupId == groupId).ToList();
+                foreach (var projectDetail in projectDetails)
+                {
+                    projectDetail.GroupId = null;
+                }
+                _context.UpdateRange(projectDetails);
+                _context.SaveChanges();
+
+
+            }
+            return true;
+        }
+
     }
 }

@@ -192,3 +192,69 @@ function SetTab(no) {
 function activaTab(tab) {
     $('.nav-tabs button[id="' + tab + '"]').tab('show');
 };
+
+function EditGroup(groupId) {
+    $('#Group' + groupId).hide();
+    $('#GroupEditPencil' + groupId).hide();
+    $('#GroupEdit' + groupId).show();
+    $('#GroupUpdatePencil' + groupId).show();
+}
+
+function UpdateGroup(groupId) {
+    var postData = {
+        GroupId: groupId,
+        GroupName: $('#GroupId' + groupId).val()
+    }
+    $.ajax({
+        type: 'POST',
+        url: "/Home/UpdateGroup",
+        'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: "json",
+        data: postData,
+        success: function (resultData) {
+          
+            $('#Group' + groupId).html($('#GroupId' + groupId).val());
+            $('#Group' + groupId).show();
+            $('#GroupEditPencil' + groupId).show();
+            $('#GroupEdit' + groupId).hide();
+            $('#GroupUpdatePencil' + groupId).hide();
+        },
+        error: function (response) {
+            $('#Group' + groupId).html($('#GroupId' + groupId).val());
+            $('#Group' + groupId).show();
+            $('#GroupEditPencil' + groupId).show();
+            $('#GroupEdit' + groupId).hide();
+            $('#GroupUpdatePencil' + groupId).hide();
+            alert(response.responseText);
+        }
+    });
+
+}
+
+function DeleteGroup(groupId) {
+    if (confirm("Are you sure to delete group?")) {
+        var postData = {
+            GroupId: groupId
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/Home/DeleteGroup",
+            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            data: postData,
+            success: function (resultData) {
+                window.location.reload();
+            },
+            error: function (response) {
+                window.location.reload();
+            }
+        });
+    }
+}
+
+function CancelEditGroup(groupId) {
+    $('#Group' + groupId).show();
+    $('#GroupEditPencil' + groupId).show();
+    $('#GroupEdit' + groupId).hide();
+    $('#GroupUpdatePencil' + groupId).hide();
+}

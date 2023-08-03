@@ -233,7 +233,7 @@
     var groupingApplied = false;
     int? currentGroupId = null;
 }
-                                @foreach (var projectDetail in Model.ProjectDto.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
+@foreach (var projectDetail in Model.ProjectDto.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
 {
     if (!currentGroupName.Equals(projectDetail.GroupName))
     {
@@ -251,7 +251,21 @@
         }
         displayed = true;
         <div class="row">
-            <div class="col-2 text-align-left green">@currentGroupName</div>
+            <div class="col-2 text-align-left green">
+                <div class="float-left" id="Group@(projectDetail.GroupId)">@currentGroupName</div>
+                @if(projectDetail.GroupId != null)
+                {
+                                                <div class="float-left" style="display:none;" id="GroupEdit@(projectDetail.GroupId)"><input id="GroupId@(projectDetail.GroupId)" name="GroupName@(projectDetail.GroupId)" value="@currentGroupName" /> </div>
+                <div class="float-right" id="GroupEditPencil@(projectDetail.GroupId)">
+                                                    <a href="javascript:void(0);" onclick="EditGroup(@(projectDetail.GroupId))"><i class="fa fa-pencil"></i></a>&nbsp;
+                                                    <a href="javascript:void(0);" onclick="DeleteGroup(@(projectDetail.GroupId))"><i class="fa fa-trash"></i></a>
+                </div>
+                    <div class="float-right" style="display:none;" id="GroupUpdatePencil@(projectDetail.GroupId)">
+                        <a href="javascript:void(0);" onclick="UpdateGroup(@(projectDetail.GroupId))"><i class="fa fa-floppy-o"></i></a> &nbsp;
+                        <a href="javascript:void(0);" onclick="CancelEditGroup(@(projectDetail.GroupId))"><i class="fa fa-times"></i></a>
+                    </div>
+                }
+            </div>
             <div class="col-8" id="@currentGroupId" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)" style="border: dotted; align-content: center"> drop row area</div>
         </div>
     }
@@ -1172,6 +1186,6 @@
         //window.addEventListener('paste', e => {
         //    fileInput.files = e.clipboardData.files;
         //});
-                
+        
     </script>
 }

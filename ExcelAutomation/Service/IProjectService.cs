@@ -21,5 +21,9 @@ namespace ExcelAutomation.Service
         void ChangeGroup(int projectDetailId, int groupId);
 
         void ChangeProjectsStatus(int[] projectIds, string status);
+
+        bool EditGroup(int groupId, string groupName);
+
+        bool DeleteGroup(int groupId);
     }
 }

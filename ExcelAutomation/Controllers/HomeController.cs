@@ -484,7 +484,19 @@ namespace ExcelAutomation.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
+        public IActionResult UpdateGroup(int groupId, string groupName)
+        {
+            _projectService.EditGroup(groupId, groupName);
+            return new OkResult();
+        }
 
+        [HttpPost]
+        public IActionResult DeleteGroup(int groupId)
+        {
+            _projectService.DeleteGroup(groupId);
+            return new OkResult();
+        }
         public class Name
         {
             [JsonProperty("$contains")]
