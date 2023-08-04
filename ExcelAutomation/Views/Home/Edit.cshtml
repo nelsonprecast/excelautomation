@@ -322,7 +322,7 @@
                     <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                 </div>
                 <div class="col-12 row">
-                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId"/> </div>
+                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId" class="GroupCheckBoxId"/> </div>
                     <div class="col-2">
                         <div class="col-12"><label> Category</label></div>
                         <div class="row">
@@ -474,6 +474,7 @@
     <td colspan="2" style="text-align: left;">
                             <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
         <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn" ><i class="fa fa-plus"> New Group</i></button>
+                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="removeGroupBtn" onclick="RemoveFromGroup();"><i class="fa fa-trash"> Remove From Group</i></button>
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectDto.ProjectId);"> <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
     </td>
@@ -719,6 +720,7 @@
                         <td colspan="2" style="text-align: left;">
                             <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn"><i class="fa fa-plus"> New Group</i></button>
+                            
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectDto.ProjectId);"> <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
                         </td>

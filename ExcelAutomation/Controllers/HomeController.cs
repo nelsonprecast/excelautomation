@@ -497,6 +497,14 @@ namespace ExcelAutomation.Controllers
             _projectService.DeleteGroup(groupId);
             return new OkResult();
         }
+
+        [HttpPost]
+        public IActionResult RemoveFromGroup(string projectDetailIds)
+        {
+            _projectService.RemoveFromGroup(projectDetailIds);
+            return new OkResult();
+        }
+
         public class Name
         {
             [JsonProperty("$contains")]

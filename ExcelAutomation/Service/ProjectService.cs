@@ -1,6 +1,7 @@
 ﻿using ExcelAutomation.Data;
 using ExcelAutomation.Models;
 using Newtonsoft.Json;
+using System.Text.RegularExpressions;
 
 
 namespace ExcelAutomation.Service
@@ -434,6 +435,19 @@ namespace ExcelAutomation.Service
 
 
             }
+            return true;
+        }
+
+        public bool RemoveFromGroup(string projectDetailIds)
+        {
+            var projectDetailIdArray = projectDetailIds.Split(',').Select(x => int.Parse(x));
+            var projectDetails = _context.ProjectDetails.Where(x => projectDetailIdArray.Contains(x.ProjectDetailId)).ToList();
+            foreach (var projectDetail in projectDetails)
+            {
+                projectDetail.GroupId = null;
+            }
+            _context.UpdateRange(projectDetails);
+            _context.SaveChanges();
             return true;
         }
 

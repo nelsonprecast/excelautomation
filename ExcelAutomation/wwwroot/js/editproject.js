@@ -258,3 +258,33 @@ function CancelEditGroup(groupId) {
     $('#GroupEdit' + groupId).hide();
     $('#GroupUpdatePencil' + groupId).hide();
 }
+
+function RemoveFromGroup() {
+    var $checkBoxes = $('input:checkbox[class="GroupCheckBoxId"]:checked');
+    var unGroupValues = "";
+    if ($checkBoxes.length > 0) {
+        for (var i = 0; i < $checkBoxes.length; i++) {
+            if (unGroupValues == "")
+                unGroupValues = $checkBoxes[i].value;
+            else
+                unGroupValues += "," + $checkBoxes[i].value;
+        }
+
+        var postData = {
+            projectDetailIds: unGroupValues
+        }
+        $.ajax({
+            type: 'POST',
+            url: "/Home/RemoveFromGroup",
+            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            dataType: "json",
+            data: postData,
+            success: function (resultData) {
+                window.location.reload();
+            },
+            error: function (response) {
+                window.location.reload();
+            }
+        });
+    }
+}
