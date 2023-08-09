@@ -410,7 +410,7 @@
                     <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                 </div>
                 <div class="col">
-                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="" />
+                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces" />
                 </div>
 
                 <div class="col">

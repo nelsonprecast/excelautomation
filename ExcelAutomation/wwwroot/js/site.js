@@ -194,7 +194,7 @@ function CalculateLengthFromPCS(rowNumber) {
 }
 function CalculatePCS(rowNumber) {
     let TotalLF = document.getElementById('row' + rowNumber + 'TotalLF').value;
-    let Length = document.getElementById('row' + rowNumber + 'Length').value;
+    let Length = document.getElementById('row' + rowNumber + 'LengthHidden').value;
 
     if (TotalLF && Length) {
         let TotalPcs = (TotalLF / Length).round(2);
