@@ -193,7 +193,7 @@
                            value="@projectPlanElevationTextDto.Text"/>
                 </div>
                 <div class="col-sm-1" style="align-self: normal">
-                    <a href="#" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
+                    <a href="javascript:void(0);" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
             </div>
         
@@ -209,7 +209,7 @@
             
         </div>
         <div class="col-2">
-            <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.ProjectDto.ProjectId)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
+                        <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.ProjectDto.ProjectId)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
         </div>
         
     </div>

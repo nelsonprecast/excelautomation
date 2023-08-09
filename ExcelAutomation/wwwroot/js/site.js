@@ -185,8 +185,10 @@ function CalculateLengthFromPCS(rowNumber) {
     let TotalPcs = document.getElementById('row' + rowNumber + 'Pieces').value ;
 
     if (TotalLF && TotalPcs) {
-        let Length = (TotalLF / TotalPcs).round(2);
+        let Length = ((TotalLF / TotalPcs) * 12).round(2);
         document.getElementById('row' + rowNumber + 'Length').value = Length;
+        ConvertNumberToFraction(document.getElementById('row' + rowNumber + 'Length'));
+        
     }
 
 }
@@ -930,6 +932,7 @@ function CalculateLF() {
    
    
     UploadImages(planElevationJsonArray);
+    CalculateLengthFromPCS(rowIndex)
     $('#exampleModal').modal('hide');
 }
 
