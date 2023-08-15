@@ -1,16 +1,65 @@
-using ExcelAutomation.Data;
-using ExcelAutomation.Service;
+using AutoMapper;
+using Core.Infrastructure;
+using Core.Infrastructure.Mapper;
+using Facade.Interfaces;
+using Infrastructure.Data.Interfaces;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Service.Interfaces;
+using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpContextAccessor();
+var applicationSettings = builder.Configuration.GetSection("SugarCrmConfiguration").Get<ApplicationSettings>();
+builder.Services.AddSingleton(applicationSettings);
 var connectionString = builder.Configuration.GetConnectionString("ExcelAutomation");
-builder.Services.AddDbContext<ExcelAutomationContext>(x => x.UseSqlServer(connectionString));
-builder.Services.AddScoped<IProjectService,ProjectService>();
-builder.Services.AddScoped<IPlanElevationReferenceService, PlanElevationReferenceService>();
-builder.Services.AddScoped<IPlanElevationTextService, PlanElevationTextService>();
+
+// DB Context
+builder.Services.AddDbContext<IDbContext, ExcelAutomationDbContext>(options => options.UseSqlServer(connectionString));
+
+// Register Repository
+builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+// Register Services
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<IProjectService>()
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Service")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
+
+// Register Facade
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<IProjectFacade>()
+    .AddClasses(classes => classes.Where(type => type.Name.EndsWith("Facade")))
+    .AsImplementedInterfaces()
+    .WithScopedLifetime());
+
+
+//find mapper configurations provided by other assemblies
+var type = typeof(IOrderedMapperProfile);
+var mapperConfigurations = AppDomain.CurrentDomain.GetAssemblies()
+    .SelectMany(s => s.GetTypes().Where(x => x.IsClass && !x.IsAbstract))
+    .Where(p => type.IsAssignableFrom(p));
+//create and sort instances of mapper configurations
+var instances = mapperConfigurations
+    .Select(mapperConfiguration => (IOrderedMapperProfile)Activator.CreateInstance(mapperConfiguration))
+    .OrderBy(mapperConfiguration => mapperConfiguration.Order);
+
+//create AutoMapper configuration
+var config = new MapperConfiguration(cfg =>
+{
+    foreach (var instance in instances)
+    {
+        cfg.AddProfile(instance.GetType());
+    }
+
+});
+
+//register auto mapper.
+AutoMapperConfiguration.Init(config);
 
 var app = builder.Build();
 

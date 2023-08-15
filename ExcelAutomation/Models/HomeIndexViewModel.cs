@@ -1,8 +1,10 @@
-﻿namespace ExcelAutomation.Models
+﻿using Core.Model.Response;
+
+namespace ExcelAutomation.Models
 {
     public class HomeIndexViewModel
     {
         public string Status { get; set; }
-        public ICollection<ProjectDto> Projects { get; set; }
+        public ICollection<ProjectResponse> Projects { get; set; }
     }
 }

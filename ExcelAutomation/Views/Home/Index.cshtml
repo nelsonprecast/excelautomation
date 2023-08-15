@@ -71,15 +71,15 @@
             foreach (var projectDto in Model.Projects)
             {
                 <tr>
-                    <td><input type="checkbox" id="ArchiveActive@(projectDto.ProjectId)" name="ArchiveActive" value="@projectDto.ProjectId"/></td>
-                    <td scope="row">@projectDto.ProjectId</td>
+                            <td><input type="checkbox" id="ArchiveActive@(projectDto.Id)" name="ArchiveActive" value="@projectDto.Id" /></td>
+                            <td scope="row">@projectDto.Id</td>
 
                     <td>@projectDto.ProjectName</td>
                     <td>@(projectDto.RevisionDate.HasValue ? projectDto.RevisionDate.Value.ToString("MM-dd-yyyy") : string.Empty)</td>
                     <td>@projectDto.CreatedDate.Value.ToString("MM-dd-yyyy")</td>
                     <td>
-                        <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="Edit" role="button" style="background-color: #17a2b8"><i class="fa fa-pencil"> Edit</i></a>
-                        <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.ProjectId" asp-action="CopyProject" style="background-color: #17a2b8"><i class="fa fa-copy"> Copy</i> </a>
+                                <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.Id" asp-action="Edit" role="button" style="background-color: #17a2b8"><i class="fa fa-pencil"> Edit</i></a>
+                                <a class="btn btn-primary" asp-controller="Home" asp-route-id="@projectDto.Id" asp-action="CopyProject" style="background-color: #17a2b8"><i class="fa fa-copy"> Copy</i> </a>
                     </td>
                 </tr>
             }

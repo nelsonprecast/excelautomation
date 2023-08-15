@@ -975,8 +975,10 @@ function UploadImages(pElevationArray) {
         }
     }
 
+    formData.append("pElevationJsonArray", JSON.stringify(pElevationArray));
+
     $.ajax({
-        url: "/Home/UploadImages/?projectDetailId=" + id + "&pElevationJsonArray=" + JSON.stringify(pElevationArray),
+        url: "/PlanElevation/UploadImages/?projectDetailId=" + id,
         type: "POST",       
         data: formData,
         processData: false,

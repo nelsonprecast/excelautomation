@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http.Headers;
+using Facade.Interfaces;
 using Razor.Templating.Core;
 using iText.Html2pdf;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
@@ -18,6 +19,7 @@ namespace ExcelAutomation.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IProjectFacade _projectFacade;
         private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -26,18 +28,14 @@ namespace ExcelAutomation.Controllers
         private readonly IConfiguration configuration;
         
 
-        public HomeController(IProjectService projectService,
+        public HomeController(IProjectFacade projectFacade,
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
-            IPlanElevationReferenceService planElevationReferenceService,
-            IPlanElevationTextService planTextService,
             IConfiguration configuration)
         {
-            _projectService = projectService;
+            _projectFacade = projectFacade;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
-            _planElevationReferenceService = planElevationReferenceService;
-            _planElevationTextService = planTextService;
             this.configuration = configuration;
         }
 
@@ -50,7 +48,7 @@ namespace ExcelAutomation.Controllers
             }
 
             model.Status = status;
-            model.Projects = _projectService.GetProjects(status);
+            model.Projects = _projectFacade.GetProjects(status);
             return View(model);
         }
 
@@ -185,7 +183,7 @@ namespace ExcelAutomation.Controllers
         {
             var model = new HomeEditViewModel();
             model.ActiveTab = "1";
-            model.ProjectDto = _projectService.GetProjectById(id);
+            model.Project = _projectFacade.GetProjectById(id);
             return View(model);
         }
 
@@ -232,7 +230,7 @@ namespace ExcelAutomation.Controllers
         [HttpGet]
         public async  Task<IActionResult> ConvertToPdf(int projectId)
         {
-            var project = _projectService.GetProjectById(projectId);
+            var project = _projectFacade.GetProjectById(projectId);
             var viewDataOrViewBag = new Dictionary<string, object>();
             viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
             
@@ -321,94 +319,14 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit()
         {
-
-            int i = 1;
-            var wd = "row" + i + "WD";
-            var projectDetails = new List<ProjectDetailDto>();
             TempData["TabNumber"] = Request.Form["TabNumber"];
             TempData.Keep("TabNumber");
-            var project = new ProjectDto();
-            project.ProjectId = Convert.ToInt32(Request.Form["projectId"]);
-            project.ProjectName = Request.Form["projectIdForProjectTab"];
-            project.NominalCF = Request.Form["nominalCFForFinalTab"];
-            project.ActualCF = Request.Form["actualCfForFinalTab"];
-            project.LineItemTotal = Request.Form["LineItemTotal"];
-            project.Notes = Request.Form["notesForProjectTab"];
-            if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
-                project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy",
-                    CultureInfo.InvariantCulture);
-            if (Request.Form.Files["ContactSpecs"] != null)
-            {
-                var file = Request.Form.Files["ContactSpecs"];
-                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ContactSpecs\\") + fileName;
-                using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
+            
+            await _projectFacade.UpdateProject();
 
-                project.ContactSpecs = "/ContactSpecs/" + fileName;
-            }
-
-            while (!string.IsNullOrEmpty(Request.Form[wd]))
-            {
-                var projectDetail = new ProjectDetailDto();
-                if (!string.IsNullOrEmpty(Request.Form["row" + i + "projectDetailId"]))
-                {
-                    projectDetail.ProjectDetailId = Convert.ToInt32(Request.Form["row" + i + "projectDetailId"]);
-                }
-                projectDetail.WD = Request.Form[wd];
-                projectDetail.ItemName = Request.Form["row" + i + "ItemName"];
-                projectDetail.DispositionSpecialNote = Request.Form["row" + i + "DispositionSpecialNote"];
-                projectDetail.DetailPage = Request.Form["row" + i + "DetailPage"];
-                projectDetail.TakeOffColor = Request.Form["row" + i + "TakeOffColor"];
-                projectDetail.Length = Request.Form["row" + i + "LengthHidden"];
-                projectDetail.Width = Request.Form["row" + i + "WidthHidden"];
-                projectDetail.Height = Request.Form["row" + i + "HeightHidden"];
-                projectDetail.Pieces = Request.Form["row" + i + "Pieces"];
-                projectDetail.TotalLf = Request.Form["row" + i + "TotalLF"];
-                projectDetail.ActSfcflf = Request.Form["row" + i + "ActSFCFLF"];
-                projectDetail.ActCfpcs = Request.Form["row" + i + "ActCFPcs"];
-                projectDetail.TotalActCf = Request.Form["row" + i + "TotalActCF"];
-                projectDetail.NomCflf = Request.Form["row" + i + "NomCFLF"];
-                projectDetail.NomCfpcs = Request.Form["row" + i + "NomCFPcs"];
-                projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
-                projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
-                projectDetail.PlanElevation = Request.Form["row" + i + "PlanElevationHidden"];
-                projectDetail.PlanElevationJson = Request.Form["row" + i + "PlanElevationJsonHidden"];
-                projectDetail.LFValue = Request.Form["row" + i + "TotalLFHidden"];
-                projectDetail.Category = Request.Form["row" + i + "Category"];
-                if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "LineItemCharge"]))
-                    projectDetail.LineItemCharge = Request.Form["rowFP" + i + "LineItemCharge"];
-                if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "TotalCheckBox"]))
-                    projectDetail.TotalActualNominalValue = Request.Form["rowFP" + i + "TotalCheckBox"];
-
-                if (Request.Form.Files["row" + i + "File"] != null)
-                {
-                    var file = Request.Form.Files["row" + i + "File"];
-                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "ProjectImages\\") + fileName;
-                    using (Stream fileStream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(fileStream);
-                    }
-
-                    projectDetail.ImagePath = "/ProjectImages/" + fileName;
-                }
-                if(!string.IsNullOrEmpty(projectDetail.PlanElevationJson)) {
-                    projectDetail.PlanElevationReferences = JsonConvert.DeserializeObject<ICollection<PlanElevationReferenceDto>>(projectDetail.PlanElevationJson);
-                }
-                projectDetail.PlanElevationFiles =
-                    Request.Form.Files.Where(x => x.Name.Contains($"hiddenPlanElevationFile{i}_")).ToList();
-                projectDetails.Add(projectDetail);
-                i++;
-                wd = "row" + i + "WD";
-            }
-            project.ProjectDetails = projectDetails;
-            _projectService.UpdateProjectDetail(project);
             var model = new HomeEditViewModel();
             model.ActiveTab = (string)Request.Form["TabNumber"];
-            model.ProjectDto = _projectService.GetProjectById(project.ProjectId);
+            model.Project = _projectFacade.GetProjectById(int.Parse(Request.Form["projectId"]));
             return View(model);
         }
 

@@ -75,14 +75,14 @@
 }
 
 <div class="text-center">
-<form asp-action="Edit" asp-controller="Home" asp-route-id="@Model.ProjectDto.ProjectId" method="POST" role="form" enctype="multipart/form-data">
+<form asp-action="Edit" asp-controller="Home" asp-route-id="@Model.Project.Id" method="POST" role="form" enctype="multipart/form-data">
 <div class="input-group">
             @*<label for="projectname" class="col-sm-2">Job Name:</label>*@
     <div class="col-sm-2">
-        <input id="projectId" name="projectId" type="hidden" value="@Model.ProjectDto.ProjectId"  />
+        <input id="projectId" name="projectId" type="hidden" value="@Model.Project.Id"  />
                 <input id="TabNumber" name="TabNumber" type="hidden" value="@Model.ActiveTab" />
         @*<input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" style="font-weight: bold" />*@
-        <span><b>@Model.ProjectDto.ProjectName</b></span>
+        <span><b>@Model.Project.ProjectName</b></span>
     </div>
 </div>
 <div class="input-group">
@@ -91,7 +91,7 @@
 
         
             @*<input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.RevisionDate != null ? Model.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />*@
-                <span><b>@(Model.ProjectDto.RevisionDate != null ? Model.ProjectDto.RevisionDate.Value.ToString("MM/dd/yyyy") : "")</b></span>
+                <span><b>@(Model.Project.RevisionDate != null ? Model.Project.RevisionDate.Value.ToString("MM/dd/yyyy") : "")</b></span>
            @* <span class="input-group-append">
                 <span class="input-group-text bg-light d-block">
                     <i class="fa fa-calendar"></i>
@@ -130,7 +130,7 @@
     <div class="input-group">
                     <label for="projectname" class="col-sm-3">Job Name:</label>
                     <div class="col-sm-3">
-                        <input id="projectIdForProjectTab" name="projectIdForProjectTab" readonly="readonly" class="form-control" value="@Model.ProjectDto.ProjectName" />
+                        <input id="projectIdForProjectTab" name="projectIdForProjectTab" readonly="readonly" class="form-control" value="@Model.Project.ProjectName" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -139,7 +139,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-3">
-                        <input id="nominalCFForProjectTab" name="nominalCFForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.ProjectDto.NominalCF" />
+                        <input id="nominalCFForProjectTab" name="nominalCFForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.Project.NominalCF" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -148,7 +148,7 @@
                         <span class="input-group-text">$</span>
                     </div>
                     <div class="col-sm-2">
-                        <input id="actualCFIdForProjectTab" name="actualCFIdForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.ProjectDto.ActualCF" />
+                        <input id="actualCFIdForProjectTab" name="actualCFIdForProjectTab" readonly="readonly" class="form-control" type="text" style="width:95%" value="@Model.Project.ActualCF" />
                     </div>
                 </div>
                 <div class="input-group">
@@ -156,7 +156,7 @@
                     <div class="col-sm-2">
 
                         <div class="input-group date" id="datepicker">
-                            <input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.ProjectDto.RevisionDate != null ? Model.ProjectDto.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
+                            <input type="text" class="form-control" id="RevisionDate" name="RevisionDate" value="@(Model.Project.RevisionDate != null ? Model.Project.RevisionDate.Value.ToString("MM/dd/yyyy"):"")" />
                             <span class="input-group-append">
                                 <span class="input-group-text bg-light d-block">
                                     <i class="fa fa-calendar"></i>
@@ -170,21 +170,21 @@
         <label for="" class="col-sm-3">Contract Specs:</label>
         <div class="col-sm-3">
                         <input type="file" id="ContactSpecs" name="ContactSpecs" class="form-control  float-left" />
-            @if (!string.IsNullOrEmpty(Model.ProjectDto.ContactSpecs))
+            @if (!string.IsNullOrEmpty(Model.Project.ContactSpecs))
             {
-                <a href="@Model.ProjectDto.ContactSpecs" class="edit float-left" target="_blank">View File</a>
+                <a href="@Model.Project.ContactSpecs" class="edit float-left" target="_blank">View File</a>
             }
         </div>
     </div>
     <div class="input-group">
         <label for="notes" class="col-sm-3">Notes: </label>
         <div class="col-sm-3">
-                        <textarea id="notesForProjectTab" name="notesForProjectTab" rows="4" cols="10" class="form-control">@Model.ProjectDto.Notes</textarea>
+                        <textarea id="notesForProjectTab" name="notesForProjectTab" rows="4" cols="10" class="form-control">@Model.Project.Notes</textarea>
         </div>
     </div>
     <div class="planElevationTextForEdit">
 
-    @foreach (var projectPlanElevationTextDto in Model.ProjectDto.ProjectPlanElevationText)
+    @foreach (var projectPlanElevationTextDto in Model.Project.PlanElevationText)
     {
         <div class="input-group">
                 <label for="" class="col-sm-3">Plan Elevation Text:</label>
@@ -209,7 +209,7 @@
             
         </div>
         <div class="col-2">
-                        <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.ProjectDto.ProjectId)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
+                        <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.Project.Id)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
         </div>
         
     </div>
@@ -239,7 +239,7 @@
     var groupingApplied = false;
     int? currentGroupId = null;
 }
-@foreach (var projectDetail in Model.ProjectDto.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
+@foreach (var projectDetail in Model.Project.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
 {
     if (!currentGroupName.Equals(projectDetail.GroupName))
     {
@@ -277,7 +277,7 @@
     }
     <div ondrop="dropDiv(event)" ondragover="allowDropDiv(event)">
 
-        <div id="@projectDetail.ProjectDetailId" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
+        <div id="@projectDetail.Id" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
             <div class="col-4 row">
                 <div class="col-1">@(i)</div>
                 <div class="col-2 text-align-left">W/D</div>
@@ -309,10 +309,10 @@
             </div>
             <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
             <div class="col-4 row">
-                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.ProjectDetailId));"><i class="fa fa-trash fa-lg"></i></a></div>
+                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.Id));"><i class="fa fa-trash fa-lg"></i></a></div>
 
                 <div class="col-2">
-                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
+                    <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.Id"/>
                     <select id="row@(i)WD" name="row@(i)WD" class="form-select" style="width: 70px;">
                         <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
                         <option value="Wet" selected="@projectDetail.WD.Equals("Wet")">Wet</option>
@@ -328,7 +328,7 @@
                     <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                 </div>
                 <div class="col-12 row">
-                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.ProjectDetailId" class="GroupCheckBoxId"/> </div>
+                    <div class="col-1"><input type="checkbox" id="row@(i)GroupCheckBoxId" value="@projectDetail.Id" class="GroupCheckBoxId"/> </div>
                     <div class="col-2">
                         <div class="col-12"><label> Category</label></div>
                         <div class="row">
@@ -369,13 +369,13 @@
 
 
                         <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
-                        <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
+                        <div class="row exceldatarow11" rel="@projectDetail.Id">
                             <div class="totallfdata">
                                 <input id="row@(i)PlanElevationHidden" name="row@(i)PlanElevationHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevation"/>
                                 <input id="row@(i)PlanElevationJsonHidden" name="row@(i)PlanElevationJsonHidden" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson"/>
                                 <input id="row@(i)TotalLFHidden" name="row@(i)TotalLFHidden" class="form-control" type="hidden" value="@projectDetail.LFValue"/>
                                 <input id="rowIndex" class="form-control" type="hidden" value="@(i)"/>
-                                <a href="#" class="edit" onclick="AddNewLFRow();return false;">Plan/Elevation</a>
+                                <a href="javascript:void(0);" class="edit" >Plan/Elevation</a>
                             </div>
                         </div>
                     </div>
@@ -482,7 +482,7 @@
                             <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
         <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn" ><i class="fa fa-plus"> New Group</i></button>
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="removeGroupBtn" onclick="RemoveFromGroup();"><i class="fa fa-trash"> Remove From Group</i></button>
-                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectDto.ProjectId);"> <i class="fa fa-copy"> Convert to PDF</i></button>
+                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.Project.Id);"> <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
     </td>
 </tr>
@@ -514,7 +514,7 @@
                                     var groupingAppliedForProfileTab = false;
                                     int? currentGroupIdForProfileTab = null;
                                 }
-                                @foreach (var projectDetail in Model.ProjectDto.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
+                                @foreach (var projectDetail in Model.Project.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
                                 {
                                     if (!currentGroupNameForProfileTab.Equals(projectDetail.GroupName))
                                     {
@@ -538,7 +538,7 @@
                                     }
                                     <div>
 
-                                        <div id="@projectDetail.ProjectDetailId" class="@(iForProfileTab % 2 != 0 ? "primary" : "secondary") row exceldatarow12">
+                                        <div id="@projectDetail.Id" class="@(iForProfileTab % 2 != 0 ? "primary" : "secondary") row exceldatarow12">
                                             <div class="col-4 row">
                                                 <div class="col-1">@(iForProfileTab)</div>
                                                 <div class="col-2 text-align-left">W/D</div>
@@ -590,7 +590,7 @@
                                                     <input id="row@(iForProfileTab)DetailPageForProfileTab" name="row@(iForProfileTab)DetailPageForProfileTab" readonly="readonly" class="form-control" type="text" value="@projectDetail.DetailPage" />
                                                 </div>
                                                 <div class="col-12 row">
-                                                    <div class="col-1"><input type="checkbox" id="row@(iForProfileTab)GroupCheckBoxIdForProfileTab" readonly="readonly" value="@projectDetail.ProjectDetailId" /> </div>
+                                                    <div class="col-1"><input type="checkbox" id="row@(iForProfileTab)GroupCheckBoxIdForProfileTab" readonly="readonly" value="@projectDetail.Id" /> </div>
                                                     <div class="col-2">
                                                         <div class="col-12"><label> Category</label></div>
                                                         <div class="row">
@@ -630,7 +630,7 @@
 
 
                                                         <textarea id="rowDispositionSpecialNoteForProfileTab" name="row@(iForProfileTab)DispositionSpecialNoteForProfileTab" readonly="readonly" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
-                                                        <div class="row exceldatarow11" rel="@projectDetail.ProjectDetailId">
+                                                        <div class="row exceldatarow11" rel="@projectDetail.Id">
                                                             <div class="totallfdata">
                                                                 <input id="row@(iForProfileTab)PlanElevationHiddenForProfileTab" name="row@(iForProfileTab)PlanElevationHiddenForProfileTab" class="form-control" type="hidden" value="@projectDetail.PlanElevation" />
                                                                 <input id="row@(iForProfileTab)PlanElevationJsonHiddenForProfileTab" name="row@(iForProfileTab)PlanElevationJsonHiddenForProfileTab" class="form-control" type="hidden" value="@projectDetail.PlanElevationJson" />
@@ -728,7 +728,7 @@
                             <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn"><i class="fa fa-plus"> New Group</i></button>
                             
-                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.ProjectDto.ProjectId);"> <i class="fa fa-copy"> Convert to PDF</i></button>
+                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.Project.Id);"> <i class="fa fa-copy"> Convert to PDF</i></button>
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
                         </td>
                     </tr>
@@ -742,9 +742,9 @@
 <div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
 <div class="row">
     <div class="col-sm-1"> <b>NomianalCF:</b></div>
-                        <div class="col-sm-1"><input id="nominalCFForFinalTab" name="nominalCFForFinalTab" value="@Model.ProjectDto.NominalCF" /></div>
+                        <div class="col-sm-1"><input id="nominalCFForFinalTab" name="nominalCFForFinalTab" value="@Model.Project.NominalCF" /></div>
     <div class="col-sm-2"> <b>ActualCF:</b></div>
-                        <div class="col-sm-1"><input id="actualCfForFinalTab" name="actualCfForFinalTab" value="@Model.ProjectDto.ActualCF" /></div>
+                        <div class="col-sm-1"><input id="actualCfForFinalTab" name="actualCfForFinalTab" value="@Model.Project.ActualCF" /></div>
 </div>
 <div class="row align-items-start">
 
@@ -769,7 +769,7 @@
     displayed = false;
     groupingApplied = false;
 }
-                    @foreach (var projectDetail in Model.ProjectDto.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
+                    @foreach (var projectDetail in Model.Project.ProjectDetails.OrderByDescending(x => x.GroupName).ToList())
 {
     if (!currentGroupName.Equals(projectDetail.GroupName))
     {
@@ -829,7 +829,7 @@
         <div class="col-1"></div>
 
         <div class="col-2">
-            <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.ProjectDetailId"/>
+            <input id="rowFP@(j)projectDetailId" name="rowFP@(j)projectDetailId" type="hidden" value="@projectDetail.Id"/>
             <select id="rowFP@(j)WD" name="rowFP@(j)WD" class="form-select" readonly="readonly" style="width: 70px;">
                                         <option value="Dry" selected="@projectDetail.WD.Equals("Dry")">Dry</option>
                                         <option value="Wet" selected="@projectDetail.WD.Equals("Dry")">Wet</option>
@@ -1038,7 +1038,7 @@
         <div class="col text-align-left"><span class="float-left">$</span><input id="rowFPSumTotalNominal" name="rowFPSumTotalNominal" readonly="readonly" type="text" class="form-control" style="width: 70px; background-color: transparent !important; border: 0px solid;"/></div>
     </div>
     <div class="col-2 row">
-        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.ProjectDto.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();SumLineItemChargeCF();"/></div>
+        <div class="col text-align-left"><input id="LineItemTotal" name="LineItemTotal" value="@Model.Project.LineItemTotal" type="text" class="form-control" onchange="SumLineItemCharge();SumLineItemChargePCs();SumLineItemChargeCF();"/></div>
         <div class="col text-align-left"><input id="SumOfLineItemCharge" name="SumOfLineItemCharge" type="text" class="form-control" readonly="readonly"/></div>
     </div>
 </div>
@@ -1102,7 +1102,7 @@
 <div id="hiddenPlanElevationFiles" style="display:none;">
 </div>
 <div id="planElevationTextDivHidden" style="display: none;">
-            <input type="hidden" id="planElevationTextHidden" value="@JsonConvert.SerializeObject(Model.ProjectDto.ProjectPlanElevationText)" />
+            <input type="hidden" id="planElevationTextHidden" value="@JsonConvert.SerializeObject(Model.Project.PlanElevationText)" />
 </div>
 </form>
 
