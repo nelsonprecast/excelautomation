@@ -54,7 +54,7 @@ namespace Facade.Implementation
             var projectDetails = _projectDetailService.GetProjectDetailByProjectId(projectId);
             {
                 var projectGroups =
-                    _projectGroupService.GetProjectGroupByIds(projectDetails.Select(x => x.GroupId.Value).ToArray());
+                    _projectGroupService.GetProjectGroupByIds(projectDetails.Where(x=>x.GroupId.HasValue).Select(x => x.GroupId.Value).ToArray());
                 var planElevationReferences =
                     _planElevationReferenceService.GetPlanElevationReferenceByProjectDetailIds(projectDetails
                         .Select(x => x.Id).ToArray());

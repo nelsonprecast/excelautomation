@@ -83,6 +83,7 @@ namespace Service.Implementation
                 height_in_c = projectDetail.Height,
                 product_category_c = projectDetail.Category,
                 linear_feet_c = projectDetail.TotalLf,
+                cubic_feet_c = projectDetail.TotalActualNominalValue.Equals("1")?projectDetail.TotalActCf : projectDetail.TotalNomCf,
                 takeoff_color_c = projectDetail.TakeOffColor,
                 description = projectDetail.DispositionSpecialNote,
                 est_qty_c = projectDetail.Pieces,
