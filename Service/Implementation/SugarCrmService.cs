@@ -89,5 +89,25 @@ namespace Service.Implementation
             var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
             return contentJson.Id;
         }
+
+        public SugarCrmOppertunityList SearchOppertunities(string searchString)
+        {
+            using var client = new HttpClient();
+            var jsObject = new
+            {
+                name = new 
+                {
+                    contains = searchString
+                }
+            };
+
+            var jsonData = JsonConvert.SerializeObject(jsObject);
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
+
+            var opp = client.GetAsync(_applicationSettings.SugarCrmUrl + "Opportunities?filter=[" + jsonData + "]").Result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<SugarCrmOppertunityList>(opp.Result);
+        }
     }
 }

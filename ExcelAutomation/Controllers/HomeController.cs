@@ -1,19 +1,12 @@
 ﻿using ExcelAutomation.Models;
 using ExcelAutomation.Service;
+using Facade.Interfaces;
+using iText.Html2pdf;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Razor.Templating.Core;
 using System.Diagnostics;
 using System.Globalization;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http.Headers;
-using Facade.Interfaces;
-using Razor.Templating.Core;
-using iText.Html2pdf;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
-using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
-using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace ExcelAutomation.Controllers
 {
@@ -26,17 +19,21 @@ namespace ExcelAutomation.Controllers
         private readonly IPlanElevationReferenceService _planElevationReferenceService;
         private readonly IPlanElevationTextService _planElevationTextService;
         private readonly IConfiguration configuration;
+        private readonly ISugarCrmFacade _sugarCrmFacade;
+
         
 
         public HomeController(IProjectFacade projectFacade,
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ISugarCrmFacade sugarCrmFacade)
         {
             _projectFacade = projectFacade;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
             this.configuration = configuration;
+            _sugarCrmFacade = sugarCrmFacade;
         }
 
         public IActionResult Index(string status)
@@ -46,7 +43,7 @@ namespace ExcelAutomation.Controllers
             {
                 status = "Active";
             }
-
+            var opp = _sugarCrmFacade.SearchOppertunities("test");
             model.Status = status;
             model.Projects = _projectFacade.GetProjects(status);
             return View(model);
@@ -61,63 +58,12 @@ namespace ExcelAutomation.Controllers
         public IActionResult GetJobNameList(string searchString)
         {
                         
-            string sugarCrmUrl = this.configuration["SugarCrmUrl"] + "oauth2/token";
-            
-            using var client = new HttpClient();
-
-            var data = new Dictionary<string, string>
-            {
-                {"grant_type", "password"},
-                {"client_id", this.configuration["ClientId"]},
-                {"client_secret", this.configuration["CleintSecret"]},
-                {"username", this.configuration["CrmUserName"]},
-                {"password", this.configuration["CrmPassword"]},
-                {"platform", this.configuration["CrmPlatform"]}
-            };
-
-            var res = client.PostAsync(sugarCrmUrl, new FormUrlEncodedContent(data));
-
-            var content = res.Result.Content.ReadAsStringAsync();
-
-            var contentJson = JsonConvert.DeserializeObject<dynamic>(content.Result);
-
-            if (contentJson != null)
-            {
-                foreach (var obj in contentJson)
-                {
-                    client.DefaultRequestHeaders.Add("Authorization","Bearer " + obj.Value.Value);
-                    
-                    break;
-                }
-            }
-
-            var jsObject = new Root()
-            {
-                name = new Name()
-                {
-                    starts = searchString
-                }
-            };
-
-            var jsonData = JsonConvert.SerializeObject(jsObject);
-
-
-            var uri = this.configuration["SugarCrmUrl"] + "Opportunities?filter=[" + jsonData + "]";
-
-            var opp = client.GetAsync(uri).Result.Content.ReadAsStringAsync();
-
-            var returnVal = JsonConvert.DeserializeObject<OppertunityDto>(opp.Result);
+           var returnVal = _sugarCrmFacade.SearchOppertunities(searchString);
 
             return Ok(returnVal?.records);
         }
 
         
-
-        public class Root
-        {
-            public Name name { get; set; }
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -422,28 +368,6 @@ namespace ExcelAutomation.Controllers
             _projectService.RemoveFromGroup(projectDetailIds);
             return new OkResult();
         }
-
-        public class Name
-        {
-            [JsonProperty("$contains")]
-            public string starts { get; set; }
-        }
     }
 
-    public class OppertunityDto
-    {
-        public int next_offset { get; set; }
-
-        public List<Oppertunity> records { get; set; }
-    }
-
-    public class Oppertunity
-    {
-
-        public string Id { get; set; }
-        public string Name { get; set; }
-
-        public string Account_name { get; set; }
-        public string DisplayName => Name + " (" + Account_name + ")";
-    }
 }
