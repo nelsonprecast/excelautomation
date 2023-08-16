@@ -1,4 +1,5 @@
-﻿using Core.Domain.ViewOnly;
+﻿using Core.Domain;
+using Core.Domain.ViewOnly;
 using Core.Infrastructure;
 using Newtonsoft.Json;
 using Service.Interfaces;
@@ -67,15 +68,25 @@ namespace Service.Implementation
             return contentJson.Id;
         }
 
-        public string CreateProduct(string name,string productTemplateId)
+        public string CreateProduct(ProjectDetail projectDetail, string productTemplateId)
         {
             using var client = new HttpClient();
 
             var data = new
             {
-                name = name,
+                name = projectDetail.ItemName,
                 date_entered = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
                 product_template_id = productTemplateId,
+                list_price = projectDetail.LineItemCharge,
+                length_in_c = projectDetail.Length,
+                wid_c = projectDetail.Width,
+                height_in_c = projectDetail.Height,
+                product_category_c = projectDetail.Category,
+                linear_feet_c = projectDetail.TotalLf,
+                takeoff_color_c = projectDetail.TakeOffColor,
+                description = projectDetail.DispositionSpecialNote,
+                est_qty_c = projectDetail.Pieces,
+                cd_detail_c = projectDetail.DetailPage,
                 deleted = false,
                 _module = "Products"
             };

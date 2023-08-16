@@ -1,4 +1,5 @@
-﻿using Core.Domain.ViewOnly;
+﻿using Core.Domain;
+using Core.Domain.ViewOnly;
 
 namespace Service.Interfaces
 {
@@ -8,7 +9,7 @@ namespace Service.Interfaces
 
         string CreateProductTemplate(string name);
 
-        string CreateProduct(string name, string productTemplateId);
+        string CreateProduct(ProjectDetail projectDetail, string productTemplateId);
 
         SugarCrmOppertunityList SearchOppertunities(string searchString);
     }
