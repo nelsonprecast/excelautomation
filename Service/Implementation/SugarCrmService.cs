@@ -77,6 +77,7 @@ namespace Service.Implementation
                 name = projectDetail.ItemName,
                 date_entered = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
                 product_template_id = productTemplateId,
+                cost_price = projectDetail.LineItemCharge,
                 list_price = projectDetail.LineItemCharge,
                 length_in_c = projectDetail.Length,
                 wid_c = projectDetail.Width,

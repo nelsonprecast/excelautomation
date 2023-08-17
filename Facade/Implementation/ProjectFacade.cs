@@ -61,7 +61,7 @@ namespace Facade.Implementation
 
                 projectResponse.ProjectDetails = projectDetails.ToModel<ProjectDetailResponse>();
                 
-                foreach (var projectDetailResponse in projectResponse.ProjectDetails)
+                foreach (var projectDetailResponse in projectResponse.ProjectDetails.Where(x=>x.GroupId.HasValue))
                 {
                     projectDetailResponse.PlanElevationReferences =
                         planElevationReferences.Any(x => x.ProjectDetailId == projectDetailResponse.Id)
