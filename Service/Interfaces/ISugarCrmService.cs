@@ -7,11 +7,11 @@ namespace Service.Interfaces
     {
         string GetToken();
 
-        string CreateProductTemplate(string name);
+        string CreateProductTemplate(string token,string name);
 
-        string CreateOppertunities(Project project);
+        string CreateOppertunities(string token, Project project);
 
-        string CreateProduct(ProjectDetail projectDetail, string productTemplateId,string oppertunityId);
+        string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId,string oppertunityId);
 
         SugarCrmOppertunityList SearchOppertunities(string searchString);
     }

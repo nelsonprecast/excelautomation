@@ -103,7 +103,9 @@ namespace Facade.Implementation
             dbProject.Notes = project.Notes;
 
             _projectService.UpdateProject(dbProject);
-            _sugarCrmService.GetToken();
+            var token = _sugarCrmService.GetToken();
+            var oppertunityId = _sugarCrmService.CreateOppertunities(token,project);
+            var id = _sugarCrmService.CreateProductTemplate(token, project.ProjectName+" Catalog");
             foreach (var projectDetail in projectDetails)
             {
                 var dbProjectDetail = _projectDetailService.GetProjectDetailById(projectDetail.Id);
@@ -137,9 +139,8 @@ namespace Facade.Implementation
                 else
                     _projectDetailService.CreateProjectDetail(dbProjectDetail);
 
-                var oppertunityId = _sugarCrmService.CreateOppertunities(project);
-                var id = _sugarCrmService.CreateProductTemplate(projectDetail.ItemName);
-                var productId = _sugarCrmService.CreateProduct(projectDetail, id, oppertunityId);
+                
+                var productId = _sugarCrmService.CreateProduct(token, projectDetail, id, oppertunityId);
             }
         }
 

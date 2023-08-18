@@ -4,6 +4,7 @@ using Core.Infrastructure;
 using Newtonsoft.Json;
 using Service.Interfaces;
 using System.Text;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Service.Implementation
 {
@@ -46,7 +47,7 @@ namespace Service.Implementation
             return string.Empty;
         }
 
-        public string CreateProductTemplate(string name)
+        public string CreateProductTemplate(string token, string name)
         {
             using var client = new HttpClient();
 
@@ -58,7 +59,7 @@ namespace Service.Implementation
                 _module= "ProductTemplates"
             };
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "ProductTemplates", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
@@ -67,7 +68,7 @@ namespace Service.Implementation
             var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
             return contentJson.Id;
         }
-        public string CreateOppertunities(Project project)
+        public string CreateOppertunities(string token, Project project)
         {
             using var client = new HttpClient();
 
@@ -79,7 +80,7 @@ namespace Service.Implementation
                 _module = "Products"
             };
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "Opportunities", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
@@ -88,7 +89,7 @@ namespace Service.Implementation
             var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
             return contentJson.Id;
         }
-        public string CreateProduct(ProjectDetail projectDetail, string productTemplateId, string oppertunityId)
+        public string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId, string oppertunityId)
         {
             using var client = new HttpClient();
 
@@ -114,7 +115,7 @@ namespace Service.Implementation
                 _module = "Products"
             };
 
-            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
             var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "Products", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
