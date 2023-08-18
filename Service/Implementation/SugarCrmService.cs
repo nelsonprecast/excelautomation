@@ -67,8 +67,28 @@ namespace Service.Implementation
             var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
             return contentJson.Id;
         }
+        public string CreateOppertunities(Project project)
+        {
+            using var client = new HttpClient();
 
-        public string CreateProduct(ProjectDetail projectDetail, string productTemplateId)
+            var data = new
+            {
+                name = project.ProjectName,
+                date_entered = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                deleted = false,
+                _module = "Products"
+            };
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + GetToken());
+
+            var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "Opportunities", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+
+            var content = res.Result.Content.ReadAsStringAsync();
+
+            var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
+            return contentJson.Id;
+        }
+        public string CreateProduct(ProjectDetail projectDetail, string productTemplateId, string oppertunityId)
         {
             using var client = new HttpClient();
 
@@ -89,6 +109,7 @@ namespace Service.Implementation
                 description = projectDetail.DispositionSpecialNote,
                 est_qty_c = projectDetail.Pieces,
                 cd_detail_c = projectDetail.DetailPage,
+                opportunity_id = oppertunityId,
                 deleted = false,
                 _module = "Products"
             };
@@ -106,11 +127,11 @@ namespace Service.Implementation
         public SugarCrmOppertunityList SearchOppertunities(string searchString)
         {
             using var client = new HttpClient();
-            var jsObject = new
+            var jsObject = new Root()
             {
-                name = new 
+                name = new Name() 
                 {
-                    contains = searchString
+                    starts = searchString
                 }
             };
 

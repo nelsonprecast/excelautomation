@@ -137,8 +137,9 @@ namespace Facade.Implementation
                 else
                     _projectDetailService.CreateProjectDetail(dbProjectDetail);
 
+                var oppertunityId = _sugarCrmService.CreateOppertunities(project);
                 var id = _sugarCrmService.CreateProductTemplate(projectDetail.ItemName);
-                var productId = _sugarCrmService.CreateProduct(projectDetail, id);
+                var productId = _sugarCrmService.CreateProduct(projectDetail, id, oppertunityId);
             }
         }
 

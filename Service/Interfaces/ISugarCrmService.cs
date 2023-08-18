@@ -9,7 +9,9 @@ namespace Service.Interfaces
 
         string CreateProductTemplate(string name);
 
-        string CreateProduct(ProjectDetail projectDetail, string productTemplateId);
+        string CreateOppertunities(Project project);
+
+        string CreateProduct(ProjectDetail projectDetail, string productTemplateId,string oppertunityId);
 
         SugarCrmOppertunityList SearchOppertunities(string searchString);
     }
