@@ -93,6 +93,7 @@ namespace Facade.Implementation
         {
             var project = await BuildProject();
             var projectDetails = await BuildProjectDetails();
+            var sendToCrm = _httpContextAccessor.HttpContext.Request.Form["SendToCrm"];
 
             var dbProject = _projectService.GetProjectById(project.Id);
             dbProject.ProjectName = project.ProjectName;
@@ -103,9 +104,7 @@ namespace Facade.Implementation
             dbProject.Notes = project.Notes;
 
             _projectService.UpdateProject(dbProject);
-            var token = _sugarCrmService.GetToken();
-            var oppertunityId = _sugarCrmService.CreateOppertunities(token,project);
-            var id = _sugarCrmService.CreateProductTemplate(token, project.ProjectName+" Catalog");
+           
             foreach (var projectDetail in projectDetails)
             {
                 var dbProjectDetail = _projectDetailService.GetProjectDetailById(projectDetail.Id);
@@ -138,9 +137,20 @@ namespace Facade.Implementation
                     _projectDetailService.UpdateProjectDetail(dbProjectDetail);
                 else
                     _projectDetailService.CreateProjectDetail(dbProjectDetail);
+            }
 
-                
-                var productId = _sugarCrmService.CreateProduct(token, projectDetail, id, oppertunityId);
+            if(sendToCrm.Equals("1"))
+            {
+                var token = _sugarCrmService.GetToken();
+                var oppertunityId = _sugarCrmService.CreateOppertunities(token, project);
+                var id = _sugarCrmService.CreateProductTemplate(token, project.ProjectName + " Catalog");
+                var productIds = new List<string>();
+                foreach (var projectDetail in projectDetails)
+                {
+                    var productId = _sugarCrmService.CreateProduct(token, projectDetail, id);
+                    productIds.Add(productId);
+                }
+                _sugarCrmService.ConvertProductToQuotes(token,productIds,oppertunityId);
             }
         }
 

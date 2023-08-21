@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Service.Interfaces;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using RTools_NTS.Util;
 
 namespace Service.Implementation
 {
@@ -89,7 +90,7 @@ namespace Service.Implementation
             var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
             return contentJson.Id;
         }
-        public string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId, string oppertunityId)
+        public string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId)
         {
             using var client = new HttpClient();
 
@@ -110,7 +111,6 @@ namespace Service.Implementation
                 description = projectDetail.DispositionSpecialNote,
                 est_qty_c = projectDetail.Pieces,
                 cd_detail_c = projectDetail.DetailPage,
-                opportunity_id = oppertunityId,
                 deleted = false,
                 _module = "Products"
             };
@@ -143,6 +143,24 @@ namespace Service.Implementation
             var opp = client.GetAsync(_applicationSettings.SugarCrmUrl + "Opportunities?filter=[" + jsonData + "]").Result.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<SugarCrmOppertunityList>(opp.Result);
+        }
+
+        public void ConvertProductToQuotes(string token, ICollection<string> productIds, string oppertunityId)
+        {
+            using var client = new HttpClient();
+            var data = new
+            {
+                records = productIds.ToArray(),
+                opportunity_id = oppertunityId
+            };
+
+            client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
+
+            var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "RevenueLineItems/multi-quote", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+
+            var content = res.Result.Content.ReadAsStringAsync();
+
+            var contentJson = JsonConvert.DeserializeObject<CrmReturnObject>(content.Result);
         }
     }
 }

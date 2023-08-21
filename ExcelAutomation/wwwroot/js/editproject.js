@@ -288,3 +288,7 @@ function RemoveFromGroup() {
         });
     }
 }
+
+function SetCrmSaveBit() {
+    $('#SendToCrm').val("1");
+}

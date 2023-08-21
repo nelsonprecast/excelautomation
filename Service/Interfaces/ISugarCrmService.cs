@@ -11,8 +11,10 @@ namespace Service.Interfaces
 
         string CreateOppertunities(string token, Project project);
 
-        string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId,string oppertunityId);
+        string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId);
 
         SugarCrmOppertunityList SearchOppertunities(string searchString);
+
+        void ConvertProductToQuotes(string token, ICollection<string> productIds, string oppertunityId);
     }
 }

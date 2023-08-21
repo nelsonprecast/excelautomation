@@ -80,6 +80,7 @@
             @*<label for="projectname" class="col-sm-2">Job Name:</label>*@
     <div class="col-sm-2">
         <input id="projectId" name="projectId" type="hidden" value="@Model.Project.Id"  />
+                <input id="SendToCrm" name="SendToCrm" type="hidden" value="0" />
                 <input id="TabNumber" name="TabNumber" type="hidden" value="@Model.ActiveTab" />
         @*<input id="projectname" name="projectname" class="form-control" value="@Model.ProjectName" style="font-weight: bold" />*@
         <span><b>@Model.Project.ProjectName</b></span>
@@ -110,6 +111,7 @@
                     <div class="col" style="text-align:right;">
                         <button type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="ExportToExcelTable();exportReportToExcel(this);"><i class="fa fa-file-export"> <i class="fa fa-copy"></i> Export to EXCEL</i></button>
                         <button type="submit" style="background-color: #17a2b8" onclick="return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save</i> </button>
+                        <button type="submit" style="background-color: #17a2b8" onclick="SetCrmSaveBit();return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save & Send To Crm</i> </button>
                     </div>
                 </div>
             </div>
