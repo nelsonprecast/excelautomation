@@ -63,20 +63,25 @@ namespace Facade.Implementation
                 
                 foreach (var projectDetailResponse in projectResponse.ProjectDetails.Where(x=>x.GroupId.HasValue))
                 {
+                    
+
+                    projectDetailResponse.GroupName = projectGroups
+                        .FirstOrDefault(x => x.Id == projectDetailResponse.GroupId.Value).GroupName;
+
+                    
+                }
+                foreach (var projectDetailResponse in projectResponse.ProjectDetails)
+                {
                     projectDetailResponse.PlanElevationReferences =
                         planElevationReferences.Any(x => x.ProjectDetailId == projectDetailResponse.Id)
                             ? planElevationReferences.Where(x => x.ProjectDetailId == projectDetailResponse.Id)
                                 .Select(x => x.ToModel<PlanElevationReferenceResponse>())
                                 .ToList()
                             : null;
-
-                    projectDetailResponse.GroupName = projectGroups
-                        .FirstOrDefault(x => x.Id == projectDetailResponse.GroupId.Value).GroupName;
-
                     projectDetailResponse.PlanElevationJson = projectDetailResponse.PlanElevationReferences != null ?
                         JsonConvert.SerializeObject(projectDetailResponse.PlanElevationReferences, Formatting.Indented, new JsonSerializerSettings()
                         {
-                            TypeNameHandling = TypeNameHandling.Objects,
+                            TypeNameHandling = TypeNameHandling.None,
                             TypeNameAssemblyFormat = System.Runtime.Serialization.Formatters.FormatterAssemblyStyle.Simple,
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                             MaxDepth = 1

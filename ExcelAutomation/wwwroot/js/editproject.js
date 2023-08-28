@@ -59,16 +59,7 @@ function BindEvent() {
             var planElevationJsonArray = [];
             if (planElevationJsonString != "")
                 planElevationJsonArray= JSON.parse(planElevationJsonString);
-            
-
-            if ($(this).attr('readonly')) {
-                planElevationString = document.getElementById('rowFP' + rowIndex + 'PlanElevationHidden').value;
-                totalLFString = document.getElementById('rowFP' + rowIndex + 'TotalLFHidden').value;
-            }
-            else {
-                planElevationString =  document.getElementById('row' + rowIndex + 'PlanElevationHidden').value;
-                totalLFString =  document.getElementById('row' + rowIndex + 'TotalLFHidden').value;
-            }
+                       
             $('#ProjectDetailIdHidden').val(projectDetailId);
             $('#rows').html('');
             
@@ -76,7 +67,7 @@ function BindEvent() {
 
                 for (var i = 0; i < planElevationJsonArray.length; i++) {
                     AddPlanElevationRow();
-                    $('#PlanElevationReferanceId' + (i + 1)).val(planElevationJsonArray[i].PlanElevationReferanceId);
+                    $('#PlanElevationReferanceId' + (i + 1)).val(planElevationJsonArray[i].Id);
                     $('#planelevation' + (i + 1)).val(planElevationJsonArray[i].PlanElevationValue);
                     $('#lf' + (i + 1)).val(planElevationJsonArray[i].LFValue);
                     $('#pcs' + (i + 1)).val(planElevationJsonArray[i].PcsValue);

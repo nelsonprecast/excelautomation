@@ -22,6 +22,9 @@ namespace Facade.Implementation
             int projectDetailId, string planElevationReferenceJson)
         {
             var uploads = Path.Combine(_hostEnvironment.ContentRootPath, "PlanElevation");
+            if(!Directory.Exists(uploads)) {
+                Directory.CreateDirectory(uploads);
+            }
             foreach (var file in files)
             {
                 if (file.Length > 0)
@@ -41,20 +44,36 @@ namespace Facade.Implementation
                 }
             }
             var planElevationReferences = DoDeserilization(planElevationReferenceJson);
-            foreach (var palElevationReference in planElevationReferences)
+            var exitingPlanElevationReferences = _planElevationReferenceService.GetPlanElevationReferenceByProjectDetailId(projectDetailId);
+            foreach (var planElevationReference in planElevationReferences)
             {
-                if (palElevationReference.Id < 0)
+                if (planElevationReference.Id < 1) // Create
                 {
-                  
-                }
-                else
+                    planElevationReference.ProjectDetailId = projectDetailId;
+                    _planElevationReferenceService.CreatePlanElevationReference(planElevationReference);
+                } 
+                else   // Update
                 {
-                    
+                    var exitingPlanElevationReference = exitingPlanElevationReferences.FirstOrDefault(x=>x.Id == planElevationReference.Id);
+                    if(exitingPlanElevationReferences != null)
+                    {
+                        exitingPlanElevationReference.PlanElevationValue = planElevationReference.PlanElevationValue;
+                        exitingPlanElevationReference.PcsValue = planElevationReference.PcsValue;
+                        exitingPlanElevationReference.LFValue = planElevationReference.LFValue;
+                        exitingPlanElevationReference.ImagePath = planElevationReference.ImagePath;
+                        exitingPlanElevationReference.PageRefPath = planElevationReference.PageRefPath;
+
+                        _planElevationReferenceService.UpdatePlanElevationReference(exitingPlanElevationReference);
+                    }
                 }
 
             }
         }
 
+        public ICollection<PlanElevationReference> GetPlanElevationReferenceByProjectDetailId(int projectDetailId)
+        {
+            return _planElevationReferenceService.GetPlanElevationReferenceByProjectDetailId(projectDetailId);
+        }
 
 
         private List<PlanElevationReference>? DoDeserilization(string pElevationJsonArray)
