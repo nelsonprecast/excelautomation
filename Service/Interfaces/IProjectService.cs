@@ -9,5 +9,7 @@ namespace Service.Interfaces
         Project GetProjectById(int projectId);
 
         bool UpdateProject(Project project);
+
+        void SaveProject(Project project);
     }
 }

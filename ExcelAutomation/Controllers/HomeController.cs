@@ -1,4 +1,5 @@
-﻿using ExcelAutomation.Models;
+﻿using Core.Domain;
+using ExcelAutomation.Models;
 using ExcelAutomation.Service;
 using Facade.Interfaces;
 using iText.Html2pdf;
@@ -13,6 +14,7 @@ namespace ExcelAutomation.Controllers
     public class HomeController : Controller
     {
         private readonly IProjectFacade _projectFacade;
+        private readonly IPlanElevationTextFacade _planElevationTextFacade;
         private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -27,13 +29,14 @@ namespace ExcelAutomation.Controllers
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
-            ISugarCrmFacade sugarCrmFacade)
+            ISugarCrmFacade sugarCrmFacade,  IPlanElevationTextFacade planElevationTextFacade)
         {
             _projectFacade = projectFacade;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
             this.configuration = configuration;
             _sugarCrmFacade = sugarCrmFacade;
+            _planElevationTextFacade = planElevationTextFacade;
         }
 
         public IActionResult Index(string status)
@@ -78,10 +81,10 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public async Task<IActionResult> Save()
         {
-            var project = new ProjectDto();
+            var project = new Project();
             project.ProjectName = Request.Form["projectname"];
-            project.NominalCF = Request.Form["NominalCF"];
-            project.ActualCF = Request.Form["ActualCF"];
+            project.NominalCf = Request.Form["NominalCF"];
+            project.ActualCf = Request.Form["ActualCF"];
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"],"MM/dd/yyyy",CultureInfo.InvariantCulture);
             if (Request.Form.Files["ContactSpecs"] != null)
@@ -100,28 +103,26 @@ namespace ExcelAutomation.Controllers
             project.Notes = Request.Form["notes"];
             project.OpportunityId = Request.Form["opportunityId"];
             project.AccountName = Request.Form["accountName"];
-            var projectId = await _projectService.SaveProject(project);
+            _projectFacade.SaveProject(project);
 
-            var projectPlanElevationDto = new ProjectPlanElevationTextDto();
-            projectPlanElevationDto.ProjectId = projectId;
-            projectPlanElevationDto.PlanElevationText = new List<PlanElevationTextDto>();
+            ICollection<PlanElevationText> planElevationTextList = new List<PlanElevationText>();
             int i = 1;
             var key = "planElevationTextRow"+i;
             while (!string.IsNullOrEmpty(Request.Form[key]))
             {
-                var dtoObject = new PlanElevationTextDto
+                
+                planElevationTextList.Add(new PlanElevationText()
                 {
                     Text = Request.Form[key],
+                    ProjectId = project.Id,
                     CreatedDate = DateTime.Now
-                };
-                projectPlanElevationDto.PlanElevationText.Add(dtoObject);
+                });
                 i++;
                 key = "planElevationTextRow" + i;
             }
 
-            _planElevationTextService.Save(projectPlanElevationDto);
-
-            return RedirectToAction("Edit", new { id = projectId });
+            _planElevationTextFacade.Save(planElevationTextList);
+            return RedirectToAction("Edit", new { id = project.Id });
         }
 
         [HttpGet]

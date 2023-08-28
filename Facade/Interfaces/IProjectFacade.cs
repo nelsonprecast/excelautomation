@@ -1,4 +1,5 @@
-﻿using Core.Model.Response;
+﻿using Core.Domain;
+using Core.Model.Response;
 
 namespace Facade.Interfaces
 {
@@ -9,5 +10,7 @@ namespace Facade.Interfaces
         ProjectResponse GetProjectById(int projectId);
 
         Task UpdateProject();
+
+        void SaveProject(Project project);
     }
 }

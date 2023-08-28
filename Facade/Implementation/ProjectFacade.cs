@@ -32,7 +32,7 @@ namespace Facade.Implementation
             _planElevationTextService = planElevationTextService;
             _projectGroupService= projectGroupService;
             _httpContextAccessor= httpContextAccessor;
-            _sugarCrmService = sugarCrmService;;
+            _sugarCrmService = sugarCrmService;
         }
 
         public ICollection<ProjectResponse> GetProjects(string status)
@@ -84,7 +84,7 @@ namespace Facade.Implementation
                 }
             }
 
-            var planElevationText = _planElevationTextService.getPlanElevationTextByProjectId(projectId);
+            var planElevationText = _planElevationTextService.GetPlanElevationTextByProjectId(projectId);
             projectResponse.PlanElevationText = planElevationText.ToModel<PlanElevationTextResponse>();
             return projectResponse;
         }
@@ -152,6 +152,11 @@ namespace Facade.Implementation
                 }
                 _sugarCrmService.ConvertProductToQuotes(token,productIds,oppertunityId);
             }
+        }
+
+        public void SaveProject(Project project)
+        {
+            _projectService.SaveProject(project);
         }
 
 

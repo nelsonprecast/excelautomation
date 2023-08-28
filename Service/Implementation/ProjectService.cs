@@ -30,5 +30,10 @@ namespace Service.Implementation
         {
             return Repository.Update(project);
         }
+
+        public void SaveProject(Project project)
+        {
+            Repository.Insert(project);
+        }
     }
 }

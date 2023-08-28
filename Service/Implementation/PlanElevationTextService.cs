@@ -11,9 +11,19 @@ namespace Service.Implementation
 
         }
 
-        public ICollection<PlanElevationText> getPlanElevationTextByProjectId(int projectId)
+        public ICollection<PlanElevationText> GetPlanElevationTextByProjectId(int projectId)
         {
             return Repository.Table.Where(x => x.ProjectId == projectId).ToList();
+        }
+
+        public void Save(PlanElevationText planElevationText)
+        {
+            Repository.Insert(planElevationText);
+        }
+
+        public void Save(ICollection<PlanElevationText> planElevationTextObjects)
+        {
+            Repository.Insert(planElevationTextObjects);
         }
     }
 }

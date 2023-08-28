@@ -1,8 +1,8 @@
 ﻿using Core.Domain;
 
-namespace Service.Interfaces
+namespace Facade.Interfaces
 {
-    public interface IPlanElevationTextService
+    public interface IPlanElevationTextFacade
     {
         ICollection<PlanElevationText> GetPlanElevationTextByProjectId(int projectId);
 

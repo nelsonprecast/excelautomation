@@ -44,9 +44,9 @@ namespace Core.Domain
 
         public string? LineItemCharge { get; set; }
 
-        public string TotalActualNominalValue { get; set; }
+        public string? TotalActualNominalValue { get; set; }
 
-        public string Category { get; set; }
+        public string? Category { get; set; }
 
         public virtual Project Project { get; set; } = null!;
 
