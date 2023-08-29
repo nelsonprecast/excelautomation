@@ -147,15 +147,16 @@ namespace Facade.Implementation
             if(sendToCrm.Equals("1"))
             {
                 var token = _sugarCrmService.GetToken();
-                var oppertunityId = _sugarCrmService.CreateOppertunities(token, project);
-                var id = _sugarCrmService.CreateProductTemplate(token, project.ProjectName + " Catalog");
+                //var oppertunityId = _sugarCrmService.CreateOppertunities(token, project);
+                
                 var productIds = new List<string>();
                 foreach (var projectDetail in projectDetails)
                 {
+                    var id = _sugarCrmService.CreateProductTemplate(token, projectDetail.ItemName + " Catalog");
                     var productId = _sugarCrmService.CreateProduct(token, projectDetail, id);
                     productIds.Add(productId);
                 }
-                _sugarCrmService.ConvertProductToQuotes(token,productIds,oppertunityId);
+                _sugarCrmService.ConvertProductToQuotes(token,productIds,dbProject.OpportunityId);
             }
         }
 

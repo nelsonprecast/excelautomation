@@ -49,6 +49,7 @@ namespace Facade.Implementation
             {
                 if (planElevationReference.Id < 1) // Create
                 {
+                    planElevationReference.Id = 0;
                     planElevationReference.ProjectDetailId = projectDetailId;
                     _planElevationReferenceService.CreatePlanElevationReference(planElevationReference);
                 } 
