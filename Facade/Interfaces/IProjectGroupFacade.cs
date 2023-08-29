@@ -7,5 +7,7 @@
         bool DeleteGroup(int groupId);
 
         bool RemoveFromGroup(string projectDetailIds);
+
+        void ChangeGroup(int projectDetailId, int groupId);
     }
 }

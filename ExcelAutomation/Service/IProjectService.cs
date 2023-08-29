@@ -6,7 +6,6 @@ namespace ExcelAutomation.Service
     {
         int SaveGroup(ProjectGroupDto projectGroupDto);
         
-        void ChangeGroup(int projectDetailId, int groupId);
         
     }
 }

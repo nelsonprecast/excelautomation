@@ -39,5 +39,12 @@ namespace Facade.Implementation
             _projectDetailService.UpdateProjectDetail(projectDetails);
             return true;
         }
+
+        public void ChangeGroup(int projectDetailId, int groupId)
+        {
+            var projectDetail = _projectDetailService.GetProjectDetailById(projectDetailId);
+            projectDetail.GroupId = groupId < 0 ? null : groupId;
+            _projectDetailService.UpdateProjectDetail(projectDetail);
+        }
     }
 }

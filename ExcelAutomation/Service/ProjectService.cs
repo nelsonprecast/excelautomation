@@ -37,15 +37,6 @@ namespace ExcelAutomation.Service
 
         }
         
-        public void ChangeGroup(int projectDetailId, int groupId){
-            var dbObject = _context.ProjectDetails.FirstOrDefault(p => p.ProjectDetailId == projectDetailId);
-            if (dbObject != null)
-            {
-                dbObject.GroupId = groupId < 0 ? null : groupId;
-                _context.Update(dbObject);
-                _context.SaveChanges();
-            }
-        }
        
 
 

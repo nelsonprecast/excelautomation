@@ -18,10 +18,8 @@ namespace ExcelAutomation.Controllers
         private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IPlanElevationReferenceService _planElevationReferenceService;
         private readonly IPlanElevationReferenceFacade _planElevationReferenceFacade;
         private readonly IPlanElevationTextService _planElevationTextService;
-        private readonly IConfiguration configuration;
         private readonly ISugarCrmFacade _sugarCrmFacade;
         private readonly IProjectGroupFacade _projectGroupFacade;
 
@@ -30,7 +28,6 @@ namespace ExcelAutomation.Controllers
         public HomeController(IProjectFacade projectFacade,
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
-            IConfiguration configuration,
             ISugarCrmFacade sugarCrmFacade,  
             IPlanElevationTextFacade planElevationTextFacade, 
             IProjectGroupFacade projectGroupFacade, 
@@ -39,7 +36,6 @@ namespace ExcelAutomation.Controllers
             _projectFacade = projectFacade;
             _hostingEnvironment = environment;
             _webHostEnvironment = webHostEnvironment;
-            this.configuration = configuration;
             _sugarCrmFacade = sugarCrmFacade;
             _planElevationTextFacade = planElevationTextFacade;
             _projectGroupFacade = projectGroupFacade;
@@ -272,7 +268,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult ChangeGroup(int projectDetailId,int GroupId)
         {
             if (GroupId == 0) return new BadRequestResult();
-            _projectService.ChangeGroup(projectDetailId, GroupId);
+            _projectGroupFacade.ChangeGroup(projectDetailId, GroupId);
             return new OkResult();
         }
 
