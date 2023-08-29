@@ -2,11 +2,10 @@ using AutoMapper;
 using Core.Infrastructure;
 using Core.Infrastructure.Mapper;
 using Facade.Interfaces;
-using Infrastructure.Data.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Service.Interfaces;
-using Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +20,8 @@ var connectionString = builder.Configuration.GetConnectionString("ExcelAutomatio
 builder.Services.AddDbContext<IDbContext, ExcelAutomationDbContext>(options => options.UseSqlServer(connectionString));
 
 // Register Repository
+builder.Services
+    .AddScoped<ExcelAutomation.Service.IPlanElevationTextService, ExcelAutomation.Service.PlanElevationTextService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 // Register Services
