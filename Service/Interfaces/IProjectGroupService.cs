@@ -11,5 +11,7 @@ namespace Service.Interfaces
         bool EditGroup(ProjectGroup projectGroup);
 
         bool DeleteGroup(ProjectGroup projectGroup);
+
+        void CreateGroup(ProjectGroup projectGroup);
     }
 }

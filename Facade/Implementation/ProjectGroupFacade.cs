@@ -1,4 +1,7 @@
-﻿using Facade.Interfaces;
+﻿using Core.Domain;
+using Core.Model.Request;
+using Facade.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Service.Interfaces;
 
 namespace Facade.Implementation
@@ -45,6 +48,25 @@ namespace Facade.Implementation
             var projectDetail = _projectDetailService.GetProjectDetailById(projectDetailId);
             projectDetail.GroupId = groupId < 0 ? null : groupId;
             _projectDetailService.UpdateProjectDetail(projectDetail);
+        }
+
+        public int SaveGroup(ProjectGroupRequest request)
+        {
+            var projectGroup = new ProjectGroup();
+            projectGroup.GroupName = request.GroupName;
+            projectGroup.CreatedDate = DateTime.Now;
+
+            _projectGroupService.CreateGroup(projectGroup);
+
+            var projectDetails = _projectDetailService.GetProjectDetailByIds(request.ProjectDetailIds.ToArray());
+
+            foreach (var projectDetail in projectDetails)
+            {
+                projectDetail.GroupId = projectGroup.Id;
+                _projectDetailService.UpdateProjectDetail(projectDetail);
+            }
+
+            return projectDetails.FirstOrDefault().ProjectId;
         }
     }
 }

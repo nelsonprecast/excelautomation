@@ -1,4 +1,6 @@
-﻿namespace Facade.Interfaces
+﻿using Core.Model.Request;
+
+namespace Facade.Interfaces
 {
     public interface IProjectGroupFacade
     {
@@ -9,5 +11,7 @@
         bool RemoveFromGroup(string projectDetailIds);
 
         void ChangeGroup(int projectDetailId, int groupId);
+
+        int SaveGroup(ProjectGroupRequest request);
     }
 }

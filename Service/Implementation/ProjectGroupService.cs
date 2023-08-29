@@ -31,5 +31,10 @@ namespace Service.Implementation
             Repository.Delete(projectGroup);
             return true;
         }
+
+        public void CreateGroup(ProjectGroup projectGroup)
+        {
+            Repository.Insert(projectGroup);
+        }
     }
 }

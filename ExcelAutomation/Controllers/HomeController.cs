@@ -1,6 +1,6 @@
 ﻿using Core.Domain;
+using Core.Model.Request;
 using ExcelAutomation.Models;
-using ExcelAutomation.Service;
 using Facade.Interfaces;
 using iText.Html2pdf;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Razor.Templating.Core;
 using System.Diagnostics;
 using System.Globalization;
+using IPlanElevationTextService = ExcelAutomation.Service.IPlanElevationTextService;
 
 namespace ExcelAutomation.Controllers
 {
@@ -15,7 +16,6 @@ namespace ExcelAutomation.Controllers
     {
         private readonly IProjectFacade _projectFacade;
         private readonly IPlanElevationTextFacade _planElevationTextFacade;
-        private readonly IProjectService _projectService;
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPlanElevationReferenceFacade _planElevationReferenceFacade;
@@ -258,9 +258,9 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateGroup(ProjectGroupDto projectGroupDto)
+        public IActionResult CreateGroup(ProjectGroupRequest request)
         {
-            var projectId = _projectService.SaveGroup(projectGroupDto);
+            var projectId = _projectGroupFacade.SaveGroup(request);
             return RedirectToAction("Edit", new { id = projectId });
         }
 
