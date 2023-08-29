@@ -15,5 +15,21 @@ namespace Service.Implementation
         {
             return Repository.Table.Where(x => ids.Contains(x.Id)).ToList();
         }
+
+        public ProjectGroup GetProjectGroupById(int projectGroupId)
+        {
+            return Repository.Table.FirstOrDefault(x => x.Id == projectGroupId);
+        }
+
+        public bool EditGroup(ProjectGroup projectGroup)
+        {
+            return Repository.Update(projectGroup);
+        }
+
+        public bool DeleteGroup(ProjectGroup projectGroup)
+        {
+            Repository.Delete(projectGroup);
+            return true;
+        }
     }
 }

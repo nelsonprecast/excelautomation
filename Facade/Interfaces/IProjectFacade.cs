@@ -12,5 +12,9 @@ namespace Facade.Interfaces
         Task UpdateProject();
 
         void SaveProject(Project project);
+
+        void ChangeProjectsStatus(int[] projectIds, string status);
+
+        int CopyProject(int id);
     }
 }

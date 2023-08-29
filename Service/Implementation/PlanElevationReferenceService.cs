@@ -30,5 +30,15 @@ namespace Service.Implementation
         {
             return Repository.Update(planElevationReference);
         }
+
+        public PlanElevationReference GetPlanElevationReferanceById(int id)
+        {
+            return Repository.GetById(id);
+        }
+
+        public void DeleteProjectPlanElevationReferance(PlanElevationReference planElevationReference)
+        {
+            Repository.Delete(planElevationReference);
+        }
     }
 }

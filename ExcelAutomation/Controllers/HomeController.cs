@@ -19,17 +19,22 @@ namespace ExcelAutomation.Controllers
         private IWebHostEnvironment _hostingEnvironment;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPlanElevationReferenceService _planElevationReferenceService;
+        private readonly IPlanElevationReferenceFacade _planElevationReferenceFacade;
         private readonly IPlanElevationTextService _planElevationTextService;
         private readonly IConfiguration configuration;
         private readonly ISugarCrmFacade _sugarCrmFacade;
+        private readonly IProjectGroupFacade _projectGroupFacade;
 
-        
+
 
         public HomeController(IProjectFacade projectFacade,
             IWebHostEnvironment environment,
             IWebHostEnvironment webHostEnvironment,
             IConfiguration configuration,
-            ISugarCrmFacade sugarCrmFacade,  IPlanElevationTextFacade planElevationTextFacade)
+            ISugarCrmFacade sugarCrmFacade,  
+            IPlanElevationTextFacade planElevationTextFacade, 
+            IProjectGroupFacade projectGroupFacade, 
+            IPlanElevationReferenceFacade planElevationReferenceFacade)
         {
             _projectFacade = projectFacade;
             _hostingEnvironment = environment;
@@ -37,6 +42,8 @@ namespace ExcelAutomation.Controllers
             this.configuration = configuration;
             _sugarCrmFacade = sugarCrmFacade;
             _planElevationTextFacade = planElevationTextFacade;
+            _projectGroupFacade = projectGroupFacade;
+            _planElevationReferenceFacade = planElevationReferenceFacade;
         }
 
         public IActionResult Index(string status)
@@ -272,14 +279,14 @@ namespace ExcelAutomation.Controllers
 
         public IActionResult CopyProject(int id)
         {
-            var newProjectId = _projectService.CopyProject(id);
+            var newProjectId = _projectFacade.CopyProject(id);
             return RedirectToAction("Edit", new { id = newProjectId });
         }
 
         [HttpPost]
         public IActionResult DeleteProjectPlanElevation(int id)
         {
-            _projectService.DeleteProjectPlanElevationReferances(id);
+            _planElevationReferenceFacade.DeleteProjectPlanElevationReferance(id);
             return Ok();
         }
 
@@ -290,7 +297,7 @@ namespace ExcelAutomation.Controllers
             var projectIdArray = new List<int>();
             foreach (var projectId in projectIds)
                 projectIdArray.Add(Convert.ToInt32(projectId));
-            _projectService.ChangeProjectsStatus(projectIdArray.ToArray(), "Archived");
+            _projectFacade.ChangeProjectsStatus(projectIdArray.ToArray(), "Archived");
             return RedirectToAction("Index");
         }
 
@@ -301,21 +308,21 @@ namespace ExcelAutomation.Controllers
             var projectIdArray = new List<int>();
             foreach (var projectId in projectIds)
                 projectIdArray.Add(Convert.ToInt32(projectId));
-            _projectService.ChangeProjectsStatus(projectIdArray.ToArray(), "Active");
+            _projectFacade.ChangeProjectsStatus(projectIdArray.ToArray(), "Active");
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult UpdateGroup(int groupId, string groupName)
         {
-            _projectService.EditGroup(groupId, groupName);
+            _projectGroupFacade.EditGroup(groupId, groupName);
             return new OkResult();
         }
 
         [HttpPost]
         public IActionResult DeleteGroup(int groupId)
         {
-            _projectService.DeleteGroup(groupId);
+            _projectGroupFacade.DeleteGroup(groupId);
             return new OkResult();
         }
 

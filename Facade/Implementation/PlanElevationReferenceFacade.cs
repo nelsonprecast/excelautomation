@@ -81,5 +81,11 @@ namespace Facade.Implementation
         {
             return JsonConvert.DeserializeObject<List<PlanElevationReference>>(pElevationJsonArray);
         }
+
+        public void DeleteProjectPlanElevationReferance(int id)
+        {
+            var planElevationReference = _planElevationReferenceService.GetPlanElevationReferanceById(id);
+            _planElevationReferenceService.DeleteProjectPlanElevationReferance(planElevationReference);
+        }
     }
 }

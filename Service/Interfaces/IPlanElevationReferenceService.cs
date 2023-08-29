@@ -12,5 +12,8 @@ namespace Service.Interfaces
 
         bool UpdatePlanElevationReference(PlanElevationReference planElevationReference);
 
+        PlanElevationReference GetPlanElevationReferanceById(int id);
+
+        void DeleteProjectPlanElevationReferance(PlanElevationReference planElevationReference);
     }
 }

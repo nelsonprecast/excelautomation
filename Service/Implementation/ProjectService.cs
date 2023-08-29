@@ -35,5 +35,15 @@ namespace Service.Implementation
         {
             Repository.Insert(project);
         }
+
+        public void ChangeProjectsStatus(ICollection<Project> projects)
+        {
+
+        }
+
+        public ICollection<Project> GetProjectByIds(int[] ids)
+        {
+            return Repository.Table.Where(x => ids.Contains(x.Id)).ToList();
+        }
     }
 }

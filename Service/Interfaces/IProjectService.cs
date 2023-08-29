@@ -11,5 +11,9 @@ namespace Service.Interfaces
         bool UpdateProject(Project project);
 
         void SaveProject(Project project);
+
+        void ChangeProjectsStatus(ICollection<Project> projects);
+
+        ICollection<Project> GetProjectByIds(int[] ids);
     }
 }

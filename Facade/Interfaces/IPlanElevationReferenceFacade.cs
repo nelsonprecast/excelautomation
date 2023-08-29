@@ -8,5 +8,7 @@ namespace Facade.Interfaces
         void SavePlanElevationReference(ICollection<IFormFile> files, ICollection<IFormFile> ifiles, int projectDetailId, string planElevationReferenceJson);
 
         ICollection<PlanElevationReference> GetPlanElevationReferenceByProjectDetailId(int projectDetailId);
+
+        void DeleteProjectPlanElevationReferance(int id);
     }
 }

@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core.Domain;
+﻿using Core.Domain;
 
 namespace Service.Interfaces
 {
     public interface IProjectGroupService
     {
         ICollection<ProjectGroup> GetProjectGroupByIds(int[] ids);
+
+        ProjectGroup GetProjectGroupById(int projectGroupId);
+
+        bool EditGroup(ProjectGroup projectGroup);
+
+        bool DeleteGroup(ProjectGroup projectGroup);
     }
 }

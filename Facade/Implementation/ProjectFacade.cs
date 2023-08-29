@@ -154,9 +154,9 @@ namespace Facade.Implementation
                 {
                     var id = _sugarCrmService.CreateProductTemplate(token, projectDetail.ItemName + " Catalog");
                     var productId = _sugarCrmService.CreateProduct(token, projectDetail, id);
-                    productIds.Add(productId);
+                    productIds.Add("1bc91188-4655-11ee-b994-02b57938b20d");
                 }
-                _sugarCrmService.ConvertProductToQuotes(token,productIds,dbProject.OpportunityId);
+                _sugarCrmService.ConvertProductToQuotes(token,productIds, "54f5ce02-4654-11ee-af1e-023ef1e03e82");
             }
         }
 
@@ -165,6 +165,65 @@ namespace Facade.Implementation
             _projectService.SaveProject(project);
         }
 
+        public void ChangeProjectsStatus(int[] projectIds, string status)
+        {
+            var projects = _projectService.GetProjectByIds(projectIds);
+            foreach (var project in projects)
+            {
+                project.Status = status;
+            }
+            _projectService.ChangeProjectsStatus(projects);
+        }
+
+        public int CopyProject(int id)
+        {
+            var projectId = 0;
+            var exitingProject = _projectService.GetProjectById(id);
+            if (exitingProject != null)
+            {
+                var exitingProjectDetails = _projectDetailService.GetProjectDetailByProjectId(id);
+
+                var newProject = new Project();
+                newProject.ProjectName = exitingProject.ProjectName + " Copy";
+                newProject.ActualCf = exitingProject.ActualCf;
+                newProject.NominalCf = exitingProject.NominalCf;
+                newProject.CreatedDate = DateTime.Now;
+                newProject.LineItemTotal = exitingProject.LineItemTotal;
+
+                _projectService.SaveProject(newProject);
+                projectId = newProject.Id;
+                foreach (var projectDetail in exitingProjectDetails)
+                {
+                    var newProjectDetail = new ProjectDetail();
+                    newProjectDetail.Wd = projectDetail.Wd;
+                    newProjectDetail.ItemName = projectDetail.ItemName;
+                    newProjectDetail.DispositionSpecialNote = projectDetail.DispositionSpecialNote;
+                    newProjectDetail.DetailPage = projectDetail.DetailPage;
+                    newProjectDetail.TakeOffColor = projectDetail.TakeOffColor;
+                    newProjectDetail.Length = projectDetail.Length;
+                    newProjectDetail.Width = projectDetail.Width;
+                    newProjectDetail.Height = projectDetail.Height;
+                    newProjectDetail.Pieces = projectDetail.Pieces;
+                    newProjectDetail.TotalLf = projectDetail.TotalLf;
+                    newProjectDetail.ActSfcflf = projectDetail.ActSfcflf;
+                    newProjectDetail.ActCfpcs = projectDetail.ActCfpcs;
+                    newProjectDetail.TotalActCf = projectDetail.TotalActCf;
+                    newProjectDetail.NomCflf = projectDetail.NomCflf;
+                    newProjectDetail.NomCfpcs = projectDetail.NomCfpcs;
+                    newProjectDetail.TotalNomCf = projectDetail.TotalNomCf;
+                    newProjectDetail.MoldQty = projectDetail.MoldQty;
+                    newProjectDetail.LineItemCharge = projectDetail.LineItemCharge;
+                    newProjectDetail.ProjectId = newProject.Id;
+                    newProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
+                    newProjectDetail.Category = projectDetail.Category;
+                    newProjectDetail.ImagePath = projectDetail.ImagePath;
+                    newProject.ProjectDetails.Add(newProjectDetail);
+                }
+                _projectDetailService.CreateProjectDetail(newProject.ProjectDetails);
+            }
+
+            return projectId;
+        }
 
         #region Private Methods
 
