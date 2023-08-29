@@ -6,10 +6,12 @@ namespace Facade.Implementation
     public class ProjectGroupFacade : IProjectGroupFacade
     {
         private readonly IProjectGroupService _projectGroupService;
+        private readonly IProjectDetailService _projectDetailService;
 
-        public ProjectGroupFacade(IProjectGroupService projectGroupService)
+        public ProjectGroupFacade(IProjectGroupService projectGroupService,IProjectDetailService projectDetailService)
         {
-            _projectGroupService = projectGroupService;;
+            _projectGroupService = projectGroupService;
+            _projectDetailService = projectDetailService;
         }
 
         public bool EditGroup(int groupId, string groupName)
@@ -23,6 +25,19 @@ namespace Facade.Implementation
         {
             var projectGroup = _projectGroupService.GetProjectGroupById(groupId);
             return _projectGroupService.DeleteGroup(projectGroup);
+        }
+
+        public bool RemoveFromGroup(string projectDetailIds)
+        {
+            var projectDetailIdArray = projectDetailIds.Split(',').Select(x => int.Parse(x));
+            var projectDetails = _projectDetailService.GetProjectDetailByIds(projectDetailIdArray.ToArray());
+            foreach (var projectDetail in projectDetails)
+            {
+                projectDetail.GroupId = null;
+            }
+
+            _projectDetailService.UpdateProjectDetail(projectDetails);
+            return true;
         }
     }
 }

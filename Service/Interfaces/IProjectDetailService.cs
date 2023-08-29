@@ -10,6 +10,8 @@ namespace Service.Interfaces
 
         ICollection<ProjectDetail> GetProjectDetailByProjectId(int projectId);
 
+        ICollection<ProjectDetail> GetProjectDetailByIds(int[] ids);
+
         ProjectDetail GetProjectDetailById(int id);
 
         void DeleteProjectDetail(ProjectDetail projectDetail);
@@ -17,5 +19,6 @@ namespace Service.Interfaces
         bool UpdateProjectDetail(ProjectDetail entity);
 
         bool UpdateProjectDetail(ICollection<ProjectDetail> entities);
+        
     }
 }

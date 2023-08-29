@@ -225,6 +225,14 @@ namespace Facade.Implementation
             return projectId;
         }
 
+
+        public int DeleteProjectDetailRow(int id)
+        {
+            var projectDetail = _projectDetailService.GetProjectDetailById(id);
+            _projectDetailService.DeleteProjectDetail(projectDetail);
+            return projectDetail.ProjectId;
+        }
+
         #region Private Methods
 
         private async Task<Project> BuildProject()

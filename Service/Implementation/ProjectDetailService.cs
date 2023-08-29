@@ -26,6 +26,11 @@ namespace Service.Implementation
             return Repository.Table.Where(x => x.ProjectId == projectId).ToList();
         }
 
+        public ICollection<ProjectDetail> GetProjectDetailByIds(int[] ids)
+        {
+            return Repository.Table.Where(x => ids.Contains(x.Id)).ToList();
+        }
+
         public ProjectDetail GetProjectDetailById(int id)
         {
             return Repository.GetById(id);

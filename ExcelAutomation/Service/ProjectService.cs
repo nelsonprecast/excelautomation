@@ -15,18 +15,6 @@ namespace ExcelAutomation.Service
             _context = context;
         }
         
-        public int DeleteProjectDetailRow(int id)
-        {
-            var projectDetail = _context.ProjectDetails.FirstOrDefault(x => x.ProjectDetailId == id);
-            if(projectDetail  != null)
-            {
-                _context.Remove(projectDetail);
-                _context.SaveChanges();
-            }
-
-            return projectDetail.ProjectId;
-        }
-        
         public int SaveGroup(ProjectGroupDto projectGroupDto)
         {
             var newGroup = new ProjectGroup();
@@ -58,19 +46,7 @@ namespace ExcelAutomation.Service
                 _context.SaveChanges();
             }
         }
-        
-        public bool RemoveFromGroup(string projectDetailIds)
-        {
-            var projectDetailIdArray = projectDetailIds.Split(',').Select(x => int.Parse(x));
-            var projectDetails = _context.ProjectDetails.Where(x => projectDetailIdArray.Contains(x.ProjectDetailId)).ToList();
-            foreach (var projectDetail in projectDetails)
-            {
-                projectDetail.GroupId = null;
-            }
-            _context.UpdateRange(projectDetails);
-            _context.SaveChanges();
-            return true;
-        }
+       
 
 
 

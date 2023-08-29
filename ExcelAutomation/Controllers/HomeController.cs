@@ -250,7 +250,7 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public IActionResult DeleteRow(int id)
         {
-           var projectId=  _projectService.DeleteProjectDetailRow(id);
+           var projectId=  _projectFacade.DeleteProjectDetailRow(id);
            return RedirectToAction("Edit", new {id = projectId});
         }
 
@@ -329,7 +329,7 @@ namespace ExcelAutomation.Controllers
         [HttpPost]
         public IActionResult RemoveFromGroup(string projectDetailIds)
         {
-            _projectService.RemoveFromGroup(projectDetailIds);
+            _projectGroupFacade.RemoveFromGroup(projectDetailIds);
             return new OkResult();
         }
     }

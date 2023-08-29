@@ -16,5 +16,7 @@ namespace Facade.Interfaces
         void ChangeProjectsStatus(int[] projectIds, string status);
 
         int CopyProject(int id);
+
+        int DeleteProjectDetailRow(int id);
     }
 }
