@@ -1,6 +1,7 @@
 using AutoMapper;
 using Core.Infrastructure;
 using Core.Infrastructure.Mapper;
+using ExcelAutomation.Data;
 using Facade.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
@@ -18,10 +19,11 @@ var connectionString = builder.Configuration.GetConnectionString("ExcelAutomatio
 
 // DB Context
 builder.Services.AddDbContext<IDbContext, ExcelAutomationDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ExcelAutomationContext>(x => x.UseSqlServer(connectionString));
 
 // Register Repository
-//builder.Services
-//    .AddScoped<ExcelAutomation.Service.IPlanElevationTextService, ExcelAutomation.Service.PlanElevationTextService>();
+builder.Services
+    .AddScoped<ExcelAutomation.Service.IPlanElevationTextService, ExcelAutomation.Service.PlanElevationTextService>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 // Register Services

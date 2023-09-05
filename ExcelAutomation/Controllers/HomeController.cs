@@ -31,7 +31,8 @@ namespace ExcelAutomation.Controllers
             ISugarCrmFacade sugarCrmFacade,  
             IPlanElevationTextFacade planElevationTextFacade, 
             IProjectGroupFacade projectGroupFacade, 
-            IPlanElevationReferenceFacade planElevationReferenceFacade)
+            IPlanElevationReferenceFacade planElevationReferenceFacade,
+            IPlanElevationTextService planElevationTextService)
         {
             _projectFacade = projectFacade;
             _hostingEnvironment = environment;
@@ -40,6 +41,7 @@ namespace ExcelAutomation.Controllers
             _planElevationTextFacade = planElevationTextFacade;
             _projectGroupFacade = projectGroupFacade;
             _planElevationReferenceFacade = planElevationReferenceFacade;
+            _planElevationTextService = planElevationTextService;
         }
 
         public IActionResult Index(string status)
