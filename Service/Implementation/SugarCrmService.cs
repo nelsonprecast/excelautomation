@@ -77,8 +77,9 @@ namespace Service.Implementation
             {
                 name = project.ProjectName,
                 date_entered = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:sszzz"),
-                deleted = false,
-                _module = "Products"
+                date_closed = DateTime.Now.AddDays(1).ToString("yyyy-MM-ddTHH:mm:sszzz"),
+                amount=1000,
+                deleted = false
             };
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
@@ -136,6 +137,7 @@ namespace Service.Implementation
                 product_template_id = productTemplateId,
                 cost_price = projectDetail.LineItemCharge,
                 list_price = projectDetail.LineItemCharge,
+                discount_price = projectDetail.LineItemCharge,
                 length_in_c = projectDetail.Length,
                 wid_c = projectDetail.Width,
                 height_in_c = projectDetail.Height,
@@ -173,13 +175,12 @@ namespace Service.Implementation
                             }
                         }
                     }
-                },
-                _module = "Products"
+                }
             };
 
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
 
-            var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "Products", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
+            var res = client.PostAsync(_applicationSettings.SugarCrmUrl + "Quotes", new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json"));
 
             var content = res.Result.Content.ReadAsStringAsync();
 
