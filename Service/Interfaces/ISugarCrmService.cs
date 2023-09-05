@@ -9,9 +9,15 @@ namespace Service.Interfaces
 
         string CreateProductTemplate(string token,string name);
 
-        string CreateOppertunities(string token, Project project);
+        string CreateOpportunity(string token, Project project);
 
         string CreateProduct(string token, ProjectDetail projectDetail, string productTemplateId);
+
+        dynamic GetProduct(ProjectDetail projectDetail, string productTemplateId);
+
+        string ConvertQuotes(string token, Project project, string oppertunityId);
+
+        string CreateQuote(string token, string quoteName, ICollection<dynamic> _products, string opportunityId);
 
         SugarCrmOppertunityList SearchOppertunities(string searchString);
 
