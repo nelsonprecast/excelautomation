@@ -24,7 +24,7 @@ namespace Facade.Implementation
 
         public ProjectFacade(IProjectService projectService,IProjectDetailService projectDetailService,IPlanElevationReferenceService planElevationReferenceService
                             ,IPlanElevationTextService planElevationTextService,IProjectGroupService projectGroupService,IHttpContextAccessor httpContextAccessor
-                            ,ISugarCrmService sugarCrmService)
+                            ,ISugarCrmService sugarCrmService,IHostEnvironment hostEnvironment)
         {
             _projectService= projectService;
             _projectDetailService= projectDetailService;
@@ -33,6 +33,7 @@ namespace Facade.Implementation
             _projectGroupService= projectGroupService;
             _httpContextAccessor= httpContextAccessor;
             _sugarCrmService = sugarCrmService;
+            _hostEnvironment= hostEnvironment;
         }
 
         public ICollection<ProjectResponse> GetProjects(string status)
@@ -253,7 +254,7 @@ namespace Facade.Implementation
             {
                 var file = Request.Form.Files["ContactSpecs"];
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "ContactSpecs\\") + fileName;
+                var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot\\ContactSpecs\\") + fileName;
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
@@ -304,7 +305,7 @@ namespace Facade.Implementation
                 {
                     var file = Request.Form.Files["row" + i + "File"];
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
-                    var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "ProjectImages\\") + fileName;
+                    var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot\\ProjectImages\\") + fileName;
                     using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                     {
                         await file.CopyToAsync(fileStream);
