@@ -16,6 +16,7 @@ namespace Infrastructure.Data.Mapping
             builder
                 .Property(b => b.Id)
                 .HasColumnName("PlanElevationReferenceId");
+
             base.Configure(builder);
         }
     }

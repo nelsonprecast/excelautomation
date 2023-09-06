@@ -1,6 +1,4 @@
-﻿using Core.Model.Response;
-
-namespace Core.Domain
+﻿namespace Core.Domain
 {
     public class ProjectDetail : BaseEntity
     {
@@ -47,11 +45,7 @@ namespace Core.Domain
         public string? TotalActualNominalValue { get; set; }
 
         public string? Category { get; set; }
-
-        public virtual Project Project { get; set; } = null!;
-
-        public ICollection<PlanElevationReference> PlanElevationReferances { get; set; }
-
+        
         public int? GroupId { get; set; }
     }
 }

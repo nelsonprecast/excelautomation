@@ -194,6 +194,8 @@ namespace Facade.Implementation
 
                 _projectService.SaveProject(newProject);
                 projectId = newProject.Id;
+
+                ICollection<ProjectDetail> projectDetails = new List<ProjectDetail>();
                 foreach (var projectDetail in exitingProjectDetails)
                 {
                     var newProjectDetail = new ProjectDetail();
@@ -219,9 +221,22 @@ namespace Facade.Implementation
                     newProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                     newProjectDetail.Category = projectDetail.Category;
                     newProjectDetail.ImagePath = projectDetail.ImagePath;
-                    newProject.ProjectDetails.Add(newProjectDetail);
+                    _projectDetailService.CreateProjectDetail(newProjectDetail);
+
+                    
                 }
-                _projectDetailService.CreateProjectDetail(newProject.ProjectDetails);
+
+                var existingPlanElevationTexts = _planElevationTextService.GetPlanElevationTextByProjectId(id);
+                foreach (var planElevationText in existingPlanElevationTexts)
+                {
+                    var newPlanElevationText = new PlanElevationText();
+                    newPlanElevationText.ProjectId = projectId;
+                    newPlanElevationText.Text = planElevationText.Text;
+                    newPlanElevationText.CreatedDate = DateTime.Now;
+                    _planElevationTextService.Save(newPlanElevationText);
+                }
+                
+
             }
 
             return projectId;

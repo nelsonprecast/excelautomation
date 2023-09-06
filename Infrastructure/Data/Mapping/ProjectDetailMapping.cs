@@ -17,6 +17,9 @@ namespace Infrastructure.Data.Mapping
                 .Property(b => b.Id)
                 .HasColumnName("ProjectDetailId");
             builder
+                .Property(b => b.ProjectId)
+                .HasColumnName("ProjectId");
+            builder
                 .Property(b => b.Wd)
                 .HasColumnName("WD");
             builder
@@ -41,11 +44,20 @@ namespace Infrastructure.Data.Mapping
                 .Property(b => b.Height)
                 .HasColumnName("Height");
             builder
+                .Property(b => b.Pieces)
+                .HasColumnName("Pieces");
+            builder
+                .Property(b => b.ImagePath)
+                .HasColumnName("ImagePath");
+            builder
                 .Property(b => b.TotalLf)
                 .HasColumnName("TotalLF");
             builder
                 .Property(b => b.ActSfcflf)
                 .HasColumnName("ActSFCFLF");
+            builder
+                .Property(b => b.ActCfpcs)
+                .HasColumnName("ActCFPcs");
             builder
                 .Property(b => b.TotalActCf)
                 .HasColumnName("TotalActCF");
