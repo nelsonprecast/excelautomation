@@ -25,5 +25,9 @@ namespace Service.Implementation
         {
             Repository.Insert(planElevationTextObjects);
         }
+
+        public void Delete(PlanElevationText planElevationText) {  Repository.Delete(planElevationText); }
+
+        public void Delete(ICollection<PlanElevationText> entities) {  Repository.Delete(entities);  }
     }
 }

@@ -40,5 +40,10 @@ namespace Service.Implementation
         {
             Repository.Delete(planElevationReference);
         }
+
+        public void Delete(ICollection<PlanElevationReference> planElevationReferenceCollection)
+        {
+            Repository.Delete(planElevationReferenceCollection);
+        }
     }
 }

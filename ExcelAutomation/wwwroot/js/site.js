@@ -657,7 +657,7 @@ function AddNewLFRow() {
 
 
 
-function DeleteProjectDetail(idValue) {
+function DeleteProjectDetail(idValue,rowId) {
     var dataDto = { Id : idValue };
 
     if (confirm("Are you sure you want to delete row?")) {
@@ -669,10 +669,10 @@ function DeleteProjectDetail(idValue) {
             dataType: "json",
             data: dataDto,
             success: function (resultData) {
-                
+                $('#mainrowdiv' + rowId).remove();
             }
         });
-        window.location.reload();
+       
     }
 }
 

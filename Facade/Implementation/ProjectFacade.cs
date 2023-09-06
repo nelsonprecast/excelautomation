@@ -231,6 +231,10 @@ namespace Facade.Implementation
         public int DeleteProjectDetailRow(int id)
         {
             var projectDetail = _projectDetailService.GetProjectDetailById(id);
+            var list = _planElevationTextService.GetPlanElevationTextByProjectId(projectDetail.Id);
+            var planElevationReferences = _planElevationReferenceService.GetPlanElevationReferenceByProjectDetailId(id);
+            _planElevationTextService.Delete(list);
+            _planElevationReferenceService.Delete(planElevationReferences);
             _projectDetailService.DeleteProjectDetail(projectDetail);
             return projectDetail.ProjectId;
         }

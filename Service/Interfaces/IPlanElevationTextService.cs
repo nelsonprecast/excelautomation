@@ -9,5 +9,9 @@ namespace Service.Interfaces
         void Save(PlanElevationText planElevationText);
 
         void Save(ICollection<PlanElevationText> planElevationTextObjects);
+
+        void Delete(PlanElevationText planElevationText);
+
+        void Delete(ICollection<PlanElevationText> entities);
     }
 }

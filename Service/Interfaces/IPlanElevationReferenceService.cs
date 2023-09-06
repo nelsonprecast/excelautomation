@@ -15,5 +15,7 @@ namespace Service.Interfaces
         PlanElevationReference GetPlanElevationReferanceById(int id);
 
         void DeleteProjectPlanElevationReferance(PlanElevationReference planElevationReference);
+
+        void Delete(ICollection<PlanElevationReference> planElevationReferenceCollection);
     }
 }

@@ -249,7 +249,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult DeleteRow(int id)
         {
            var projectId=  _projectFacade.DeleteProjectDetailRow(id);
-           return RedirectToAction("Edit", new {id = projectId});
+           return new JsonResult(true);
         }
 
         [HttpPost]

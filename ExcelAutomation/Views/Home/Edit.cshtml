@@ -277,7 +277,7 @@
             <div class="col-8" id="@currentGroupId" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)" style="border: dotted; align-content: center"> drop row area</div>
         </div>
     }
-    <div ondrop="dropDiv(event)" ondragover="allowDropDiv(event)">
+    <div id="mainrowdiv@(i)" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)">
 
         <div id="@projectDetail.Id" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
             <div class="col-4 row">
@@ -311,7 +311,7 @@
             </div>
             <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
             <div class="col-4 row">
-                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.Id));"><i class="fa fa-trash fa-lg"></i></a></div>
+                <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.Id),@i);"><i class="fa fa-trash fa-lg"></i></a></div>
 
                 <div class="col-2">
                     <input id="row@(i)projectDetailId" name="row@(i)projectDetailId" type="hidden" value="@projectDetail.Id"/>
