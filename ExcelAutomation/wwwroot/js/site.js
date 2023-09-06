@@ -688,10 +688,10 @@ function DeletePlanElevationText(id) {
             dataType: "json",
             data: dataDto,
             success: function (resultData) {
-               
+                window.location.reload();
             },            
         });
-        window.location.reload();
+        
     }
 }
 
@@ -1006,11 +1006,17 @@ function SaveRowForPlanElevationText(projectId) {
             planTextList.push(this.value);
         });
 
+    var dataDto = {
+        planTextList: JSON.stringify(planTextList),
+        projectId: projectId,
+        editPlanTextList: JSON.stringify(editPlanTextList)
+    };
     $.ajax({
-        url: '/Home/SavePlanElevationText/?planTextList=' + JSON.stringify(planTextList) + '&projectId=' + projectId + '&editPlanTextList=' + JSON.stringify(editPlanTextList),
-        contentType: 'application/html; charset=utf-8',
-        type: 'GET',
-        dataType: 'html',
+        url: '/Home/SavePlanElevationText/',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+        type: 'POST',
+        data: dataDto,
+        dataType: 'json',
         success: function (response) {
             window.location.reload();
         },
@@ -1035,7 +1041,7 @@ function DeletePlanElevationRow(idValue) {
             url: "/Home/DeleteProjectPlanElevation/",
             type: "POST",
             data: dataDto,
-            'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
             dataType: "json",
             success: function (response) {
 

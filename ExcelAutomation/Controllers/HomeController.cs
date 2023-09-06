@@ -139,7 +139,7 @@ namespace ExcelAutomation.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpPost]
         public IActionResult SavePlanElevationText(string planTextList,int projectId,string editPlanTextList)
         {
             var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
@@ -175,7 +175,7 @@ namespace ExcelAutomation.Controllers
             }
 
            
-            return new OkResult();
+            return new JsonResult(true);
         }
 
 
@@ -256,7 +256,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult DeletePlanElevationText(int id)
         {
             _planElevationTextService.DeletePlanElevationText(id);
-            return new OkResult();
+            return new JsonResult(true);
         }
 
         [HttpPost]
@@ -271,7 +271,7 @@ namespace ExcelAutomation.Controllers
         {
             if (GroupId == 0) return new BadRequestResult();
             _projectGroupFacade.ChangeGroup(projectDetailId, GroupId);
-            return new OkResult();
+            return new JsonResult(true);
         }
 
 
@@ -285,7 +285,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult DeleteProjectPlanElevation(int id)
         {
             _planElevationReferenceFacade.DeleteProjectPlanElevationReferance(id);
-            return Ok();
+            return new JsonResult(true);
         }
 
         [HttpPost]
@@ -314,7 +314,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult UpdateGroup(int groupId, string groupName)
         {
             _projectGroupFacade.EditGroup(groupId, groupName);
-            return new OkResult();
+            return new JsonResult(true);
         }
 
         [HttpPost]
@@ -328,7 +328,7 @@ namespace ExcelAutomation.Controllers
         public IActionResult RemoveFromGroup(string projectDetailIds)
         {
             _projectGroupFacade.RemoveFromGroup(projectDetailIds);
-            return new OkResult();
+            return new JsonResult(true);
         }
     }
 
