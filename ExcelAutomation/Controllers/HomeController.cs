@@ -51,7 +51,6 @@ namespace ExcelAutomation.Controllers
             {
                 status = "Active";
             }
-            var opp = _sugarCrmFacade.SearchOppertunities("test");
             model.Status = status;
             model.Projects = _projectFacade.GetProjects(status);
             return View(model);
