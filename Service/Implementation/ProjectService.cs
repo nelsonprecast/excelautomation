@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Infrastructure.Data.Interfaces;
 using Service.Interfaces;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Service.Implementation
 {
@@ -16,8 +17,10 @@ namespace Service.Implementation
         public ICollection<Project> GetProjects(string status)
         {
             var query = Repository.Table;
-            if (!string.IsNullOrEmpty(status) && !status.Equals("All"))
-                query = query.Where(x => (x.Status == null || x.Status.Equals(status)));
+            if (status.Equals("Active"))
+                query = query.Where(x => x.Status == null || x.Status.Equals(status));
+            else if(!status.Equals("All"))
+                query = query.Where(x => x.Status.Equals(status));
             return query.ToList();
         }
 
@@ -38,7 +41,7 @@ namespace Service.Implementation
 
         public void ChangeProjectsStatus(ICollection<Project> projects)
         {
-
+            Repository.Update(projects);
         }
 
         public ICollection<Project> GetProjectByIds(int[] ids)
