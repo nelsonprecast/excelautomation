@@ -17,6 +17,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<FormOptions>(options =>
 {
     options.ValueCountLimit = int.MaxValue;
+    options.MultipartBodyLengthLimit = long.MaxValue;
 });
 var applicationSettings = builder.Configuration.GetSection("SugarCrmConfiguration").Get<ApplicationSettings>();
 builder.Services.AddSingleton(applicationSettings);
