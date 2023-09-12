@@ -5,6 +5,7 @@ using ExcelAutomation.Data;
 using Facade.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Data.Interfaces;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Service.Interfaces;
 
@@ -13,6 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.ValueCountLimit = int.MaxValue;
+});
 var applicationSettings = builder.Configuration.GetSection("SugarCrmConfiguration").Get<ApplicationSettings>();
 builder.Services.AddSingleton(applicationSettings);
 var connectionString = builder.Configuration.GetConnectionString("ExcelAutomation");
