@@ -109,9 +109,10 @@
                     <div class="col">
                     </div>
                     <div class="col" style="text-align:right;">
+                        <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.Project.Id);"> <i class="fa fa-copy"> Convert to PDF</i></button>
                         <button type="button" class="btn btn-primary" style="background-color: #17a2b8" onclick="ExportToExcelTable();exportReportToExcel(this);"><i class="fa fa-file-export"> <i class="fa fa-copy"></i> Export to EXCEL</i></button>
                         <button type="submit" style="background-color: #17a2b8" onclick="return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save</i> </button>
-                        <button type="submit" style="background-color: #17a2b8" onclick="SetCrmSaveBit();return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save & Send To Crm</i> </button>
+                        @*<button type="submit" style="background-color: #17a2b8" onclick="SetCrmSaveBit();return Validate();" class="btn btn-primary"> <i class="fa fa-save"> Save & Send To Crm</i> </button>*@
                     </div>
                 </div>
             </div>
@@ -297,11 +298,10 @@
             </div>
             <div class="col text-align-left">Takeoff Color</div>
             <div class="col-5 row text-align-left">
-                <div class="col text-align-left">Length (In.)</div>
+                
                 <div class="col text-align-left">Width (In.)</div>
-                <div class="col text-align-left">
-                                                    Height (In.)
-                </div>
+                <div class="col text-align-left">Height (In.)</div>
+                <div class="col text-align-left">Length (In.)</div>
                 <div class="col text-align-left">
                     Total Pcs
                 </div>
@@ -365,9 +365,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-9 text-align-left totallfdata">
+                    <div class="col-4 text-align-left totallfdata">
 
-                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+                        <label for="inputPassword" class="col-12 "> Disposition (Special Notes)</label>
 
 
                         <textarea id="rowDispositionSpecialNote" name="row@(i)DispositionSpecialNote" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
@@ -381,6 +381,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-5"></div>
                 </div>
             </div>
             <div class="col-1">
@@ -400,10 +401,7 @@
             </div>
             <div class="col-5 row">
 
-                <div class="col">
-                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));CalculatePCS(@(i));" style="width: 70px" value="@projectDetail.Length" />
-                    <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length"/>
-                </div>
+                
                 <div class="col">
                     <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Width"/>
                     <input id="row@(i)WidthHidden" name="row@(i)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Width"/>
@@ -412,6 +410,10 @@
                     <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                     <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                 </div>
+                                                <div class="col">
+                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));CalculatePCS(@(i));" style="width: 70px" value="@projectDetail.Length" />
+                                                    <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length" />
+                                                </div>
                 <div class="col">
                     <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces" />
                 </div>
@@ -626,9 +628,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-9 text-align-left totallfdata">
+                                                    <div class="col-4 text-align-left totallfdata">
 
-                                                        <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+                                                        <label for="inputPassword" class="col-12 "> Disposition (Special Notes)</label>
 
 
                                                         <textarea id="rowDispositionSpecialNoteForProfileTab" name="row@(iForProfileTab)DispositionSpecialNoteForProfileTab" readonly="readonly" class="form-control disposition" style="height: 50px">@projectDetail.DispositionSpecialNote</textarea>
@@ -641,6 +643,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                     <div class="col-5"></div>
                                                 </div>
                                             </div>
                                             <div class="col-1">
@@ -730,7 +733,7 @@
                             <button type="button" style="background-color: #17a2b8" onclick="OnAddRow();" class="btn btn-primary"><i class="fa fa-plus"> New Row</i> </button>
                             <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="newGroupBtn"><i class="fa fa-plus"> New Group</i></button>
                             
-                            <button type="button" style="background-color: #17a2b8" class="btn btn-primary" id="convertToPdfBtn" onclick="DoConvertToPdf(@Model.Project.Id);"> <i class="fa fa-copy"> Convert to PDF</i></button>
+                            
                             <a id="convertToPdfDownload" style="background-color: #17a2b8" href="#" style="display: none" target="_blank"></a>
                         </td>
                     </tr>
@@ -810,16 +813,17 @@
     </div>
 
     <div class="col-4 row text-align-left">
-        <div class="col text-align-left">Length (In.)</div>
+        
         <div class="col text-align-left">Width (In.)</div>
         <div class="col text-align-left">
                                     Height (In.)
         </div>
+                                <div class="col text-align-left">Length (In.)</div>
         <div class="col text-align-left">
             Pcs
         </div>
         <div class="col text-align-left">
-            Mold QTY
+           @* Mold QTY*@
         </div>
     </div>
     <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
@@ -881,7 +885,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-9  float-left text-align-left">
+            <div class="col-5  float-left text-align-left">
 
                 <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
 
@@ -898,20 +902,22 @@
                     </div>
                 </div>
             </div>
+            <div class="col-4"></div>
         </div>
     </div>
 
     <div class="col-4 row">
 
-        <div class="col">
-            <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width: 70px" value="@projectDetail.Length"/>
-        </div>
+        
         <div class="col">
             <input id="rowFP@(j)Width" name="rowFP@(j)Width" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width: 70px" value="@projectDetail.Width"/>
         </div>
         <div class="col">
             <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
         </div>
+                                <div class="col">
+                                    <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width: 70px" value="@projectDetail.Length" />
+                                </div>
         <div class="col">
             <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.Pieces"/>
         </div>
@@ -920,7 +926,7 @@
 
 
         <div class="col">
-            <input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>
+            @*<input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>*@
         </div>
         <div class="row">
             <div class="col text-align-left">Total LF</div>
