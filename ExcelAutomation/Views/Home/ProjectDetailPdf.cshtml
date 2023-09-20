@@ -115,7 +115,10 @@
         }
         </tbody>
     </table>
-    <p style="page-break-after: always;">&nbsp;</p>
+    @if(projectDetail.PlanElevationReferences != null && projectDetail.PlanElevationReferences.Any(x=>!string.IsNullOrEmpty(x.ImagePath)))
+    {
+        <p style="page-break-after: always;">&nbsp;</p>
+    }
 }
 </body>
 </html>
