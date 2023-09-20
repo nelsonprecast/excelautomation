@@ -337,7 +337,7 @@ function CallSumMethods() {
     SumOfTotalActualCF();
     SumOfTotalNomCF();
     SumOfTotalLF();
-    SumOfLineItemCharge();
+    SumOfLineItemChargeOnChange();
     SumLineItemChargePCs();
     SumLineItemChargeCF();
 }
@@ -521,7 +521,7 @@ function SumOfTotalLF() {
         document.getElementById('rowFPSumOfTotalLF').value = (sum).round(2);
 }
 
-function SumOfLineItemCharge() {
+function SumOfLineItemChargeOnChange() {
     var rowCount = $('.exceldatarow1').length;
 
     var sum = 0;

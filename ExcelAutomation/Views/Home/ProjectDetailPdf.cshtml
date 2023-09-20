@@ -4,6 +4,7 @@
 }
 @{
     Layout = "";
+    var firstPageLog = true;
 }
 <!doctype html>
 <html>
@@ -32,7 +33,11 @@
             </td>
             <td>@Model.ProjectName</td>
             <td style="text-align: right">
-                <img src="data:image/png;base64,@(ViewBag.logo)" style="height: 80px"/>
+                @if (firstPageLog || (projectDetail.PlanElevationReferences != null && projectDetail.PlanElevationReferences.Any(x => !string.IsNullOrEmpty(x.ImagePath))))
+                {
+                    firstPageLog = false;
+                    <img src="data:image/png;base64,@(ViewBag.logo)" style="height: 80px"/>
+                }
             </td>
         </tr>
         </tbody>
