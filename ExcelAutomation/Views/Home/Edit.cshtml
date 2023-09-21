@@ -742,10 +742,11 @@
 <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
 <div style="width: 100%" id="RowsTable" class="container-fluid font-size-08">
 <div class="row">
-    <div class="col-sm-1"> <b>NomianalCF:</b></div>
-                        <div class="col-sm-1"><input id="nominalCFForFinalTab" name="nominalCFForFinalTab" value="@Model.Project.NominalCF" /></div>
-    <div class="col-sm-2"> <b>ActualCF:</b></div>
-                        <div class="col-sm-1"><input id="actualCfForFinalTab" name="actualCfForFinalTab" value="@Model.Project.ActualCF" /></div>
+    <div class="col-1"> <b>NomianalCF:</b></div>
+                        <div class="col-2"><input id="nominalCFForFinalTab" name="nominalCFForFinalTab" value="@Model.Project.NominalCF" type="number" class="form-control" /></div>
+                        <div class="col-sm-1"></div>
+    <div class="col-1"> <b>ActualCF:</b></div>
+                        <div class="col-2"><input id="actualCfForFinalTab" name="actualCfForFinalTab" value="@Model.Project.ActualCF" type="number" class="form-control" /></div>
 </div>
 <div class="row align-items-start">
 
@@ -818,9 +819,7 @@
         <div class="col text-align-left">
             Pcs
         </div>
-        <div class="col text-align-left">
-           @* Mold QTY*@
-        </div>
+       
     </div>
     <div class="col-2 row @(j % 2 != 0 ? "light-green" : "green")">
         <div class="col text-align-left"><input type="radio" id="rowFP@(j)TotalActualCheckBox" name="rowFP@(j)TotalCheckBox" checked="@(projectDetail.TotalActualNominalValue != null && projectDetail.TotalActualNominalValue.Equals("1"))" onchange="OnLineItemChange(@(j));SumLineItemChargeCF();" value="1"/></div>
@@ -898,7 +897,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-4"></div>
+                                    <div class="col-4 float-left">
+                                        <div class="col-12 no-margin">
+                                            <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
+                                                <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                            </a>
+                                        </div>
+            </div>
         </div>
     </div>
 
@@ -911,9 +916,9 @@
         <div class="col">
             <input id="rowFP@(j)Height" name="rowFP@(j)Height" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(j));CalculateNomCFPcs(@(j));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
         </div>
-                                <div class="col">
-                                    <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width: 70px" value="@projectDetail.Length" />
-                                </div>
+        <div class="col">
+            <input id="rowFP@(j)Length" name="rowFP@(j)Length" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(j));CalculateNomCFPcs(@(j));" style="width: 70px" value="@projectDetail.Length" />
+        </div>
         <div class="col">
             <input id="rowFP@(j)Pieces" name="rowFP@(j)Pieces" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.Pieces"/>
         </div>
@@ -921,15 +926,13 @@
 
 
 
-        <div class="col">
-            @*<input id="rowFP@(j)MoldQTY" name="rowFP@(j)MoldQTY" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty"/>*@
-        </div>
+        
         <div class="row">
             <div class="col text-align-left">Total LF</div>
             <div class="col text-align-left"></div>
             <div class="col text-align-left">Nom. CF/LF</div>
             <div class="col text-align-left">Total Nom. CF</div>
-            <div class="col text-align-left"></div>
+            
         </div>
         <div class="row">
             <div class="col">
@@ -942,14 +945,14 @@
             <div class="col float-left">
                 <input id="rowFP@(j)TotalNomCF" name="rowFP@(j)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
             </div>
-            <div class="col"></div>
+           
         </div>
         <div class="row">
             <div class="col text-align-left">Act SF CF/LF</div>
             <div class="col text-align-left">Act CF/Pcs</div>
             <div class="col text-align-left">Total Act CF</div>
             <div class="col text-align-left">Nom. CF/Pcs</div>
-            <div class="col"></div>
+            
         </div>
         <div class="row">
             <div class="col float-left">
@@ -965,7 +968,7 @@
             <div class="col float-left">
                 <input id="rowFP@(j)NomCFPcs" name="rowFP@(j)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width: 70px" value="@projectDetail.NomCfpcs"/>
             </div>
-            <div class="col"></div>
+            
 
         </div>
     </div>
