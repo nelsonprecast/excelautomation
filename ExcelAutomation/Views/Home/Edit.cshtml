@@ -380,7 +380,7 @@
                                                         <div class="col text-align-left"> Section</div>
                                                         <div class="col-12 no-margin text-align-left">
                                                             <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                                                                <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                                                <img src="@projectDetail.ImagePath" style="width: 100px; height: 100px" />
                                                             </a>
                                                         </div>
                                                         <div class="col-12 text-align-left">
@@ -542,12 +542,12 @@
                                             <div class="col-4 row">
                                                 <div class="col-1">@(iForProfileTab)</div>
                                                 <div class="col-2 text-align-left">W/D</div>
-                                                <div class="col-4 text-align-left">
+                                                <div class="col-5 text-align-left">
                                                     Item Name
 
                                                 </div>
 
-                                                <div class="col-3 text-align-left">
+                                                <div class="col-4 text-align-left">
 
                                                     Detail
                                                     #/Page
@@ -556,7 +556,7 @@
                                             </div>
                                             <div class="col text-align-left">Takeoff Color</div>
                                             <div class="col-5 row text-align-left">
-                                                <div class="col text-align-left"></div>
+                                               
                                                 <div class="col text-align-left">Mold QTY</div>
                                                 <div class="col text-align-left">
                                                     # Mold Worker
@@ -581,7 +581,7 @@
                                                         <option value="UnSpecified" selected="@projectDetail.WD.Equals("UnSpecified")">UnSpecified</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-4">
+                                                <div class="col-5">
                                                     <input id="row@(iForProfileTab)ItemNameForProfileTab" name="row@(iForProfileTab)ItemNameForProfileTab" readonly="readonly" class="form-control" type="text" value="@projectDetail.ItemName" />
 
                                                 </div>
@@ -624,7 +624,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-4 text-align-left totallfdata">
+                                                    <div class="col-5 text-align-left totallfdata">
 
                                                         <label for="inputPassword" class="col-12 "> Disposition (Special Notes)</label>
 
@@ -639,7 +639,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                     <div class="col-5"></div>
+                                                     <div class="col-4"></div>
                                                 </div>
                                             </div>
                                             <div class="col-1">
@@ -649,7 +649,7 @@
                                                 <div class="col text-align-left"> Section</div>
                                                 <div class="col-12 no-margin text-align-left">
                                                     <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
-                                                        <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                                        <img src="@projectDetail.ImagePath" style="width: 100px; height: 100px" />
                                                     </a>
                                                 </div>
                                                 <div class="col-12 text-align-left">
@@ -659,7 +659,7 @@
                                             </div>
                                             <div class="col-5 row text-align-left">
                                                 <div class="row">
-                                                    <div class="col text-align-left"></div>
+                                                   
                                                     <div class="col text-align-left">
                                                         <input type="text" id="row@(iForProfileTab)MoldQTY" name="row@(iForProfileTab)MoldQTY" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty" />
                                                     </div>
@@ -671,16 +671,13 @@
                                                     </div>
                                                     <div class="col text-align-left">
                                                         <input type="radio" id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)FoamName" value="YES" >
-                                                        <label>Yes</label><br/>
+                                                        <label>Yes</label>
                                                         <input type="radio" id="row@(iForProfileTab)Foam" name="row@(iForProfileTab)FoamName" value="NO" checked="checked" />
                                                         <label>NO</label><br>
 
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col text-align-left"></div>
-                                                    <div class="col text-align-left">
-                                                    </div>
+                                                <div class="row">                                                    
                                                     <div class="col text-align-left">
                                                         #Production Worker
                                                     </div>
@@ -692,15 +689,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col text-align-left"></div>
-                                                    <div class="col text-align-left">
-                                                    </div>
+                                                    
                                                     <div class="col text-align-left">
                                                         <input type="text" id="row@(iForProfileTab)ProductionWorker" name="row@(iForProfileTab)ProductionWorker" class="form-control" onkeypress="return isNumberKey(this, event);" />
                                                     </div>
                                                     <div class="col text-align-left">
                                                         <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="YES" >
-                                                        <label>Yes</label><br/>
+                                                        <label>Yes</label>
                                                         <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="NO" checked="checked" />
                                                         <label>NO</label><br>
                                                     </div>
@@ -900,7 +895,7 @@
                                     <div class="col-4 float-left">
                                         <div class="col-12 no-margin">
                                             <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
-                                                <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                                <img src="@projectDetail.ImagePath" style="width: 100px; height: 100px" />
                                             </a>
                                         </div>
             </div>
