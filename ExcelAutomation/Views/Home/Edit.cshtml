@@ -74,7 +74,7 @@
     var tab = tabNumber;
 }
 
-<div class="text-center">
+<div class="container">
 <form asp-action="Edit" asp-controller="Home" asp-route-id="@Model.Project.Id" method="POST" role="form" enctype="multipart/form-data">
 <div class="input-group">
             @*<label for="projectname" class="col-sm-2">Job Name:</label>*@
@@ -302,12 +302,7 @@
                 <div class="col text-align-left">Width (In.)</div>
                 <div class="col text-align-left">Height (In.)</div>
                 <div class="col text-align-left">Length (In.)</div>
-                <div class="col text-align-left">
-                    Total Pcs
-                </div>
-                <div class="col text-align-left">
-                   
-                </div>
+                
             </div>
             <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
             <div class="col-4 row">
@@ -381,23 +376,31 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-5"></div>
+                    <div class="col-5">
+                                                        <div class="col text-align-left"> Section</div>
+                                                        <div class="col-12 no-margin text-align-left">
+                                                            <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
+                                                                <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-12 text-align-left">
+                                                            <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void(0);"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display: none;" accept="image/*" />Change Image</a>
+                                                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-1">
                 <div class="col">
                     <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor"/>
                 </div>
-                <div class="col text-align-left"> Section</div>
-                <div class="col-12 no-margin text-align-left">
-                    <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
-                        <img src="@projectDetail.ImagePath" style="width: 120px; height: 100px"/>
-                    </a>
+                <div class="col text-align-left">Total LF</div>
+                <div class="col">
+                    <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculatePCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf" />
                 </div>
-                <div class="col-12 text-align-left">
-                    <a id="row@(i)ChangeImage" class="link" onclick="ShowImageSelection(@(i))" href="javascript:void(0);"><input type="file" id="row@(i)File" name="row@(i)File" class="form-control" style="display: none;" accept="image/*"/>Change Image</a>
+                <div class="col text-align-left">Act SF CF/LF</div>
+                <div class="col float-left">
+                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
                 </div>
-
             </div>
             <div class="col-5 row">
 
@@ -410,47 +413,41 @@
                     <input id="row@(i)Height" name="row@(i)Height" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                     <input id="row@(i)HeightHidden" name="row@(i)HeightHidden" type="hidden" onkeypress="return isNumberKey(this, event);" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Height"/>
                 </div>
-                                                <div class="col">
-                                                    <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));CalculatePCS(@(i));" style="width: 70px" value="@projectDetail.Length" />
-                                                    <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length" />
-                                                </div>
-                <div class="col">
-                    <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces" />
-                </div>
+                    <div class="col">
+                        <input id="row@(i)Length" name="row@(i)Length" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" class="form-control" onchange="ConvertNumberToFraction(this);CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));CalculatePCS(@(i));" style="width: 70px" value="@projectDetail.Length" />
+                        <input id="row@(i)LengthHidden" name="row@(i)LengthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Length" />
+                    </div>
+                
 
-                <div class="col">
-                </div>
                 <div class="row">
-                    <div class="col text-align-left">Total LF</div>
-                    <div class="col text-align-left"></div>
+                    <div class="col text-align-left">
+                        Total Pcs
+                    </div>
                     <div class="col text-align-left">Nom. CF/LF</div>
                     <div class="col text-align-left">Total Nom. CF</div>
-                    <div class="col text-align-left"></div>
+                    
                 </div>
                 <div class="row">
                     <div class="col">
-                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculatePCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf"/>
+                        <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces" />
                     </div>
-                    <div class="col"></div>
                     <div class="col float-left">
                         <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width: 70px" value="@projectDetail.NomCflf"/>
                     </div>
                     <div class="col float-left">
                         <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
                     </div>
-                    <div class="col"></div>
+                    
                 </div>
                 <div class="row">
-                    <div class="col text-align-left">Act SF CF/LF</div>
+                    
                     <div class="col text-align-left">Act CF/Pcs</div>
                     <div class="col text-align-left">Total Act CF</div>
                     <div class="col text-align-left">Nom. CF/Pcs</div>
-                    <div class="col"></div>
+                    
                 </div>
                 <div class="row">
-                    <div class="col float-left">
-                        <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
-                    </div>
+                    
                     <div class="col float-left">
                         <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.ActCfpcs"/>
                     </div>
@@ -461,7 +458,6 @@
                     <div class="col float-left">
                         <input id="row@(i)NomCFPcs" name="row@(i)NomCFPcs" readonly="readonly" type="text" class="form-control" style="width: 70px" value="@projectDetail.NomCfpcs"/>
                     </div>
-                    <div class="col"></div>
 
                 </div>
             </div>
@@ -887,7 +883,7 @@
             </div>
             <div class="col-5  float-left text-align-left">
 
-                <label for="inputPassword" class="col-7 "> Disposition (Special Notes)</label>
+                <label for="inputPassword" class="col-12 "> Disposition (Special Notes)</label>
 
 
                 <textarea id="rowFP@(j)DispositionSpecialNote" name="rowFP@(j)DispositionSpecialNote" readonly="readonly" style="height: 80px;" class="form-control">@projectDetail.DispositionSpecialNote</textarea>
