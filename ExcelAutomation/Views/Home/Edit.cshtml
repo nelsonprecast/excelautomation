@@ -122,9 +122,10 @@
 <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-project-tab" onclick="SetTab(1);" data-bs-toggle="tab" data-bs-target="#nav-project" type="button" role="tab" aria-controls="nav-project-tab" aria-selected="true">Project </button>
-        <button class="nav-link" id="nav-home-tab" onclick="SetTab(2);" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
-        <button class="nav-link" id="nav-profile-tab" onclick="SetTab(3);" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Line Cost</button>
-        <button class="nav-link" id="nav-contact-tab" onclick="SetTab(4);" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Final Price</button>
+        <button class="nav-link" id="nav-plan-elevation-tab" onclick="SetTab(2);" data-bs-toggle="tab" data-bs-target="#nav-plan-elevation" type="button" role="tab" aria-controls="nav-plan-elevation-tab" aria-selected="true">Plant Elevation Text </button>
+        <button class="nav-link" id="nav-home-tab" onclick="SetTab(3);" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
+        <button class="nav-link" id="nav-profile-tab" onclick="SetTab(4);" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Line Cost</button>
+        <button class="nav-link" id="nav-contact-tab" onclick="SetTab(5);" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Final Price</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -185,39 +186,45 @@
                         <textarea id="notesForProjectTab" name="notesForProjectTab" rows="4" cols="10" class="form-control">@Model.Project.Notes</textarea>
         </div>
     </div>
+    
+    <div class="input-group">
+    </div>
+</div>
+<div class="tab-pane fade" id="nav-plan-elevation" role="tabpanel" aria-labelledby="nav-plan-elevation-tab" tabindex="0">
+    
     <div class="planElevationTextForEdit">
 
-    @foreach (var projectPlanElevationTextDto in Model.Project.PlanElevationText)
-    {
-        <div class="input-group">
+        @foreach (var projectPlanElevationTextDto in Model.Project.PlanElevationText)
+        {
+            <div class="input-group">
                 <label for="" class="col-sm-3">Plan Elevation Text:</label>
                 <div class="col-sm-2">
                     <input type="text" id="@projectPlanElevationTextDto.Id" class="form-control"
-                           value="@projectPlanElevationTextDto.Text"/>
+                            value="@projectPlanElevationTextDto.Text" />
                 </div>
                 <div class="col-sm-1" style="align-self: normal">
                     <a href="javascript:void(0);" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
             </div>
-        
-            }
-        </div>
+
+        }
+    </div>
     <div class="planElevationText">
     </div>
-    <hr/>
+    <hr />
     <div class="row">
         <div class="col-3"></div>
         <div class="col-2">
             <button type="button" style="background-color: #17a2b8" onclick="AddNewRowForPlanElevationDropDown()" class="btn btn-primary float-left"><i class="fa fa-plus"> Add Plan Elevation Text Row</i> </button>
-            
+
         </div>
         <div class="col-2">
-                        <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.Project.Id)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
+            <button type="button" style="background-color: #17a2b8" onclick="SaveRowForPlanElevationText(@Model.Project.Id)" class="btn btn-primary float-left"> <i class="fa fa-save"> Save Plan Elevation Text</i></button>
         </div>
-        
+
     </div>
-                <div class="input-group">
-                </div>
+    <div class="input-group">
+    </div>
 </div>
 <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
 <table style="width: 100%" class="table font-size-08">
