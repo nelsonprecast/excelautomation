@@ -1034,8 +1034,13 @@ async function SaveRowForPlanElevationText(projectId) {
         var imageSnipFileData = $('#ImageSnipFile' + i).prop('files');
         var pageRefFileData = $('#PageRefFile' + i).prop('files');
 
-        var guid = CreateGuid() + '-' + imageSnipFileData[0].name;
-        var pageRefGuid = CreateGuid() + '-' + pageRefFileData[0].name;
+        var guid = null; 
+        var pageRefGuid = null; 
+
+        if (imageSnipFileData.length > 0)
+            guid = CreateGuid() + '-' + imageSnipFileData[0].name;
+        if (pageRefFileData.length > 0)
+            pageRefGuid = CreateGuid() + '-' + pageRefFileData[0].name;
 
         let palnElevationText = {
             text : $('#PlanElevationTextInput' + i).val(),
