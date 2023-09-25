@@ -139,39 +139,39 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpPost]
-        public IActionResult SavePlanElevationText(string planTextList,int projectId,string editPlanTextList)
+        public IActionResult SavePlanElevationText(PlanElevationTextRequest[] planElevationTextRequests)
         {
-            var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
-            var EditPlanTexts = JsonConvert.DeserializeObject<List<PlanElevationTextDto>>(editPlanTextList);
-           // var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
+           // var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
+           // var EditPlanTexts = JsonConvert.DeserializeObject<List<PlanElevationTextDto>>(editPlanTextList);
+           //// var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
 
-            if (planTexts != null)
-                foreach (var planText in planTexts)
-                {
-                    _planElevationTextService.Save(new ProjectPlanElevationTextDto()
-                    {
-                        ProjectId = projectId,
-                        PlanElevationText = new List<PlanElevationTextDto>()
-                        {
-                            new PlanElevationTextDto()
-                            {
-                                CreatedDate = DateTime.Now,
-                                Text = planText
-                            }
-                        }
-                    });
-                }
+           // if (planTexts != null)
+           //     foreach (var planText in planTexts)
+           //     {
+           //         _planElevationTextService.Save(new ProjectPlanElevationTextDto()
+           //         {
+           //             ProjectId = projectId,
+           //             PlanElevationText = new List<PlanElevationTextDto>()
+           //             {
+           //                 new PlanElevationTextDto()
+           //                 {
+           //                     CreatedDate = DateTime.Now,
+           //                     Text = planText
+           //                 }
+           //             }
+           //         });
+           //     }
 
-            if (EditPlanTexts != null)
-            {
-                foreach (var objectDto in EditPlanTexts)
-                {
-                    _planElevationTextService.Update(new PlanElevationTextDto()
-                    {
-                        Id = objectDto.Id, CreatedDate = DateTime.Now, Text = objectDto.Text
-                    });
-                }
-            }
+           // if (EditPlanTexts != null)
+           // {
+           //     foreach (var objectDto in EditPlanTexts)
+           //     {
+           //         _planElevationTextService.Update(new PlanElevationTextDto()
+           //         {
+           //             Id = objectDto.Id, CreatedDate = DateTime.Now, Text = objectDto.Text
+           //         });
+           //     }
+           // }
 
            
             return new JsonResult(true);

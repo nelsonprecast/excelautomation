@@ -6,13 +6,19 @@ $(document).ready(function () {
             activaTab('nav-project-tab');
             break;
         case "2":
-            activaTab('nav-home-tab');
+            activaTab('nav-plan-elevation-tab');
             break;
         case "3":
-            activaTab('nav-profile-tab');
+            activaTab('nav-home-tab');
             break;
         case "4":
+            activaTab('nav-profile-tab');
+            break;
+        case "5":
             activaTab('nav-contact-tab');
+            break;
+        case "6":
+            activaTab('nav-pdf-proposal-tab');
             break;
     }
 

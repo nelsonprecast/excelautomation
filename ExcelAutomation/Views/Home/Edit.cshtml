@@ -126,7 +126,7 @@
         <button class="nav-link" id="nav-home-tab" onclick="SetTab(3);" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Build Lines</button>
         <button class="nav-link" id="nav-profile-tab" onclick="SetTab(4);" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Line Cost</button>
         <button class="nav-link" id="nav-contact-tab" onclick="SetTab(5);" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Final Price</button>
-        <button class="nav-link" id="nav-pdf-proposal" onclick="SetTab(6);" data-bs-toggle="tab" data-bs-target="#nav-pdf-proposal" type="button" role="tab" aria-controls="nav-pdf-proposal" aria-selected="false">PDF Proposal</button>
+        <button class="nav-link" id="nav-pdf-proposal-tab" onclick="SetTab(6);" data-bs-toggle="tab" data-bs-target="#nav-pdf-proposal" type="button" role="tab" aria-controls="nav-pdf-proposal" aria-selected="false">PDF Proposal</button>
     </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -192,17 +192,26 @@
     </div>
 </div>
 <div class="tab-pane fade" id="nav-plan-elevation" role="tabpanel" aria-labelledby="nav-plan-elevation-tab" tabindex="0">
-    
-    <div class="planElevationTextForEdit">
-
+    <div class="row mt-2">
+        <div class="col-5"></div>
+        <div class="col-2 text-center">Image Snip</div>
+                    <div class="col-2 text-center">Page Ref</div>
+    </div>
+    <div class="planElevationTextForEdit mt-2">
+        
         @foreach (var projectPlanElevationTextDto in Model.Project.PlanElevationText)
         {
-            <div class="input-group">
-                <label for="" class="col-sm-3">Plan Elevation Text:</label>
-                <div class="col-sm-2">
-                    <input type="text" id="@projectPlanElevationTextDto.Id" class="form-control"
-                            value="@projectPlanElevationTextDto.Text" />
+            <div class="row planelevationtextrows">
+                <div class="col-1"></div>
+                <label for="" class="col-2">Plan Elevation Text:</label>
+                <div class="col-2">
+                    <input type="text" id="PlanElevationTextInput1" name="PlanElevationTextInput1" db-id="@projectPlanElevationTextDto.Id" class="form-control" value="@projectPlanElevationTextDto.Text" />
                 </div>
+                <div class="col-2 text-center" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="1">
+                    <a id="ImageSnipLink1" href = "" target = "_blank" > <img src="" id="ImageSnip1" style="width:100%;" /> </a >
+                    <input type="file" class="fileUploads" id="ImageSnipFile1" name="ImageSnipFile1" accept="image/*" style="display:none;" /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog('ImageSnipFile1')"></i> <br />Select or Drop Image
+                </div>
+                <div class="col-2 text-center">Page Ref</div>
                 <div class="col-sm-1" style="align-self: normal">
                     <a href="javascript:void(0);" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
@@ -215,7 +224,7 @@
     <hr />
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-2">
+        <div class="col-3">
             <button type="button" style="background-color: #17a2b8" onclick="AddNewRowForPlanElevationDropDown()" class="btn btn-primary float-left"><i class="fa fa-plus"> Add Plan Elevation Text Row</i> </button>
 
         </div>
@@ -289,31 +298,31 @@
     <div id="mainrowdiv@(i)" ondrop="dropDiv(event)" ondragover="allowDropDiv(event)">
 
         <div id="@projectDetail.Id" draggable="true" ondragstart="dragDiv(event)" class="@(i % 2 != 0 ? "primary" : "secondary") row exceldatarow">
-            <div class="col-4 row">
+            <div class="col-5 row">
                 <div class="col-1">@(i)</div>
                 <div class="col-2 text-align-left">W/D</div>
-                <div class="col-4 text-align-left">
+                <div class="col-5 text-align-left">
                     Item Name
 
                 </div>
 
-                <div class="col-3 text-align-left">
+                <div class="col-4 text-align-left">
 
                     Detail
                     #/Page
 
                 </div>
             </div>
-            <div class="col text-align-left">Takeoff Color</div>
+            
             <div class="col-5 row text-align-left">
-                
+                <div class="col text-align-left">Takeoff Color</div>
                 <div class="col text-align-left">Width (In.)</div>
                 <div class="col text-align-left">Height (In.)</div>
                 <div class="col text-align-left">Length (In.)</div>
                 
             </div>
             <div class="col-2 row @(i % 2 != 0 ? "light-green" : "green")"></div>
-            <div class="col-4 row">
+            <div class="col-5 row">
                 <div class="col-1"><a href="#" onclick="DeleteProjectDetail(@(projectDetail.Id),@i);"><i class="fa fa-trash fa-lg"></i></a></div>
 
                 <div class="col-2">
@@ -324,12 +333,12 @@
                         <option value="UnSpecified" selected="@projectDetail.WD.Equals("UnSpecified")">UnSpecified</option>
                     </select>
                 </div>
-                <div class="col-4">
+                <div class="col-5">
                     <input id="row@(i)ItemName" name="row@(i)ItemName" class="form-control" type="text" value="@projectDetail.ItemName"/>
 
                 </div>
 
-                <div class="col-3">
+                <div class="col-4">
                     <input id="row@(i)DetailPage" name="row@(i)DetailPage" class="form-control" type="text" value="@projectDetail.DetailPage"/>
                 </div>
                 <div class="col-12 row">
@@ -368,7 +377,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 text-align-left totallfdata">
+                    <div class="col-5 text-align-left totallfdata">
 
                         <label for="inputPassword" class="col-12 "> Disposition (Special Notes)</label>
 
@@ -384,7 +393,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-5">
+                    <div class="col-4">
                                                         <div class="col text-align-left"> Section</div>
                                                         <div class="col-12 no-margin text-align-left">
                                                             <a id="single_image" href="@projectDetail.ImagePath" target="_blank">
@@ -397,22 +406,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-1">
+            <div class="col-5 row">
                 <div class="col">
                     <input id="row@(i)TakeOffColor" name="row@(i)TakeOffColor" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor"/>
                 </div>
-                <div class="col text-align-left">Total LF</div>
-                <div class="col">
-                    <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculatePCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf" />
-                </div>
-                <div class="col text-align-left">Act SF CF/LF</div>
-                <div class="col float-left">
-                    <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
-                </div>
-            </div>
-            <div class="col-5 row">
-
-                
                 <div class="col">
                     <input id="row@(i)Width" name="row@(i)Width" type="text" onkeypress="return isNumberKey(this, event);" onchange="ConvertNumberToFraction(this);CalculateNomCFLF(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Width"/>
                     <input id="row@(i)WidthHidden" name="row@(i)WidthHidden" type="hidden" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFLF(@(i));CalculateNomCFPcs(@(i));" style="width: 70px" value="@projectDetail.Width"/>
@@ -428,16 +425,20 @@
                 
 
                 <div class="row">
+                    <div class="col text-align-left">Total LF</div>
                     <div class="col text-align-left">
                         Total Pcs
                     </div>
                     <div class="col text-align-left">Nom. CF/LF</div>
                     <div class="col text-align-left">Total Nom. CF</div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col">
-                        <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces" />
+                        <input id="row@(i)TotalLF" name="row@(i)TotalLF" type="text" onkeypress="CalculatePCS(@(i));return isNumberKey(this, event);" onchange="CalculateTotalActCF(@(i));CalculateTotalNomCF(@(i));CalculatePCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.TotalLf" />
+                    </div>
+                    <div class="col">
+                        <input id="row@(i)Pieces" name="row@(i)Pieces" type="text" onkeypress="CalculateLengthFromPCS(@(i));return isNumberKey(this, event);" onchange="CalculateLengthFromPCS(@(i));" class="form-control" style="width: 70px" value="@projectDetail.Pieces"/>
                     </div>
                     <div class="col float-left">
                         <input id="row@(i)NomCFLF" name="row@(i)NomCFLF" type="text" readonly="readonly" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateNomCFPcs(@(i));CalculateTotalNomCF(@(i));" style="width: 70px" value="@projectDetail.NomCflf"/>
@@ -445,17 +446,19 @@
                     <div class="col float-left">
                         <input id="row@(i)TotalNomCF" name="row@(i)TotalNomCF" readonly="readonly" type="text" class="form-control" style="width: 70px" onchange="CalculateTotalNominal(@(i))" value="@projectDetail.TotalNomCf"/>
                     </div>
-                    
+
                 </div>
                 <div class="row">
-                    
+                                                    <div class="col text-align-left">Act SF CF/LF</div>
                     <div class="col text-align-left">Act CF/Pcs</div>
                     <div class="col text-align-left">Total Act CF</div>
                     <div class="col text-align-left">Nom. CF/Pcs</div>
                     
                 </div>
                 <div class="row">
-                    
+                    <div class="col float-left">
+                        <input id="row@(i)ActSFCFLF" name="row@(i)ActSFCFLF" type="text" onkeypress="return isNumberKey(this, event);" class="form-control" onchange="CalculateActCFPcs(@(i));CalculateTotalActCF(@(i));" style="width: 70px" value="@projectDetail.ActSfcflf"/>
+                    </div>
                     <div class="col float-left">
                         <input id="row@(i)ActCFPcs" name="row@(i)ActCFPcs" type="text" onkeypress="return isNumberKey(this, event);" readonly="readonly" class="form-control" style="width: 70px" value="@projectDetail.ActCfpcs"/>
                     </div>

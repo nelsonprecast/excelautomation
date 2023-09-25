@@ -695,18 +695,26 @@ function DeletePlanElevationText(id) {
     }
 }
 
-function AddNewRowForPlanElevationDropDown() {    
-    $('.planElevationText').append(
-        '<div class="input-group">'+
-        '<label for="" class="col-sm-3">Plan Elevation Text:</label>' +
-        '<div class="col-sm-2" >' +
-        '<input type="text" id="planElevationTextRow' + rowIndex + '" name = "planElevationTextRow' + rowIndex + '" class= "form-control" /> ' +
+function AddNewRowForPlanElevationDropDown() { 
+    var planelevationtextrows = $('.planelevationtextrows').length;
+    planelevationtextrows = planelevationtextrows + 1;
+    $('.planElevationTextForEdit').append(
+        '<div class="row">' +
+        '<div class="col-1"></div>'+
+        '<label for="" class="col-2">Plan Elevation Text:</label>' +
+        '<div class="col-2 text-center" >' +
+        '<input type="text" id="PlanElevationTextInput' + planelevationtextrows + '" name = "PlanElevationTextInput' + planelevationtextrows + '" db-id="" class= "form-control" /> ' +
         '</div>' +
+        '<div  class="col-2 text-center"  onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + planelevationtextrows + '">' +        
+        '<a id="ImageSnipLink' + planelevationtextrows + '" href = "" target = "_blank" > <img src="" id="ImageSnip' + planelevationtextrows + '" style="width:100%;" /> </a >' +
+        '<input type="file" class="fileUploads" id="ImageSnipFile' + planelevationtextrows + '" name="ImageSnipFile' + planelevationtextrows + '" accept="image/*" style="display:none;"/> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog(' + planelevationtextrows + ')"></i> <br/>Select or Drop Image' +
+        '</div>' +
+        '<div class="col-2 text-center">' +
+        '</div>'+
         '<div class="col-sm-1" style="align-self: normal">' +
         '<a href="#" onclick="DeletePlanElevationNewRow()"><i class="fa fa-trash fa-lg"></i></a>'+
         '</div>'+
         '</div>');
-    rowIndex = rowIndex+1;
 }
 
 function AddPlanElevationRow() {
@@ -750,17 +758,17 @@ function drop(ev) {
     var id = ev.currentTarget.id;
     var data = ev.dataTransfer.files;
     //ev.target.appendChild(document.getElementById(data));
-    document.getElementById('planElevationFile' + id).files = data;
+    document.getElementById('ImageSnipFile' + id).files = data;
     var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
-    document.getElementById('PlanElevationPlanImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
+    //document.getElementById('PlanElevationPlanImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
         filereader.readAsDataURL(file);
         filereader.onload = function (evt) {
             var base64 = evt.target.result;
-            $('#image' + id).prop('src', base64);
-            $('#image' + id).show();
+            $('#ImageSnip' + id).prop('src', base64);
+            $('#ImageSnip' + id).show();
         }
     }
 }
@@ -790,17 +798,15 @@ function paste(ev) {
     var id = ev.currentTarget.id;
     var data = ev.clipboardData.files;
     //ev.target.appendChild(document.getElementById(data));
-    document.getElementById('planElevationFile' + id).files = data;
-    var fileExt = data[0].name.substring(data[0].name.lastIndexOf('.') + 1, data[0].name.length) || data[0].name;
-    document.getElementById('PlanElevationPlanImageNameHidden' + id).value = '/PlanElevation/' + CreateGuid() + '.' + fileExt;
+    document.getElementById('ImageSnipFile' + id).files = data;    
     var file = data[0];
     if (file) {
         var filereader = new FileReader();
         filereader.readAsDataURL(file);
         filereader.onload = function (evt) {
             var base64 = evt.target.result;
-            $('#image' + id).prop('src', base64);
-            $('#image' + id).show();
+            $('#ImageSnip' + id).prop('src', base64);
+            $('#ImageSnip' + id).show();
         }
        
     }
@@ -827,6 +833,37 @@ function paste1(ev) {
     }
 }
 
+function GetImageByteArray(file) {
+    var fileReader = new FileReader();
+    var imageArray = null;
+    if (fileReader) {
+        fileReader.readAsArrayBuffer(file);
+        fileReader.onload = function () {
+            return fileReader.result;
+        };        
+    }
+}
+
+function fileToByteArray(file) {
+    return new Promise((resolve, reject) => {
+        try {
+            let reader = new FileReader();
+            let fileByteArray = [];
+            reader.readAsArrayBuffer(file);
+            reader.onloadend = (evt) => {
+                if (evt.target.readyState == FileReader.DONE) {
+                    fileByteArray = evt.target.result;
+                    
+                }
+                resolve(fileByteArray);
+            }
+        }
+        catch (e) {
+            reject(e);
+        }
+    });
+}
+
 function GetImageBase64(file) {
     
     if (file) {
@@ -839,9 +876,13 @@ function GetImageBase64(file) {
     }
 }
 
+function OpenFileSelectionDialog(fileInputId) {
+    document.getElementById(fileInputId).click();
+}
+
 function ShowPlanElevationFileSelection(rowNumber) {
 
-    document.getElementById('planElevationFile' + rowNumber).click();
+    document.getElementById('ImageSnipFile' + rowNumber).click();
 }
 
 function ShowImagePageRefFileSelection(rowNumber) {
@@ -986,37 +1027,50 @@ function UploadImages(pElevationArray) {
 
 }
 
-function SaveRowForPlanElevationText(projectId) {
+async function SaveRowForPlanElevationText(projectId) {
 
-   
-
+    var rows = $('.planelevationtextrows').length;
+    if (rows == 0)
+        return;
     var editPlanTextList = [];
+    for (var i = 1; i <= rows; i++) {
+        var imageSnipFileData = $('#ImageSnipFile' + i).prop('files');
+        var imageSnipBytes = await fileToByteArray(imageSnipFileData[0]);
+        let palnElevationText = {
+            planElevationText : $('#PlanElevationTextInput' + i).val(),
+            id: $('#PlanElevationTextInput' + i).attr('db-id'),
+            imageSnip: imageSnipFileData[0]
+        };
+        editPlanTextList.push(palnElevationText);
+    }
+    
 
-    $(".planElevationTextForEdit input[type=text]")
-        .each(function () {
+    //$(".planElevationTextForEdit input[type=text]")
+    //    .each(function () {
 
-            var obj = { Id : this.id, Text : this.value };
-            editPlanTextList.push(obj);
-        });
+    //        var obj = { Id : this.id, Text : this.value };
+    //        editPlanTextList.push(obj);
+    //    });
 
-    var planTextList = [];
-        $(".planElevationText input[type=text]")
-        .each(function () {
+    //var planTextList = [];
+    //    $(".planElevationText input[type=text]")
+    //    .each(function () {
 
-            planTextList.push(this.value);
-        });
+    //        planTextList.push(this.value);
+    //    });
 
     var dataDto = {
-        planTextList: JSON.stringify(planTextList),
-        projectId: projectId,
-        editPlanTextList: JSON.stringify(editPlanTextList)
+        PlanElevationTextRequests: editPlanTextList
     };
+    var formData = new FormData();
+    formData.append("planElevationTextRequests", editPlanTextList);
     $.ajax({
         url: '/Home/SavePlanElevationText/',
-        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         type: 'POST',
-        data: dataDto,
-        dataType: 'json',
+        data: formData,
+        contentType: false,
+        processData: false,
+        enctype: 'multipart/form-data',
         success: function (response) {
             window.location.reload();
         },
