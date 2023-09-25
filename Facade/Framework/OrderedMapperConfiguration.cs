@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.Domain;
 using Core.Infrastructure.Mapper;
+using Core.Model.Request;
 using Core.Model.Response;
 
 namespace Facade.Framework
@@ -27,6 +28,7 @@ namespace Facade.Framework
             CreateMap<ProjectGroupResponse, ProjectGroup>();
             CreateMap<PlanElevationReferenceResponse, PlanElevationReference>();
             CreateMap<PlanElevationTextResponse, PlanElevationText>();
+            CreateMap<PlanElevationTextRequest, PlanElevationText>();
         }
     }
 }

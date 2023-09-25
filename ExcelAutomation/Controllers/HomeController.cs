@@ -108,24 +108,7 @@ namespace ExcelAutomation.Controllers
             project.OpportunityId = Request.Form["opportunityId"];
             project.AccountName = Request.Form["accountName"];
             _projectFacade.SaveProject(project);
-
-            ICollection<PlanElevationText> planElevationTextList = new List<PlanElevationText>();
-            int i = 1;
-            var key = "planElevationTextRow"+i;
-            while (!string.IsNullOrEmpty(Request.Form[key]))
-            {
-                
-                planElevationTextList.Add(new PlanElevationText()
-                {
-                    Text = Request.Form[key],
-                    ProjectId = project.Id,
-                    CreatedDate = DateTime.Now
-                });
-                i++;
-                key = "planElevationTextRow" + i;
-            }
-
-            _planElevationTextFacade.Save(planElevationTextList);
+            
             return RedirectToAction("Edit", new { id = project.Id });
         }
 
@@ -139,41 +122,13 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpPost]
-        public IActionResult SavePlanElevationText(PlanElevationTextRequest[] planElevationTextRequests)
+        public IActionResult SavePlanElevationText(string planElevationTextRequests,ICollection<IFormFile> imageSnipFiles, ICollection<IFormFile> pageRefFiles)
         {
-           // var planTexts = JsonConvert.DeserializeObject<List<string>>(planTextList);
-           // var EditPlanTexts = JsonConvert.DeserializeObject<List<PlanElevationTextDto>>(editPlanTextList);
-           //// var projectDtoObject = JsonConvert.DeserializeObject<ProjectDto>(projectDto);
+            var PlanElevatinTextRequests =
+                JsonConvert.DeserializeObject<PlanElevationTextRequest[]>(planElevationTextRequests);
+           _planElevationTextFacade.Save(PlanElevatinTextRequests, imageSnipFiles, pageRefFiles);
 
-           // if (planTexts != null)
-           //     foreach (var planText in planTexts)
-           //     {
-           //         _planElevationTextService.Save(new ProjectPlanElevationTextDto()
-           //         {
-           //             ProjectId = projectId,
-           //             PlanElevationText = new List<PlanElevationTextDto>()
-           //             {
-           //                 new PlanElevationTextDto()
-           //                 {
-           //                     CreatedDate = DateTime.Now,
-           //                     Text = planText
-           //                 }
-           //             }
-           //         });
-           //     }
 
-           // if (EditPlanTexts != null)
-           // {
-           //     foreach (var objectDto in EditPlanTexts)
-           //     {
-           //         _planElevationTextService.Update(new PlanElevationTextDto()
-           //         {
-           //             Id = objectDto.Id, CreatedDate = DateTime.Now, Text = objectDto.Text
-           //         });
-           //     }
-           // }
-
-           
             return new JsonResult(true);
         }
 

@@ -10,6 +10,8 @@ namespace Service.Interfaces
 
         void Save(ICollection<PlanElevationText> planElevationTextObjects);
 
+        void Update(ICollection<PlanElevationText> planElevationTextObjects);
+
         void Delete(PlanElevationText planElevationText);
 
         void Delete(ICollection<PlanElevationText> entities);

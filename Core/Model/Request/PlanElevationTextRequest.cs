@@ -7,10 +7,12 @@ namespace Core.Model.Request
 
         public int Id { get; set; }
 
-        public string PlanElevationText { get; set; }
+        public int ProjectId { get; set; }
 
-        public IFormFile ImageSnip { get; set; }
+        public string Text { get; set; }
 
-        public byte[] PageRef { get; set; }
+        public string ImageSnipPath { get; set; }
+
+        public string PageRefImagePath { get; set; }
     }
 }

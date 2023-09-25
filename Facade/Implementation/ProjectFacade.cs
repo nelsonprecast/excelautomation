@@ -273,6 +273,10 @@ namespace Facade.Implementation
             {
                 var file = Request.Form.Files["ContactSpecs"];
                 var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+                if (!Directory.Exists(Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot\\ContactSpecs\\")))
+                {
+                    Directory.CreateDirectory(Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot\\ContactSpecs\\"));
+                }
                 var filePath = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot\\ContactSpecs\\") + fileName;
                 using (Stream fileStream = new FileStream(filePath, FileMode.Create))
                 {
