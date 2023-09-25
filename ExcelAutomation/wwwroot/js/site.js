@@ -1037,9 +1037,9 @@ async function SaveRowForPlanElevationText(projectId) {
         var guid = null; 
         var pageRefGuid = null; 
 
-        if (imageSnipFileData.length > 0)
+        if (imageSnipFileData && imageSnipFileData.length > 0)
             guid = CreateGuid() + '-' + imageSnipFileData[0].name;
-        if (pageRefFileData.length > 0)
+        if (pageRefFileData && pageRefFileData.length > 0)
             pageRefGuid = CreateGuid() + '-' + pageRefFileData[0].name;
 
         let palnElevationText = {
@@ -1052,9 +1052,9 @@ async function SaveRowForPlanElevationText(projectId) {
 
         editPlanTextList.push(palnElevationText);
 
-        if (imageSnipFileData.length > 0)
+        if (imageSnipFileData && imageSnipFileData.length > 0)
             formData.append("imageSnipFiles", imageSnipFileData[0], guid);
-        if (pageRefFileData.length > 0)
+        if (pageRefFileData && pageRefFileData.length > 0)
             formData.append("pageRefFiles", pageRefFileData[0], pageRefGuid);
     }
        
