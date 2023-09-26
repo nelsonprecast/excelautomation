@@ -11,34 +11,7 @@ public class PlanElevationTextService : IPlanElevationTextService
     {
         _context = context;
     }
-
-    public int Save(ProjectPlanElevationTextDto projectPlanElevationTextDto)
-    {
-        var projectId = projectPlanElevationTextDto.ProjectId;
-        foreach (var planElevationTextDto in projectPlanElevationTextDto.PlanElevationText)
-        {
-            var dbObject = new PlanElevationText();
-            dbObject.Text = planElevationTextDto.Text;
-            dbObject.CreatedDate = DateTime.Now;
-            dbObject.ProjectId = projectId;
-            _context.PlanElevationText.Add(dbObject);
-        }
-
-        return _context.SaveChanges();
-    }
-
-    public int Update(PlanElevationTextDto planElevationTextDto)
-    {
-        var dbObject = _context.PlanElevationText.FirstOrDefault(p=>p.Id == planElevationTextDto.Id);
-        if (dbObject != null)
-        {
-            dbObject.Text = planElevationTextDto.Text;
-            dbObject.CreatedDate = DateTime.Now;
-            _context.Update(dbObject);
-        }
-        return _context.SaveChanges();
-    }
-
+    
     public int DeletePlanElevationText(int id)
     {
         var dbObject = _context.PlanElevationText.FirstOrDefault(p=>p.Id == id);

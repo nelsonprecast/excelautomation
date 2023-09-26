@@ -15,5 +15,7 @@ namespace Service.Interfaces
         void Delete(PlanElevationText planElevationText);
 
         void Delete(ICollection<PlanElevationText> entities);
+
+        PlanElevationText GetPlanElevationTextById(int id);
     }
 }

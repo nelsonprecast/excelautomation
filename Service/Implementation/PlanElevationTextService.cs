@@ -34,5 +34,10 @@ namespace Service.Implementation
         public void Delete(PlanElevationText planElevationText) {  Repository.Delete(planElevationText); }
 
         public void Delete(ICollection<PlanElevationText> entities) {  Repository.Delete(entities);  }
+
+        public PlanElevationText GetPlanElevationTextById(int id)
+        {
+            return Repository.GetById(id);
+        }
     }
 }

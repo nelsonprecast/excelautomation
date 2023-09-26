@@ -9,11 +9,12 @@ namespace ExcelAutomation.Controllers
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPlanElevationReferenceFacade _planElevationReferenceFacade;
-
-        public PlanElevationController(IWebHostEnvironment webHostEnvironment,IPlanElevationReferenceFacade planElevationReferenceFacade)
+        private readonly IPlanElevationTextFacade _planElevationTextFacade;
+        public PlanElevationController(IWebHostEnvironment webHostEnvironment,IPlanElevationReferenceFacade planElevationReferenceFacade,IPlanElevationTextFacade planElevationTextFacade)
         {
             _webHostEnvironment= webHostEnvironment;
             _planElevationReferenceFacade= planElevationReferenceFacade;
+            _planElevationTextFacade = planElevationTextFacade;
         }
 
 
@@ -26,7 +27,10 @@ namespace ExcelAutomation.Controllers
             return new JsonResult(JsonConvert.SerializeObject(_planElevationReferenceFacade.GetPlanElevationReferenceByProjectDetailId(projectDetailId)));           
         }
 
-
+        public JsonResult GetPlanElevationTextById(int id)
+        {
+            return new JsonResult(_planElevationTextFacade.GetPlanElevationTextById(id));
+        }
 
         #region Private Methods
 

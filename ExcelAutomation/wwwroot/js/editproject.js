@@ -77,28 +77,31 @@ function BindEvent() {
                     $('#planelevation' + (i + 1)).val(planElevationJsonArray[i].PlanElevationValue);
                     $('#lf' + (i + 1)).val(planElevationJsonArray[i].LFValue);
                     $('#pcs' + (i + 1)).val(planElevationJsonArray[i].PcsValue);
-                    if (planElevationJsonArray[i].ImagePath != "") {
-                        
-                        $('#image' + (i + 1)).prop('src', planElevationJsonArray[i].ImagePath);
-                        $('#pElevationImage' + (i + 1)).prop('href', planElevationJsonArray[i].ImagePath);
 
-                    }
-                    else {
-                        $('#image' + (i + 1)).hide();
-                        $('#pElevationImage' + (i + 1)).hide();
-                    }
+                    var dropDownValuesJson = document.getElementById('planElevationTextHidden').value;
 
-                    if (planElevationJsonArray[i].PageRefPath != "") {
+                    var dropDownValuesArray = JSON.parse(dropDownValuesJson);
+                    for (var index = 0; index < dropDownValuesArray.length; index++) {
 
-                        $('#imagePageRef' + (i + 1)).prop('src', planElevationJsonArray[i].PageRefPath);
-                        $('#pElevationImagePageRef' + (i + 1)).prop('href', planElevationJsonArray[i].PageRefPath);
-
-                    }
-                    else {
-                        $('#imagePageRef' + (i + 1)).hide();
-                        $('#pElevationImagePageRef' + (i + 1)).hide();
-                    }
-                        
+                        if (dropDownValuesArray[index].Id == planElevationJsonArray[i].PlanElevationValue) {
+                            if (dropDownValuesArray[index].ImageSnipPath != null) {
+                                $('#imageSnip' + (i + 1)).attr('src', dropDownValuesArray[index].ImageSnipPath);
+                                $('#pElevationImage' + (i + 1)).attr('href', dropDownValuesArray[index].ImageSnipPath);
+                            }
+                            else {
+                                $('#imageSnip' + (i + 1)).attr('src', '');
+                                $('#pElevationImage' + (i + 1)).attr('href', '');
+                            }
+                            if (dropDownValuesArray[index].PageRefImagePath != null) {
+                                $('#imagePageRef' + (i + 1)).attr('src', dropDownValuesArray[index].PageRefImagePath);
+                                $('#pElevationImagePageRef' + (i + 1)).attr('href', dropDownValuesArray[index].PageRefImagePath);
+                            }
+                            else {
+                                $('#imagePageRef' + (i + 1)).attr('src', '');
+                                $('#pElevationImagePageRef' + (i + 1)).attr('href', '');
+                            }
+                        }
+                    }                        
                 }               
             }
             else {
@@ -288,4 +291,33 @@ function RemoveFromGroup() {
 
 function SetCrmSaveBit() {
     $('#SendToCrm').val("1");
+}
+
+function OnChangeOfPlanElevationTextDropdown(rowNumber) {
+
+    var id = $('#planelevation' + rowNumber).val();
+    var dataDto = { Id: id };
+    $.ajax({
+        type: 'POST',
+        url: "/PlanElevation/GetPlanElevationTextById",
+        'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: "json",
+        data: dataDto,
+        success: function (resultData) {
+            if (resultData) {
+                if (resultData.imageSnipPath && resultData.imageSnipPath != null) {
+                    $('#imageSnip' + rowNumber).attr('src', resultData.imageSnipPath);
+                }
+                else {
+                    $('#imageSnip' + rowNumber).attr('src', '');
+                }
+                if (resultData.pageRefImagePath && resultData.pageRefImagePath != null) {
+                    $('#imagePageRef' + rowNumber).attr('src', resultData.pageRefImagePath);
+                }
+                else {
+                    $('#imagePageRef' + rowNumber).attr('src', '');
+                }
+            }
+        },
+    });
 }

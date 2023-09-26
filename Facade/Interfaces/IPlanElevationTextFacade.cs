@@ -11,5 +11,7 @@ namespace Facade.Interfaces
         void Save(PlanElevationText planElevationText);
 
         void Save(ICollection<PlanElevationTextRequest> planElevationTextObjects, ICollection<IFormFile> imageSnipFiles, ICollection<IFormFile> pageRefFiles);
+
+        PlanElevationText GetPlanElevationTextById(int id);
     }
 }

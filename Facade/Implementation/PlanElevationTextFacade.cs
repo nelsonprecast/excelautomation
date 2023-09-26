@@ -95,5 +95,10 @@ namespace Facade.Implementation
             }
             _planElevationTextService.Update(dbPlanElevationTextObjects);
         }
+
+        public PlanElevationText GetPlanElevationTextById(int id)
+        {
+            return _planElevationTextService.GetPlanElevationTextById(id);
+        }
     }
 }
