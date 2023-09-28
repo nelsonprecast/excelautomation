@@ -94,6 +94,14 @@ namespace Facade.Implementation
                 }
             }
             _planElevationTextService.Update(dbPlanElevationTextObjects);
+            if(newPlanElevationTextObjects != null)
+            {
+                foreach (var planElevationTextObject in newPlanElevationTextObjects)
+                {
+                    planElevationTextObject.CreatedDate = DateTime.Now;
+                }
+                _planElevationTextService.Save(newPlanElevationTextObjects.ToList());
+            }
         }
 
         public PlanElevationText GetPlanElevationTextById(int id)

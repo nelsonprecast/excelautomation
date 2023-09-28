@@ -699,17 +699,19 @@ function AddNewRowForPlanElevationDropDown() {
     var planelevationtextrows = $('.planelevationtextrows').length;
     planelevationtextrows = planelevationtextrows + 1;
     $('.planElevationTextForEdit').append(
-        '<div class="row">' +
+        '<div class="row planelevationtextrows">' +
         '<div class="col-1"></div>'+
         '<label for="" class="col-2">Plan Elevation Text:</label>' +
         '<div class="col-2 text-center" >' +
-        '<input type="text" id="PlanElevationTextInput' + planelevationtextrows + '" name = "PlanElevationTextInput' + planelevationtextrows + '" db-id="" class= "form-control" /> ' +
+        '<input type="text" id="PlanElevationTextInput' + planelevationtextrows + '" name = "PlanElevationTextInput' + planelevationtextrows + '" db-id="0" class= "form-control" /> ' +
         '</div>' +
         '<div  class="col-2 text-center"  onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="' + planelevationtextrows + '">' +        
         '<a id="ImageSnipLink' + planelevationtextrows + '" href = "" target = "_blank" > <img src="" id="ImageSnip' + planelevationtextrows + '" style="width:100%;" /> </a >' +
-        '<input type="file" class="fileUploads" id="ImageSnipFile' + planelevationtextrows + '" name="ImageSnipFile' + planelevationtextrows + '" accept="image/*" style="display:none;"/> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog(' + planelevationtextrows + ')"></i> <br/>Select or Drop Image' +
+        '<input type="file" class="fileUploads" id="ImageSnipFile' + planelevationtextrows + '" name="ImageSnipFile' + planelevationtextrows + '" accept="image/*" style="display:none;"/> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog("ImageSnipFile' + planelevationtextrows + '")"></i> <br/>Select or Drop Image' +
         '</div>' +
-        '<div class="col-2 text-center">' +
+        '<div class="col-2 text-center" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" >' +
+        '<a id="ImageSnipLink' + planelevationtextrows + '" href = "" target = "_blank" > <img src="" id="imagePageRef' + planelevationtextrows + '" style="width:100%;" /> </a >' +
+        '<input type="file" class="fileUploads" id="ImagePageRefFile' + planelevationtextrows + '" name="ImagePageRefFile' + planelevationtextrows + '" accept="image/*" style="display:none;"/> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog("ImagePageRefFile' + planelevationtextrows + '")"></i> <br/>Select or Drop Image' +
         '</div>'+
         '<div class="col-sm-1" style="align-self: normal">' +
         '<a href="#" onclick="DeletePlanElevationNewRow()"><i class="fa fa-trash fa-lg"></i></a>'+
@@ -721,7 +723,7 @@ function AddPlanElevationRow() {
     var rowCount = $('.planelevation').length+1;
 
     $('#rows').append(
-        '<div class="row planelevation" id="rowelevation' + rowCount + '">' +
+        '<div class="row" id="rowelevation' + rowCount + '">' +
         '<div class= "col-1"><a href="#" onclick="DeletePlanElevationRow(' + rowCount + ');"><i class="fa fa-trash fa-lg"></i></a> ' + rowCount + '<input type="hidden" id="PlanElevationReferanceId' + rowCount + '" name="PlanElevationReferanceId' + rowCount + '" value="-' + rowCount + '" /></div> ' +
         '<div class= "col-2"><select id="planelevation' + rowCount + '" rowid="' + rowCount + '" class="form-select planElevationDropDown" onchange="OnChangeOfPlanElevationTextDropdown(' + rowCount + ')" /></select></div> ' +
         '<div class= "col-1" > <input type="text" id="lf' + rowCount + '" name="lf' + rowCount + '" class="form-control" /></div> ' +

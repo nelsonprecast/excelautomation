@@ -198,28 +198,30 @@
                     <div class="col-2 text-center">Page Ref</div>
     </div>
     <div class="planElevationTextForEdit mt-2">
-        
+        @{
+            var planElevationTextIndex = 1;
+        }
         @foreach (var projectPlanElevationTextDto in Model.Project.PlanElevationText)
         {
             <div class="row planelevationtextrows">
                 <div class="col-1"></div>
                 <label for="" class="col-2">Plan Elevation Text:</label>
                 <div class="col-2">
-                    <input type="text" id="PlanElevationTextInput1" name="PlanElevationTextInput1" db-id="@projectPlanElevationTextDto.Id" class="form-control" value="@projectPlanElevationTextDto.Text" />
+                                <input type="text" id="PlanElevationTextInput@(planElevationTextIndex)" name="PlanElevationTextInput@(planElevationTextIndex)" db-id="@projectPlanElevationTextDto.Id" class="form-control" value="@projectPlanElevationTextDto.Text" />
                 </div>
-                <div class="col-2 text-center" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="1">
-                                <a id="ImageSnipLink1" href="" target="_blank"> <img src="@projectPlanElevationTextDto.ImageSnipPath" id="ImageSnip1" style="max-width:200px" /> </a>
-                    <input type="file" class="fileUploads" id="ImageSnipFile1" name="ImageSnipFile1" accept="image/*" style="display:none;" /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog('ImageSnipFile1')"></i> <br />Select or Drop Image
+                            <div class="col-2 text-center" onpaste="paste(event)" ondrop="drop(event)" ondragover="allowDrop(event)" id="@planElevationTextIndex">
+                                <a id="ImageSnipLink@(planElevationTextIndex)" href="" target="_blank"> <img src="@projectPlanElevationTextDto.ImageSnipPath" id="ImageSnip@(planElevationTextIndex)" style="max-width:200px" /> </a>
+                                <input type="file" class="fileUploads" id="ImageSnipFile@(planElevationTextIndex)" name="ImageSnipFile@(planElevationTextIndex)" accept="image/*" style="display:none;" /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog('ImageSnipFile@(planElevationTextIndex)')"></i> <br />Select or Drop Image
                 </div>
-                <div class="col-2 text-center" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="1">
-                    <a id="PageRefLink1" href="" target="_blank"> <img src="@projectPlanElevationTextDto.PageRefImagePath" id="PageRef1" style="max-width:200px" /> </a>
-                    <input type="file" class="fileUploads" id="PageRefFile1" name="PageRefFile1" accept="image/*" style="display:none;" /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog('PageRefFile1')"></i> <br />Select or Drop Image
+                            <div class="col-2 text-center" onpaste="paste1(event)" ondrop="drop1(event)" ondragover="allowDrop(event)" id="@planElevationTextIndex">
+                                <a id="PageRefLink@(planElevationTextIndex)" href="" target="_blank"> <img src="@projectPlanElevationTextDto.PageRefImagePath" id="PageRef@(planElevationTextIndex)" style="max-width:200px" /> </a>
+                                <input type="file" class="fileUploads" id="PageRefFile@(planElevationTextIndex)" name="PageRefFile@(planElevationTextIndex)" accept="image/*" style="display:none;" /> <i class="fa fa-upload fa-2x" aria-hidden="true" style="cursor:pointer;" onclick="OpenFileSelectionDialog('PageRefFile@(planElevationTextIndex)')"></i> <br />Select or Drop Image
                 </div>
                 <div class="col-sm-1" style="align-self: normal">
                     <a href="javascript:void(0);" onclick="DeletePlanElevationText(@projectPlanElevationTextDto.Id)"><i class="fa fa-trash fa-lg"></i></a>
                 </div>
             </div>
-
+            planElevationTextIndex++;
         }
     </div>
     <div class="planElevationText">
