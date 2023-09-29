@@ -20,6 +20,12 @@
         public string AccountName { get; set; }
 
         public string Status { get; set; }
+        public string? Street { get; set; }
+        public string? City { get; set; }
+
+        public string? State { get; set; }
+
+        public string? Zip { get; set; }
         public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
     }
 }

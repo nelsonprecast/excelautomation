@@ -18,6 +18,12 @@
         public string Notes { get; set; }
         public string OpportunityId { get; set; }
         public string AccountName { get; set; }
+        public string? Street { get; set; }
+        public string? City { get; set; }
+
+        public string? State { get; set; }
+
+        public string? Zip { get; set; }
         public ICollection<ProjectDetailResponse> ProjectDetails { get; set; }
         public ICollection<PlanElevationTextResponse> PlanElevationText { get; set; }
     }

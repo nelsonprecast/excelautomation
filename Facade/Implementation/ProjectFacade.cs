@@ -108,7 +108,10 @@ namespace Facade.Implementation
             dbProject.RevisionDate = project.RevisionDate;
             dbProject.ContactSpecs = project.ContactSpecs;
             dbProject.Notes = project.Notes;
-
+            dbProject.Street = project.Street;
+            dbProject.City = project.City;
+            dbProject.State = project.State;    
+            dbProject.Zip = project.Zip;
             _projectService.UpdateProject(dbProject);
            
             foreach (var projectDetail in projectDetails)
@@ -266,6 +269,10 @@ namespace Facade.Implementation
             project.ActualCf = Request.Form["actualCfForFinalTab"];
             project.LineItemTotal = Request.Form["LineItemTotal"];
             project.Notes = Request.Form["notesForProjectTab"];
+            project.Street = Request.Form["Street"];
+            project.City = Request.Form["City"];
+            project.State = Request.Form["State"];
+            project.Zip = Request.Form["Zip"];
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy",
                     CultureInfo.InvariantCulture);

@@ -48,6 +48,14 @@ namespace Infrastructure.Data.Mapping
 
             builder
                 .Property(e => e.Status).IsRequired(false);
+            builder
+                .Property(e => e.Street).IsRequired(false);
+            builder
+                .Property(e => e.City).IsRequired(false);
+            builder
+                .Property(e => e.State).IsRequired(false);
+            builder
+                .Property(e => e.Zip).IsRequired(false);
             base.Configure(builder);
         }
     }
