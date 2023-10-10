@@ -207,7 +207,7 @@ function UpdateGroup(groupId) {
     }
     $.ajax({
         type: 'POST',
-        url: "/Home/UpdateGroup",
+        url: "/Group/UpdateGroup",
         'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: "json",
         data: postData,
@@ -238,7 +238,7 @@ function DeleteGroup(groupId) {
         }
         $.ajax({
             type: 'POST',
-            url: "/Home/DeleteGroup",
+            url: "/Group/DeleteGroup",
             'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
             dataType: "json",
             data: postData,
@@ -275,7 +275,7 @@ function RemoveFromGroup() {
         }
         $.ajax({
             type: 'POST',
-            url: "/Home/RemoveFromGroup",
+            url: "/Group/RemoveFromGroup",
             'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
             dataType: "json",
             data: postData,
@@ -318,6 +318,33 @@ function OnChangeOfPlanElevationTextDropdown(rowNumber) {
                     $('#imagePageRef' + rowNumber).attr('src', '');
                 }
             }
+        },
+    });
+}
+
+function GeneratePdfProposal() {
+  
+    var dataDto = {
+        ProjectId: $('#projectId').val(),
+        CustomerName: $('#Contact').val(),
+        Company: $('#Company').val(),
+        Phone: $('#Phone').val(),
+        Email: $('#Email').val(),
+        Address1: $('#Address1').val(),
+        Address2: $('#Address2').val(),
+        Street: $('#Street').val(),
+        City: $('#City').val(),
+        State: $('#State').val(),
+        Zip: $('#Zip').val(),
+    };
+    $.ajax({
+        type: 'POST',
+        url: "/Home/GetPdfProposal",
+        'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
+        dataType: "json",
+        data: dataDto,
+        success: function (resultData) {
+            
         },
     });
 }

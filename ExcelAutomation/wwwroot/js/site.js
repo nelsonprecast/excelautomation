@@ -28,7 +28,7 @@ function dropDiv(ev) {
     var newGroupId = ev.target.id;
     
     $.ajax({
-        url: '/Home/ChangeGroup/?projectDetailId=' + projectDetailId + '&GroupId=' + newGroupId,
+        url: '/Group/ChangeGroup/?projectDetailId=' + projectDetailId + '&GroupId=' + newGroupId,
         contentType: 'application/html; charset=utf-8',
         type: 'GET',
         dataType: 'html',
@@ -97,7 +97,7 @@ function OnCreateGroup() {
     }
     $.ajax({
         type: 'POST',
-        url: "/Home/CreateGroup",
+        url: "/Group/CreateGroup",
         'contentType': 'application/x-www-form-urlencoded; charset=UTF-8',
         dataType: "json",
         data: postData,

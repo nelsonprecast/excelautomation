@@ -3,6 +3,7 @@ using Core.Model.Request;
 using ExcelAutomation.Models;
 using Facade.Interfaces;
 using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Razor.Templating.Core;
@@ -21,7 +22,7 @@ namespace ExcelAutomation.Controllers
         private readonly IPlanElevationReferenceFacade _planElevationReferenceFacade;
         private readonly IPlanElevationTextService _planElevationTextService;
         private readonly ISugarCrmFacade _sugarCrmFacade;
-        private readonly IProjectGroupFacade _projectGroupFacade;
+        
 
 
 
@@ -39,7 +40,6 @@ namespace ExcelAutomation.Controllers
             _webHostEnvironment = webHostEnvironment;
             _sugarCrmFacade = sugarCrmFacade;
             _planElevationTextFacade = planElevationTextFacade;
-            _projectGroupFacade = projectGroupFacade;
             _planElevationReferenceFacade = planElevationReferenceFacade;
             _planElevationTextService = planElevationTextService;
         }
@@ -213,20 +213,7 @@ namespace ExcelAutomation.Controllers
             return new JsonResult(true);
         }
 
-        [HttpPost]
-        public IActionResult CreateGroup(ProjectGroupRequest request)
-        {
-            var projectId = _projectGroupFacade.SaveGroup(request);
-            return RedirectToAction("Edit", new { id = projectId });
-        }
-
-        [HttpGet]
-        public IActionResult ChangeGroup(int projectDetailId,int GroupId)
-        {
-            if (GroupId == 0) return new BadRequestResult();
-            _projectGroupFacade.ChangeGroup(projectDetailId, GroupId);
-            return new JsonResult(true);
-        }
+       
 
 
         public IActionResult CopyProject(int id)
@@ -265,25 +252,26 @@ namespace ExcelAutomation.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateGroup(int groupId, string groupName)
+        public async Task<IActionResult> GetPdfProposal(PdfProposalRequest pdfProposalRequest)
         {
-            _projectGroupFacade.EditGroup(groupId, groupName);
-            return new JsonResult(true);
+            var viewDataOrViewBag = new Dictionary<string, object>();
+            viewDataOrViewBag["logo"] = ReturnBase64Image("images/np_logo.png");
+           
+            var project = _projectFacade.GetProjectById(pdfProposalRequest.ProjectId);
+            var model = new PdfProposalModel();
+            model.Project = project;
+            model.PdfProposal = pdfProposalRequest;
+
+            var projectHtml = await RazorTemplateEngine.RenderAsync("~/Views/Home/PdfProposal.cshtml", model, viewDataOrViewBag);
+            using (MemoryStream stream = new MemoryStream())
+            {
+                
+                HtmlConverter.ConvertToPdf(projectHtml, stream);
+                return File(stream.ToArray(), "application/pdf", $"PdfProposal-{DateTime.Now.ToLongTimeString()}.pdf");
+            }
         }
 
-        [HttpPost]
-        public IActionResult DeleteGroup(int groupId)
-        {
-            _projectGroupFacade.DeleteGroup(groupId);
-            return new OkResult();
-        }
 
-        [HttpPost]
-        public IActionResult RemoveFromGroup(string projectDetailIds)
-        {
-            _projectGroupFacade.RemoveFromGroup(projectDetailIds);
-            return new JsonResult(true);
-        }
     }
 
 }

@@ -1,0 +1,83 @@
+﻿@model PdfProposalModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+    Layout = "";
+    var firstPageLog = true;
+}
+<!doctype html>
+<html>
+<head>
+    <style>
+        table {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <table border="0" style="width: 100%;height:100%; border:1px solid; display:table;">
+        <tbody>            
+            <tr>
+                <td>
+                    <b>@DateTime.Now.ToString("MMM dd, yyyy") </b><br/>
+                    <b>@Model.PdfProposal.CustomerName</b><br/>
+                    <b>@Model.PdfProposal.Company</b><br />
+                    <b>@Model.PdfProposal.Phone / @Model.PdfProposal.Email</b><br />
+                    <b>@Model.PdfProposal.Address1</b><br />
+                    <b>@Model.PdfProposal.Address2</b><br />
+                </td>
+                
+                <td style="text-align: right">
+                    
+                        <img src="data:image/png;base64,@(ViewBag.logo)" style="height: 80px" />
+                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Dear @Model.PdfProposal.CustomerName,</p>
+                    <p>
+                        Thank you for the opportunity to bid your work. By bidding your job with Nelson, you have made an excellent choice for the handling of your precast needs. Nelson has been in the business of precast concrete and stone since 1952. We have earned our reputation for our quality products, timeliness, and ease of communication. We look forward to working with your company to make this job a success.
+                        <br /><br />
+                    </p>
+                    <p>If we can be of any additional assistance to you, please do not hesitate to contact us.</p>
+                    <p>
+                        Ari Lichtman, President & CEO
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="page-break-after: always;">&nbsp;</p>
+    <p style="page-break-after: always;">&nbsp;</p>
+    <table border="0" style="width: 100%;height:100%; border:1px solid; display:table;">
+        <tr>
+            <td>
+                <p>1.	<b>“Seller”</b> for purposes of this agreement will refer to nelson Precast Products, LLC d.b.a. Nelson Precast. <b>“Buyer”</b> herein will refer to individual and/or company to whom our Quote/Proposal is delivered.</p>
+                <p>2.	<b>A shop drawing is always included in the scope and production is solely based upon its approval. Buyer agrees to carefully review shop drawing prior to approval. </b></p>
+                <p>3.	Material to be produced will be in accordance with, and limited to, the renderings in the referenced drawings with respect to any quantity, dimension, and shape. Buyer is responsible for verifying conformance of any shop drawing, sketch, specification or other design item to the original contract drawings and to field conditions.</p>
+                <p>4.	<b>Unless otherwise stipulated, this scope includes a single shop drawing based on customer’s final set of plans and single redline revision. Additional revisions and changes from Buyer will trigger a demand for additional compensation from Seller.</b> </p>
+                <p>5.	Additional work and/or changes may incur additional charges in the form of change orders and may not be in proportion to contracted unit prices.</p>
+                <p>6.	Any items not quoted in original scope of work may incur additional charges and may not be in proportion to contracted scope of work, including but not excluded to drafting and design changes (even if total cubic footage remains unchanged), engineering requirements not explicitly already included, mold changes, hardware changes, piece changes, color changes, changes to any requirements of providing samples not previously agreed to, delivery changes, or any other requirement that was not reasonably included in the scope of work.</p>
+                <p>7.   Duration and schedule of work's completion will be determined by mutual agreement of Buyer and Seller in good faith. </p>
+                <p>8.	Seller has estimated this job to require a set number of deliveries. Excess deliveries fall outside the scope of the Seller's price and may incur additional charges.</p>
+                <p>9.	Payment terms are per the ones stipulated on the scope page preceding this one:
+                    <p>
+                        a.	If no terms are stipulated on the preceding, Net 30 from Invoice date is agreed.
+                    
+                    </p>
+                    <p>b.	Seller is not paid when paid.</p>
+                    <p>c.	Unpaid amounts are subject to collections including maximum interest rate allowed by law + attorney’s fees/ collection costs.</p>
+                </p>
+                <p>10.	Installation of precast indicates acceptance. Any material found to be objectionable must be reported to Seller as quickly as possible, but before installation.</p>
+                <p>11.	Seller will not be held responsible for any costs associated with any other trade or matter. All business between Buyer and Seller is limited to the precast scope and the values of its respective parts.</p>
+                <p>12.	Seller does not field measure. Any reference to “field measurements” are the responsibility of the Buyer to provide to Seller.</p>
+
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
