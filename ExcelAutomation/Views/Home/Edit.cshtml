@@ -529,7 +529,11 @@
 </table>
 </div>
 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-
+                <div class="row">
+                    <div class="col-1"> <b>Pour Days:</b></div>
+                    <div class="col-2"><input id="PourDaysForLineCostTab" name="PourDaysForLineCostTab" value="@Model.Project.PourDays" type="number" class="form-control" /></div>
+                    
+                </div>
                 <table style="width: 100%" class="table font-size-08">
                     <tr>
                         <td>
@@ -597,6 +601,9 @@
                                             <div class="col-5 row text-align-left">
                                                
                                                 <div class="col text-align-left">Mold QTY</div>
+                                                <div class="col text-align-left">
+                                                    Hours Per Mold
+                                                </div>
                                                 <div class="col text-align-left">
                                                     # Mold Worker
                                                 </div>
@@ -678,29 +685,42 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                     <div class="col-4"></div>
+                                                     <div class="col-4">
+                                                        <div class="col text-align-left"> Section</div>
+                                                        <div class="col-12 no-margin text-align-left">
+                                                            <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
+                                                                <img src="@projectDetail.ImagePath" style="width: 100px; height: 100px" />
+                                                            </a>
+                                                        </div>
+                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-1">
                                                 <div class="col">
                                                     <input id="row@(iForProfileTab)TakeOffColorForProfileTab" name="row@(iForProfileTab)TakeOffColorForProfileTab" readonly="readonly" type="text" class="form-control" style="width: 100px" value="@projectDetail.TakeOffColor" />
                                                 </div>
-                                                <div class="col text-align-left"> Section</div>
-                                                <div class="col-12 no-margin text-align-left">
-                                                    <a id="single_imageForProfileTab" href="@projectDetail.ImagePath" target="_blank">
-                                                        <img src="@projectDetail.ImagePath" style="width: 100px; height: 100px" />
-                                                    </a>
+                                               
+                                                <div class="col-12 text-align-left">
+                                                    <div class="col text-align-left">
+                                                        #Production Worker
+                                                    </div>
                                                 </div>
                                                 <div class="col-12 text-align-left">
-                                                    <br/>
+                                                    <div class="col text-align-left">
+                                                       
+                                                            <input type="text" id="row@(iForProfileTab)ProductionWorker" name="row@(iForProfileTab)ProductionWorker" class="form-control" onkeypress="return isNumberKey(this, event);" />
+                                                        
+                                                    </div>
                                                 </div>
-                                                
                                             </div>
                                             <div class="col-5 row text-align-left">
                                                 <div class="row">
                                                    
                                                     <div class="col text-align-left">
                                                         <input type="text" id="row@(iForProfileTab)MoldQTY" name="row@(iForProfileTab)MoldQTY" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.MoldQty" />
+                                                    </div>
+                                                    <div class="col text-align-left">
+                                                        <input type="text" id="row@(iForProfileTab)HoursPerMold" name="row@(iForProfileTab)HoursPerMold" onkeypress="return isNumberKey(this, event);" class="form-control" style="width: 70px" value="@projectDetail.HoursPerMold" />
                                                     </div>
                                                     <div class="col text-align-left">
                                                         <input type="text" id="row@(iForProfileTab)MoldWorkerCount" name="row@(iForProfileTab)MoldWorkerCount" class="form-control" onkeypress="return isNumberKey(this, event);" style="width: 70px" />
@@ -717,28 +737,30 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">                                                    
-                                                    <div class="col text-align-left">
-                                                        #Production Worker
-                                                    </div>
-                                                    <div class="col text-align-left">
+                                                    
+                                                    <div class="col-2 text-align-left">
                                                         Metal Fab
                                                     </div>
-                                                    <div class="col text-align-left">
+                                                    <div class="col-2 text-align-left">
+                                                        # Molds
+                                                    </div>
+                                                    <div class="col-2 text-align-left">
                                                         Complexity/Difficulty:
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     
-                                                    <div class="col text-align-left">
-                                                        <input type="text" id="row@(iForProfileTab)ProductionWorker" name="row@(iForProfileTab)ProductionWorker" class="form-control" onkeypress="return isNumberKey(this, event);" />
-                                                    </div>
-                                                    <div class="col text-align-left">
+                                                   
+                                                    <div class="col-2 text-align-left">
                                                         <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="YES" >
                                                         <label>Yes</label>
                                                         <input type="radio" id="row@(iForProfileTab)MetalFab" name="row@(iForProfileTab)MetalFab" value="NO" checked="checked" />
                                                         <label>NO</label><br>
                                                     </div>
-                                                    <div class="col text-align-left">
+                                                    <div class="col-2 text-align-left">
+                                                        <input type="text" readonly="readonly" id="row@(iForProfileTab)NumberOfMolds" name="row@(iForProfileTab)NumberOfMolds" class="form-control" onkeypress="return isNumberKey(this, event);" />
+                                                    </div>
+                                                    <div class="col-2 text-align-left">
                                                         <select id="row@(iForProfileTab)Complexity" name="row@(iForProfileTab)Complexity" class="form-select" style="width: 80px;">
                                                             <option value="Simple">Simple</option>
                                                             <option value="Moderate">Moderate</option>

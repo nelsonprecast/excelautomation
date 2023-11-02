@@ -56,6 +56,8 @@ namespace Infrastructure.Data.Mapping
                 .Property(e => e.State).IsRequired(false);
             builder
                 .Property(e => e.Zip).IsRequired(false);
+            builder
+                .Property(e => e.PourDays).IsRequired(false);
             base.Configure(builder);
         }
     }

@@ -24,6 +24,7 @@
         public string? State { get; set; }
 
         public string? Zip { get; set; }
+        public float? PourDays { get; set; }
         public ICollection<ProjectDetailResponse> ProjectDetails { get; set; }
         public ICollection<PlanElevationTextResponse> PlanElevationText { get; set; }
     }

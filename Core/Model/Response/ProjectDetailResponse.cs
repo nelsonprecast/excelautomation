@@ -46,6 +46,7 @@ namespace Core.Model.Response
         public string PlanElevationJson { get; set; }
         public string GroupName { get; set; }
         public int? GroupId { get; set; }
+        public float? HoursPerMold { get; set; }
 
         public ICollection<PlanElevationReferenceResponse>? PlanElevationReferences { get; set; }
 

@@ -112,6 +112,7 @@ namespace Facade.Implementation
             dbProject.City = project.City;
             dbProject.State = project.State;    
             dbProject.Zip = project.Zip;
+            dbProject.PourDays = project.PourDays;
             _projectService.UpdateProject(dbProject);
            
             foreach (var projectDetail in projectDetails)
@@ -140,6 +141,7 @@ namespace Facade.Implementation
                 dbProjectDetail.ProjectId = project.Id;
                 dbProjectDetail.TotalActualNominalValue = projectDetail.TotalActualNominalValue;
                 dbProjectDetail.Category = projectDetail.Category;
+                dbProjectDetail.HoursPerMold = projectDetail.HoursPerMold;
                 if (!string.IsNullOrEmpty(projectDetail.ImagePath))
                     dbProjectDetail.ImagePath = projectDetail.ImagePath;
                 if (dbProjectDetail.Id > 0)
@@ -273,6 +275,7 @@ namespace Facade.Implementation
             project.City = Request.Form["City"];
             project.State = Request.Form["State"];
             project.Zip = Request.Form["Zip"];
+            project.PourDays = !string.IsNullOrEmpty(Request.Form["PourDaysForLineCostTab"]) ? float.Parse(Request.Form["PourDaysForLineCostTab"]) : null;
             if (!string.IsNullOrEmpty(Request.Form["RevisionDate"]))
                 project.RevisionDate = DateTime.ParseExact(Request.Form["RevisionDate"], "MM/dd/yyyy",
                     CultureInfo.InvariantCulture);
@@ -326,6 +329,7 @@ namespace Facade.Implementation
                 projectDetail.TotalNomCf = Request.Form["row" + i + "TotalNomCF"];
                 projectDetail.MoldQty = Request.Form["row" + i + "MoldQTY"];
                 projectDetail.Category = Request.Form["row" + i + "Category"];
+                projectDetail.HoursPerMold = !string.IsNullOrEmpty(Request.Form["row" + i + "HoursPerMold"]) ? float.Parse(Request.Form["row" + i + "HoursPerMold"]) : null;
                 if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "LineItemCharge"]))
                     projectDetail.LineItemCharge = Request.Form["rowFP" + i + "LineItemCharge"];
                 if (!string.IsNullOrEmpty(Request.Form["rowFP" + i + "TotalCheckBox"]))

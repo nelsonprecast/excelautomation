@@ -47,5 +47,7 @@
         public string? Category { get; set; }
         
         public int? GroupId { get; set; }
+
+        public float? HoursPerMold { get; set; }
     }
 }

@@ -26,6 +26,7 @@
         public string? State { get; set; }
 
         public string? Zip { get; set; }
+        public float? PourDays { get; set; }
         public virtual ICollection<ProjectDetail> ProjectDetails { get; set; } = new List<ProjectDetail>();
     }
 }

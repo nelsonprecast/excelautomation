@@ -85,7 +85,10 @@ namespace Infrastructure.Data.Mapping
             builder
                 .Property(b => b.GroupId)
                 .HasColumnName("GroupId");
-
+            builder
+                .Property(b => b.HoursPerMold)
+                .HasColumnName("HoursPerMold")
+                .IsRequired(false);
 
             base.Configure(builder);
         }
